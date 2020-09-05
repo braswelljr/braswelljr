@@ -1,5 +1,5 @@
 ### Hi there 👋 Braswell Jr
-####I code from Ghana in the Western part of Africa
+#### I code from Ghana in the Western part of Africa
 
 <!--
 **braswelljr/braswelljr** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
@@ -10,9 +10,8 @@ Here are some ideas to get you started:
 - 🌱 I’m currently learning [Javascript and Vue](#)
 <!-- 🎓 I’m currently pursuing **Computer Science and Engineering**-->
 - 👯 I’m looking to collaborate on [Vuejs](https://github.com/vuejs)
-- 🤔 I’m looking for help with ...
+- 🤔 I’m looking for help with [Follo-app](https://github.com/braswelljr/follo-app)
 - 💬 Ask me about **Javascript, Vuejs, PHP, Laravel, Python**
 - 📫 How to reach me: **braswellkenneth7@gmail.com**
 - 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+- ⚡ Fun fact: Nothing is more lovely than your code running without errors
