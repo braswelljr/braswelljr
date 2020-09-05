@@ -1,4 +1,4 @@
-### Hi there 👋 Braswell Jr
+### Hi there 👋 I'm Braswell Jr
 #### I code from Ghana in the Western part of Africa
 
 <!--
