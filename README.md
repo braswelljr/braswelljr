@@ -15,4 +15,4 @@ Here are some ideas to get you started:
 - 📫 How to reach me: **braswellkenneth7@gmail.com**
 - 😄 Pronouns: ...
 - ⚡ Fun fact: Nothing is more lovely than your code running without errors
--[![trophy](https://github-profile-trophy.vercel.app/?username=braswelljr)](https://github.com/braswelljr/github-profile-trophy
+- [![trophy](https://github-profile-trophy.vercel.app/?username=braswelljr)](https://github.com/ryo-ma/github-profile-trophy
