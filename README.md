@@ -10,7 +10,7 @@ Here are some ideas to get you started:
 - 🌱 I’m currently learning [Javascript and Vue](#)
 <!-- 🎓 I’m currently pursuing **Computer Science and Engineering**-->
 - 👯 I’m looking to collaborate on [Vuejs](https://github.com/vuejs)
-- 🤔 I’m looking for help with [Follo-app](https://github.com/braswelljr/follo-app)
+- 🤔 I’m looking for help with [Weather](https://github.com/braswelljr/weather)
 - 💬 Ask me about **Javascript, Vuejs, PHP, Laravel, Python**
 - 📫 How to reach me: **braswellkenneth7@gmail.com**
 - 😄 Pronouns: ...
