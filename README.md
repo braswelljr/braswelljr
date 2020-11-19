@@ -1,5 +1,5 @@
 ### Hi there 👋 I'm Braswell Jr
-#### I code from Ghana in the Western part of Africa
+#### A Junior Developer looking forward to building to make a better world.
 
 <!--
 **braswelljr/braswelljr** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
