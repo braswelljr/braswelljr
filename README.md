@@ -1,5 +1,5 @@
 ### Hi there 👋 I'm Braswell Jr
-#### A Junior Developer building from code to make a better world.
+#### A Junior Developer building the world from code.
 
 <!--
 **braswelljr/braswelljr** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
