@@ -6,12 +6,11 @@
 
 Here are some ideas to get you started:
 
-- 🔭 I’m currently working on [Weather-vue](https://github.com/braswelljr/weather-vue)
-- 🌱 I’m currently learning [Javascript and Vue](#)
+- 🔭 I’m currently working on [happi](https://github.com/braswelljr/happi), [lakeside](https://github.com/braswelljr/lakeside) and [errntry](https://github.com/errntry/errntry).
+- 🌱 I’m currently learning [Javascript, Nodejs and Vue](#)
 <!-- 🎓 I’m currently pursuing **Computer Science and Engineering**-->
-- 👯 I’m looking to collaborate on [Vuejs](https://github.com/vuejs)
-- 🤔 I’m looking for help with [Weather](https://github.com/braswelljr/weather)
-- 💬 Ask me about **Javascript, Vuejs, PHP, Laravel, Python**
+- 👯 I’m looking to collaborate on [Vuejs](https://github.com/vuejs) and [Tailwindcss](https://tailwindcss.com/)
+- 💬 Ask me about **Javascript, Nodejs, Vuejs, PHP, Laravel, Python**
 - 📫 How to reach me: **braswellkenneth7@gmail.com**
 - 😄 Pronouns: ...
 - ⚡ Fun fact: Nothing is more lovely than your code running without errors
