@@ -18,4 +18,4 @@ Here are some ideas to get you started:
 - 📫 How to reach me: **braswellkenneth7@gmail.com**.
 - ⚡ Fun fact: Engineering comes from the latin word `Cleverness` that is why engineers are clever.
 
-Catch me live on Instagram at [braswell_jr](https://www.instagram.com/braswell_jr) and on twitter [brakez_ken](https://twitter.com/brakez_ken) .
+Catch me live on Instagram at [braswell_jr](https://www.instagram.com/braswell_jr) and on twitter [@brakez_ken](https://twitter.com/brakez_ken) .
