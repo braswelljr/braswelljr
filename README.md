@@ -8,7 +8,7 @@
 Here are some ideas to get you started:
 -->
 
-<p align="center"><img src="https://www.instagram.com/p/B7fxEnOn3ei/" width="350" title="braswelljr"></p>
+<p align="center"><img src="https://twitter.com/brakez_ken/header_photo" width="350" title="braswelljr"></p>
 
 - 🔭 I’m currently working on [happi](https://github.com/braswelljr/happi), [lakeside](https://github.com/braswelljr/lakeside) and [errntry](https://github.com/errntry/errntry).
 - 🌱 I’m currently learning Javascript, Nodejs and Vue.
