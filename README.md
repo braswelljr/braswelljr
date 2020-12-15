@@ -10,11 +10,11 @@ Here are some ideas to get you started:
 
 <p align="center"><img src="https://github.com/braswelljr/braswelljr/blob/master/assets/1500x500.jpg" width="200" style="border-radius:100%" title="braswelljr"></p>
 
-- 🔭 I’m currently working on [happi](https://github.com/braswelljr/happi), [lakeside](https://github.com/braswelljr/lakeside) and [errntry](https://github.com/errntry/errntry).
-- 🌱 I’m currently learning Javascript, Nodejs and Vue.
+- 🔭 I’m currently working on [colored](https://github.com/braswelljr/colored), [happi](https://github.com/braswelljr/happi), [lakeside](https://github.com/braswelljr/lakeside) and [errntry](https://github.com/errntry/errntry).
+- 🌱 I’m currently learning Javascript, Nodejs, Vue and React.
 - 🎓 I’m currently pursuing **Computer Science and Engineering**.
 - 👯 I’m looking to collaborate on [Vuejs](https://github.com/vuejs) and [Tailwindcss](https://tailwindcss.com/).
-- 💬 Ask me about **Javascript, Typescript, Nodejs, Vuejs, PHP, Laravel, Python**
+- 💬 Ask me about **Javascript, Typescript, Nodejs, Vuejs, React, PHP, Laravel, Python**
 - 📫 How to reach me: **braswellkenneth7@gmail.com**.
 - ⚡ Fun fact: Engineering comes from the latin word `Cleverness` that is why engineers are clever.
 
