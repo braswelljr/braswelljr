@@ -2,7 +2,7 @@ import router from "./router/index";
 import { Switch, Route } from "react-router-dom";
 
 const App = () => {
-  const appname = `colored`;
+  const appname = `braswelljr`;
 
   return (
     <div className="w-full min-h-screen font-mulish">
