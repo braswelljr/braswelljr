@@ -1,0 +1,53 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "arrowFunctions": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "prettier"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/no-unescaped-entities": "off",
+    "max-len": "off",
+    "prefer-promise-reject-errors": "off",
+    "react/jsx-filename-extension": "off",
+    "react/prop-types": "off",
+    "no-return-assign": "off",
+    "global-require": "off",
+    "no-unused-vars": "warn",
+    "no-multi-spaces": "warn",
+    "eslint-disable-next-line": "off",
+    "indent": [
+      "warn",
+      2
+    ],
+    "prettier/prettier": [
+      "warn",{
+        "endOfLine": "auto",
+        "trailingComma": "none",
+        "printWidth": 80,
+        "tabWidth": 2, 
+        "semi": true, 
+        "singleQuote": false,
+        "jsxBracketSameLine": false,
+        "bracketSpacing": true
+      }
+    ]
+  }
+}
