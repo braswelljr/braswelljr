@@ -5,7 +5,7 @@ const App = () => {
   const appname = `braswelljr`;
 
   return (
-    <div className="w-full min-h-screen font-mulish">
+    <div className="w-full min-h-screen bg-yellow-200 font-mulish">
       <Switch>
         {router.map((route, index) => (
           <Route
