@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* fonts */
+  @font-face {
+    font-family: 'Dancing Script';
+    src: url('../fonts/dscript.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Limelight';
+    src: url('../fonts/limelight.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Limelight';
+    src: url('../fonts/montserratalt.ttf') format('truetype');
+  }
+}
+@layer utilities {
+  @responsive {
+    .clipHead {
+      clip-path: polygon(100% 0, 100% 97.5%, 50% 100%, 0 97.5%, 0 0);
+    }
+  }
+}

@@ -2,8 +2,15 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+  "css.validate": true,
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "eslint.options": {
+    "extensions": [".js", ".jsx", ".ts", ".tsx"]
+  },
   "eslint.validate": [
-    "javascript",
+    "javascript", 
     "typescript",
     "html",
     "vue",
@@ -14,4 +21,13 @@
     "javascript": "javascriptreact",
     "typescript": "typescriptreact"
   },
+  "diffEditor.wordWrap": "on",
+  "scss.validate": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.autoClosingQuotes": "always",
+  "importCost.largePackageColor": "#ff1900",
+  "importCost.mediumPackageColor": "#fff200",
+  "importCost.smallPackageColor": "#00ffee"
 }

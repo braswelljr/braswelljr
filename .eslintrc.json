@@ -11,8 +11,7 @@
   ],
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true,
-      "arrowFunctions": true
+      "jsx": true
     },
     "ecmaVersion": 12,
     "sourceType": "module"
@@ -22,31 +21,14 @@
     "prettier"
   ],
   "rules": {
-    "react/react-in-jsx-scope": "off",
-    "react/no-unescaped-entities": "off",
-    "max-len": "off",
-    "prefer-promise-reject-errors": "off",
-    "react/jsx-filename-extension": "off",
+    "indent": ["warn", 2],
     "react/prop-types": "off",
-    "no-return-assign": "off",
-    "global-require": "off",
     "no-unused-vars": "warn",
-    "no-multi-spaces": "warn",
-    "eslint-disable-next-line": "off",
-    "indent": [
-      "warn",
-      2
-    ],
+    "react/display-name": "off",
+    "react/react-in-jsx-scope": "off",
     "prettier/prettier": [
-      "warn",{
-        "endOfLine": "auto",
-        "trailingComma": "none",
-        "printWidth": 80,
-        "tabWidth": 2, 
-        "semi": true, 
-        "singleQuote": false,
-        "jsxBracketSameLine": false,
-        "bracketSpacing": true
+      "warn", {}, {
+      "usePrettierrc": true
       }
     ]
   }

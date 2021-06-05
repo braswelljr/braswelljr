@@ -1,8 +1,6 @@
 # Hi there 👋 I'm Braswell Jr
 
-##### A Junior Developer building the world from code
-
-<p align="center"><img src="./src/assets/1500x500.jpg" width="200" style="border-radius:100%" title="braswelljr"></p>
+FullStack Developer powered by JAVASCRIPT
 
 - 🔭 I’m currently working on [colored](https://github.com/braswelljr/colored), [happi](https://github.com/braswelljr/happi), [lakeside](https://github.com/braswelljr/lakeside) and [errntry](https://github.com/errntry/errntry).
 - 🌱 I’m currently learning Javascript, Nodejs, Vue and React.
