@@ -1,329 +1,196 @@
-import { useState, forwardRef } from 'react'
+import { useState, useContext } from 'react'
 import clsx from 'clsx'
-import NextLink from 'next/link'
+import { motion, AnimateSharedLayout } from 'framer-motion'
 import {
-  FaGithub,
   FaTwitter,
+  FaGithub,
   FaInstagram,
-  FaJsSquare,
-  FaCss3,
-  FaPython,
-  FaHtml5,
-  FaPhp,
-  FaFigma,
-  FaAdobe,
-  FaLaravel,
-  FaBootstrap,
-  FaNodeJs,
-  FaVuejs,
-  FaReact
+  FaLinkedinIn,
+  FaFolder,
+  FaFolderOpen
 } from 'react-icons/fa'
-import { SiCplusplus, SiDjango, SiGmail, SiTailwindcss } from 'react-icons/si'
-import jr from '../assets/jr.jpg'
-
-const SocialLink = forwardRef(({ children, href, className, target }, ref) => {
-  return (
-    <NextLink href={href} ref={ref}>
-      <a target={target} className={clsx(className)}>
-        {children}
-      </a>
-    </NextLink>
-  )
-})
+import { HiCode } from 'react-icons/hi'
+import { useInterval } from '@/hooks/useInterval'
+import { Store } from 'src/store/store'
 
 const Index = () => {
-  const [mail, setMail] = useState('')
-  const links = [
-    {
-      name: 'GitHub',
-      href: 'https://github.com/braswelljr',
-      icon: <FaGithub className="w-auto h-8" />
-    },
-    {
-      name: 'Twitter',
-      href: 'https://twitter.com/brakez_ken',
-      icon: <FaTwitter className="w-auto h-8" />
-    },
-    {
-      name: 'Instagram',
-      href: 'https://www.instagram.com/braswell_jr',
-      icon: <FaInstagram className="w-auto h-8" />
-    }
-  ]
+  const { theme, setTheme, repos } = useContext(Store)
+  const [r, setR] = useState(0)
+  const roles = ['Web Developer', 'Web Designer', 'UX / UI Designer']
+  const [pin, setPin] = useState(6)
 
-  const DomainKnowledge = [
-    'UI Design',
-    'Software Engineering',
-    'Database Administration'
-  ]
-
-  const Languages = [
-    {
-      language: 'JavaScript',
-      level: 'Advanced', // -> semi-pro, pro, advanced
-      icon: <FaJsSquare className="w-auto h-full mx-auto" />
-    },
-    {
-      language: 'CSS',
-      level: 'Advanced', // -> semi-pro, pro, advanced
-      icon: <FaCss3 className="w-auto h-full mx-auto" />
-    },
-    {
-      language: 'Python',
-      level: 'Pro', // -> semi-pro, pro, advanced
-      icon: <FaPython className="w-auto h-full mx-auto" />
-    },
-    {
-      language: 'HTML',
-      level: 'Advanced', // -> semi-pro, pro, advanced
-      icon: <FaHtml5 className="w-auto h-full mx-auto" />
-    },
-    {
-      language: 'Git',
-      level: 'Pro', // -> semi-pro, pro, advanced
-      icon: <FaGithub className="w-auto h-full mx-auto" />
-    },
-    {
-      language: 'PHP',
-      level: 'Pro', // -> semi-pro, pro, advanced
-      icon: <FaPhp className="w-auto h-full mx-auto" />
-    },
-    {
-      language: 'C++',
-      level: 'Pro', // -> semi-pro, pro, advanced
-      icon: <SiCplusplus className="w-auto h-full mx-auto" />
-    },
-    {
-      language: 'User Interface',
-      level: 'Pro', // -> semi-pro, pro, advanced
-      icon: <FaFigma className="w-auto h-full mx-auto" />
+  useInterval(() => {
+    if (roles !== undefined && roles.length > 0) {
+      let newIdx = r + 1
+      if (newIdx >= roles.length) {
+        newIdx = 0
+      }
+      setR(newIdx)
     }
-  ]
+  }, 5000)
 
-  const frameworks = [
-    {
-      name: 'React',
-      language: 'JavaScript',
-      level: 'Pro', // -> semi-pro, pro, advanced
-      icon: <FaReact className="w-auto h-full mx-auto" />
-    },
-    {
-      name: 'Vue',
-      language: 'JavaScript',
-      level: 'Pro', // -> semi-pro, pro, advanced
-      icon: <FaVuejs className="w-auto h-full mx-auto" />
-    },
-    {
-      name: 'Node.js',
-      language: 'JavaScript',
-      level: 'Advanced', // -> semi-pro, pro, advanced
-      icon: <FaNodeJs className="w-auto h-full mx-auto" />
-    },
-    {
-      name: 'Bootstrap',
-      language: 'CSS',
-      level: 'Advanced', // -> semi-pro, pro, advanced
-      icon: <FaBootstrap className="w-auto h-full mx-auto" />
-    },
-    {
-      name: 'Tailwindcss',
-      language: 'CSS',
-      level: 'Advanced', // -> semi-pro, pro, advanced
-      icon: <SiTailwindcss className="w-auto h-full mx-auto" />
-    },
-    {
-      name: 'Laravel',
-      language: 'PHP',
-      level: 'Pro', // -> semi-pro, pro, advanced
-      icon: <FaLaravel className="w-auto h-full mx-auto" />
-    },
-    {
-      name: 'Django',
-      language: 'Python',
-      level: 'Advanced', // -> semi-pro, pro, advanced
-      icon: <SiDjango className="w-auto h-full mx-auto" />
-    },
-    {
-      name: 'Figma',
-      language: 'User Interface',
-      level: 'Pro', // -> semi-pro, pro, advanced
-      icon: <FaFigma className="w-auto h-full mx-auto" />
-    },
-    {
-      name: 'Adobe XD',
-      language: 'User Interface',
-      level: 'Advanced', // -> semi-pro, pro, advanced
-      icon: <FaAdobe className="w-auto h-full mx-auto" />
-    }
-  ]
   return (
-    <main className="space-y-12">
-      <section
-        style={{ backgroundImage: `url(${jr})` }}
-        className="bg-gradient-to-r bg-cover bg-no-repeat bg-top text-white from-[#ff006a] clipHead via-[#c800ff] w-full h-full to-[#0055ff]"
+    <main
+      className={clsx('min-h-screen', {
+        'bg-gray-900 text-white bg-templeDark': !theme,
+        'bg-white bg-templeLight': theme
+      })}
+    >
+      {/* Theme Switch */}
+      <button
+        type="button"
+        className={clsx(
+          'h-8 w-14 rounded-full z-10 p-1 fixed flex items-center right-5 top-5',
+          { 'bg-white': !theme, 'bg-gray-900': theme }
+        )}
+        onClick={setTheme}
       >
-        <section
-          style={{}}
+        <span
           className={clsx(
-            'space-y-16 bg-pink-900 bg-opacity-50 py-20 min-h-[70vh] w-full h-full'
+            'h-6 w-6 rounded-full transform transition-all duration-300',
+            { 'translate-x-6 bg-gray-900': !theme, 'bg-white': theme }
           )}
-        >
-          <section
-            className={clsx(
-              'w-4/5 lg:w-4/6 mx-auto backdrop-filter bg-white bg-opacity-10 rounded-lg backdrop-blur-[2px] grid md:grid-cols-2 gap-4 py-12'
-            )}
-          >
-            <div className="grid grid-cols-2 grid-rows-2 gap-4 px-4 py-6 mx-auto bg-gray-100 bg-opacity-25 rounded-md">
-              <span
-                className={clsx(
-                  'w-12 h-12 bg-white bg-opacity-50 rounded-full'
-                )}
-              />
-              <span
-                className={clsx(
-                  'w-12 h-12 bg-white bg-opacity-50 rounded-t-full'
-                )}
-              />
-              <span
-                className={clsx(
-                  'w-full h-12 rounded-b-full bg-white bg-opacity-50 col-span-full'
-                )}
-              />
+        />
+      </button>
+      {/* content */}
+      <section className={clsx('pt-20 max-w-7xl mx-auto')}>
+        {/* Header Section */}
+        <section className="">
+          <div className="w-full px-8">
+            <div className="ml-auto text-3xl text-right md:text-4xl">
+              <div className="">Hi there, I&rsquo;m</div>
+              <div className="font-sans font-semibold text-sky-600">
+                Braswell
+              </div>
             </div>
-            <div className="mx-auto md:mx-0">
-              <h1 className="font-serif font-black text-7xl">braswelljr</h1>
-              <p className="mt-6 font-sans font-medium text-center uppercase md:mt-10 md:text-left">
-                Name your design
-              </p>
-            </div>
-          </section>
-
-          {/* Links */}
-          <section className="w-4/5 mx-auto lg:w-4/6">
-            <div className="grid gap-7 lg:grid-cols-3">
-              {links.map(link => (
-                <SocialLink
-                  key={link.name}
-                  href={link.href}
-                  className={clsx(
-                    'flex items-center bg-white rounded-lg font-sans py-2 bg-opacity-20 justify-center space-x-5 transform transition-transform duration-300 backdrop-filter backdrop-blur-[2px] hover:shadow-lg hover:-translate-y-1'
-                  )}
+            <AnimateSharedLayout>
+              {roles.map(
+                (role, id) =>
+                  r === id && (
+                    <motion.div
+                      key={id}
+                      className={clsx(
+                        'text-4xl sm:text-5xl mt-5 py-3 md:text-6xl bg-clip-text font-mono text-right font-black text-transparent',
+                        { 'bg-white': !theme, 'bg-black': theme }
+                      )}
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: 20, opacity: 0 }}
+                      transition={{
+                        type: 'spring',
+                        duration: 1,
+                        delay: 0.25,
+                        stiffness: 260,
+                        damping: 20
+                      }}
+                    >
+                      a {role}
+                    </motion.div>
+                  )
+              )}
+            </AnimateSharedLayout>
+            <div className="flex justify-around mt-10 md:space-x-4">
+              {[
+                {
+                  name: 'GitHub',
+                  link: 'https://github.com/braswelljr',
+                  icon: <FaGithub className={clsx('h-10 md:h-6 w-auto')} />
+                },
+                {
+                  name: 'Twitter',
+                  link: 'https://twitter.com/brakez_ken',
+                  icon: <FaTwitter className={clsx('h-10 md:h-6 w-auto')} />
+                },
+                {
+                  name: 'Linkedin',
+                  link: 'https://www.linkedin.com/in/braswell-kenneth-junior-azu-870827192/',
+                  icon: <FaLinkedinIn className={clsx('h-10 md:h-6 w-auto')} />
+                },
+                {
+                  name: 'Instagram',
+                  link: 'https://www.instagram.com/braswell_jr',
+                  icon: <FaInstagram className={clsx('h-10 md:h-6 w-auto')} />
+                }
+              ].map((link, i) => (
+                <a
+                  key={i}
+                  href={link.link}
                   target="_blank"
+                  rel="noreferrer"
+                  className={clsx(
+                    'md:flex justify-center transform transition-all items-center font-semibold hover:-translate-y-1 rounded-md md:px-1 md:bg-gray-600 md:bg-opacity-50 md:h-10 md:w-full'
+                  )}
                 >
-                  <span>{link.icon}</span>
-                  <span className="text-2xl font-extrabold">{link.name}</span>
-                </SocialLink>
+                  {link.icon}
+                  <div className="hidden ml-2 md:block">{link.name}</div>
+                </a>
               ))}
             </div>
-          </section>
+          </div>
         </section>
-      </section>
-
-      <section
-        className={clsx(
-          'py-5 text-lg w-full text-gray-700 px-8 md:px-0 space-y-10 md:w-4/5 lg:w-4/6 mx-auto'
-        )}
-      >
-        <div className={clsx('')}>
-          <h3 className="text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#ff006a] via-[#c800ff] to-[#0055ff]">
-            Braswell Kenneth Junior Azu
-          </h3>
-          <p className="mt-4 text-purple-900">
-            I am Software Engineer with experience in solution design and
-            implementation of technical sofware projects. A curious devaloper
-            who likes to build the world through code.
-          </p>
-        </div>
-        <div className={clsx('')}>
-          <h3 className="font-extrabold bg-clip-text uppercase text-3xl text-transparent bg-gradient-to-r from-[#ff006a] via-[#c800ff] to-[#0055ff]">
-            Domain Knowledge
-          </h3>
-          <div className="text-purple-900">
-            {DomainKnowledge.map(k => (
-              <span key={k} className="flex items-center space-x-2">
-                <span className="block w-1 h-1 bg-gradient-to-r from-[#c800ff] rounded-full to-[#0055ff]"></span>
-                <span>{k}</span>
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className={clsx('space-y-6')}>
-          <div className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#ff006a] via-[#c800ff] to-[#0055ff]">
-            <h3 className="text-3xl uppercase">Technical Skills</h3>
-            <h3 className="mt-4 text-2xl">Languages</h3>
-          </div>
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(210px,1fr))] gap-6">
-            {Languages.map(skill => (
-              <div
-                className="flex items-center w-full h-auto p-2 space-x-8 text-purple-900 transition-all transform bg-purple-200 rounded-lg cursor-pointer hover:shadow-lg hover:-translate-y-0.5"
-                key={skill.name}
-              >
-                <div className="w-auto h-12">{skill.icon}</div>
-                <div className="w-full h-full">
-                  <div className="text-base">{skill.language}</div>
-                  <span className="px-3 py-1 text-xs text-white bg-purple-900 rounded-lg">
-                    {skill.level}
+        <section
+          className={clsx('px-10 mt-10 py-5 min-h-[50vh]', {
+            'flex items-center justify-center': repos === null
+          })}
+        >
+          {repos === null && (
+            <HiCode className={clsx('animate-ping h-32 w-auto')} />
+          )}
+          <div className="py-8 overflow-x-hidden overflow-y-auto whitespace-no-wrap">
+            {repos !== null && (
+              <>
+                <div className="flex items-baseline justify-between">
+                  <h1 className={clsx('py-4 font-black text-2xl')}>Projects</h1>
+                  <span
+                    className="font-black cursor-pointer hover:underline text-sky-700"
+                    onClick={() =>
+                      pin === repos.length ? setPin(6) : setPin(repos.length)
+                    }
+                  >
+                    {pin === repos.length ? 'See less' : 'See all'}
                   </span>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={clsx('space-y-6')}>
-          <div className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#ff006a] via-[#c800ff] to-[#0055ff]">
-            <h3 className="mt-4 text-2xl">Frameworks</h3>
-          </div>
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-6">
-            {frameworks.map(skill => (
-              <div
-                className="flex items-center w-full h-auto p-2 space-x-8 text-purple-900 transition-all transform bg-purple-200 rounded-lg cursor-pointer hover:shadow-lg hover:-translate-y-0.5"
-                key={skill.name}
-              >
-                <div className="w-auto h-12">{skill.icon}</div>
-                <div className="w-full h-full">
-                  <div className="text-base">{skill.name}</div>
-                  <div className="space-x-1">
-                    <span className="px-3 py-1 text-xs text-white bg-pink-700 rounded-lg">
-                      {skill.language}
-                    </span>
-                    <span className="px-3 py-1 text-xs text-white bg-purple-900 rounded-lg">
-                      {skill.level}
-                    </span>
-                  </div>
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                  {repos.map((repo, i) => {
+                    if (i < pin) {
+                      return (
+                        <div
+                          className={clsx(
+                            'flex flex-col justify-between font-serif hover:shadow-md transform transition-all duration-300 hover:-translate-y-1 p-4 space-y-3 border rounded',
+                            {
+                              'bg-gray-900': !theme,
+                              'bg-white': theme
+                            }
+                          )}
+                          key={repo.id}
+                        >
+                          <div className="flex items-center justify-start space-x-2">
+                            <FaFolderOpen className="w-auto h-5" />
+                            <a
+                              href={repo.html_url}
+                              className="font-bold text-sky-700 hover:underline"
+                            >
+                              {repo.name}
+                            </a>
+                          </div>
+                          <div className="">{repo.description}</div>
+                          <div className="flex items-center justify-start space-x-2">
+                            <div
+                              className={clsx(
+                                'w-3 h-3 bg-green-400 rounded-full'
+                              )}
+                            />
+                            <div className="">{repo.language}</div>
+                          </div>
+                        </div>
+                      )
+                    }
+                  })}
                 </div>
-              </div>
-            ))}
+              </>
+            )}
           </div>
-        </div>
-      </section>
-
-      {/* email */}
-      <section className="w-4/5 mx-auto lg:w-4/6 grid text-purple-800 gap-4 lg:grid-cols-[3fr,2fr]">
-        <form className="">
-          <input
-            type="text"
-            placeholder="Message"
-            value={mail}
-            onChange={e => setMail(e.target.value)}
-            autoComplete="off"
-            name="email-input"
-            id="email-input"
-            className="w-full p-3 font-semibold text-purple-900 placeholder-purple-300 border border-purple-300 rounded focus:outline-none focus:border-purple-600 focus:ring-0"
-          />
-        </form>
-        <div className="flex items-center justify-center mt-6">
-          <span className="inline-flex justify-center mx-auto space-x-4 font-bold text-center">
-            <SiGmail className="w-auto h-6" />{' '}
-            <span>braswellkenneth7@gmail.com</span>
-          </span>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <section className="py-12 text-center text-white bg-gradient-to-r from-[#ff006a] uppercase text-xl font-semibold via-[#c800ff] to-[#0055ff]">
-        braswelljr &copy; Copyright {new Date().getFullYear()}
+        </section>
       </section>
     </main>
   )

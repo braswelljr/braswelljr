@@ -3,9 +3,6 @@ const withPWA = require('next-pwa')
 const runtimeCaching = require('next-pwa/cache')
 const withImages = require('next-images')
 const withPlugins = require('next-compose-plugins')
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true'
-})
 
 module.exports = withPlugins(
   [
@@ -14,11 +11,11 @@ module.exports = withPlugins(
       {
         pwa: {
           dest: 'public',
-          runtimeCaching
+          runtimeCaching,
+          disable: process.env.NODE_ENV === 'development'
         }
       }
     ],
-    [withBundleAnalyzer],
     [withImages]
   ],
   {
@@ -28,25 +25,9 @@ module.exports = withPlugins(
         options.defaultLoaders.babel.options.cache = false
       }
 
-      config.module.rules.push({
-        test: /\.(png|jpe?g|gif|webp)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              publicPath: '/_next',
-              name: 'static/media/[name].[hash].[ext]'
-            }
-          }
-        ]
-      })
-
       config.resolve.modules.push(path.resolve(`./`))
 
       return config
-    },
-    future: {
-      webpack5: true
     }
   }
 )

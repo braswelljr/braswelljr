@@ -5,22 +5,31 @@
 @layer base {
   /* fonts */
   @font-face {
-    font-family: 'Dancing Script';
-    src: url('../fonts/dscript.ttf') format('truetype');
-  }
-  @font-face {
-    font-family: 'Limelight';
-    src: url('../fonts/limelight.ttf') format('truetype');
-  }
-  @font-face {
-    font-family: 'Limelight';
+    font-family: 'Montserrat Alternates';
     src: url('../fonts/montserratalt.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Mulish';
+    src: url('../fonts/mulish.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Lobster';
+    src: url('../fonts/lobster.ttf') format('truetype');
   }
 }
 @layer utilities {
   @responsive {
+    .scrollbar-hidden {
+      scrollbar-width: none;
+    }
+    .scrollbar-hidden::-webkit-scrollbar {
+      display: none;
+    }
     .clipHead {
       clip-path: polygon(100% 0, 100% 97.5%, 50% 100%, 0 97.5%, 0 0);
     }
+  }
+  .text-stroke {
+    text-stroke: 8px transparent;
   }
 }
