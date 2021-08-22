@@ -6,8 +6,7 @@ import {
   FaGithub,
   FaInstagram,
   FaLinkedinIn,
-  FaFolder,
-  FaFolderOpen
+  FaFolder
 } from 'react-icons/fa'
 import { HiCode } from 'react-icons/hi'
 import { useInterval } from '@/hooks/useInterval'
@@ -165,7 +164,7 @@ const Index = () => {
                           key={repo.id}
                         >
                           <div className="flex items-center justify-start space-x-2">
-                            <FaFolderOpen className="w-auto h-5" />
+                            <FaFolder className="w-auto h-5" />
                             <a
                               href={repo.html_url}
                               className="font-bold text-sky-700 hover:underline"
