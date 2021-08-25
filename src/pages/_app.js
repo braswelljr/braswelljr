@@ -1,9 +1,20 @@
 import '../styles/globals.css'
-import React from 'react'
+import { useEffect } from 'react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import Head from 'next/head'
 import { StoreProvider } from '../store/store'
 
 const App = ({ Component, pageProps }) => {
+  useEffect(() => {
+    AOS.init({
+      mirror: true,
+      offset: 100,
+      duration: 500,
+      easing: 'ease'
+    })
+  }, [])
+
   return (
     <>
       <StoreProvider>

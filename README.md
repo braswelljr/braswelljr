@@ -1,6 +1,6 @@
 # `braswelljr` 👨‍🚒
 
-I am [`braswelljr`](https://braswelljr.vercel.app) a Software Developer based in Kumasi, Ghana. I'm a `Fullstack Web Developer` who mostly runs on `JAVASCRIPT` and also opts into a little bit of designing mobile application `UIs`.
+I am [`braswelljr`](https://braswelljr.vercel.app/) a Software Developer based in Kumasi, Ghana. I'm a `Fullstack Web Developer` who mostly runs on `JAVASCRIPT` and also opts into a little bit of designing mobile application `UIs`.
 
 I like to work with the `Frontend` of most applications.
 
