@@ -3,19 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  /* fonts */
-  @font-face {
-    font-family: 'Montserrat Alternates';
-    src: url('../fonts/montserratalt.ttf') format('truetype');
-  }
-  @font-face {
-    font-family: 'Mulish';
-    src: url('../fonts/mulish.ttf') format('truetype');
-  }
-  @font-face {
-    font-family: 'Lobster';
-    src: url('../fonts/lobster.ttf') format('truetype');
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat+Alternates&family=Mulish&display=swap');
 }
 @layer utilities {
   @responsive {
