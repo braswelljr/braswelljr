@@ -9,7 +9,7 @@ const App = ({ Component, pageProps }) => {
   useEffect(() => {
     AOS.init({
       mirror: true,
-      offset: 100,
+      offset: 200,
       duration: 500,
       easing: 'ease'
     })

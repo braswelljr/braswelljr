@@ -4,7 +4,7 @@ import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayout'
 export const Store = createContext()
 
 export const StoreProvider = ({ children }) => {
-  const [theme, setTheme] = useState(true)
+  const [theme, setTheme] = useState(false)
   const [repos, setRepos] = useState(null)
   const [errors, setError] = useState(null)
 

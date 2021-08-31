@@ -16,7 +16,6 @@ const Index = () => {
   const { theme, setTheme, repos } = useContext(Store)
   const [r, setR] = useState(0)
   const roles = ['Web Developer', 'Web Designer', 'UX / UI Designer']
-  // const [pin, setPin] = useState(repos === null ? null : repos.length)
 
   useInterval(() => {
     if (roles !== undefined && roles.length > 0) {
@@ -54,18 +53,11 @@ const Index = () => {
       {/* content */}
       <section className={clsx('pt-20 max-w-6xl mx-auto')}>
         {/* Header Section */}
-        <section className="">
-          <div className="w-full px-8">
-            <div className="ml-auto text-3xl text-right md:text-4xl">
-              <div data-aos="fade-left" className="">
-                Hi there, I&rsquo;m
-              </div>
-              <div
-                data-aos="fade-right"
-                className="font-sans font-semibold text-sky-600"
-              >
-                Braswell
-              </div>
+        <section className="min-h-[40vh]">
+          <div className="w-full px-8 space-y-20">
+            <div className="ml-auto text-3xl text-center md:text-6xl">
+              Hi there, I&rsquo;m{' '}
+              <span className="font-semibold">Braswell</span>
             </div>
             {roles.map(
               (role, id) =>
@@ -73,7 +65,7 @@ const Index = () => {
                   <motion.div
                     key={id}
                     className={clsx(
-                      'text-4xl sm:text-5xl mt-5 py-3 md:text-6xl bg-clip-text font-mono text-right font-black text-transparent',
+                      'text-4xl sm:text-5xl mt-5 py-3 md:text-6xl bg-clip-text font-mono text-center font-black text-transparent',
                       { 'bg-white': !theme, 'bg-black': theme }
                     )}
                     initial={{ y: 20, opacity: 0 }}
@@ -114,36 +106,40 @@ const Index = () => {
                   icon: <FaInstagram className={clsx('h-10 md:h-6 w-auto')} />
                 }
               ].map((link, i) => (
-                <motion.a
+                <a
                   key={i}
                   data-aos={i > 1 ? 'fade-left' : 'fade-right'}
-                  data-aos-delay={(i + 1) * 1000}
+                  data-aos-delay={(i + 1) * 750}
                   href={link.link}
                   target="_blank"
                   rel="noreferrer"
                   className={clsx(
-                    'md:flex justify-center transform transition-all items-center font-semibold hover:-translate-y-0.5 rounded-md md:px-1 md:bg-gray-600 md:bg-opacity-50 md:h-10 md:w-full'
+                    'md:flex justify-center transform transition-all items-center font-semibold hover:-translate-y-0.5 rounded-md md:px-1  md:bg-opacity-50 md:h-10 md:w-full',
+                    {
+                      'md:bg-white md:border md:border-gray-900': theme,
+                      'md:bg-gray-900 md:border md:border-white': !theme
+                    }
                   )}
                 >
                   {link.icon}
                   <div className="hidden ml-2 md:block">{link.name}</div>
-                </motion.a>
+                </a>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Skill */}
+        {/* Domain Knowledge */}
         <section className={clsx('px-10 mt-10 py-5')}>
           <h1 className={clsx('py-4 font-black text-xl md:text-2xl')}>
-            Technical Skills
+            Domain Knowledge
           </h1>
           <ul className={clsx('pl-5')}>
             {['Software Development', 'UI / UX Design'].map((skill, i) => (
               <li
                 key={i}
                 data-aos="fade-left"
-                data-aos-delay={(i + 1) * 1000}
+                data-aos-delay={(i + 1) * 750}
                 className={clsx('list-disc font-medium')}
               >
                 {skill}
@@ -152,10 +148,58 @@ const Index = () => {
           </ul>
         </section>
 
+        {/* Skill */}
+        <section className={clsx('px-10 mt-10 py-5')}>
+          <h1 className={clsx('py-4 font-black text-xl md:text-2xl')}>
+            Technical Skills
+          </h1>
+          <ul className={clsx('pl-5 space-y-4')}>
+            {Object.entries({
+              JavaScript: {
+                'React.js': 'https://reactjs.org/',
+                'Vue.js': 'https://vuejs.org/',
+                'Node.js': 'https://nodejs.org/'
+              },
+              CSS: {
+                'SASS / SCSS': 'https://sass-lang.com/',
+                Tailwindcss: 'https://tailwindcss.com/',
+                Bootstrap: 'https://getbootstrap.com/'
+              },
+              'UI / UX': {
+                FIGMA: 'https://www.figma.com/',
+                'ADOBE XD': 'https://www.adobe.com/products/xd.html'
+              }
+            }).map(([key, value], i) => (
+              <li
+                key={i}
+                data-aos="fade-left"
+                data-aos-delay={(i + 1) * 750}
+                className={clsx('list-disc')}
+              >
+                <h2 className="font-medium">{key}</h2>
+                <ul>
+                  {Object.entries(value).map(([framework, link], x) => (
+                    <li key={x} className="pl-2 ml-4 list-decimal">
+                      <a
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-blue-600 hover:underline"
+                      >
+                        {framework}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </section>
+
         {/* Projects */}
         <section
-          className={clsx('px-10 mt-10 py-5 min-h-[35vh]', {
-            'flex items-center justify-center': repos === null
+          className={clsx('px-10 py-5', {
+            'flex items-center justify-center min-h-[35vh]': repos === null
           })}
         >
           {repos === null && (
@@ -168,18 +212,9 @@ const Index = () => {
                   <h1 className={clsx('py-4 font-black text-xl md:text-2xl')}>
                     Projects
                   </h1>
-                  {/* <span
-                    className="font-black cursor-pointer hover:underline text-sky-700"
-                    onClick={() =>
-                      pin === repos.length ? setPin(6) : setPin(repos.length)
-                    }
-                  >
-                    {pin === repos.length ? 'See less' : 'See all'}
-                  </span> */}
                 </div>
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                  {repos.map((repo, i) => {
-                    // if (i < pin) {
+                  {repos.map(repo => {
                     return (
                       <div
                         className={clsx(
