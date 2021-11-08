@@ -38,6 +38,6 @@ I work with
 
 ![braswelljr](https://github-readme-stats.vercel.app/api/top-langs?username=braswelljr&show_icons=true&locale=en&layout=compact)
 
-![braswelljr](https://github-readme-stats.vercel.app/api?username=braswelljr&show_icons=true&locale=en)
+<!-- ![braswelljr](https://github-readme-stats.vercel.app/api?username=braswelljr&show_icons=true&locale=en)
 
-![braswelljr](https://github-readme-streak-stats.herokuapp.com/?user=braswelljr&)
+![braswelljr](https://github-readme-streak-stats.herokuapp.com/?user=braswelljr&) -->
