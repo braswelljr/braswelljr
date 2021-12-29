@@ -38,6 +38,6 @@ I work with
 </p>
 
 
-![braswelljr](https://github-readme-stats.vercel.app/api/top-langs?username=braswelljr&show_icons=true&locale=en&layout=compact&theme=dracula)
+![braswelljr](https://github-readme-stats.vercel.app/api/top-langs?username=braswelljr&show_icons=true&locale=en&theme=dracula)
 
 <!-- ![braswelljr](https://github-readme-streak-stats.herokuapp.com/?user=braswelljr&) -->
