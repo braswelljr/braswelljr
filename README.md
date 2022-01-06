@@ -15,7 +15,7 @@ I like to work with the `Frontend` of most applications.
 
 I work with
 
-- JAVASCRIPT --> [ [React](https://reactjs.org/) / [Vue](https://vuejs.org/) / [Node.js](https://nodejs.org/) / [TypeScript](https://www.typescriptlang.org/) ]
+- JAVASCRIPT --> [ [React](https://reactjs.org/) / [Vue](https://vuejs.org/) / [Node.js](https://nodejs.org/) / [TypeScript](https://www.typescriptlang.org/) / [React Native](https://reactnative.dev/) ]
  
 - CSS --> [ [SASS-SCSS](https://sass-lang.com/) / [Tailwindcss](https://tailwindcss.com/) / [Bootstrap](https://getbootstrap.com/) ]
  
