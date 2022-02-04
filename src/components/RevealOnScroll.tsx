@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { motion, useAnimation } from 'framer-motion'
+import { ROS } from '@/types/components/RevealOnScroll'
 
 const RevealOnScroll = ({
   children,
@@ -10,7 +11,7 @@ const RevealOnScroll = ({
   className,
   style,
   componentProps
-}) => {
+}: ROS) => {
   const controls = useAnimation()
   const [ref, inView] = useInView()
 
@@ -27,7 +28,7 @@ const RevealOnScroll = ({
       style={style}
       initial="hidden"
       transition={transition ?? { type: 'spring', duration: 1 }}
-      variant={{
+      variants={{
         visible: visible ?? { scale: 1, opacity: 1 },
         hidden: hidden ?? { scale: 0, opacity: 0 }
       }}
