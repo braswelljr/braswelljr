@@ -9,15 +9,29 @@ module.exports = {
   darkMode: 'class',
   theme: {
     screens: {
-      xs: '475px',
+      xs: '375px',
       '3xl': '1920px',
       ...defaultTheme.screens
     },
     extend: {
       fontFamily: {
-        sans: ["'Ubuntu'", ...defaultTheme.fontFamily.sans]
+        sans: ["'Ubuntu'", ...defaultTheme.fontFamily.sans],
+        mono: ["'Syne Tactile'", ...defaultTheme.fontFamily.mono]
       },
-      backgroundImage: {}
+      backgroundImage: {},
+      animation: {
+        spin: 'spin 1s linear infinite'
+      },
+      keyframes: {
+        spin: {
+          '0%': {
+            transform: 'rotate(0deg)'
+          },
+          '100%': {
+            transform: 'rotate(360deg)'
+          }
+        }
+      }
     }
   },
   variants: {

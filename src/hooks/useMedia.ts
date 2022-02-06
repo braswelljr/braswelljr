@@ -1,7 +1,7 @@
 // https://github.com/streamich/react-use/blob/master/src/useMedia.ts
 import { useState, useEffect } from 'react'
 
-export function useMedia(query, defaultState = false) {
+export function useMedia(query: string, defaultState = false) {
   const [state, setState] = useState(defaultState)
 
   useEffect(() => {

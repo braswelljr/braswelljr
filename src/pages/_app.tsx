@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
+import clsx from 'clsx'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -25,7 +26,17 @@ const App = ({ Component, pageProps }: AppProps) => {
         />
         <meta name="theme-color" content="#317EFB" />
       </Head>
-      <Component {...pageProps} />
+      <main className="bg-neutral-900 text-white min-h-screen">
+        {/* background */}
+        <div className="stars-one" />
+        <div className="stars-two" />
+        <div className="stars-three" />
+        <div className="stars-four" />
+        {/* body */}
+        <div className={clsx('z-[1] relative')}>
+          <Component {...pageProps} />
+        </div>
+      </main>
     </>
   )
 }
