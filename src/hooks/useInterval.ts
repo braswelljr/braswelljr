@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react'
 
 export default function useInterval(
-  callback: () => void | undefined,
-  delay: number
+  callback: () => void | HTMLElement | undefined | null,
+  delay = 1000
 ) {
-  const savedCallback = useRef<() => void | HTMLElement | undefined>()
+  const savedCallback = useRef<() => void | HTMLElement | undefined | null>()
 
   // Remember the latest callback.
   useEffect(() => {
@@ -13,9 +13,13 @@ export default function useInterval(
 
   // Set up the interval.
   useEffect(() => {
-    if (delay !== null) {
-      let id = setInterval(() => savedCallback.current(), delay)
-      return () => clearInterval(id)
-    }
+    let id = setInterval(
+      () =>
+        savedCallback.current !== undefined
+          ? savedCallback.current()
+          : savedCallback.current,
+      delay
+    )
+    return () => clearInterval(id)
   }, [delay])
 }

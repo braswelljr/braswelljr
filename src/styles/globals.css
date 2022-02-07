@@ -42,8 +42,8 @@
 .stars-one {
   content: '';
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   box-shadow: var(--stars);
   animation: starup 50s linear infinite;
 }
@@ -51,8 +51,8 @@
 .stars-two {
   content: '';
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 4.5px;
+  height: 4.5px;
   box-shadow: var(--stars);
   animation: starup 30s linear infinite;
 }
@@ -60,8 +60,8 @@
 .stars-three {
   content: '';
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 4.5px;
+  height: 4.5px;
   box-shadow: var(--stars);
   animation: starup 50s linear infinite;
 }
@@ -69,8 +69,8 @@
 .stars-four {
   content: '';
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   box-shadow: var(--stars);
   animation: starup 100s linear infinite;
 }

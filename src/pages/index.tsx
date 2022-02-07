@@ -8,7 +8,7 @@ const Index = () => {
   const roles: string[] = ['Web Developer', 'Web Designer', 'UX / UI Designer']
 
   useInterval(() => {
-    if (roles !== undefined && roles.length > 0) {
+    if (roles.length > 0) {
       let newIdx = r + 1
       if (newIdx >= roles.length) {
         newIdx = 0
