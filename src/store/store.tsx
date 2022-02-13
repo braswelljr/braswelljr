@@ -1,10 +1,14 @@
-import { createContext } from 'react'
-import { StoreProps } from '@/types/store'
+import zustand, { SetState } from 'zustand'
+import { devtools } from 'zustand/middleware'
 
-const StoreContext = createContext({})
-
-const Store = ({ children }: StoreProps) => {
-  return <StoreContext.Provider value={{}}>{children}</StoreContext.Provider>
+interface State {
+  name: string
 }
 
-export default Store
+const useStore = zustand<State>(
+  devtools((set: SetState<State>) => ({
+    name: 'braswelljr'
+  }))
+)
+
+export default useStore

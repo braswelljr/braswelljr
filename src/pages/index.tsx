@@ -18,37 +18,47 @@ const Index = () => {
   }, 5000)
 
   return (
-    <main className="grid place-content-center min-h-screen">
-      <section className="">
-        <div className="">
-          <p className="text-center text-xl sm:text-2xl">
-            I am <em className="font-bold">Braswell</em>
-          </p>
-        </div>
-        {roles.map(
-          (role, id) =>
-            r === id && (
-              <motion.div
-                key={id}
-                className={clsx(
-                  'text-3xl xs:text-4xl sm:text-5xl mt-5 py-3 md:text-6xl text-center font-black'
-                )}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 20, opacity: 0 }}
-                transition={{
-                  type: 'spring',
-                  duration: 1,
-                  delay: 0.25,
-                  stiffness: 260,
-                  damping: 20
-                }}
-              >
-                a {role}
-              </motion.div>
-            )
-        )}
+    <main className="grid-cols-[2fr,3fr] lg:grid">
+      <section className="grid min-h-[100vh] place-content-center">
+        <section className="space-y-4">
+          <div className="h-72">
+            <img
+              src={'/img/man-in-hoodie.png'}
+              alt="boy in hoodie"
+              className="mx-auto h-64 w-auto"
+            />
+          </div>
+          <div className="">
+            <p className="text-center text-xl sm:text-2xl">
+              I am <em className="font-bold">Braswell</em>
+            </p>
+          </div>
+          {roles.map(
+            (role, id) =>
+              r === id && (
+                <motion.div
+                  key={id}
+                  className={clsx(
+                    'text-center font-mono text-3xl font-black sm:text-5xl'
+                  )}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: 20, opacity: 0 }}
+                  transition={{
+                    type: 'spring',
+                    duration: 1,
+                    delay: 0.25,
+                    stiffness: 260,
+                    damping: 20
+                  }}
+                >
+                  a {role}
+                </motion.div>
+              )
+          )}
+        </section>
       </section>
+      <section className=""></section>
     </main>
   )
 }
