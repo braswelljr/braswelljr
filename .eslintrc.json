@@ -52,6 +52,7 @@
     "@typescript-eslint/no-empty-function": "off",
     // next constraints
     "@next/next/no-img-element": "off",
+    "@next/next/no-html-link-for-pages": "off",
     "prettier/prettier": [
       "warn",
       {},
