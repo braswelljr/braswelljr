@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
+import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa'
 import useInterval from '@/hooks/useInterval'
 
 const Index = () => {
@@ -56,6 +57,29 @@ const Index = () => {
                 </motion.div>
               )
           )}
+          <div className="mt-8 flex items-center justify-center space-x-6">
+            {[
+              {
+                name: 'GitHub',
+                url: 'https://github.com/braswelljr',
+                icon: <FaGithub className={clsx('h-8 w-auto')} />
+              },
+              {
+                name: 'LinkedIn',
+                url: 'https://www.linkedin.com/in/braswell-kenneth-junior-azu-870827192/',
+                icon: <FaLinkedin className={clsx('h-8 w-auto')} />
+              },
+              {
+                name: 'Instagram',
+                url: 'https://www.instagram.com/braswell_jr/',
+                icon: <FaInstagram className={clsx('h-8 w-auto')} />
+              }
+            ].map(item => (
+              <a key={item.name} href={item.url}>
+                {item.icon}
+              </a>
+            ))}
+          </div>
         </section>
       </section>
       <section className=""></section>
