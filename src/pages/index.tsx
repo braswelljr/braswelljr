@@ -102,7 +102,7 @@ const Index = () => {
       </section>
       <section className="min-h-screen py-5 px-6 md:px-8 lg:py-20 lg:px-12">
         <h2
-          className={clsx('font-mono text-2xl font-bold first-letter:text-4xl')}
+          className={clsx('font-mono text-3xl font-bold first-letter:text-4xl')}
         >
           About me
         </h2>
