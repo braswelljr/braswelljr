@@ -1,7 +1,8 @@
 // https://github.com/streamich/react-use/blob/master/src/useMedia.ts
 import { useState, useEffect } from 'react'
 
-export function useMedia(query: string, defaultState = false) {
+// useMedia hook to detect media queries
+export default function useMedia(query: string, defaultState = false) {
   const [state, setState] = useState(defaultState)
 
   useEffect(() => {
@@ -11,7 +12,7 @@ export function useMedia(query: string, defaultState = false) {
       if (!mounted) {
         return
       }
-      setState(!!mql.matches)
+      setState(mql.matches)
     }
 
     mql.addListener(onChange)
