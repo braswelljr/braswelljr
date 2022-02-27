@@ -39,7 +39,7 @@ const Index = () => {
                     className="mx-auto h-64 w-auto"
                   />
                 </div>
-                <div className="space-y-7">
+                <div className="space-y-6">
                   <p className="text-center text-xl sm:text-2xl">
                     I am <em className="font-bold">Braswell</em>
                   </p>
@@ -72,27 +72,39 @@ const Index = () => {
                         {
                           name: 'LinkedIn',
                           url: 'https://www.linkedin.com/in/braswell-kenneth-junior-azu-870827192/',
-                          icon: <FaLinkedin className={clsx('h-8 w-auto')} />
+                          icon: (
+                            <FaLinkedin className={clsx('h-6 w-auto md:h-8')} />
+                          )
                         },
                         {
                           name: 'GitHub',
                           url: 'https://github.com/braswelljr',
-                          icon: <FaGithub className={clsx('h-8 w-auto')} />
+                          icon: (
+                            <FaGithub className={clsx('h-6 w-auto md:h-8')} />
+                          )
                         },
                         {
                           name: 'Instagram',
                           url: 'https://www.instagram.com/braswell_jr/',
-                          icon: <FaInstagram className={clsx('h-8 w-auto')} />
+                          icon: (
+                            <FaInstagram
+                              className={clsx('h-6 w-auto md:h-8')}
+                            />
+                          )
                         },
                         {
                           name: 'Twitter',
                           url: 'https://twitter.com/brakez_ken',
-                          icon: <FaTwitter className={clsx('h-8 w-auto')} />
+                          icon: (
+                            <FaTwitter className={clsx('h-6 w-auto md:h-8')} />
+                          )
                         },
                         {
                           name: 'Figma',
                           url: 'https://www.figma.com/@braswelljr',
-                          icon: <FaFigma className={clsx('h-8 w-auto')} />
+                          icon: (
+                            <FaFigma className={clsx('h-6 w-auto md:h-8')} />
+                          )
                         }
                       ].map(item => (
                         <a key={item.name} href={item.url} target="_blank">
@@ -154,20 +166,20 @@ const Index = () => {
           className={clsx(
             'min-h-screen snap-start',
             title !== 'Home'
-              ? ' py-5 px-6 backdrop-blur-md odd:bg-amber-500/50 even:bg-slate-500/50 md:px-8 lg:col-start-2 lg:py-20 lg:px-12'
+              ? 'py-5 px-6 odd:bg-amber-500/30 even:bg-slate-500/30 md:px-8 lg:col-start-2 lg:py-20 lg:px-12'
               : 'relative grid place-content-center lg:sticky lg:inset-y-0 lg:col-span-1'
           )}
         >
           {title !== 'Home' && (
             <h2
               className={clsx(
-                'mt-10 text-3xl font-bold first-letter:text-5xl first-letter:font-semibold'
+                'mt-6 text-3xl font-bold first-letter:text-5xl first-letter:font-semibold'
               )}
             >
               {title}
             </h2>
           )}
-          <div className={clsx('mt-6' && title !== 'Home')}>{content}</div>
+          <div className={clsx('mt-4' && title !== 'Home')}>{content}</div>
         </section>
       ))}
     </div>
