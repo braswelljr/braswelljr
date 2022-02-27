@@ -32,7 +32,7 @@ const Index = () => {
           content: (
             <>
               <section className="space-y-4">
-                <div className="h-72">
+                <div className="md:h-72">
                   <img
                     src={'/img/man-in-hoodie.png'}
                     alt="boy in hoodie"
@@ -66,7 +66,7 @@ const Index = () => {
                         </motion.div>
                       )
                   )}
-                  <div className="absolute inset-x-4 bottom-12">
+                  <div className="my-8">
                     <div className="mx-auto flex items-center justify-center space-x-6">
                       {[
                         {
@@ -167,7 +167,7 @@ const Index = () => {
             'snap-start',
             title !== 'Home'
               ? 'min-h-screen py-5 px-6 odd:bg-amber-500/30 even:bg-slate-500/30 md:px-8 lg:col-start-2 lg:py-20 lg:px-12'
-              : 'relative grid h-screen place-content-center lg:sticky lg:inset-y-0 lg:col-span-1'
+              : 'grid h-screen place-content-center lg:sticky lg:inset-y-0 lg:col-span-1'
           )}
         >
           {title !== 'Home' && (
