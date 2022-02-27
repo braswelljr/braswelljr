@@ -86,3 +86,21 @@
     transform: translateY(0vh);
   }
 }
+
+@layer utilities {
+  .scrollbars-hidden {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+
+      @media (min-width: 1024px) {
+        display: block;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      scrollbar-width: auto;
+    }
+  }
+}

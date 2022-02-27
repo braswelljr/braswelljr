@@ -21,7 +21,7 @@ const AppLayout = ({ children }: { children: ReactChild | ReactChildren }) => {
             dark: <HiMoon className={clsx('h-5 w-auto')} />,
             light: <HiSun className={clsx('h-5 w-auto')} />
           }}
-          className={clsx('fixed top-4 right-4')}
+          className={clsx('fixed top-4 right-4 z-10')}
           selected={setting}
           onChange={setSetting}
           itemClassName={{
