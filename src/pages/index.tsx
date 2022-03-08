@@ -10,17 +10,23 @@ import {
 } from 'react-icons/fa'
 import useInterval from '@/hooks/useInterval'
 import useSWR from 'swr'
+import useStore from '@/store/store'
+import shallow from 'zustand/shallow'
 
 const Index = () => {
   const [r, setR] = useState<number>(0)
   const roles: string[] = ['Web Developer', 'Web Designer', 'UX / UI Designer']
-  const [repositories, setRepositories] = useState([])
+  const [repositories, setRepositories] = useStore(
+    state => [state.repositories, state.setRepositories],
+    shallow
+  )
 
   const { data: repos, error: repoError } = useSWR(
     [`https://api.github.com/graphql`],
     url =>
       fetch(url, {
         method: 'post',
+        mode: 'cors',
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_AUTH_TOKEN}`,
           'Content-Type': 'application/json'
@@ -55,11 +61,11 @@ const Index = () => {
     { refreshInterval: 60000, shouldRetryOnError: true }
   )
 
-  // if (!repoError && repos !== undefined) {
-  //   setRepositories(repos)
-  // }
+  if (!repoError && Array.isArray(repos) && repos.length > 0) {
+    setRepositories(repos)
+  }
 
-  // console.log(repositories)
+  console.log(repositories)
 
   useInterval(() => {
     if (roles.length > 0) {
@@ -172,14 +178,32 @@ const Index = () => {
     {
       title: 'Projects',
       content: (
+        // {
+        //   "name": "glab-docs",
+        //   "description": "GLab (Documentation) - An open-source GitLab command line tool bringing GitLab's cool features to your command line.",
+        //   "url": "https://github.com/braswelljr/glab-docs",
+        //   "createdAt": "2021-05-15T02:53:18Z",
+        //   "updatedAt": "2022-01-04T16:05:26Z",
+        //   "primaryLanguage": {
+        //     "name": "JavaScript",
+        //     "color": "#f1e05a"
+        //   },
+        //   "stargazers": {
+        //     "totalCount": 2
+        //   }
+        // }
         <>
-          <p className={clsx()}>
-            I am a Software Engineer with experience in solution design and
-            implementation of technical software projects. Exploration is one of
-            the things which makes me keep learning and growing. I am a
-            self-motivated individual who is always looking for new challenges
-            and opportunities to grow.
-          </p>
+          {Array.isArray(repositories) && repositories.length > 0 ? (
+            <div className="grid">
+              {repositories.map(repo => (
+                <div className="" key={repo.name}>
+                  {repo.name}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="">hello world</div>
+          )}
         </>
       )
     },
