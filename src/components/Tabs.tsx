@@ -1,7 +1,12 @@
 import clsx from 'clsx'
 import { motion, AnimateSharedLayout } from 'framer-motion'
 
-type ItemProps = {
+const Item = ({
+  tab,
+  isSelected,
+  onClick,
+  itemClassName
+}: {
   tab: any
   isSelected: boolean
   onClick: () => void
@@ -11,8 +16,7 @@ type ItemProps = {
     isSelected?: string
     notSelected?: string
   }
-}
-const Item = ({ tab, isSelected, onClick, itemClassName }: ItemProps) => {
+}) => {
   return (
     <li className="relative">
       {isSelected && (
@@ -39,7 +43,13 @@ const Item = ({ tab, isSelected, onClick, itemClassName }: ItemProps) => {
   )
 }
 
-type TabProps = {
+export default function Tabs({
+  tabs,
+  selected = Array.isArray(tabs) ? tabs[0] : Object.keys(tabs)[0],
+  onChange = () => {},
+  className = '',
+  itemClassName
+}: {
   tabs: any | any[]
   selected: any
   onChange: (tab?: any) => void
@@ -50,15 +60,7 @@ type TabProps = {
     isSelected?: string
     notSelected?: string
   }
-}
-
-export default function Tabs({
-  tabs,
-  selected = Array.isArray(tabs) ? tabs[0] : Object.keys(tabs)[0],
-  onChange = () => {},
-  className = '',
-  itemClassName
-}: TabProps) {
+}) {
   return (
     <AnimateSharedLayout>
       <ul

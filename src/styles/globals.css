@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne+Tactile&family=Ubuntu:ital@0;1&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -51,8 +50,8 @@
 .stars-two {
   content: '';
   position: absolute;
-  width: 4.5px;
-  height: 4.5px;
+  width: 5px;
+  height: 5px;
   box-shadow: var(--stars);
   animation: starup 30s linear infinite;
 }
@@ -60,8 +59,8 @@
 .stars-three {
   content: '';
   position: absolute;
-  width: 4.5px;
-  height: 4.5px;
+  width: 5px;
+  height: 5px;
   box-shadow: var(--stars);
   animation: starup 50s linear infinite;
 }
@@ -83,7 +82,7 @@
     transform: translateY(-100vh);
   }
   100% {
-    transform: translateY(0vh);
+    transform: translateY(0);
   }
 }
 
