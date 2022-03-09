@@ -12,6 +12,7 @@ import useInterval from '@/hooks/useInterval'
 import useSWR from 'swr'
 import useStore from '@/store/store'
 import shallow from 'zustand/shallow'
+import { HiFolder, HiStar } from 'react-icons/hi'
 
 const Index = () => {
   const [r, setR] = useState<number>(0)
@@ -65,7 +66,7 @@ const Index = () => {
     setRepositories(repos)
   }
 
-  console.log(repositories)
+  // console.log(repositories)
 
   useInterval(() => {
     if (roles.length > 0) {
@@ -100,7 +101,7 @@ const Index = () => {
                     <motion.div
                       key={id}
                       className={clsx(
-                        'text-center text-2xl font-semibold xxs:text-3xl xs:text-4xl sm:text-5xl md:h-10 lg:text-4xl xl:text-5xl'
+                        'text-center text-2xl font-black xxs:text-3xl xs:text-4xl sm:text-5xl md:h-10 lg:text-4xl xl:text-5xl'
                       )}
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
@@ -194,10 +195,40 @@ const Index = () => {
         // }
         <>
           {Array.isArray(repositories) && repositories.length > 0 ? (
-            <div className="grid">
+            <div className="mt-8 grid gap-5 text-xs sm:grid-cols-2 md:text-sm">
               {repositories.map(repo => (
-                <div className="" key={repo.name}>
-                  {repo.name}
+                <div
+                  className="h-full space-y-2 rounded rounded-br-2xl border border-current p-2 hover:-translate-y-1 motion-safe:transition"
+                  key={repo.name}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <HiFolder className="h-5 w-auto" />
+                      <a
+                        className="font-semibold hover:text-blue-600"
+                        href={repo.url}
+                        target="_blank"
+                      >
+                        {repo.name}
+                      </a>
+                    </div>
+                    <div className="flex items-center">
+                      <HiStar className="h-4 w-auto" />
+                      <span>{repo.stargazers.totalCount}</span>
+                    </div>
+                  </div>
+                  <p className="min-h-[2.5rem] line-clamp-2">
+                    {repo.description}
+                  </p>
+                  <div className="flex items-center space-x-2">
+                    <span
+                      style={{
+                        backgroundColor: `${repo.primaryLanguage.color}`
+                      }}
+                      className="h-3 w-3 rounded-full"
+                    />
+                    <span>{repo.primaryLanguage.name}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -245,7 +276,7 @@ const Index = () => {
           className={clsx(
             'snap-start',
             title !== 'Home'
-              ? 'min-h-screen py-5 px-6 odd:bg-amber-500/30 even:bg-slate-500/30 md:px-8 lg:col-start-2 lg:py-20 lg:px-12'
+              ? 'min-h-screen py-4 px-6 odd:bg-slate-900/30 even:bg-slate-600/30 md:px-8 lg:col-start-2 lg:py-20 lg:px-12'
               : 'grid h-screen place-content-center lg:sticky lg:inset-y-0 lg:col-span-1'
           )}
         >
