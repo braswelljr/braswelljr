@@ -16,7 +16,8 @@ export default function useInterval(
   useEffect(() => {
     let id = setInterval(
       () =>
-        savedCallback.current !== undefined
+        typeof savedCallback.current === 'function' &&
+        typeof savedCallback.current !== 'undefined'
           ? savedCallback.current()
           : savedCallback.current,
       delay

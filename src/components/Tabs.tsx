@@ -47,13 +47,17 @@ export default function Tabs({
   tabs,
   selected = Array.isArray(tabs) ? tabs[0] : Object.keys(tabs)[0],
   onChange = () => {},
+  addFunction = () => {},
   className = '',
+  direction = 'column',
   itemClassName
 }: {
   tabs: any | any[]
   selected: any
-  onChange: (tab?: any) => void
+  onChange: (tab?: any, addFunction?: any) => void
+  addFunction?: () => void
   className?: string
+  direction?: 'column' | 'row'
   itemClassName?: {
     container?: string
     item?: string
@@ -61,14 +65,19 @@ export default function Tabs({
     notSelected?: string
   }
 }) {
+  const tabLength = Array.isArray(tabs) ? tabs.length : Object.keys(tabs).length
+
   return (
     <AnimateSharedLayout>
       <ul
         className={clsx('grid whitespace-nowrap', className)}
         style={{
-          gridTemplateColumns: `repeat(${
-            Array.isArray(tabs) ? tabs.length : Object.keys(tabs).length
-          }, minmax(0, 1fr))`
+          gridTemplateColumns:
+            direction === 'column'
+              ? `repeat(${tabLength}, minmax(0, 1fr))`
+              : ``,
+          gridTemplateRows:
+            direction === 'row' ? `repeat(${tabLength}, minmax(0, 1fr))` : ``
         }}
       >
         {(Array.isArray(tabs) ? tabs : Object.keys(tabs)).map(tab => (
@@ -76,7 +85,10 @@ export default function Tabs({
             key={tab}
             tab={Array.isArray(tabs) ? tab : tabs[tab]}
             isSelected={selected === tab}
-            onClick={() => onChange(tab)}
+            onClick={() => {
+              onChange(tab)
+              addFunction()
+            }}
             itemClassName={itemClassName}
           />
         ))}
