@@ -16,7 +16,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["'Ubuntu'", ...defaultTheme.fontFamily.sans],
+        sans: ["'Jetbrains Mono'", ...defaultTheme.fontFamily.sans],
         mono: ["'Syne Tactile'", ...defaultTheme.fontFamily.mono]
       },
       backgroundImage: {},

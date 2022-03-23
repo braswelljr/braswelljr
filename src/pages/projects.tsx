@@ -1,9 +1,11 @@
 import React from 'react'
 import clsx from 'clsx'
 import useSWR from 'swr'
+import { motion } from 'framer-motion'
 import useStore from '@/store/store'
 import shallow from 'zustand/shallow'
-import { HiFolder, HiStar } from 'react-icons/hi'
+import { HiStar } from 'react-icons/hi'
+import { pageTransitionVariant } from '@/components/framerVariants'
 
 const Projects = () => {
   const [repositories, setRepositories] = useStore(
@@ -55,62 +57,69 @@ const Projects = () => {
     setRepositories(repos)
   }
   return (
-    <main
+    <motion.main
       className={clsx(
         'mx-auto min-h-screen max-w-5xl py-4 px-6 md:px-8 lg:px-12'
       )}
+      variants={pageTransitionVariant}
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      onAnimationStart={() => document.body.classList.add('overflow-hidden')}
+      onAnimationComplete={() =>
+        document.body.classList.remove('overflow-hidden')
+      }
     >
       <h2
         className={clsx(
-          'mt-6 text-3xl font-bold first-letter:text-5xl first-letter:font-semibold'
+          'mt-6 text-3xl font-bold uppercase first-letter:text-5xl first-letter:font-semibold'
         )}
       >
         Projects
       </h2>
       <div className={clsx('mt-4')}>
         {Array.isArray(repositories) && repositories.length > 0 ? (
-          <div className="mt-8 grid gap-5 text-xs sm:grid-cols-2 md:text-sm">
-            {repositories.map(repo => (
-              <div
-                className="h-full space-y-2 rounded rounded-br-2xl border border-current p-2 hover:-translate-y-1 motion-safe:transition"
-                key={repo.name}
-              >
+          <div className="mt-8 grid gap-5 text-xs sm:grid-cols-2 md:text-sm lg:grid-cols-3 lg:grid-rows-3">
+            {repositories.map((repo, i) => (
+              <div className={clsx('h-full space-y-2 p-2')} key={repo.name}>
+                <div className="flex items-center space-x-2">
+                  <a
+                    className="link-underline font-bold"
+                    href={repo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {repo.name}
+                  </a>
+                </div>
+
+                <p className="line-clamp-2">{repo.description}</p>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <HiFolder className="h-5 w-auto" />
-                    <a
-                      className="font-semibold hover:text-blue-600"
-                      href={repo.url}
-                      target="_blank"
-                    >
-                      {repo.name}
-                    </a>
-                  </div>
                   <div className="flex items-center">
                     <HiStar className="h-4 w-auto" />
                     <span>{repo.stargazers.totalCount}</span>
                   </div>
-                </div>
-                <p className="min-h-[2.5rem] line-clamp-2">
-                  {repo.description}
-                </p>
-                <div className="flex items-center space-x-2">
-                  <span
-                    style={{
-                      backgroundColor: `${repo.primaryLanguage.color}`
-                    }}
-                    className="h-3 w-3 rounded-full"
-                  />
-                  <span>{repo.primaryLanguage.name}</span>
+                  <div className="flex items-center space-x-2">
+                    <span
+                      style={{
+                        backgroundColor: `${repo.primaryLanguage.color}`
+                      }}
+                      className="h-3 w-3 rounded-full"
+                    />
+
+                    <span>{repo.primaryLanguage.name}</span>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div className="">hello world</div>
+          <div className="grid min-h-[60vh] place-items-center">
+            <div className="h-20 w-20 animate-ping rounded-full bg-pink-600"></div>
+          </div>
         )}
       </div>
-    </main>
+    </motion.main>
   )
 }
 

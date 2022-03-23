@@ -9,6 +9,7 @@ import {
 } from 'react-icons/fa'
 import useInterval from '@/hooks/useInterval'
 import clsx from 'clsx'
+import { pageTransitionVariant } from '@/components/framerVariants'
 
 const Index = () => {
   const [r, setR] = useState<number>(0)
@@ -25,7 +26,17 @@ const Index = () => {
   }, 5000)
 
   return (
-    <main className="grid min-h-screen place-items-center">
+    <motion.main
+      className="grid min-h-screen place-items-center"
+      variants={pageTransitionVariant}
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      onAnimationStart={() => document.body.classList.add('overflow-hidden')}
+      onAnimationComplete={() =>
+        document.body.classList.remove('overflow-hidden')
+      }
+    >
       <section className="space-y-4">
         <div className="md:h-72">
           <img
@@ -44,7 +55,7 @@ const Index = () => {
                 <motion.div
                   key={id}
                   className={clsx(
-                    'text-center text-2xl font-black xxs:text-3xl xs:text-4xl sm:text-5xl md:h-10 lg:text-4xl xl:text-5xl'
+                    'bg-gradient-to-l from-blue-500 to-red-500 bg-clip-text text-center text-2xl font-black text-transparent dark:from-sky-400 dark:to-pink-400 xxs:text-3xl xs:text-4xl sm:text-5xl lg:text-4xl xl:text-5xl'
                   )}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -98,7 +109,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-    </main>
+    </motion.main>
   )
 }
 
