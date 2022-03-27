@@ -34,5 +34,6 @@
     "typescript": "javascript",
     "typescriptreact": "javascript"
   },
-  "window.autoDetectColorScheme": true
+  "window.autoDetectColorScheme": true,
+  "debug.console.fontFamily": "Jetbrains Mono"
 }

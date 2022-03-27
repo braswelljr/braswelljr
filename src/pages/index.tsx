@@ -55,7 +55,7 @@ const Index = () => {
                 <motion.div
                   key={id}
                   className={clsx(
-                    'bg-gradient-to-l from-blue-500 to-red-500 bg-clip-text text-center text-2xl font-black text-transparent dark:from-sky-400 dark:to-pink-400 xxs:text-3xl xs:text-4xl sm:text-5xl lg:text-4xl xl:text-5xl'
+                    'bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-center text-2xl font-black text-transparent xxs:text-3xl xs:text-4xl sm:text-5xl'
                   )}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}

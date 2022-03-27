@@ -59,7 +59,7 @@ const Projects = () => {
   return (
     <motion.main
       className={clsx(
-        'mx-auto min-h-screen max-w-5xl py-4 px-6 md:px-8 lg:px-12'
+        'mx-auto min-h-screen max-w-5xl py-4 px-8 md:px-12 lg:px-16'
       )}
       variants={pageTransitionVariant}
       initial="hidden"
@@ -79,22 +79,28 @@ const Projects = () => {
       </h2>
       <div className={clsx('mt-4')}>
         {Array.isArray(repositories) && repositories.length > 0 ? (
-          <div className="mt-8 grid gap-5 text-xs sm:grid-cols-2 md:text-sm lg:grid-cols-3 lg:grid-rows-3">
+          <div className="mt-8 grid gap-5 text-xs sm:grid-cols-2 md:text-sm lg:grid-cols-3 xl:grid-rows-3">
             {repositories.map((repo, i) => (
               <div className={clsx('h-full space-y-2 p-2')} key={repo.name}>
                 <div className="flex items-center space-x-2">
                   <a
-                    className="link-underline font-bold"
+                    className={clsx('link-underline font-bold')}
                     href={repo.url}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {repo.name}
+                    <span
+                      className={clsx(
+                        'bg-gradient-to-r from-[#ff8d22] to-[#ff2600] bg-clip-text text-transparent'
+                      )}
+                    >
+                      {repo.name}
+                    </span>
                   </a>
                 </div>
 
                 <p className="line-clamp-2">{repo.description}</p>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-12">
                   <div className="flex items-center">
                     <HiStar className="h-4 w-auto" />
                     <span>{repo.stargazers.totalCount}</span>
@@ -115,7 +121,29 @@ const Projects = () => {
           </div>
         ) : (
           <div className="grid min-h-[60vh] place-items-center">
-            <div className="h-20 w-20 animate-ping rounded-full bg-pink-600"></div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-20 w-auto [stroke:url(#archive)]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <defs>
+                <linearGradient id="archive">
+                  <stop offset="5%" stopColor="#ff8d22" />
+                  <stop offset="95%" stopColor="#ff2600" />
+                </linearGradient>
+              </defs>
+              <motion.path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 2, yoyo: Infinity, ease: 'easeInOut' }}
+              />
+            </svg>
           </div>
         )}
       </div>
