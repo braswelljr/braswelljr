@@ -20,7 +20,7 @@ const TechnicalSkills = () => {
     >
       <h2
         className={clsx(
-          'mt-6 text-3xl font-bold uppercase first-letter:text-5xl first-letter:font-semibold'
+          'mt-6 text-2xl font-bold uppercase first-letter:text-5xl first-letter:font-semibold'
         )}
       >
         Technical Skills
