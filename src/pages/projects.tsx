@@ -80,7 +80,7 @@ const Projects = () => {
       <div className={clsx('mt-4')}>
         {Array.isArray(repositories) && repositories.length > 0 ? (
           <div className="mt-8 grid gap-5 text-xs sm:grid-cols-2 md:text-sm lg:grid-cols-3 xl:grid-rows-3">
-            {repositories.map((repo, i) => (
+            {repositories.map(repo => (
               <div className={clsx('h-full space-y-2 p-2')} key={repo.name}>
                 <div className="flex items-center space-x-2">
                   <a
