@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import useStore from '@/store/store'
 import shallow from 'zustand/shallow'
 import clsx from 'clsx'
