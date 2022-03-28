@@ -109,7 +109,7 @@ const AppLayout = ({ children }: { children: ReactChild | ReactChildren }) => {
             ))}
           </motion.ul>
           <AnimatePresence exitBeforeEnter>
-            <motion.section className="pr-4">{children}</motion.section>
+            <motion.section className="pr-2">{children}</motion.section>
           </AnimatePresence>
         </div>
       </main>

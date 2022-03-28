@@ -1,19 +1,19 @@
-import React from 'react'
 import clsx from 'clsx'
 import useSWR from 'swr'
-import { motion } from 'framer-motion'
 import useStore from '@/store/store'
 import shallow from 'zustand/shallow'
+import { motion } from 'framer-motion'
 import { HiStar } from 'react-icons/hi'
 import { pageTransitionVariant } from '@/components/framerVariants'
 
 const Projects = () => {
+  // const [repositories, setRepositories] = useState<any[]>([])
   const [repositories, setRepositories] = useStore(
     state => [state.repositories, state.setRepositories],
     shallow
   )
-
-  const { data: repos, error: repoError } = useSWR(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _ = useSWR(
     [`https://api.github.com/graphql`],
     url =>
       fetch(url, {
@@ -49,13 +49,10 @@ const Projects = () => {
         })
       })
         .then(res => res.json())
-        .then(res => res.data.user.pinnedItems.nodes),
+        .then(res => setRepositories(res.data.user.pinnedItems.nodes)),
     { refreshInterval: 60000, shouldRetryOnError: true }
   )
 
-  if (!repoError && Array.isArray(repos) && repos.length > 0) {
-    setRepositories(repos)
-  }
   return (
     <motion.main
       className={clsx(
@@ -103,7 +100,7 @@ const Projects = () => {
                 <div className="flex items-center space-x-12">
                   <div className="flex items-center">
                     <HiStar className="h-4 w-auto" />
-                    <span>{repo.stargazers.totalCount}</span>
+                    <span>{repo.stargazers?.totalCount ?? 0}</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <span
@@ -141,7 +138,11 @@ const Projects = () => {
                 d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ duration: 2, yoyo: Infinity, ease: 'easeInOut' }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut'
+                }}
               />
             </svg>
           </div>

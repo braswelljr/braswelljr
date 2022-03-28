@@ -9,3 +9,6 @@ lint:
 
 format:
 	yarn run format
+
+clean:
+	rm -rf .next/ dist/
