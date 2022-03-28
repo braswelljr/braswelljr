@@ -47,47 +47,35 @@ const TechnicalSkills = () => {
         })
       })
         .then(res => res.json())
-        .then(res =>
-          res.data.user.repositories.nodes.map((repo: any) =>
-            repo.languages.edges.map((langs: any) => ({
-              name: langs.node.name,
-              color: langs.node.color
-            }))
-          )
-        )
         .then(res => {
-          const flattened = flattenArray(res).reduce((acc, prev) => {
-            // get the size of the language (bytes)
-            let langSize = prev.size
-
-            // if we already have the language in the accumulator
-            // & the current language name is same as previous name
-            // add the size to the language size.
-            if (acc[prev.name] && prev.name === acc[prev.name].name) {
-              langSize = prev.size + acc[prev.name].size
-            }
-            return {
-              ...acc,
-              [prev.name]: {
-                name: prev.name,
-                color: prev.color,
-                size: langSize
-              }
-            }
-          }, {})
-
-          return Object.keys(flattened)
-            .sort((a, b) => flattened[b].size - flattened[a].size)
-            .reduce((result: any, key) => {
-              result[key] = flattened[key]
-              return result
-            }, [])
+          return flattenArray(
+            res.data.user.repositories.nodes.map((repo: any) =>
+              repo.languages.edges.map((langs: any) => ({
+                name: langs.node.name,
+                color: langs.node.color
+              }))
+            )
+          ).reduce(
+            (accumulator, lang: { name: string; color: string }, _, self) => {
+              return [
+                ...accumulator,
+                {
+                  name: lang.name,
+                  color: lang.color,
+                  count: self.filter(x => x.name === lang.name).length
+                  // size: 10
+                }
+              ].filter(
+                (value, index, self) =>
+                  self.findIndex(x => x.name === value.name) === index
+              )
+            },
+            []
+          )
         })
         .then(res => setLanguages(res)),
     { refreshInterval: 60000, shouldRetryOnError: true }
   )
-
-  console.log(languages)
 
   return (
     <motion.main
@@ -150,40 +138,3 @@ const TechnicalSkills = () => {
 }
 
 export default TechnicalSkills
-
-// .then(res =>
-//   res.data.user.repositories.nodes.map((repo: any) =>
-//     repo.languages.edges.map((langs: any) => ({
-//       name: langs.node.name,
-//       color: langs.node.color
-//     }))
-//   )
-// )
-// .then(res => {
-//   const flattened = flattenArray(res).reduce((acc, prev) => {
-//     // get the size of the language (bytes)
-//     let langSize = prev.size
-
-//     // if we already have the language in the accumulator
-//     // & the current language name is same as previous name
-//     // add the size to the language size.
-//     if (acc[prev.name] && prev.name === acc[prev.name].name) {
-//       langSize = prev.size + acc[prev.name].size
-//     }
-//     return {
-//       ...acc,
-//       [prev.name]: {
-//         name: prev.name,
-//         color: prev.color,
-//         size: langSize
-//       }
-//     }
-//   }, {})
-
-//   return Object.keys(flattened)
-//     .sort((a, b) => flattened[b].size - flattened[a].size)
-//     .reduce((result: any, key) => {
-//       result[key] = flattened[key]
-//       return result
-//     }, [])
-// })
