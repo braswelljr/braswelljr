@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { motion, AnimateSharedLayout } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const Item = ({
   tab,
@@ -68,31 +68,27 @@ export default function Tabs({
   const tabLength = Array.isArray(tabs) ? tabs.length : Object.keys(tabs).length
 
   return (
-    <AnimateSharedLayout>
-      <ul
-        className={clsx('grid whitespace-nowrap', className)}
-        style={{
-          gridTemplateColumns:
-            direction === 'column'
-              ? `repeat(${tabLength}, minmax(0, 1fr))`
-              : ``,
-          gridTemplateRows:
-            direction === 'row' ? `repeat(${tabLength}, minmax(0, 1fr))` : ``
-        }}
-      >
-        {(Array.isArray(tabs) ? tabs : Object.keys(tabs)).map(tab => (
-          <Item
-            key={tab}
-            tab={Array.isArray(tabs) ? tab : tabs[tab]}
-            isSelected={selected === tab}
-            onClick={() => {
-              onChange(tab)
-              addFunction()
-            }}
-            itemClassName={itemClassName}
-          />
-        ))}
-      </ul>
-    </AnimateSharedLayout>
+    <ul
+      className={clsx('grid whitespace-nowrap', className)}
+      style={{
+        gridTemplateColumns:
+          direction === 'column' ? `repeat(${tabLength}, minmax(0, 1fr))` : ``,
+        gridTemplateRows:
+          direction === 'row' ? `repeat(${tabLength}, minmax(0, 1fr))` : ``
+      }}
+    >
+      {(Array.isArray(tabs) ? tabs : Object.keys(tabs)).map(tab => (
+        <Item
+          key={tab}
+          tab={Array.isArray(tabs) ? tab : tabs[tab]}
+          isSelected={selected === tab}
+          onClick={() => {
+            onChange(tab)
+            addFunction()
+          }}
+          itemClassName={itemClassName}
+        />
+      ))}
+    </ul>
   )
 }

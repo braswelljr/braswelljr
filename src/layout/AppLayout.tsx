@@ -1,7 +1,7 @@
-import { ReactChild, ReactChildren, useState } from 'react'
+import { useState } from 'react'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { IoIosPerson } from 'react-icons/io'
 import {
   HiSun,
@@ -15,7 +15,7 @@ import useTheme from '@/hooks/useTheme'
 import Tabs from '@/components/Tabs'
 import useIsomorphicLayoutEffect from '@/hooks/useIsomorphicLayout'
 
-const AppLayout = ({ children }: { children: ReactChild | ReactChildren }) => {
+const AppLayout = ({ children }: { children: JSX.Element }) => {
   const [setting, setSetting] = useTheme()
   const [page, setPage] = useState('/')
   const router = useRouter()
@@ -108,9 +108,7 @@ const AppLayout = ({ children }: { children: ReactChild | ReactChildren }) => {
               </motion.li>
             ))}
           </motion.ul>
-          <AnimatePresence exitBeforeEnter>
-            <motion.section className="pr-2">{children}</motion.section>
-          </AnimatePresence>
+          <motion.section className="pr-2">{children}</motion.section>
         </div>
       </main>
     </>

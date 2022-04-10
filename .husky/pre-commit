@@ -4,3 +4,17 @@
 yarn run lint
 yarn run lint:fix
 yarn run format
+
+# run build and test for truthy
+BUILD="yarn run build"
+eval $BUILD
+if [ $? -eq 0 ]; then
+  # remove build extras
+  rm -rf public/sw.js public/sw.js.map public/workbox-*.js .next
+  echo "Build Successful 😆!"
+  exit 0
+
+  else
+    echo "Oops! Build failed 😢."
+    exit 130
+fi
