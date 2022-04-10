@@ -35,3 +35,9 @@ yarn-error.log*
 
 # locks
 package-lock.json
+yarn.lock
+
+# editor configs
+.idea
+.vscode
+.sublime

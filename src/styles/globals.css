@@ -1,23 +1,134 @@
+/* @font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono[wght].ttf');
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Italic[wght].ttf');
+  font-style: italic;
+  font-display: swap;
+} */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat+Alternates&family=Mulish&display=swap');
+:root {
+  --stars: 100px 200px #ffeb3b, 200px 250px #ff9800, 200px 500px #00bcd4,
+    300px 300px #009688, 550px 150px #00bcd4, 550px 300px #2196f3,
+    350px 500px #fff, 1750px 150px #00bcd4, 1000px 400px #673ab7,
+    650px 450px #03a9f4, 1200px 50px #ff5722, 1100px 450px #673ab7,
+    950px 50px #00bcd4, 1100px 500px #03a9f4, 850px 400px #ff9800,
+    850px 300px #f44336, 1200px 100px #ff9800, 900px 300px #cddc39,
+    1150px 400px #f44336, 1650px 900px #00bcd4, 650px 600px #ff5722,
+    350px 600px #009688, 600px 650px #e91e63, 150px 750px #00bcd4,
+    1750px 450px #ff5722, 250px 800px #00bcd4, 1800px 1150px #ff9800,
+    450px 1450px #ff5722, 1150px 800px #00bcd4, 100px 700px #3f51b5,
+    350px 650px #ffeb3b, 250px 600px #ff5722, 1850px 700px #cddc39,
+    1650px 600px #ffeb3b, 450px 1050px #673ab7, 1550px 500px #f44336,
+    150px 1400px #8bc34a, 800px 800px #9c27b0, 1250px 1950px #9c27b0,
+    100px 1700px #8bc34a, 1150px 1350px #e91e63, 1700px 50px #fff,
+    1750px 500px #f44336, 300px 1100px #cddc39, 350px 1650px #009688,
+    1700px 1200px #f44336, 450px 800px #ff5722, 2000px 500px #8bc34a,
+    350px 1600px #f44336, 1350px 1350px #673ab7, 1100px 1750px #3f51b5,
+    150px 950px #ffeb3b, 1600px 1700px #2196f3, 400px 1000px #ff9800,
+    650px 1050px #4caf50, 2000px 1650px #00bcd4, 1100px 700px #9c27b0,
+    1350px 600px #f44336, 600px 1900px #cddc39, 1500px 600px #9e9e9e,
+    20px 1350px #8bc34a, 850px 1800px #e91e63, 450px 1150px #2196f3,
+    50px 700px #ff5722, 100px 1400px #f44336, 1000px 1700px #9c27b0,
+    250px 600px #ff5722, 1200px 850px #cddc39, 1750px 20px #673ab7,
+    100px 1550px #ffeb3b, 1200px 1650px #3f51b5, 1500px 700px #2196f3,
+    1800px 600px #03a9f4, 650px 800px #00bcd4, 700px 600px #00bcd4,
+    1100px 1350px #f44336, 900px 550px #ff5722, 1600px 800px #2196f3,
+    1000px 1100px #f44336, 1650px 1350px #ff5722, 750px 1050px #ffc107,
+    1750px 800px #cddc39, 600px 1650px #f44336, 150px 1550px #673ab7,
+    250px 1800px #fff, 1100px 1700px #ffc107, 800px 1500px #3f51b5,
+    1100px 1200px #ff5722, 1450px 1600px #cddc39, 150px 1400px #fff,
+    1200px 1450px #03a9f4, 1800px 1050px #fff, 1250px 1300px #cddc39,
+    1000px 1000px #4caf50, 300px 700px #4caf50, 100px 1250px #9c27b0,
+    700px 1750px #00bcd4, 1950px 250px #fff, 1550px 700px #f44336;
 }
+
+.stars-one {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  box-shadow: var(--stars);
+  animation: starup 50s linear infinite;
+}
+
+.stars-two {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  box-shadow: var(--stars);
+  animation: starup 30s linear infinite;
+}
+
+.stars-three {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  box-shadow: var(--stars);
+  animation: starup 50s linear infinite;
+}
+
+.stars-four {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  box-shadow: var(--stars);
+  animation: starup 100s linear infinite;
+}
+
+@keyframes starup {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-100vh);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 @layer utilities {
-  @responsive {
-    .scrollbar-hidden {
-      scrollbar-width: none;
-    }
-    .scrollbar-hidden::-webkit-scrollbar {
+  .scrollbars-hidden {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
       display: none;
+
+      @media (min-width: 1024px) {
+        display: block;
+      }
     }
-    .clipHead {
-      clip-path: polygon(100% 0, 100% 97.5%, 50% 100%, 0 97.5%, 0 0);
+
+    @media (min-width: 1024px) {
+      scrollbar-width: auto;
     }
   }
-  .text-stroke {
-    text-stroke: 8px transparent;
+
+  .link-underline {
+    border-bottom-width: 0;
+    background-image: linear-gradient(transparent, transparent),
+      linear-gradient(to right, #ff8d22, #ff2600);
+    background-size: 0 3px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.25s ease-in-out;
+
+    &:hover {
+      background-size: 100% 3px;
+      background-position: 0 100%;
+    }
   }
 }

@@ -1,16 +1,12 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.fixAll.markdownlint": true
   },
-  "css.validate": true,
-  "[javascript]": {
-    "editor.formatOnSave": true
-  },
-  "eslint.options": {
-    "extensions": [".js", ".jsx", ".ts", ".tsx"]
-  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
   "eslint.validate": [
-    "javascript", 
+    "javascript",
     "typescript",
     "html",
     "vue",
@@ -22,12 +18,22 @@
     "typescript": "typescriptreact"
   },
   "diffEditor.wordWrap": "on",
-  "scss.validate": true,
+  "scss.validate": false,
   "editor.quickSuggestions": {
     "strings": true
   },
   "editor.autoClosingQuotes": "always",
-  "importCost.largePackageColor": "#ff1900",
-  "importCost.mediumPackageColor": "#fff200",
-  "importCost.smallPackageColor": "#00ffee"
+  "tailwindCSS.experimental.classRegex": [
+    "tw`([^`]*)", // tw`...`
+    "tw=\"([^\"]*)", // <div tw="..." />
+    "tw={\"([^\"}]*)", // <div tw={"..."} />
+    "tw\\.\\w+`([^`]*)", // tw.xxx`...`
+    "tw\\(.*?\\)`([^`]*)" // tw(Component)`...`
+  ],
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+  "window.autoDetectColorScheme": true,
+  "debug.console.fontFamily": "Jetbrains Mono"
 }

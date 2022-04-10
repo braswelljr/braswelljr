@@ -1,34 +1,63 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true
-  },
   "extends": [
+    "next/core-web-vitals",
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "parserOptions": {
+    "parser": "@typescript-eslint/parser",
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "prettier"
-  ],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "indent": ["warn", 2],
-    "react/prop-types": "off",
-    "no-unused-vars": "warn",
-    "react/display-name": "off",
     "react/react-in-jsx-scope": "off",
+    "react/no-unescaped-entities": "off",
+    "react/jsx-props-no-spreading": "off",
+    "max-len": "off",
+    "prefer-promise-reject-errors": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/role-supports-aria-props": "off",
+    "no-use-before-define": "off",
+    "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
+    "react/jsx-no-target-blank": "off",
+    "react/prop-types": "off",
+    "no-return-assign": "off",
+    "react/display-name": "off",
+    "global-require": "off",
+    "no-unused-vars": "off",
+    "no-plusplus": "off",
+    "prefer-const": "off",
+    "no-constant-condition": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-nested-ternary": "off",
+    "import/prefer-default-export": "off",
+    "no-multi-spaces": "warn",
+    "eslint-disable-next-line": "off",
+    "import/no-unresolved": "off",
+    "indent": ["warn", 2],
+    "no-empty-function": "off",
+    // typescript constraints
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-extra-semi": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    // next constraints
+    "@next/next/no-img-element": "off",
+    "@next/next/no-html-link-for-pages": "off",
     "prettier/prettier": [
-      "warn", {}, {
-      "usePrettierrc": true
+      "warn",
+      {},
+      {
+        "usePrettierrc": true
       }
     ]
   }

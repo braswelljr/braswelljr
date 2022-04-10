@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, RefObject } from 'react'
 import { useRect } from '@reach/rect'
 
-export const useTop = ref => {
-  let [top, setTop] = useState()
+// useTop hook - it is used to detect the top value of a given area or rect
+const useTop = (ref: RefObject<HTMLElement | null | undefined>) => {
+  let [top, setTop] = useState<number>(0)
   let rect = useRect(ref)
   let rectTop = rect ? rect.top : undefined
   useEffect(() => {
@@ -14,3 +15,5 @@ export const useTop = ref => {
   }, [rectTop, top])
   return top
 }
+
+export default useTop
