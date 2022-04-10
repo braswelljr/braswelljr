@@ -41,3 +41,7 @@ yarn.lock
 .idea
 .vscode
 .sublime
+
+# registered workers
+/public/sw.js
+/public/workbox-*.js
