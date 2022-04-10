@@ -21,7 +21,7 @@ module.exports = withPlugins(
   {
     reactStrictMode: true,
     images: {
-      domains: ['image.tmdb.org']
+      disableStaticImages: true
     },
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
       // clear cache
@@ -29,6 +29,22 @@ module.exports = withPlugins(
 
       // resolve path
       config.resolve.modules.push(path.resolve(`./`))
+
+      // file-loader config
+      config.module.rules.push({
+        test: /\.(jpe?g|png|svg|gif|ico|eot|ttf|woff|woff2|mp4|pdf|webp|txt)$/i,
+        issuer: /\.(jsx?|tsx?|mdx?)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              esModule: false,
+              publicPath: '/_next',
+              name: 'static/media/[name].[hash].[ext]'
+            }
+          }
+        ]
+      })
 
       return config
     }
