@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.4.3",
-    "@reach/alert": "^0.16.0",
+    "@reach/alert": "^0.17.0",
     "@reach/rect": "^0.16.0",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.3.1",
