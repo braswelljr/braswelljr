@@ -9,13 +9,15 @@ interface State {
   setLanguages: (params: any[]) => void
 }
 
-const useStore = zustand<State>(
-  devtools((set: SetState<State>) => ({
+const useStore = zustand(
+  devtools(<T extends State>(set: SetState<T>) => ({
     name: 'braswelljr',
     repositories: [],
-    setRepositories: (params: any[]) => set({ repositories: params }),
+    setRepositories: (params: any[]) =>
+      set(state => ({ ...state, repositories: params })),
     languages: [],
-    setLanguages: (params: any[]) => set({ languages: params })
+    setLanguages: (params: any[]) =>
+      set(state => ({ ...state, languages: params }))
   }))
 )
 

@@ -14,17 +14,27 @@ I like to work with the `Frontend` of most applications.
 
 I work with
 
-- JAVASCRIPT --> [ [React](https://reactjs.org/) / [Vue](https://vuejs.org/) / [Node.js](https://nodejs.org/) / [TypeScript](https://www.typescriptlang.org/) / [React Native](https://reactnative.dev/) ]
+- JAVASCRIPT
 
-- CSS --> [ [SASS-SCSS](https://sass-lang.com/) / [Tailwindcss](https://tailwindcss.com/) / [Bootstrap](https://getbootstrap.com/) ]
+  - [React](https://reactjs.org/) [ [React Native](https://reactnative.dev/) / [Next.js](https://nextjs.org/) ]
+  - [Vue](https://vuejs.org/) [ [Nuxt.js](https://nuxtjs.org/) ]
+  - [Node.js](https://nodejs.org/)
+  - [TypeScript](https://www.typescriptlang.org/)
 
-- UI / UX --> [ [FIGMA](https://www.figma.com/) / [ADOBE XD](https://www.adobe.com/products/xd.html) ]
+- CSS
+
+  - [PostCSS](https://postcss.org/)
+  - [SASS-SCSS](https://sass-lang.com/)
+  - [Tailwindcss](https://tailwindcss.com/)
+  - [Bootstrap](https://getbootstrap.com/)
+
+- UI / UX [ [FIGMA](https://www.figma.com/) / [ADOBE XD](https://www.adobe.com/products/xd.html) ]
 
 - PHP [ [Laravel](https://laravel.com/) ]
 
 - [GOLANG](https://go.dev/)
 
-- HTML
+- [HTML](https://www.w3.org/TR/html5/)
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">

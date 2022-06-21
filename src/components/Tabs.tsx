@@ -5,10 +5,12 @@ const Item = ({
   tab,
   isSelected,
   onClick,
-  itemClassName
+  itemClassName,
+  layoutId
 }: {
   tab: any
   isSelected: boolean
+  layoutId: string
   onClick: () => void
   itemClassName?: {
     container?: string
@@ -21,7 +23,7 @@ const Item = ({
     <li className="relative">
       {isSelected && (
         <motion.div
-          layoutId="highlight"
+          layoutId={layoutId}
           className={clsx('absolute inset-0', itemClassName?.container)}
         />
       )}
@@ -50,10 +52,12 @@ export default function Tabs({
   addFunction = () => {},
   className = '',
   direction = 'column',
-  itemClassName
+  itemClassName,
+  layoutId
 }: {
   tabs: any | any[]
   selected: any
+  layoutId: string
   onChange: (tab?: any, addFunction?: any) => void
   addFunction?: () => void
   className?: string
@@ -81,6 +85,7 @@ export default function Tabs({
         <Item
           key={tab}
           tab={Array.isArray(tabs) ? tab : tabs[tab]}
+          layoutId={layoutId}
           isSelected={selected === tab}
           onClick={() => {
             onChange(tab)

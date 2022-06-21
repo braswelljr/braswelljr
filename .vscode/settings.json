@@ -1,6 +1,7 @@
 {
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
+    "source.fixAll.prettier": true,
     "source.fixAll.markdownlint": true
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -35,5 +36,12 @@
     "typescriptreact": "javascript"
   },
   "window.autoDetectColorScheme": true,
-  "debug.console.fontFamily": "Jetbrains Mono"
+  "debug.console.fontFamily": "Jetbrains Mono",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false
 }

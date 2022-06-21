@@ -46,6 +46,7 @@ const AppLayout = ({ children }: { children: JSX.Element }) => {
             className={clsx('fixed top-4 right-4 z-10')}
             selected={setting}
             onChange={setSetting}
+            layoutId={'theme-settings'}
             itemClassName={{
               container: 'bg-neutral-900 dark:bg-neutral-500/60 rounded-full',
               item: 'p-2',
@@ -86,7 +87,7 @@ const AppLayout = ({ children }: { children: JSX.Element }) => {
               >
                 {page === path && (
                   <motion.div
-                    layoutId="highlight"
+                    layoutId="pageHighlight"
                     className={clsx(
                       'absolute inset-0 rounded-xl bg-neutral-900 dark:bg-neutral-500/60'
                     )}

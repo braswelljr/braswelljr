@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 
-// useInterval hook - sets reference to the previous value and returns a given value within a particular duration.
+/**
+ * useInterval hook - sets reference to the previous value and returns a given value within a particular duration.
+ */
 export default function useInterval(
   callback: () => void | HTMLElement | undefined | null,
   delay = 1000

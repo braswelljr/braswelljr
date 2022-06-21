@@ -11,4 +11,4 @@ format:
 	yarn run format
 
 clean:
-	rm -rf .next/ dist/
+	rm -rf .next/ dist/ public/sw.js public/sw.js.map public/workbox-*.js public/workbox-*.js.map yarn-error.log

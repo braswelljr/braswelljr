@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
 
+/**
+ * useWindowSize hook - is used to determine the with and height of a browser window.
+ * @returns width, height
+ */
 export default function useWindowSize() {
   const isClient = typeof window === 'object'
   const [windowSize, setWindowSize] = useState({

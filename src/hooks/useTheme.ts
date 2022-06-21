@@ -16,6 +16,11 @@ function update() {
   })
 }
 
+/**
+ * useTheme hook - to determine and switch theme
+ * @returns {string} setting (theme) - system | light | dark.
+ * @returns {Function} setSetting - used to set | update the theme
+ */
 export default function useTheme() {
   let [setting, setSetting] = useState('system')
   let initial = useRef(true)

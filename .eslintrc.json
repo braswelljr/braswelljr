@@ -42,11 +42,41 @@
     "no-multi-spaces": "warn",
     "eslint-disable-next-line": "off",
     "import/no-unresolved": "off",
-    "indent": ["warn", 2],
-    "no-empty-function": "off",
+    "indent": [
+      "warn",
+      2,
+      {
+        "SwitchCase": 1,
+        "MemberExpression": 1,
+        "ignoredNodes": [
+          "ConditionalExpression",
+          "flatTernaryExpressions",
+          "offsetTernaryExpressions"
+        ]
+      }
+    ],
+    "no-empty": [
+      "off",
+      {
+        "allowEmptyCatch": true,
+        "allowEmptyFunctions": true,
+        "allowEmptyReturn": true
+      }
+    ],
+    "no-extra-boolean-cast": "off",
+    // eslint bugged rules
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off",
     // typescript constraints
     "@typescript-eslint/no-use-before-define": ["error"],
-    "@typescript-eslint/no-unused-vars": ["warn"],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-extra-semi": "off",
     "@typescript-eslint/no-empty-function": "off",
@@ -57,7 +87,12 @@
       "warn",
       {},
       {
-        "usePrettierrc": true
+        "usePrettierrc": true,
+        "ignoreFiles": [
+          "**/node_modules/**",
+          "**/dist/**",
+          "**/public/**/workbox-*.{js,js.map}"
+        ]
       }
     ]
   }
