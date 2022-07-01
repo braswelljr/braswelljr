@@ -2,30 +2,29 @@ import { useState } from 'react'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
-import { IoIosPerson } from 'react-icons/io'
-import {
-  HiSun,
-  HiMoon,
-  HiDesktopComputer,
-  HiHome,
-  HiCode,
-  HiOutlineArchive
-} from 'react-icons/hi'
+import { HiSun, HiMoon, HiDesktopComputer } from 'react-icons/hi'
 import useTheme from '@/hooks/useTheme'
-import Tabs from '@/components/Tabs'
 import useIsomorphicLayoutEffect from '@/hooks/useIsomorphicLayout'
+import { nav } from '@/components/Nav'
 
 const AppLayout = ({ children }: { children: JSX.Element }) => {
-  const [setting, setSetting] = useTheme()
+  const [theme, setTheme] = useTheme()
   const [page, setPage] = useState('/')
   const router = useRouter()
 
   useIsomorphicLayoutEffect(() => {
-    window.addEventListener('load', () => {
-      if (router.pathname.split('/')[1] !== 'blog') {
-        setPage(router.pathname)
-      }
-    })
+    const routerTab = router.pathname.split('/')[1]
+      ? router.pathname.split('/')[1]
+      : '/'
+
+    if (routerTab) {
+      nav.forEach(({ path }) => {
+        let pathTab = path.split('/')[1] ? path.split('/')[1] : '/'
+        if (pathTab === routerTab) {
+          setPage(path)
+        }
+      })
+    }
   }, [router.pathname, page])
 
   return (
@@ -37,55 +36,51 @@ const AppLayout = ({ children }: { children: JSX.Element }) => {
         <div className="stars-three" />
         <div className="stars-four" />
         <div className={clsx('relative z-[1]')}>
-          <Tabs
-            tabs={{
+          {/* theme */}
+          <motion.ul
+            className={clsx(
+              'fixed right-2 top-2 z-10 flex items-center overflow-hidden md:right-4'
+            )}
+          >
+            {Object.entries({
               system: <HiDesktopComputer className={clsx('h-5 w-auto')} />,
               dark: <HiMoon className={clsx('h-5 w-auto')} />,
               light: <HiSun className={clsx('h-5 w-auto')} />
-            }}
-            className={clsx('fixed top-4 right-4 z-10')}
-            selected={setting}
-            onChange={setSetting}
-            layoutId={'theme-settings'}
-            itemClassName={{
-              container: 'bg-neutral-900 dark:bg-neutral-500/60 rounded-full',
-              item: 'p-2',
-              notSelected: ''
-            }}
-          />
+            }).map(([key, value]) => (
+              <motion.li key={key} className={clsx('relative rounded-3xl p-2')}>
+                {theme === key && (
+                  <motion.div
+                    layoutId={'theme-settings'}
+                    className={clsx(
+                      'absolute inset-0 rounded-full bg-neutral-900 dark:bg-neutral-500/60'
+                    )}
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => setTheme(key)}
+                  className={clsx(
+                    `relative z-10 flex w-full items-center space-x-2 transition-colors duration-300 focus:outline-none`,
+                    { 'text-white': theme === key }
+                  )}
+                >
+                  {value}
+                </button>
+              </motion.li>
+            ))}
+          </motion.ul>
+          {/* menu */}
           <motion.ul
-            layoutId="nav"
             className={clsx(
-              'fixed right-0 bottom-1/2 z-10 flex translate-y-1/2 flex-col items-center space-y-2 overflow-hidden md:right-4'
+              'fixed right-2 bottom-1/2 z-10 flex translate-y-1/2 flex-col items-center overflow-hidden md:right-4'
             )}
           >
-            {[
-              {
-                name: 'Home',
-                path: '/',
-                icon: <HiHome className={clsx('h-5 w-auto')} />
-              },
-              {
-                name: 'About',
-                path: '/about',
-                icon: <IoIosPerson className={clsx('h-5 w-auto')} />
-              },
-              {
-                name: 'Technical Skills',
-                path: '/technical-skills',
-                icon: <HiCode className={clsx('h-5 w-auto')} />
-              },
-              {
-                name: 'Projects',
-                path: '/projects',
-                icon: <HiOutlineArchive className={clsx('h-5 w-auto')} />
-              }
-            ].map(({ path, icon }) => (
+            {nav.map(navItem => (
               <motion.li
-                key={path}
+                key={navItem.path}
                 className={clsx('relative rounded-3xl p-2')}
               >
-                {page === path && (
+                {page === navItem.path && (
                   <motion.div
                     layoutId="pageHighlight"
                     className={clsx(
@@ -96,15 +91,15 @@ const AppLayout = ({ children }: { children: JSX.Element }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    setPage(path)
-                    router.push(path)
+                    setPage(navItem.path)
+                    router.push(navItem.path)
                   }}
                   className={clsx(
                     `relative z-10 flex w-full items-center space-x-2 transition-colors duration-300 focus:outline-none`,
-                    { 'text-white': page === path }
+                    { 'text-white': page === navItem.path }
                   )}
                 >
-                  {icon}
+                  {navItem.icon}
                 </button>
               </motion.li>
             ))}
