@@ -6,6 +6,8 @@ import { HiSun, HiMoon, HiDesktopComputer } from 'react-icons/hi'
 import useTheme from '@/hooks/useTheme'
 import useIsomorphicLayoutEffect from '@/hooks/useIsomorphicLayout'
 import { nav } from '@/components/Nav'
+import BubblesBackground from '@/components/backgrounds/bubbles'
+import LinkWithRef from '@/components/LinkWithRef'
 
 const AppLayout = ({ children }: { children: JSX.Element }) => {
   const [theme, setTheme] = useTheme()
@@ -29,46 +31,56 @@ const AppLayout = ({ children }: { children: JSX.Element }) => {
 
   return (
     <>
-      <main className="min-h-screen bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
+      <main className="min-h-screen bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-white">
         {/* background */}
-        <div className="stars-one" />
-        <div className="stars-two" />
-        <div className="stars-three" />
-        <div className="stars-four" />
+        <BubblesBackground />
         <div className={clsx('relative z-[1]')}>
           {/* theme */}
-          <motion.ul
-            className={clsx(
-              'fixed right-2 top-2 z-10 flex items-center overflow-hidden md:right-4'
-            )}
-          >
-            {Object.entries({
-              system: <HiDesktopComputer className={clsx('h-5 w-auto')} />,
-              dark: <HiMoon className={clsx('h-5 w-auto')} />,
-              light: <HiSun className={clsx('h-5 w-auto')} />
-            }).map(([key, value]) => (
-              <motion.li key={key} className={clsx('relative rounded-3xl p-2')}>
-                {theme === key && (
-                  <motion.div
-                    layoutId={'theme-settings'}
-                    className={clsx(
-                      'absolute inset-0 rounded-full bg-neutral-900 dark:bg-neutral-500/60'
-                    )}
-                  />
+          <div className="fixed right-2 top-2 z-10 flex items-center space-x-10">
+            {router.pathname !== '/blog' && (
+              <LinkWithRef
+                href={'/blog'}
+                className={clsx(
+                  'rounded-sm bg-neutral-800 px-2 py-1 text-xs font-bold uppercase text-neutral-100 dark:bg-cyan-600 md:text-sm'
                 )}
-                <button
-                  type="button"
-                  onClick={() => setTheme(key)}
-                  className={clsx(
-                    `relative z-10 flex w-full items-center space-x-2 transition-colors duration-300 focus:outline-none`,
-                    { 'text-white': theme === key }
-                  )}
+              >
+                Blog
+              </LinkWithRef>
+            )}
+            <motion.ul
+              className={clsx('flex items-center overflow-hidden md:right-4')}
+            >
+              {Object.entries({
+                system: <HiDesktopComputer className={clsx('h-5 w-auto')} />,
+                dark: <HiMoon className={clsx('h-5 w-auto')} />,
+                light: <HiSun className={clsx('h-5 w-auto')} />
+              }).map(([key, value]) => (
+                <motion.li
+                  key={key}
+                  className={clsx('relative rounded-3xl p-2')}
                 >
-                  {value}
-                </button>
-              </motion.li>
-            ))}
-          </motion.ul>
+                  {theme === key && (
+                    <motion.div
+                      layoutId={'theme-settings'}
+                      className={clsx(
+                        'absolute inset-0 rounded-full bg-neutral-900 dark:bg-neutral-500/60'
+                      )}
+                    />
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setTheme(key)}
+                    className={clsx(
+                      `relative z-10 flex w-full items-center space-x-2 transition-colors duration-300 focus:outline-none`,
+                      { 'text-white': theme === key }
+                    )}
+                  >
+                    {value}
+                  </button>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </div>
           {/* menu */}
           <motion.ul
             className={clsx(

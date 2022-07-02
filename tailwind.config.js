@@ -19,6 +19,20 @@ module.exports = {
         sans: ["'Jetbrains Mono'", ...defaultTheme.fontFamily.sans],
         mono: ["'Syne Tactile'", ...defaultTheme.fontFamily.mono]
       },
+      colors: {
+        brown: {
+          900: '#382519',
+          800: '#462e20',
+          700: '#63412c',
+          600: '#7f5439',
+          500: '#8d5d3f',
+          400: '#9b6646',
+          300: '#b37a56',
+          200: '#c09072',
+          100: '#caae9e',
+          50: '#d9bcab'
+        }
+      },
       backgroundImage: {},
       animation: {
         spin: 'spin 1s linear infinite'

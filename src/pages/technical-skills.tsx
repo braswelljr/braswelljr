@@ -7,13 +7,11 @@ import { pageTransitionVariant } from '@/components/framerVariants'
 import flattenArray from '@/utils/flattenArray'
 
 const TechnicalSkills = () => {
-  // const [languages, setLanguages] = useState<{ name: any; color: any }[]>([])
   const [languages, setLanguages] = useStore(
     state => [state.languages, state.setLanguages],
     shallow
   )
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _ = useSWR(
     [`https://api.github.com/graphql`, languages],
     url =>

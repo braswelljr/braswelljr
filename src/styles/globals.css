@@ -1,5 +1,5 @@
 @import 'fonts.css';
-/* @import 'backgrounds.css'; */
+@import 'backgrounds/bubbles.css';
 @import 'tailwindcss/base';
 
 @import 'tailwindcss/components';
