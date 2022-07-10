@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import { motion } from 'framer-motion'
+import { motion, LayoutGroup } from 'framer-motion'
 import { HiSun, HiMoon, HiDesktopComputer } from 'react-icons/hi'
 import useTheme from '@/hooks/useTheme'
 import useIsomorphicLayoutEffect from '@/hooks/useIsomorphicLayout'
@@ -47,75 +47,79 @@ const AppLayout = ({ children }: { children: JSX.Element }) => {
                 Blog
               </LinkWithRef>
             )}
+            <LayoutGroup>
+              <motion.ul
+                className={clsx('flex items-center overflow-hidden md:right-4')}
+              >
+                {Object.entries({
+                  system: <HiDesktopComputer className={clsx('h-5 w-auto')} />,
+                  dark: <HiMoon className={clsx('h-5 w-auto')} />,
+                  light: <HiSun className={clsx('h-5 w-auto')} />
+                }).map(([key, value]) => (
+                  <motion.li
+                    key={key}
+                    className={clsx('relative rounded-3xl p-2')}
+                  >
+                    {theme === key && (
+                      <motion.div
+                        layoutId={'theme-settings'}
+                        className={clsx(
+                          'absolute inset-0 rounded-full bg-neutral-900 dark:bg-neutral-500/60'
+                        )}
+                      />
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setTheme(key)}
+                      className={clsx(
+                        `relative z-10 flex w-full items-center space-x-2 transition-colors duration-300 focus:outline-none`,
+                        { 'text-white': theme === key }
+                      )}
+                    >
+                      {value}
+                    </button>
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </LayoutGroup>
+          </div>
+          {/* menu */}
+          <LayoutGroup>
             <motion.ul
-              className={clsx('flex items-center overflow-hidden md:right-4')}
+              className={clsx(
+                'fixed right-2 bottom-1/2 z-10 flex translate-y-1/2 flex-col items-center overflow-hidden md:right-4'
+              )}
             >
-              {Object.entries({
-                system: <HiDesktopComputer className={clsx('h-5 w-auto')} />,
-                dark: <HiMoon className={clsx('h-5 w-auto')} />,
-                light: <HiSun className={clsx('h-5 w-auto')} />
-              }).map(([key, value]) => (
+              {nav.map(navItem => (
                 <motion.li
-                  key={key}
+                  key={navItem.path}
                   className={clsx('relative rounded-3xl p-2')}
                 >
-                  {theme === key && (
+                  {page === navItem.path && (
                     <motion.div
-                      layoutId={'theme-settings'}
+                      layoutId="pageHighlight"
                       className={clsx(
-                        'absolute inset-0 rounded-full bg-neutral-900 dark:bg-neutral-500/60'
+                        'absolute inset-0 rounded-xl bg-neutral-900 dark:bg-neutral-500/60'
                       )}
                     />
                   )}
                   <button
                     type="button"
-                    onClick={() => setTheme(key)}
+                    onClick={() => {
+                      setPage(navItem.path)
+                      router.push(navItem.path)
+                    }}
                     className={clsx(
                       `relative z-10 flex w-full items-center space-x-2 transition-colors duration-300 focus:outline-none`,
-                      { 'text-white': theme === key }
+                      { 'text-white': page === navItem.path }
                     )}
                   >
-                    {value}
+                    {navItem.icon}
                   </button>
                 </motion.li>
               ))}
             </motion.ul>
-          </div>
-          {/* menu */}
-          <motion.ul
-            className={clsx(
-              'fixed right-2 bottom-1/2 z-10 flex translate-y-1/2 flex-col items-center overflow-hidden md:right-4'
-            )}
-          >
-            {nav.map(navItem => (
-              <motion.li
-                key={navItem.path}
-                className={clsx('relative rounded-3xl p-2')}
-              >
-                {page === navItem.path && (
-                  <motion.div
-                    layoutId="pageHighlight"
-                    className={clsx(
-                      'absolute inset-0 rounded-xl bg-neutral-900 dark:bg-neutral-500/60'
-                    )}
-                  />
-                )}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setPage(navItem.path)
-                    router.push(navItem.path)
-                  }}
-                  className={clsx(
-                    `relative z-10 flex w-full items-center space-x-2 transition-colors duration-300 focus:outline-none`,
-                    { 'text-white': page === navItem.path }
-                  )}
-                >
-                  {navItem.icon}
-                </button>
-              </motion.li>
-            ))}
-          </motion.ul>
+          </LayoutGroup>
           <motion.section className="pr-2">{children}</motion.section>
         </div>
       </main>

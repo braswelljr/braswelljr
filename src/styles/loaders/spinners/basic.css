@@ -1,0 +1,15 @@
+.spinner {
+  width: 56px; // -> change size for customization
+  height: 56px; // -> change size for customization
+  border-radius: 50%;
+  border: 9px solid; // -> change size for customization
+  border-color: #dbdcef; // -> change color for customization
+  border-right-color: #474bff; // -> change color for customization
+  animation: spinner-d3wgkg 1s infinite linear;
+}
+
+@keyframes spinner-d3wgkg {
+  to {
+    transform: rotate(1turn);
+  }
+}

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import useSWR from 'swr'
 import { pageTransitionVariant } from '@/components/framerVariants'
 import flattenArray from '@/utils/flattenArray'
+import { useEffect } from 'react'
 
 const TechnicalSkills = () => {
   const [languages, setLanguages] = useStore(

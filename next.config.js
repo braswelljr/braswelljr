@@ -4,6 +4,7 @@ const path = require('path')
 const withPlugins = require('next-compose-plugins')
 const withPWA = require('next-pwa')
 const runtimeCaching = require('next-pwa/cache')
+const { createLoader } = require('simple-functional-loader')
 
 module.exports = withPlugins(
   [
@@ -44,6 +45,17 @@ module.exports = withPlugins(
             }
           }
         ]
+      })
+
+      // Remove the 3px deadzone for drag gestures in Framer Motion
+      config.module.rules.push({
+        test: /framer-motion/,
+        use: createLoader(function (source) {
+          return source.replace(
+            /var isDistancePastThreshold = .*?$/m,
+            'var isDistancePastThreshold = true'
+          )
+        })
       })
 
       return config
