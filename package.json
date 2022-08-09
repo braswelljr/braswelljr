@@ -23,7 +23,7 @@
     "clsx": "^1.2.1",
     "cssnano": "^5.1.12",
     "file-loader": "^6.2.0",
-    "framer-motion": "^6.4.3",
+    "framer-motion": "^7.0.0",
     "match-sorter": "^6.3.1",
     "next": "^12.2.2",
     "next-compose-plugins": "^2.2.1",
