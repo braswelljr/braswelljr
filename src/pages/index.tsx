@@ -92,7 +92,7 @@ const Index = () => {
                 },
                 {
                   name: 'Twitter',
-                  url: 'https://twitter.com/brakez_ken',
+                  url: 'https://twitter.com/braswell_jnr',
                   icon: <FaTwitter className={clsx('h-8 w-auto md:h-10')} />
                 },
                 {
