@@ -18,9 +18,7 @@ export default class Document extends NextDocument {
         <Head>
           <link rel="manifest" href="/manifest.json" />
           <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-          <link href="/icons/icon192.png" rel="icon" type="image/png" />
-          <link href="/icons/icon512.png" rel="icon" type="image/png" />
-          <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+          <link href="/icons/icon.png" rel="icon" type="image/png" />
           <meta name="theme-color" content="#317EFB" />
 
           <meta
@@ -48,11 +46,11 @@ export default class Document extends NextDocument {
           <meta name="theme-color" content="#000000" />
 
           <meta name="twitter:card" content="summary" />
-          <meta name="twitter:url" content="https://twitter.com/brakez_ken" />
-          <meta name="twitter:title" content="GLab" />
+          <meta name="twitter:url" content="https://twitter.com/braswell_jnr" />
+          <meta name="twitter:title" content="@braswell_jnr" />
           <meta
             name="twitter:description"
-            content="Open source GitLab CLI tool"
+            content="Portfolio of Braswell Kenneth Azu Junior"
           />
           <meta
             name="twitter:image"
@@ -63,7 +61,7 @@ export default class Document extends NextDocument {
           <meta property="og:title" content="Brasweljr" />
           <meta property="og:description" content="Brasweljr's Portfolio" />
           <meta property="og:site_name" content="rasweljr" />
-          <meta property="og:url" content="https://brasweljr.vercel.app" />
+          <meta property="og:url" content="https://brasweljr.engineer" />
           <meta
             property="og:image"
             content="https://github.com/braswelljr/glab-docs/raw/main/src/img/kenb.jpg"

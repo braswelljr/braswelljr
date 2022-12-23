@@ -5,19 +5,23 @@ module.exports = {
   experimental: {
     optimizeUniversalDefaults: true
   },
-  content: ['./src/**/*.{js,jsx,ts,tsx,vue,mdx}'],
+  content: ['./src/**/*.{js,jsx,ts,tsx,vue,mdx,md}'],
   darkMode: 'class',
   theme: {
     screens: {
       xxs: '320px',
       xs: '375px',
+      xsm: '425px',
       '3xl': '1920px',
+      '4xl': '2560px',
+      '5xl': '3840px',
       ...defaultTheme.screens
     },
     extend: {
       fontFamily: {
-        sans: ["'Jetbrains Mono'", ...defaultTheme.fontFamily.sans],
-        mono: ["'Syne Tactile'", ...defaultTheme.fontFamily.mono]
+        sans: ["'Sen'", ...defaultTheme.fontFamily.sans],
+        serif: ["'Lobster'", ...defaultTheme.fontFamily.serif],
+        mono: ["'Jetbrains Mono'", ...defaultTheme.fontFamily.mono]
       },
       colors: {
         brown: {

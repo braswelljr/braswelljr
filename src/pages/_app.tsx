@@ -1,29 +1,51 @@
 import '../styles/globals.css'
-import Head from 'next/head'
 import type { AppProps } from 'next/app'
-import AppLayout from '@/layout/AppLayout'
+import type { NextPage } from 'next'
+import { ReactElement, ReactNode } from 'react'
+import Router from 'next/router'
+import ProgressBar from '@badrap/bar-of-progress'
+import useTheme from '@/hooks/useTheme'
+import Layout from '@/layouts/Layout'
 
-const App = ({ Component, pageProps, router }: AppProps) => {
-  return (
-    <>
-      <Head>
-        <title>Braswell Jr</title>
-        <link rel="preload" as="font" href="/fonts/JetBrainsMono[wght].ttf" />
-        <link
-          rel="preload"
-          as="font"
-          href="/fonts/JetBrainsMono-Italic[wght].ttf"
-        />
-        <title key="title" className="">
-          {router.pathname.split('/')[1] === undefined
-            ? '@braswelljr'
-            : `@braswelljr - ${router.pathname.split('/')[1].toUpperCase()}`}
-        </title>
-      </Head>
-      <AppLayout>
-        <Component {...pageProps} />
-      </AppLayout>
-    </>
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+const progress = new ProgressBar({
+  size: 3,
+  color: '#ffbf00',
+  className: 'bar-of-progress',
+  delay: 100
+})
+
+// this fixes safari jumping to the bottom of the page
+// when closing the search modal using the `esc` key
+if (typeof window !== 'undefined') {
+  progress.start()
+  progress.finish()
+}
+
+Router.events.on('routeChangeStart', () => progress.start())
+Router.events.on('routeChangeComplete', () => progress.finish())
+Router.events.on('routeChangeError', () => progress.finish())
+
+const App = ({
+  Component,
+  pageProps: { ...pageProps }
+}: AppPropsWithLayout) => {
+  const getLayout = Component.getLayout ?? ((page: any) => page)
+  // theme to get user's preferred theme
+  // fix theme initalization
+  const _ = useTheme()
+
+  return getLayout(
+    <Layout className="bg-white text-neutral-900 dark:bg-neutral-800 dark:text-white">
+      <Component {...pageProps} />
+    </Layout>
   )
 }
 

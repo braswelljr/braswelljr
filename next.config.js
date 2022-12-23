@@ -39,6 +39,43 @@ module.exports = withPWA({
       ]
     })
 
+    // mdx config
+    // config.module.rules.push({
+    //   test: /\.mdx?$/,
+    //   use: [
+    //     {
+    //       loader: '@mdx-js/loader',
+    //       options: {
+    //         remarkPlugins: [
+    //           require('remark-slug'),
+    //           require('remark-autolink-headings'),
+    //           require('remark-code-titles'),
+    //           require('remark-emoji'),
+    //           require('remark-footnotes'),
+    //           require('remark-gfm'),
+    //           require('remark-math'),
+    //           require('remark-prism'),
+    //           require('remark-squeeze-paragraphs'),
+    //           require('remark-toc'),
+    //           require('remark-unwrap-images'),
+    //           require('remark-external-links'),
+    //           require('remark-attr'),
+    //           require('remark-emoji'),
+    //           require('remark-unwrap-images'),
+    //         ],
+    //         rehypePlugins: [
+    //           require('rehype-slug'),
+    //           require('rehype-autolink-headings'),
+    //           require('rehype-prism'),
+    //           require('rehype-raw'),
+    //           require('rehype-minify-whitespace'),
+    //           require('rehype-minify-attribute-whitespace'),
+    //         ]
+    //       }
+    //     }
+    //   ]
+    // })
+
     // load svg as react component
     config.module.rules.push({
       test: /\.svg$/,

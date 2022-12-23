@@ -1,13 +1,61 @@
 @font-face {
   font-family: 'JetBrains Mono';
-  src: url('/fonts/JetBrainsMono[wght].ttf');
+  src: url('/fonts/jetbrainsmono.ttf');
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'JetBrains Mono';
-  src: url('/fonts/JetBrainsMono-Italic[wght].ttf');
+  src: url('/fonts/jetbrainsmono-italic.ttf');
+  font-style: italic;
+  font-display: swap;
+}
+
+/* sen font */
+@font-face {
+  font-family: 'Sen';
+  src: url('/fonts/sen/sen.bold.otf');
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sen';
+  src: url('/fonts/sen/sen.regular.otf');
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sen';
+  src: url('/fonts/sen/sen.extrabold.otf');
+  font-style: normal;
+  font-display: swap;
+}
+
+/* lobster */
+@font-face {
+  font-family: 'Lobster';
+  src: url('/fonts/lobster/lobster-regular.ttf');
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lobster';
+  src: url('/fonts/lobster/lobster-bold.ttf');
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lobster';
+  src: url('/fonts/lobster/lobster-italic.ttf');
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lobster';
+  src: url('/fonts/lobster/lobster-boldItalic.ttf');
   font-style: italic;
   font-display: swap;
 }
