@@ -12,7 +12,7 @@ export default function Layout({
   return (
     <div className={clsx(className, 'relative')}>
       <img
-        src={require('@/img/background.png')}
+        src={require('@/assets/backgrounds/beams-2.png')}
         alt="Background parttern"
         className="absolute inset-0 h-full w-full"
       />

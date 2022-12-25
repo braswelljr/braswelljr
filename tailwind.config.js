@@ -50,6 +50,13 @@ module.exports = {
             transform: 'rotate(360deg)'
           }
         }
+      },
+      transitionProperty: {
+        height: 'height',
+        width: 'width',
+        spacing: 'margin, padding',
+        maxHeight: 'max-height',
+        maxWidth: 'max-width'
       }
     }
   },
@@ -58,6 +65,12 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/line-clamp')
+    require('@tailwindcss/line-clamp'),
+    // direct child selector variant
+    function ({ addVariant }) {
+      addVariant('child', '& > *')
+      addVariant('not-first', '& > *:not(:first-child)')
+      addVariant('not-last', '& > *:not(:last-child)')
+    }
   ]
 }

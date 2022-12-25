@@ -57,7 +57,7 @@ const Index = () => {
       <section className="space-y-4">
         <div className="md:h-72">
           <img
-            src={require('@/img/man-in-hoodie.png')}
+            src={require('@/assets/img/man-in-hoodie.png')}
             alt="boy in hoodie"
             className="mx-auto h-64 w-auto"
           />
@@ -73,7 +73,7 @@ const Index = () => {
                 <motion.div
                   key={id}
                   className={clsx(
-                    'bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-3 text-center text-2xl font-black text-transparent xxs:text-3xl xs:text-4xl sm:text-5xl'
+                    'bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-3 text-center text-2xl font-black text-transparent dark:to-[#ff7056] xxs:text-3xl xs:text-4xl sm:text-5xl'
                   )}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
