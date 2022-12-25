@@ -62,10 +62,11 @@ const Index = () => {
             className="mx-auto h-64 w-auto"
           />
         </div>
-        <div className="space-y-16">
-          <p className="text-center text-xl font-extralight sm:text-2xl">
-            I am <span className="">Braswell Kenneth Azu Jr.</span>
-          </p>
+        <div className="space-y-10 md:space-y-16">
+          <div className="text-center text-xl font-extralight sm:text-2xl">
+            <p className="">I am</p>{' '}
+            <p className="">Braswell Kenneth Azu Jr.</p>
+          </div>
           {roles.map(
             (role, id) =>
               r === id && (
