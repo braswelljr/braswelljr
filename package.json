@@ -34,6 +34,7 @@
     "clsx": "^1.2.1",
     "cmdk": "^0.1.21",
     "cssnano": "^5.1.14",
+    "date-fns": "^2.29.3",
     "feed": "^4.2.2",
     "file-loader": "^6.2.0",
     "framer-motion": "^8.0.1",

@@ -39,16 +39,22 @@ module.exports = {
       },
       backgroundImage: {},
       animation: {
-        spin: 'spin 1s linear infinite'
+        spin: 'spin 1s linear infinite',
+        'slide-up-fade': '100ms ease-in forwards slide-up-fade',
+        'slide-down-fade': '100ms ease-in forwards slide-down-fade'
       },
       keyframes: {
         spin: {
-          '0%': {
-            transform: 'rotate(0deg)'
-          },
-          '100%': {
-            transform: 'rotate(360deg)'
-          }
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' }
+        },
+        'slide-up-fade': {
+          '0%': { opacity: 0, transform: 'translateY(20px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' }
+        },
+        'slide-down-fade': {
+          '0%': { opacity: 1, transform: 'translateY(0)' },
+          '100%': { opacity: 0, transform: 'translateY(20px)' }
         }
       },
       transitionProperty: {

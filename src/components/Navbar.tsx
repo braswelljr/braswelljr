@@ -27,14 +27,14 @@ export const nav = [
     icon: IoIosPerson
   },
   {
-    name: 'Technical Skills',
-    path: '/technical-skills',
-    icon: HiCode
-  },
-  {
     name: 'Projects',
     path: '/projects',
     icon: HiOutlineArchive
+  },
+  {
+    name: 'Technical Skills',
+    path: '/technical-skills',
+    icon: HiCode
   }
 ]
 
@@ -61,7 +61,7 @@ export default function Navbar({ className }: { className?: string }) {
     <nav
       className={clsx(
         className,
-        'flex items-center justify-between py-2 px-4 max-lg:flex-wrap'
+        'flex items-center justify-between bg-inherit py-2 px-4 shadow max-lg:flex-wrap'
       )}
     >
       {/* Search Button */}

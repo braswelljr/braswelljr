@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import clsx from 'clsx'
 import Navbar from '@/components/Navbar'
+import ScrollTop from '@/components/ScrollTop'
 
 export default function Layout({
   className,
@@ -20,6 +21,7 @@ export default function Layout({
       <div className="relative inset-0 z-[1] min-h-screen w-full">
         {children}
       </div>
+      <ScrollTop className="fixed bottom-5 right-5 z-[3]" />
     </div>
   )
 }
