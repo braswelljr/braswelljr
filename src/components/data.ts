@@ -1,3 +1,6 @@
+/**
+ * career - List of careers
+ */
 export const career = [
   {
     role: 'Software Engineer',
@@ -30,3 +33,5 @@ export const career = [
     ]
   }
 ]
+
+export const projects = []

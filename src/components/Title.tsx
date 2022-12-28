@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 
 export default function Title({
   suffix,
@@ -8,7 +8,7 @@ export default function Title({
   suffix?: string
   children?: string | JSX.Element
 }) {
-  const router = useRouter()
+  // const router = useRouter()
   let title = children + (suffix ? ` - ${suffix}` : '')
 
   return (
@@ -21,11 +21,11 @@ export default function Title({
       />
       <meta name="glab" content="GitLab command line tool" />
       <meta name="keywords" content="Keywords" />
-      {router.pathname === '/' ? (
-        <title key="title">Braswell Jr.</title>
+      <title key="title">Braswell Jr.</title>
+      {/* {router.pathname === '/' ? (
       ) : (
         <title key="title">{title}</title>
-      )}
+      )} */}
       <meta key="twitter:title" name="twitter:title" content={title} />
       <meta key="og:title" property="og:title" content={title} />
     </Head>

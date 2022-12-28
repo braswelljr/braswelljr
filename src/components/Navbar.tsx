@@ -61,7 +61,7 @@ export default function Navbar({ className }: { className?: string }) {
     <nav
       className={clsx(
         className,
-        'flex items-center justify-between bg-inherit py-2 px-4 shadow max-lg:flex-wrap'
+        'flex items-center justify-between bg-inherit py-2 px-4 shadow backdrop-blur max-lg:flex-wrap'
       )}
     >
       {/* Search Button */}

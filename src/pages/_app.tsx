@@ -6,6 +6,7 @@ import Router from 'next/router'
 import ProgressBar from '@badrap/bar-of-progress'
 import useTheme from '@/hooks/useTheme'
 import Layout from '@/layouts/Layout'
+import Title from '@/components/Title'
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -43,9 +44,12 @@ const App = ({
   const _ = useTheme()
 
   return getLayout(
-    <Layout className="bg-white text-neutral-900 dark:bg-neutral-800 dark:text-white">
-      <Component {...pageProps} />
-    </Layout>
+    <>
+      <Title />
+      <Layout className="bg-white text-neutral-900 dark:bg-neutral-800 dark:text-white">
+        <Component {...pageProps} />
+      </Layout>
+    </>
   )
 }
 
