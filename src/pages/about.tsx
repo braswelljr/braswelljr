@@ -59,7 +59,7 @@ export default function About() {
             {/* buttons */}
             <div className="">
               <button
-                className="flex items-center justify-center space-x-3 rounded-sm bg-neutral-900 px-2 py-1.5 uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                className="flex items-center justify-center space-x-3 rounded-sm bg-neutral-900 px-2 py-1.5 uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                 onMouseEnter={() => downloadResumeRef.current?.play()}
                 onMouseLeave={() => downloadResumeRef.current?.stop()}
                 onClick={() => {

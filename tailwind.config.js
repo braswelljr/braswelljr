@@ -40,6 +40,7 @@ module.exports = {
       backgroundImage: {},
       animation: {
         spin: 'spin 1s linear infinite',
+        wiggle: 'wiggle 200ms ease-in-out infinite',
         'slide-up-fade': '100ms ease-in forwards slide-up-fade',
         'slide-down-fade': '100ms ease-in forwards slide-down-fade'
       },
@@ -47,6 +48,10 @@ module.exports = {
         spin: {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' }
+        },
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-15deg)' },
+          '50%': { transform: 'rotate(15deg)' }
         },
         'slide-up-fade': {
           '0%': { opacity: 0, transform: 'translateY(20px)' },

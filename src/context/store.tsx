@@ -18,6 +18,7 @@ export interface PinnedProject {
   name: string
   description: string
   url: string
+  homepageUrl: string
   createdAt: string
   updatedAt: string
   languages: {
@@ -37,6 +38,9 @@ export interface PinnedProject {
   stargazers: {
     totalCount: number
   }
+  watchers: {
+    totalCount: number
+  }
 }
 
 export interface GithubProject {
@@ -44,6 +48,7 @@ export interface GithubProject {
   name: string
   description: string
   html_url: string
+  url: string
   languages_url: string
   language: string
   forks_count: number
@@ -52,8 +57,8 @@ export interface GithubProject {
 }
 
 export interface XInterface {
-  projects: Project[]
-  setProjects: (projects: Project[]) => void
+  allProjects: GithubProject[]
+  setProjects: (projects: GithubProject[]) => void
   pinnedProjects: PinnedProject[]
   setPinnedProjects: (pinnedProjects: PinnedProject[]) => void
   projectsLoader: boolean
@@ -63,7 +68,7 @@ export interface XInterface {
 }
 
 export const XContext = createContext<XInterface>({
-  projects: [],
+  allProjects: [],
   setProjects: () => {},
   pinnedProjects: [],
   setPinnedProjects: () => {},
@@ -74,7 +79,7 @@ export const XContext = createContext<XInterface>({
 })
 
 export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
-  const [projects, setProjects] = useState<Project[]>([])
+  const [projects, setProjects] = useState<GithubProject[]>([])
   const [projectsLoader, setProjectsLoader] = useState<boolean>(false)
   const [pinnedProjects, setPinnedProjects] = useState<PinnedProject[]>([])
   const [pinnedProjectsLoader, setPinnedProjectsLoader] =
@@ -84,7 +89,7 @@ export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
   const [showToast, setShowToast] = useState<boolean>(false)
 
   // fetch projects from github api
-  const { data: project_data, error: project_error } = useSWR<Project[]>(
+  const { data: project_data, error: project_error } = useSWR<GithubProject[]>(
     [`https://api.github.com/users/braswelljr/repos`],
     (url: URL) => fetch(url).then(res => res.json()),
     {
@@ -113,6 +118,7 @@ export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
                     name
                     description
                     url
+                    homepageUrl
                     createdAt
                     updatedAt
                     languages (first: 5) {
@@ -126,6 +132,9 @@ export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
                       color
                     }
                     forks {
+                      totalCount
+                    }
+                    watchers {
                       totalCount
                     }
                     stargazers {
@@ -177,7 +186,7 @@ export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
 
   const memoizedValue = useMemo(
     () => ({
-      projects,
+      allProjects: projects,
       setProjects,
       pinnedProjects,
       setPinnedProjects,

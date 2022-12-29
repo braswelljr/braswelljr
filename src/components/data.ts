@@ -34,4 +34,23 @@ export const career = [
   }
 ]
 
-export const projects = []
+export const OTHER_PROJECTS = [
+  {
+    name: 'Yomyom',
+    homepageUrl: 'https://yomyom.vercel.app',
+    url: '',
+    description: 'Express Delivery and More'
+  },
+  {
+    name: 'Dup',
+    homepageUrl: 'https://dup.vercel.app',
+    url: '',
+    description: 'The Wallet for the Generation.'
+  },
+  {
+    name: 'UMaT HR',
+    homepageUrl: 'https://umat-hr.vercel.app',
+    url: '',
+    description: 'UMAT Human Resource Management System'
+  }
+]
