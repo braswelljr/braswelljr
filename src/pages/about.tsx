@@ -34,9 +34,8 @@ export default function About() {
                 </span>
                 <span className="absolute inset-x-0 bottom-0 h-[0.2rem] w-0 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] transition-width group-hover/solar-link:w-full dark:to-[#ff7056]" />
               </a>
-              . I have had multiple experences with firms and individuals with
-              which I would say would say benefited me and my experence. I
-              completed{' '}
+              . I have had multiple experiences with firms and individuals with
+              which I would say benefited me and my experence. I completed{' '}
               <a
                 href="https://umat.edu.gh"
                 target="_blank"

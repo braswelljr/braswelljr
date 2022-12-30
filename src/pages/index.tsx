@@ -8,7 +8,6 @@ const Index = () => {
   const [r, setR] = useState<number>(0)
   const roles: string[] = [
     'Software Engineer',
-    'Web Developer',
     'Web Designer',
     'UX / UI Designer'
   ]
