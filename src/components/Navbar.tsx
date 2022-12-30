@@ -11,7 +11,8 @@ import {
 } from 'react-icons/hi'
 import { IoIosPerson } from 'react-icons/io'
 import { TbCommand } from 'react-icons/tb'
-import { LayoutGroup, motion } from 'framer-motion'
+import { LayoutGroup, motion, AnimatePresence } from 'framer-motion'
+import { useKBar } from 'kbar'
 import LinkWithRef from '@/components/LinkWithRef'
 import useTheme from '@/hooks/useTheme'
 
@@ -39,9 +40,10 @@ export const nav = [
 ]
 
 export default function Navbar({ className }: { className?: string }) {
-  const [theme, setTheme] = useTheme()
+  const { theme, setTheme } = useTheme()
   const [tab, setTab] = useState(nav[0].path)
   const router = useRouter()
+  const { query } = useKBar()
 
   useEffect(() => {
     const routerTab = router.pathname.split('/')[1]
@@ -70,6 +72,9 @@ export default function Navbar({ className }: { className?: string }) {
         className={clsx(
           'flex h-8 w-8 items-center justify-center rounded-sm bg-neutral-900 text-neutral-100 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500 dark:text-white'
         )}
+        onClick={query.toggle}
+        aria-label="Search"
+        aria-controls="kbar"
       >
         <TbCommand className="h-4 w-auto" />
       </button>
@@ -83,24 +88,26 @@ export default function Navbar({ className }: { className?: string }) {
               href={item.path}
               className={clsx('relative pb-2')}
             >
-              {tab === item.path && (
-                <motion.div
-                  layoutId="menuLayoutIdPointer"
-                  className={clsx(
-                    'absolute inset-x-0 bottom-0 h-1 bg-neutral-900 dark:bg-white',
-                    idx === 0 && 'rounded-l-sm',
-                    idx === nav.length - 1 && 'rounded-r-sm'
-                  )}
-                />
-              )}
-              <motion.div
+              <AnimatePresence>
+                {tab === item.path && (
+                  <motion.div
+                    layoutId="menuLayoutIdPointer"
+                    className={clsx(
+                      'absolute inset-x-0 bottom-0 h-1 bg-neutral-900 dark:bg-white',
+                      idx === 0 && 'rounded-l-sm',
+                      idx === nav.length - 1 && 'rounded-r-sm'
+                    )}
+                  />
+                )}
+              </AnimatePresence>
+              <div
                 className={clsx(
                   'flex items-center space-x-2 font-light uppercase'
                 )}
               >
                 {/* <item.icon className="h-4 w-auto" /> */}
-                <motion.span>{item.name}</motion.span>
-              </motion.div>
+                <span>{item.name}</span>
+              </div>
             </LinkWithRef>
           ))}
         </ul>
@@ -122,17 +129,19 @@ export default function Navbar({ className }: { className?: string }) {
               className={clsx('relative block cursor-pointer p-1.5')}
               onClick={() => setTheme(key)}
             >
-              {key === theme && (
-                <motion.div
-                  layoutId="themeIdPointer"
-                  initial={false}
-                  className={clsx(
-                    'absolute inset-0 bg-neutral-800 dark:bg-neutral-500',
-                    i === 0 && 'rounded-l-sm',
-                    i === self.length - 1 && 'rounded-r-sm'
-                  )}
-                />
-              )}
+              <AnimatePresence>
+                {key === theme && (
+                  <motion.div
+                    layoutId="themeIdPointer"
+                    initial={false}
+                    className={clsx(
+                      'absolute inset-0 bg-neutral-800 dark:bg-neutral-500',
+                      i === 0 && 'rounded-l-sm',
+                      i === self.length - 1 && 'rounded-r-sm'
+                    )}
+                  />
+                )}
+              </AnimatePresence>
               <span
                 className={clsx('relative z-[1] block h-full w-full', {
                   'text-white': key === theme

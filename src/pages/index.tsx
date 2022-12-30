@@ -1,46 +1,17 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import {
-  FaFigma,
-  FaGithub,
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter
-} from 'react-icons/fa'
 import useInterval from '@/hooks/useInterval'
 import clsx from 'clsx'
-
-const socials = [
-  {
-    name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/braswell-kenneth-junior-azu-870827192/',
-    icon: FaLinkedin
-  },
-  {
-    name: 'GitHub',
-    url: 'https://github.com/braswelljr',
-    icon: FaGithub
-  },
-  {
-    name: 'Instagram',
-    url: 'https://www.instagram.com/braswell_jr/',
-    icon: FaInstagram
-  },
-  {
-    name: 'Twitter',
-    url: 'https://twitter.com/braswell_jnr',
-    icon: FaTwitter
-  },
-  {
-    name: 'Figma',
-    url: 'https://www.figma.com/@braswelljr',
-    icon: FaFigma
-  }
-]
+import { socials } from '@/components/data'
 
 const Index = () => {
   const [r, setR] = useState<number>(0)
-  const roles: string[] = ['Web Developer', 'Web Designer', 'UX / UI Designer']
+  const roles: string[] = [
+    'Software Engineer',
+    'Web Developer',
+    'Web Designer',
+    'UX / UI Designer'
+  ]
 
   useInterval(() => {
     if (roles.length > 0) {

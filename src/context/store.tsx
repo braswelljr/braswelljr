@@ -90,7 +90,7 @@ export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
 
   // fetch projects from github api
   const { data: project_data, error: project_error } = useSWR<GithubProject[]>(
-    [`https://api.github.com/users/braswelljr/repos`],
+    `https://api.github.com/users/braswelljr/repos`,
     (url: URL) => fetch(url).then(res => res.json()),
     {
       refreshInterval: 60000,
@@ -100,7 +100,7 @@ export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
 
   // fetch pinned projects from github api
   const { data: pinned_projects_data, error: pinned_projects_error } = useSWR(
-    [`https://api.github.com/graphql`],
+    `https://api.github.com/graphql`,
     (url: URL) =>
       fetch(url, {
         method: 'post',

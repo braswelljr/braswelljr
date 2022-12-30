@@ -35,4 +35,6 @@ const LinkWithRef = forwardRef<HTMLAnchorElement, LinkWithRefType>(
   )
 )
 
+LinkWithRef.displayName = 'LinkWithRef'
+
 export default LinkWithRef

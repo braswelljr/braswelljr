@@ -1,3 +1,39 @@
+import {
+  FaFigma,
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter
+} from 'react-icons/fa'
+
+export const socials = [
+  {
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/braswell-kenneth-junior-azu-870827192/',
+    icon: FaLinkedin
+  },
+  {
+    name: 'GitHub',
+    url: 'https://github.com/braswelljr',
+    icon: FaGithub
+  },
+  {
+    name: 'Instagram',
+    url: 'https://www.instagram.com/braswell_jr/',
+    icon: FaInstagram
+  },
+  {
+    name: 'Twitter',
+    url: 'https://twitter.com/braswell_jnr',
+    icon: FaTwitter
+  },
+  {
+    name: 'Figma',
+    url: 'https://www.figma.com/@braswelljr',
+    icon: FaFigma
+  }
+]
+
 /**
  * career - List of careers
  */

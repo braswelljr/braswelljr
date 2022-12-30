@@ -18,32 +18,32 @@ function update() {
 
 /**
  * useTheme hook - to determine and switch theme
- * @returns {string} setting (theme) - system | light | dark.
- * @returns {Function} setSetting - used to set | update the theme
+ * @returns {string} theme (theme) - system | light | dark.
+ * @returns {Function} setTheme - used to set | update the theme
  */
 export default function useTheme() {
-  let [setting, setSetting] = useState('system')
+  let [theme, setTheme] = useState('system')
   let initial = useRef(true)
 
   useIsomorphicLayoutEffect(() => {
     let theme: string = localStorage.theme
     if (theme === 'light' || theme === 'dark') {
-      setSetting(theme)
+      setTheme(theme)
     }
   }, [])
 
   useIsomorphicLayoutEffect(() => {
-    if (setting === 'system') {
+    if (theme === 'system') {
       localStorage.removeItem('theme')
-    } else if (setting === 'light' || setting === 'dark') {
-      localStorage.theme = setting
+    } else if (theme === 'light' || theme === 'dark') {
+      localStorage.theme = theme
     }
     if (initial.current) {
       initial.current = false
     } else {
       update()
     }
-  }, [setting])
+  }, [theme])
 
   useEffect(() => {
     let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
@@ -58,9 +58,9 @@ export default function useTheme() {
       update()
       let theme = localStorage.theme
       if (theme === 'light' || theme === 'dark') {
-        setSetting(theme)
+        setTheme(theme)
       } else {
-        setSetting('system')
+        setTheme('system')
       }
     }
     window.addEventListener('storage', onStorage)
@@ -76,5 +76,5 @@ export default function useTheme() {
     }
   }, [])
 
-  return [setting, setSetting] as const
+  return { theme, setTheme } as const
 }

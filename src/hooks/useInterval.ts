@@ -1,13 +1,16 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, ReactNode } from 'react'
 
 /**
  * useInterval hook - sets reference to the previous value and returns a given value within a particular duration.
+ * @param callback - callback function
+ * @param delay - delay in milliseconds
+ * @returns {void}
  */
 export default function useInterval(
-  callback: () => void | HTMLElement | undefined | null,
+  callback: () => ReactNode | void,
   delay = 1000
 ) {
-  const savedCallback = useRef<() => void | HTMLElement | undefined | null>()
+  const savedCallback = useRef<() => ReactNode | void>()
 
   // Remember the latest callback.
   useEffect(() => {
