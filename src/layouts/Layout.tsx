@@ -25,7 +25,7 @@ export default function Layout({
           <div className="relative inset-0 z-[1] min-h-screen w-full">
             {children}
           </div>
-          <ScrollTop className="fixed bottom-5 right-5 z-[3]" />
+          <ScrollTop className="fixed bottom-5 right-5 z-[5]" />
         </div>
       </CommandBar>
     </XProvider>

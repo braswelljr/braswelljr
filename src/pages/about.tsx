@@ -27,6 +27,7 @@ export default function About() {
               <a
                 href="https://solartaxi.co"
                 target="_blank"
+                rel="noopener"
                 className="group/solar-link relative pb-1"
               >
                 <span className="relative bg-gradient-to-l from-[#ff8d22]  to-[#ff2600] bg-clip-text text-transparent dark:to-[#ff7056]">
@@ -39,6 +40,7 @@ export default function About() {
               <a
                 href="https://umat.edu.gh"
                 target="_blank"
+                rel="noopener"
                 className="group/solar-link relative pb-1"
               >
                 <span className="relative bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-transparent dark:to-[#ff7056]">
@@ -62,12 +64,13 @@ export default function About() {
                 onMouseEnter={() => downloadResumeRef.current?.play()}
                 onMouseLeave={() => downloadResumeRef.current?.stop()}
                 onClick={() => {
-                  downloadResumeRef.current?.play()
-                  // on download finish
-                  setTimeout(() => {
-                    downloadResumeRef.current?.stop()
-                    setToast(true)
-                  }, 2000)
+                  downloadResumeRef.current?.play() // play animation
+                  window.open(
+                    '/documents/braswell-kenneth-azu-junior-cv.pdf',
+                    '_blank'
+                  )
+                  setToast(true) // for toast
+                  downloadResumeRef.current?.stop() // stop animation
                 }}
               >
                 <Lottie
