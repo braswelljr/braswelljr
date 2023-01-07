@@ -11,6 +11,7 @@ import {
 } from 'react-icons/hi'
 import { IoIosPerson } from 'react-icons/io'
 import { TbCommand } from 'react-icons/tb'
+import { MdArticle } from 'react-icons/md'
 import { LayoutGroup, motion, AnimatePresence } from 'framer-motion'
 import { useKBar } from 'kbar'
 import LinkWithRef from '@/components/LinkWithRef'
@@ -36,6 +37,11 @@ export const nav = [
     name: 'Technical Skills',
     path: '/technical-skills',
     icon: HiCode
+  },
+  {
+    name: 'Blog',
+    path: '/blog',
+    icon: MdArticle
   }
 ]
 

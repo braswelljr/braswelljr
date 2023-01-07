@@ -1,4 +1,5 @@
-import { ClassAttributes, ImgHTMLAttributes } from 'react'
+import { ReactNode, ClassAttributes, ImgHTMLAttributes } from 'react'
+import { MDXProvider } from '@mdx-js/react'
 
 const mdxComponents = {
   img: (
@@ -14,4 +15,6 @@ const mdxComponents = {
   )
 }
 
-export default mdxComponents
+export default function Index({ children }: { children?: ReactNode }) {
+  return <MDXProvider components={mdxComponents}>{children}</MDXProvider>
+}

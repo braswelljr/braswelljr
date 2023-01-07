@@ -1,17 +1,23 @@
-import clsx from 'clsx'
-
-const Index = () => {
+export default function Blog() {
   return (
-    <main className="mx-auto min-h-screen max-w-5xl py-4 px-8 md:px-12 lg:px-16">
-      <h2
-        className={clsx(
-          'mt-6 text-2xl font-bold uppercase first-letter:text-5xl first-letter:font-semibold'
-        )}
-      >
-        Blog
-      </h2>
-    </main>
+    <div className="pt-10 pb-10 max-lg:pt-28">
+      <div className="mx-auto max-w-xl px-4 text-gray-800 child:space-y-6 dark:text-neutral-100 sm:mt-14 sm:child:space-y-10">
+        <h1 className="">Blog</h1>
+      </div>
+    </div>
   )
 }
 
-export default Index
+Blog.layoutProps = {
+  meta: {
+    title: 'Blog',
+    description: 'All the latest Blog Posts.'
+  }
+}
+
+export async function getStaticProps() {
+  if (process.env.NODE_ENV === 'production') {
+  }
+
+  return { props: {} }
+}
