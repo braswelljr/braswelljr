@@ -33,7 +33,7 @@ export default function Layout({
               children
             )}
           </div>
-          <ScrollTop className="fixed bottom-5 right-5 z-[5]" />
+          <ScrollTop className="fixed bottom-5 right-5 z-10" />
         </div>
       </CommandBar>
     </XProvider>
