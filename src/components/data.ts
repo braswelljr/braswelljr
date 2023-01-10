@@ -72,6 +72,12 @@ export const career = [
 
 export const OTHER_PROJECTS = [
   {
+    name: 'TheseuxX',
+    homepageUrl: 'https://theseusx.vercel.app',
+    url: '',
+    description: 'Official Platform for the ThesesuX Real Estate Project.'
+  },
+  {
     name: 'Yomyom',
     homepageUrl: 'https://yomyom.vercel.app',
     url: '',
