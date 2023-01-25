@@ -10,7 +10,7 @@ I like to work with the `Frontend` of most applications.
 
 * 🐾 I’m looking to network and make friends here! <br>
 
-* ☕ Interest: Science, Math, Coffee, and Coding. <br>
+* ☕ Interest: Computer Science, Engineering, Designing and Gaming. <br>
 
 * :octocat: Hobbies: Sleeping, Reading, Gaming. <br><br>
 
