@@ -24,12 +24,12 @@ I like to work with the `Frontend` of most applications.
   
 <h3> <strong> Planning to Learn </strong></h3>
 <img src="https://skillicons.dev/icons?i=angular,rust" alt="skills planning to learn logos">
- 
+
+<div align="center">
 <br><br>
 <img src="https://github-readme-stats-godkingjay.vercel.app/api/top-langs/?username=braswelljr&theme=radical&langs_count=10&card_width=540&layout=compact" alt="Most used languages">
  
 <br><br>
 <img src="https://streak-stats.demolab.com?user=braswelljr&theme=radical" height="150" alt="streaks graph" />
-<div align="center">
 </div>
 
