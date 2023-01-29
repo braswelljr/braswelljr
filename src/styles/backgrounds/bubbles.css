@@ -15,8 +15,7 @@
   height: var(--bubble-radius);
   border-radius: 50%;
   opacity: 1;
-  animation: float-up var(--bubble-float-duration) var(--bubble-float-delay)
-    ease-in infinite;
+  animation: float-up var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;
 
   .dark & {
     opacity: 0.2;
@@ -32,8 +31,8 @@
   height: 100%;
   background: rgba(136, 246, 251, 0.3);
   border-radius: inherit;
-  animation: var(--bubble-sway-type) var(--bubble-sway-duration)
-    var(--bubble-sway-delay) ease-in-out alternate infinite;
+  animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay)
+    ease-in-out alternate infinite;
 }
 .bubble:nth-child(0) {
   --bubble-left-offset: 87vw;

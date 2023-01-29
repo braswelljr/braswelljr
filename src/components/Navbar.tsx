@@ -1,14 +1,7 @@
 import { useState, useEffect } from 'react'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
-import {
-  HiHome,
-  HiCode,
-  HiOutlineArchive,
-  HiDesktopComputer,
-  HiMoon,
-  HiSun
-} from 'react-icons/hi'
+import { usePathname } from 'next/navigation'
+import { HiHome, HiCode, HiOutlineArchive, HiDesktopComputer, HiMoon, HiSun } from 'react-icons/hi'
 import { IoIosPerson } from 'react-icons/io'
 import { TbCommand } from 'react-icons/tb'
 import { MdArticle } from 'react-icons/md'
@@ -48,13 +41,11 @@ export const nav = [
 export default function Navbar({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme()
   const [tab, setTab] = useState(nav[0].path)
-  const router = useRouter()
+  const pathname = usePathname()
   const { query } = useKBar()
 
   useEffect(() => {
-    const routerTab = router.pathname.split('/')[1]
-      ? router.pathname.split('/')[1]
-      : '/'
+    const routerTab = pathname?.split('/')[1] ? pathname?.split('/')[1] : '/'
     if (routerTab) {
       nav.forEach(({ path: href }) => {
         let hrefTab = href.split('/')[1] ? href.split('/')[1] : '/'
@@ -63,13 +54,13 @@ export default function Navbar({ className }: { className?: string }) {
         }
       })
     }
-  }, [router.pathname])
+  }, [pathname])
 
   return (
     <nav
       className={clsx(
         className,
-        'flex items-center justify-between bg-inherit py-2 px-4 shadow backdrop-blur max-lg:flex-wrap'
+        'fixed inset-x-0 top-0 z-[4] flex items-center justify-between bg-inherit py-2 px-4 shadow backdrop-blur max-lg:flex-wrap'
       )}
     >
       {/* Search Button */}
@@ -89,11 +80,7 @@ export default function Navbar({ className }: { className?: string }) {
       <LayoutGroup>
         <ul className="flex w-full items-center justify-center space-x-4 whitespace-nowrap max-lg:order-2 max-lg:mt-4 max-lg:grow max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto max-xsm:text-sm">
           {nav.map((item, idx) => (
-            <LinkWithRef
-              key={idx}
-              href={item.path}
-              className={clsx('relative pb-2')}
-            >
+            <LinkWithRef key={idx} href={item.path} className={clsx('relative pb-2')}>
               <AnimatePresence>
                 {tab === item.path && (
                   <motion.div
@@ -106,11 +93,7 @@ export default function Navbar({ className }: { className?: string }) {
                   />
                 )}
               </AnimatePresence>
-              <div
-                className={clsx(
-                  'flex items-center space-x-2 font-light uppercase'
-                )}
-              >
+              <div className={clsx('flex items-center space-x-2 font-light uppercase')}>
                 {/* <item.icon className="h-4 w-auto" /> */}
                 <span>{item.name}</span>
               </div>
@@ -120,11 +103,7 @@ export default function Navbar({ className }: { className?: string }) {
       </LayoutGroup>
 
       <LayoutGroup>
-        <ul
-          className={clsx(
-            'flex items-center justify-center space-x-2 max-lg:order-1'
-          )}
-        >
+        <ul className={clsx('flex items-center justify-center space-x-2 max-lg:order-1')}>
           {Object.entries({
             system: <HiDesktopComputer className={clsx('h-5 w-auto')} />,
             dark: <HiMoon className={clsx('h-5 w-auto')} />,

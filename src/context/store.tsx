@@ -1,13 +1,6 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-  useMemo
-} from 'react'
+import { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react'
 import useSWR from 'swr'
-import Toast from '@/components/Toast'
+import CommandBar from '@/components/CommandBar'
 
 export interface Project {
   name: string
@@ -82,11 +75,7 @@ export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
   const [projects, setProjects] = useState<GithubProject[]>([])
   const [projectsLoader, setProjectsLoader] = useState<boolean>(false)
   const [pinnedProjects, setPinnedProjects] = useState<PinnedProject[]>([])
-  const [pinnedProjectsLoader, setPinnedProjectsLoader] =
-    useState<boolean>(false)
-
-  // show toast
-  const [showToast, setShowToast] = useState<boolean>(false)
+  const [pinnedProjectsLoader, setPinnedProjectsLoader] = useState<boolean>(false)
 
   // fetch projects from github api
   const { data: project_data, error: project_error } = useSWR<GithubProject[]>(
@@ -163,8 +152,7 @@ export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
 
   useEffect(() => {
     // set loading state
-    if (!pinned_projects_data && !pinned_projects_error)
-      setPinnedProjectsLoader(true)
+    if (!pinned_projects_data && !pinned_projects_error) setPinnedProjectsLoader(true)
     else setPinnedProjectsLoader(false)
     // set pinned projects
   }, [pinned_projects_data, pinned_projects_error])
@@ -179,7 +167,6 @@ export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
     ) {
       setPinnedProjects(pinned_projects_data.data.user.pinnedItems.nodes)
     } else if (pinned_projects_data && pinned_projects_data.errors) {
-      setShowToast(true)
       console.log(pinned_projects_data.errors[0])
     }
   }, [pinned_projects_data])
@@ -200,16 +187,7 @@ export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
 
   return (
     <XContext.Provider value={memoizedValue}>
-      {children}
-      {pinned_projects_data && pinned_projects_data.errors && (
-        <Toast
-          title={pinned_projects_data.errors[0].message}
-          description={pinned_projects_data.errors[0].message}
-          type="error"
-          showToast={showToast}
-          setShowToast={setShowToast}
-        />
-      )}
+      <CommandBar>{children}</CommandBar>
     </XContext.Provider>
   )
 }

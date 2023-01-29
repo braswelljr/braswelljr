@@ -4,8 +4,7 @@ import useIsomorphicLayoutEffect from '@/hooks/useIsomorphicLayout'
 function update() {
   if (
     localStorage.theme === 'dark' ||
-    (!('theme' in localStorage) &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches)
+    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
   ) {
     document.documentElement.classList.add('dark', 'changing-theme')
   } else {

@@ -8,26 +8,24 @@ const withPWA = require('next-pwa')({
   disable: process.env.NODE_ENV === 'development'
 })
 
-const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-    // If you use `MDXProvider`, uncomment the following line.
-    providerImportSource: '@mdx-js/react'
-  }
-})
+// const withMDX = require('@next/mdx')({
+//   extension: /\.mdx?$/,
+//   options: {
+//     remarkPlugins: [],
+//     rehypePlugins: [],
+//     // If you use `MDXProvider`, uncomment the following line.
+//     providerImportSource: '@mdx-js/react'
+//   }
+// })
 
-const withALL = (nextConfig = {}) => withPWA(withMDX({ ...nextConfig }))
+const withALL = (nextConfig = {}) => withPWA({ ...nextConfig })
 
 /** @type {import('next').NextConfig} */
 module.exports = withALL({
   swcMinify: true,
   reactStrictMode: true,
-  images: {
-    disableStaticImages: true
-  },
-  experimental: { esmExternals: true },
+  images: { disableStaticImages: true },
+  experimental: { esmExternals: true, appDir: true },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // clear cache

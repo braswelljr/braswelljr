@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useRef } from 'react'
 import { BiGitRepoForked } from 'react-icons/bi'
 import { BsFolder, BsStar } from 'react-icons/bs'
@@ -20,16 +22,13 @@ export default function Projects() {
   const copyLinkIconRef = useRef<LottieRefCurrentProps>(null)
   // pins
   let limitPins = viewMorePins ? pinnedProjects.length : 2
-  const PINNED_PROJECTS = Array.isArray(pinnedProjects)
-    ? pinnedProjects.slice(0, limitPins)
-    : []
+  const PINNED_PROJECTS = Array.isArray(pinnedProjects) ? pinnedProjects.slice(0, limitPins) : []
 
   // projects
   let limitProjects = viewMoreProjects ? allProjects.length : 4
   // remove pinned projects from all projects
   const filteredProjects = allProjects.filter(
-    project =>
-      !pinnedProjects.find(pinnedProject => pinnedProject.name === project.name)
+    project => !pinnedProjects.find(pinnedProject => pinnedProject.name === project.name)
   )
   const ALL_PROJECTS = Array.isArray(filteredProjects)
     ? filteredProjects.slice(0, limitProjects)
@@ -44,13 +43,12 @@ export default function Projects() {
         {/* Write up */}
         <div className="space-y-6 text-neutral-600 dark:text-neutral-400">
           <p className="">
-            I'm obsessed with building things that are useful and fun to use. I
-            am an{' '}
+            I'm obsessed with building things that are useful and fun to use. I am an{' '}
             <span className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text px-3 uppercase text-transparent dark:to-[#ff7056]">
               enthusiast
             </span>{' '}
-            and I love to contribute to open source. I am also a hobbyist and I
-            love to build things that are fun to use.
+            and I love to contribute to open source. I am also a hobbyist and I love to build things
+            that are fun to use.
           </p>
           <p>
             {' '}
@@ -137,9 +135,7 @@ export default function Projects() {
                           </div>
                           {/* body */}
                           <div className="min-h-[4rem] text-sm font-thin">
-                            <p className="line-clamp-3">
-                              {project.description}
-                            </p>
+                            <p className="line-clamp-3">{project.description}</p>
                           </div>
                         </div>
                         {/* footer */}
@@ -149,8 +145,7 @@ export default function Projects() {
                             <span
                               className="h-3 w-3 rounded-full"
                               style={{
-                                backgroundColor:
-                                  project.primaryLanguage.color ?? `#ef5453`
+                                backgroundColor: project.primaryLanguage.color ?? `#ef5453`
                               }}
                             />
                             <span>{project.primaryLanguage.name}</span>
@@ -159,19 +154,13 @@ export default function Projects() {
                           <span>
                             <a
                               href={
-                                isFalsy(project.homepageUrl)
-                                  ? project.url
-                                  : project.homepageUrl
+                                isFalsy(project.homepageUrl) ? project.url : project.homepageUrl
                               }
                               target="_blank"
                               rel="noopener"
                               className="relative flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                              onMouseEnter={() =>
-                                copyLinkIconRef.current?.play()
-                              }
-                              onMouseLeave={() =>
-                                copyLinkIconRef.current?.stop()
-                              }
+                              onMouseEnter={() => copyLinkIconRef.current?.play()}
+                              onMouseLeave={() => copyLinkIconRef.current?.stop()}
                             >
                               <Lottie
                                 lottieRef={copyLinkIconRef}
@@ -287,20 +276,12 @@ export default function Projects() {
                           {/* link */}
                           <span>
                             <a
-                              href={
-                                isFalsy(project.html_url)
-                                  ? project.url
-                                  : project.html_url
-                              }
+                              href={isFalsy(project.html_url) ? project.url : project.html_url}
                               target="_blank"
                               rel="noopener"
                               className="relative flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                              onMouseEnter={() =>
-                                copyLinkIconRef.current?.play()
-                              }
-                              onMouseLeave={() =>
-                                copyLinkIconRef.current?.stop()
-                              }
+                              onMouseEnter={() => copyLinkIconRef.current?.play()}
+                              onMouseLeave={() => copyLinkIconRef.current?.stop()}
                             >
                               <Lottie
                                 lottieRef={copyLinkIconRef}
@@ -379,11 +360,7 @@ export default function Projects() {
                       {/* link */}
                       <span>
                         <a
-                          href={
-                            isFalsy(project.homepageUrl)
-                              ? project.url
-                              : project.homepageUrl
-                          }
+                          href={isFalsy(project.homepageUrl) ? project.url : project.homepageUrl}
                           target="_blank"
                           rel="noopener"
                           className="relative flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"

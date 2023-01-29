@@ -7,17 +7,3 @@ export default function Blog() {
     </div>
   )
 }
-
-Blog.layoutProps = {
-  meta: {
-    title: 'Blog',
-    description: 'All the latest Blog Posts.'
-  }
-}
-
-export async function getStaticProps() {
-  if (process.env.NODE_ENV === 'production') {
-  }
-
-  return { props: {} }
-}

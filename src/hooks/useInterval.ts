@@ -6,10 +6,7 @@ import { useEffect, useRef, ReactNode } from 'react'
  * @param delay - delay in milliseconds
  * @returns {void}
  */
-export default function useInterval(
-  callback: () => ReactNode | void,
-  delay = 1000
-) {
+export default function useInterval(callback: () => ReactNode | void, delay = 1000) {
   const savedCallback = useRef<() => ReactNode | void>()
 
   // Remember the latest callback.
@@ -21,8 +18,7 @@ export default function useInterval(
   useEffect(() => {
     let id = setInterval(
       () =>
-        typeof savedCallback.current === 'function' &&
-        typeof savedCallback.current !== 'undefined'
+        typeof savedCallback.current === 'function' && typeof savedCallback.current !== 'undefined'
           ? savedCallback.current()
           : savedCallback.current,
       delay

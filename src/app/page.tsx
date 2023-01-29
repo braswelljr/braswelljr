@@ -1,16 +1,14 @@
+'use client'
+
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import useInterval from '@/hooks/useInterval'
 import clsx from 'clsx'
 import { socials } from '@/components/data'
 
-const Index = () => {
+export default function Index() {
   const [r, setR] = useState<number>(0)
-  const roles: string[] = [
-    'Software Engineer',
-    'Web Designer',
-    'UX / UI Designer'
-  ]
+  const roles: string[] = ['Software Engineer', 'Web Designer', 'UX / UI Designer']
 
   useInterval(() => {
     if (roles.length > 0) {
@@ -34,8 +32,7 @@ const Index = () => {
         </div>
         <div className="space-y-10 md:space-y-16">
           <div className="text-center text-xl font-extralight sm:text-2xl">
-            <p className="">I am</p>{' '}
-            <p className="">Braswell Kenneth Azu Jr.</p>
+            <p className="">I am</p> <p className="">Braswell Kenneth Azu Jr.</p>
           </div>
           {roles.map(
             (role, id) =>
@@ -63,12 +60,7 @@ const Index = () => {
           <div className="">
             <div className="mx-auto flex items-center justify-center space-x-3 xs:space-x-6">
               {socials.map(item => (
-                <a
-                  key={item.name}
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener"
-                >
+                <a key={item.name} href={item.url} target="_blank" rel="noopener">
                   <item.icon className="h-6 w-auto md:h-9" />
                 </a>
               ))}
@@ -79,5 +71,3 @@ const Index = () => {
     </motion.main>
   )
 }
-
-export default Index

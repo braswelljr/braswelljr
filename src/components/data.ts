@@ -1,10 +1,4 @@
-import {
-  FaFigma,
-  FaGithub,
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter
-} from 'react-icons/fa'
+import { FaFigma, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa'
 
 export const socials = [
   {

@@ -72,8 +72,7 @@ function code(language, contents, { file = null, indent = 8 } = {}) {
     js: data => `// ${data}`,
     css: data => `/* ${data} */`,
     html: data => `<!-- ${data} -->`,
-    php: data =>
-      file && file.endsWith('.blade.php') ? `{{-- ${data} --}}` : `// ${data}`
+    php: data => (file && file.endsWith('.blade.php') ? `{{-- ${data} --}}` : `// ${data}`)
   }
 
   return [

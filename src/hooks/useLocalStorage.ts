@@ -30,9 +30,7 @@ export default function useLocalStorage(
     const syncState = (event: StorageEvent) => {
       let storageValue = localStorage.getItem(localStorageKey)
       if (event.key === localStorageKey) {
-        setLocalStorageValue(
-          storageValue ? JSON.parse(storageValue) : initialValue
-        )
+        setLocalStorageValue(storageValue ? JSON.parse(storageValue) : initialValue)
       }
     }
     window.addEventListener('storage', syncState)

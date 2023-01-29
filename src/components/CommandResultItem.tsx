@@ -35,9 +35,7 @@ const ResultItem = forwardRef<HTMLDivElement, CommandResultItemProps>(
       if (!currentRootActionId) return action.ancestors
 
       // Otherwise, return all ancestors after the currentRootActionId
-      const index = action.ancestors.findIndex(
-        ancestor => ancestor.id === currentRootActionId
-      )
+      const index = action.ancestors.findIndex(ancestor => ancestor.id === currentRootActionId)
       // +1 removes the currentRootAction; e.g.
       // if we are on the "Set theme" parent action,
       // the UI should not display "Set theme… > Dark"

@@ -23,11 +23,7 @@ const useStorage = (): {
     return isBrowser ? JSON.parse(window[storageType(type)][key]) : null
   }
 
-  const setStorageItem = (
-    key: string,
-    value: any,
-    type?: StorageType
-  ): void => {
+  const setStorageItem = (key: string, value: any, type?: StorageType): void => {
     if (isBrowser) {
       window[storageType(type)].setStorageItem(key, JSON.stringify(value))
       console.log(`${key} set to ${value} to ${storageType(type)}`)

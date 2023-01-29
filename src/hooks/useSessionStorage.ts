@@ -33,12 +33,7 @@ export default function useSessionStorage(
     // set value in storage
     if (sessionValue !== options.initialValue)
       storage.setItem(sessionKey, JSON.stringify(sessionValue))
-  }, [
-    sessionValue,
-    sessionKey,
-    options.keepOnWindowClosed,
-    options.initialValue
-  ])
+  }, [sessionValue, sessionKey, options.keepOnWindowClosed, options.initialValue])
 
   useEffect(() => {
     // sync state with storage events
@@ -50,9 +45,7 @@ export default function useSessionStorage(
       // if event is for the provided key
       if (event.key === sessionKey) {
         // set value
-        setSessionValue(
-          storageValue ? JSON.parse(storageValue) : options.initialValue
-        )
+        setSessionValue(storageValue ? JSON.parse(storageValue) : options.initialValue)
       }
     }
     window.addEventListener('storage', syncState)

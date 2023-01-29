@@ -1,12 +1,6 @@
-import { ReactNode, useRef, useState } from 'react'
-import { useRouter } from 'next/router'
-import {
-  KBarAnimator,
-  KBarPortal,
-  KBarPositioner,
-  KBarProvider,
-  KBarSearch
-} from 'kbar'
+import { ReactNode, useRef } from 'react'
+// import { useRouter } from 'next/router'
+import { KBarAnimator, KBarPortal, KBarPositioner, KBarProvider, KBarSearch } from 'kbar'
 import Lottie, { LottieRefCurrentProps } from 'lottie-react'
 import copyLinkIcon from '@/assets/icons/copy-link.json'
 import sourceIcon from '@/assets/icons/source.json'
@@ -15,7 +9,6 @@ import homeIcon from '@/assets/icons/home.json'
 import projectsIcon from '@/assets/icons/projects.json'
 import moonstarsIcon from '@/assets/icons/moonstars.json'
 import suncloudIcon from '@/assets/icons/sunclouds.json'
-import Toast from '@/components/Toast'
 import CommandRenderResults from '@/components/CommandRenderResults'
 import useTheme from '@/hooks/useTheme'
 
@@ -27,8 +20,7 @@ const CommandBar = ({ children }: { children?: ReactNode }) => {
   const projectsRef = useRef<LottieRefCurrentProps>(null)
   const moonstarsRef = useRef<LottieRefCurrentProps>(null)
   const suncloudRef = useRef<LottieRefCurrentProps>(null)
-  const router = useRouter()
-  const [showToast, setShowToast] = useState(false) // show toast when link is copied
+  // const router = useRouter()
   const iconSize = { width: 20, height: 20 }
 
   // theme
@@ -41,10 +33,7 @@ const CommandBar = ({ children }: { children?: ReactNode }) => {
       shortcut: ['l'],
       keywords: 'copy-link',
       section: 'General',
-      perform: () => {
-        navigator.clipboard.writeText(window.location.href)
-        setShowToast(true)
-      },
+      perform: () => navigator.clipboard.writeText(window.location.href),
       icon: (
         <Lottie
           lottieRef={copyLinkRef}
@@ -61,8 +50,7 @@ const CommandBar = ({ children }: { children?: ReactNode }) => {
       shortcut: ['s'],
       keywords: 'view-source',
       section: 'General',
-      perform: () =>
-        window.open('https://github.com/braswelljr/braswelljr', '_blank'),
+      perform: () => window.open('https://github.com/braswelljr/braswelljr', '_blank'),
       icon: (
         <Lottie
           lottieRef={sourceRef}
@@ -79,7 +67,7 @@ const CommandBar = ({ children }: { children?: ReactNode }) => {
       shortcut: ['g', 'h'],
       keywords: 'go-home',
       section: 'Go To',
-      perform: () => router.push('/'),
+      perform: () => {},
       icon: (
         <Lottie
           lottieRef={homeRef}
@@ -96,7 +84,7 @@ const CommandBar = ({ children }: { children?: ReactNode }) => {
       shortcut: ['g', 'a'],
       keywords: 'go-about',
       section: 'Go To',
-      perform: () => router.push('/about'),
+      perform: () => {},
       icon: (
         <Lottie
           lottieRef={aboutRef}
@@ -113,7 +101,7 @@ const CommandBar = ({ children }: { children?: ReactNode }) => {
       shortcut: ['g', 'p'],
       keywords: 'go-projects',
       section: 'Go To',
-      perform: () => router.push('/projects'),
+      perform: () => {},
       icon: (
         <Lottie
           lottieRef={projectsRef}
@@ -175,14 +163,6 @@ const CommandBar = ({ children }: { children?: ReactNode }) => {
         </KBarPositioner>
       </KBarPortal>
       {children}
-      <Toast
-        showToast={showToast}
-        setShowToast={setShowToast}
-        title="Link copied to clipboard"
-        description="You can now paste the link anywhere you want"
-        type="success"
-        className="rounded"
-      />
     </KBarProvider>
   )
 }
