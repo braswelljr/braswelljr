@@ -7,6 +7,7 @@ const withPWA = require('next-pwa')({
   runtimeCaching,
   disable: process.env.NODE_ENV === 'development'
 })
+const { withContentlayer } = require('next-contentlayer')
 
 // const withMDX = require('@next/mdx')({
 //   extension: /\.mdx?$/,
@@ -18,7 +19,7 @@ const withPWA = require('next-pwa')({
 //   }
 // })
 
-const withALL = (nextConfig = {}) => withPWA({ ...nextConfig })
+const withALL = (nextConfig = {}) => withPWA(withContentlayer({ ...nextConfig }))
 
 /** @type {import('next').NextConfig} */
 module.exports = withALL({

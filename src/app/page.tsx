@@ -60,7 +60,7 @@ export default function Index() {
           <div className="">
             <div className="mx-auto flex items-center justify-center space-x-3 xs:space-x-6">
               {socials.map(item => (
-                <a key={item.name} href={item.url} target="_blank" rel="noopener">
+                <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer">
                   <item.icon className="h-6 w-auto md:h-9" />
                 </a>
               ))}

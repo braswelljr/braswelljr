@@ -5,6 +5,7 @@ interface LinkWithRefType extends LinkProps {
   children?: ReactNode
   className?: string
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
+  props?: JSX.IntrinsicAttributes & React.RefAttributes<HTMLAnchorElement>
 }
 
 /**
@@ -19,7 +20,7 @@ interface LinkWithRefType extends LinkProps {
  * @returns {JSX.Element} - A link with a ref to the anchor tag
  */
 const LinkWithRef = forwardRef<HTMLAnchorElement, LinkWithRefType>(
-  ({ children, className, as, href, replace, shallow, onClick }, ref) => (
+  ({ children, className, as, href, replace, shallow, onClick, props, prefetch }, ref) => (
     <Link
       href={href}
       ref={ref}
@@ -27,8 +28,10 @@ const LinkWithRef = forwardRef<HTMLAnchorElement, LinkWithRefType>(
       as={as}
       passHref
       replace={replace}
+      prefetch={prefetch}
       shallow={shallow}
       onClick={onClick}
+      {...props}
     >
       {children ?? ``}
     </Link>

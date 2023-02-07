@@ -42,8 +42,9 @@ format:
 
 .PHONY: clean
 clean:
-	rm -rf .next/ dist/ public/sw.js public/sw.js.map public/workbox-*.js public/workbox-*.js.map yarn-error.log .swc/
+	rm -rf .next/ dist/ public/sw.js public/sw.js.map public/workbox-*.js public/workbox-*.js.map yarn-error.log .swc/ .eslintcache .prettiercache .contentlayercache .contentlayercache.lock .contentlayer
 
 .PHONY: verbose-clean
 verbose-clean:
-	rm -rf node_modules/ .next/ dist/ public/sw.js public/sw.js.map public/workbox-*.js public/workbox-*.js.map yarn-error.log .swc/
+	@make clean
+	rm -rf node_modules/
