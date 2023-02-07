@@ -1,5 +1,7 @@
+'use client'
+
 import { ReactNode, useRef } from 'react'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { KBarAnimator, KBarPortal, KBarPositioner, KBarProvider, KBarSearch } from 'kbar'
 import Lottie, { LottieRefCurrentProps } from 'lottie-react'
 import copyLinkIcon from '@/assets/icons/copy-link.json'
@@ -12,7 +14,7 @@ import suncloudIcon from '@/assets/icons/sunclouds.json'
 import CommandRenderResults from '@/components/CommandRenderResults'
 import useTheme from '@/hooks/useTheme'
 
-const CommandBar = ({ children }: { children?: ReactNode }) => {
+export default function CommandBar({ children }: { children?: ReactNode }) {
   const copyLinkRef = useRef<LottieRefCurrentProps>(null)
   const sourceRef = useRef<LottieRefCurrentProps>(null)
   const homeRef = useRef<LottieRefCurrentProps>(null)
@@ -20,7 +22,7 @@ const CommandBar = ({ children }: { children?: ReactNode }) => {
   const projectsRef = useRef<LottieRefCurrentProps>(null)
   const moonstarsRef = useRef<LottieRefCurrentProps>(null)
   const suncloudRef = useRef<LottieRefCurrentProps>(null)
-  // const router = useRouter()
+  const router = useRouter()
   const iconSize = { width: 20, height: 20 }
 
   // theme
@@ -67,7 +69,7 @@ const CommandBar = ({ children }: { children?: ReactNode }) => {
       shortcut: ['g', 'h'],
       keywords: 'go-home',
       section: 'Go To',
-      perform: () => {},
+      perform: () => router.push('/'),
       icon: (
         <Lottie
           lottieRef={homeRef}
@@ -101,7 +103,7 @@ const CommandBar = ({ children }: { children?: ReactNode }) => {
       shortcut: ['g', 'p'],
       keywords: 'go-projects',
       section: 'Go To',
-      perform: () => {},
+      perform: () => router.push('/projects'),
       icon: (
         <Lottie
           lottieRef={projectsRef}
@@ -166,5 +168,3 @@ const CommandBar = ({ children }: { children?: ReactNode }) => {
     </KBarProvider>
   )
 }
-
-export default CommandBar

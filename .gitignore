@@ -46,3 +46,7 @@ yarn.lock
 # registered workers
 /public/sw.js
 /public/workbox-*.js
+
+
+# Contentlayer
+.contentlayer
