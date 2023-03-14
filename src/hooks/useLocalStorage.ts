@@ -9,8 +9,11 @@ import { useState, useEffect } from 'react'
  */
 export default function useLocalStorage(
   localStorageKey: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialValue: any = null
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): [localStorageValue: any, setlocalStorageValue: (value: any) => void] {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [localStorageValue, setLocalStorageValue] = useState<any>(initialValue)
 
   useEffect(() => {

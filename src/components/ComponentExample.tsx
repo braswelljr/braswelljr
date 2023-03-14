@@ -15,7 +15,6 @@ interface ComponentExampleProps extends React.HTMLAttributes<HTMLDivElement> {
 export function ComponentExample({
   children,
   className,
-  extractClassname,
   extractedClassNames,
   align = 'center',
   ...props

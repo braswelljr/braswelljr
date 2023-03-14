@@ -1,4 +1,4 @@
-import { Node } from 'unist-builder'
+type Node = import('unist').Node
 
 export interface UnistNode extends Node {
   url?: string

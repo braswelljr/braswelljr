@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // flattenArray - repeatedly steps through array and concatenates all nested arrays
 export default function flattenArray(array: any[]): any[] {
   return array.reduce(
