@@ -1,5 +1,7 @@
+'use client'
+
 import Head from 'next/head'
-// import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 
 export default function Title({
   suffix,
@@ -8,7 +10,7 @@ export default function Title({
   suffix?: string
   children?: string | JSX.Element
 }) {
-  // const router = useRouter()
+  const pathname = usePathname()
   let title = children + (suffix ? ` - ${suffix}` : '')
 
   return (
@@ -21,11 +23,11 @@ export default function Title({
       />
       <meta name="glab" content="GitLab command line tool" />
       <meta name="keywords" content="Keywords" />
-      <title key="title">Braswell Jr.</title>
-      {/* {router.pathname === '/' ? (
+      {pathname === '/' ? (
+        <title key="title">Braswell Jr.</title>
       ) : (
         <title key="title">{title}</title>
-      )} */}
+      )}
       <meta key="twitter:title" name="twitter:title" content={title} />
       <meta key="og:title" property="og:title" content={title} />
     </Head>

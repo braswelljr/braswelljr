@@ -3,13 +3,13 @@
 import { useState, useRef } from 'react'
 import { BiGitRepoForked } from 'react-icons/bi'
 import { BsFolder, BsStar } from 'react-icons/bs'
-import useXStore from '@/context/store'
 import Lottie, { LottieRefCurrentProps } from 'lottie-react'
-import loadingIcon from '@/assets/icons/loading.json'
-import listIcon from '@/assets/icons/list-2.json'
-import copyLinkIcon from '@/assets/icons/copy-link.json'
-import isFalsy from '@/utils/isFalsy'
-import { OTHER_PROJECTS } from '@/components/data'
+import useXStore from '~/context/store'
+import loadingIcon from '~/assets/icons/loading.json'
+import listIcon from '~/assets/icons/list-2.json'
+import copyLinkIcon from '~/assets/icons/copy-link.json'
+import isFalsy from '~/utils/isFalsy'
+import { OTHER_PROJECTS } from '~/components/data'
 
 export default function Projects() {
   const { pinnedProjects, allProjects } = useXStore()

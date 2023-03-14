@@ -3,7 +3,7 @@ HASESLINT := $(shell which eslint 2> /dev/null)
 # check for prettier
 HASPRETTIER := $(shell which prettier 2> /dev/null)
 # check for stylelint
-# HASSTYLELINT := $(shell which stylelint 2> /dev/null)
+HASSTYLELINT := $(shell which stylelint 2> /dev/null)
 
 # check for eslint
 ifdef HASESLINT
@@ -19,9 +19,13 @@ else
 	PRETTIER := npx prettier
 endif
 
-# ifeq ($(HASSTYLELINT),)
-# $(error "No stylelint in PATH, please install stylelint")
-# endif
+# check for stylelint
+ifdef HASSTYLELINT
+	STYLELINT := stylelint
+else
+	STYLELINT := npx stylelint
+endif
+
 
 .PHONY: dev
 dev: # clean previous build files

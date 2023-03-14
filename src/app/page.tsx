@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import useInterval from '@/hooks/useInterval'
 import clsx from 'clsx'
-import { socials } from '@/components/data'
+import { motion } from 'framer-motion'
+import useInterval from '~/hooks/useInterval'
+import { socials } from '~/components/data'
 
 export default function Index() {
   const [r, setR] = useState<number>(0)
@@ -25,7 +25,7 @@ export default function Index() {
       <section className="space-y-4">
         <div className="md:h-72">
           <img
-            src={require('@/assets/img/man-in-hoodie.png')}
+            src={require('~/assets/img/man-in-hoodie.png')}
             alt="boy in hoodie"
             className="mx-auto h-64 w-auto"
           />

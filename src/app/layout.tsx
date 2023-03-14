@@ -1,13 +1,13 @@
 'use client'
 
-import '@/styles/globals.css'
+import '~/styles/globals.css'
 import ProgressBar from '@badrap/bar-of-progress'
 import Router from 'next/router'
-import useTheme from '@/hooks/useTheme'
-import { XProvider } from '@/context/store'
-import Navbar from '@/components/Navbar'
 import clsx from 'clsx'
-import ScrollTop from '@/components/ScrollTop'
+import useTheme from '~/hooks/useTheme'
+import { XProvider } from '~/context/store'
+import Navbar from '~/components/Navbar'
+import ScrollTop from '~/components/ScrollTop'
 
 const progress = new ProgressBar({
   size: 3,
@@ -43,7 +43,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <XProvider>
             <div className={clsx('relative')}>
               <img
-                src={require('@/assets/backgrounds/beams-2.png')}
+                src={require('~/assets/backgrounds/beams-2.png')}
                 alt="Background parttern"
                 className="absolute inset-0 h-full w-full"
               />

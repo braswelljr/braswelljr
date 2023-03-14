@@ -1,4 +1,4 @@
-import zustand, { SetState } from 'zustand'
+import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
 interface State {
@@ -9,8 +9,8 @@ interface State {
   setLanguages: (params: any[]) => void
 }
 
-const useStore = zustand(
-  devtools(<T extends State>(set: SetState<T>) => ({
+const useStore = create<State>()(
+  devtools(set => ({
     name: 'braswelljr',
     repositories: [],
     setRepositories: (params: any[]) => set(state => ({ ...state, repositories: params })),

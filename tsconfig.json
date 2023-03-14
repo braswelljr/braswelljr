@@ -18,10 +18,34 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
+      "contentlayer/generated": [
+        "./.contentlayer/generated"
+      ],
+      "~": [
+        "./src"
+      ],
+      "~~": [
+        "./src"
+      ],
+      "~/*": [
+        "./src/*"
+      ],
+      "~~/*": [
+        "./src/*"
+      ],
+      "@": [
+        "./src"
+      ],
+      "@@": [
+        "./src"
+      ],
       "@/*": [
-        "src/*"
+        "./src/*"
+      ],
+      "@@/*": [
+        "./src/*"
       ]
     },
     "plugins": [
@@ -34,7 +58,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".contentlayer/generated"
   ],
   "exclude": [
     "node_modules"

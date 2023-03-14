@@ -12,8 +12,8 @@ export default class Pagination {
   page: number
   limit: number
   total: number
-  data: any
-  constructor(page: number, limit: number, total: number, data: any) {
+  data: unknown
+  constructor(page: number, limit: number, total: number, data: unknown) {
     this.page = page
     this.limit = limit
     this.total = total

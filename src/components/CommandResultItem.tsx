@@ -1,6 +1,6 @@
-import { forwardRef, useEffect, useMemo } from 'react'
+import { forwardRef, useMemo } from 'react'
 import clsx from 'clsx'
-import { Action, ActionImpl } from 'kbar'
+import { ActionImpl } from 'kbar'
 import { LottieComponentProps } from 'lottie-react'
 
 export interface ItemProps {
@@ -27,8 +27,7 @@ export interface CommandResultItemProps {
  */
 const ResultItem = forwardRef<HTMLDivElement, CommandResultItemProps>(
   ({ className, action, active, currentRootActionId }, ref) => {
-    const { icon: i, name, shortcut } = action
-    let icon = i as LottieComponentProps & Action['icon']
+    const { icon, name, shortcut } = action
 
     const ancestors = useMemo(() => {
       // If there is no currentRootActionId, return all ancestors
@@ -43,24 +42,13 @@ const ResultItem = forwardRef<HTMLDivElement, CommandResultItemProps>(
       return action.ancestors.slice(index + 1)
     }, [action.ancestors, currentRootActionId])
 
-    useEffect(() => {
-      if (icon?.lottieRef?.current) {
-        active ? icon.lottieRef.current.play() : icon.lottieRef.current.stop()
-      }
-    }, [active, icon])
-
     return (
-      <div
-        ref={ref}
-        className={clsx(className)}
-        onMouseEnter={() => icon?.lottieRef?.current?.play()}
-        onMouseLeave={() => icon?.lottieRef?.current?.stop()}
-      >
+      <div ref={ref} className={clsx(className)} onMouseEnter={() => {}} onMouseLeave={() => {}}>
         {/* parent */}
         <div
           className={clsx(
             'flex cursor-pointer items-center justify-between px-4 py-2 text-xs sm:text-sm lg:px-6 lg:py-3',
-            active && 'bg-neutral-800/50'
+            active && 'bg-neutral-200 dark:bg-neutral-800/50'
           )}
         >
           <div className="flex items-center">
@@ -72,7 +60,7 @@ const ResultItem = forwardRef<HTMLDivElement, CommandResultItemProps>(
               {shortcut.map((s, i) => (
                 <kbd
                   key={i}
-                  className="rounded-sm bg-neutral-500/50 px-1.5 py-0.5 text-xs font-medium uppercase dark:bg-neutral-700/50"
+                  className="rounded-sm bg-neutral-300 px-1.5 py-0.5 text-xs font-medium uppercase dark:bg-neutral-500/50 dark:text-white"
                   aria-hidden
                 >
                   {s}

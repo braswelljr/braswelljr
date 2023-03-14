@@ -9,8 +9,8 @@ import { TbCommand } from 'react-icons/tb'
 import { MdArticle } from 'react-icons/md'
 import { LayoutGroup, motion, AnimatePresence } from 'framer-motion'
 import { useKBar } from 'kbar'
-import LinkWithRef from '@/components/LinkWithRef'
-import useTheme from '@/hooks/useTheme'
+import LinkWithRef from '~/components/LinkWithRef'
+import useTheme from '~/hooks/useTheme'
 
 export const nav = [
   {
