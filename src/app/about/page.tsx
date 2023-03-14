@@ -2,8 +2,8 @@
 
 import { useRef } from 'react'
 import Lottie, { LottieRefCurrentProps } from 'lottie-react'
-import downloadIcon from '@/assets/icons/download.json'
-import { career } from '@/components/data'
+import downloadIcon from '~/assets/icons/download.json'
+import { career } from '~/components/data'
 
 export default function About() {
   const downloadResumeRef = useRef<LottieRefCurrentProps>(null)
@@ -90,7 +90,7 @@ export default function About() {
                     <h2 className="space-x-2">
                       <span className="">{job.company}</span>
                       <span className="">|</span>
-                      <span className="text-slate-800 dark:text-slate-400">{job.date}</span>
+                      <span className="text-neutral-800 dark:text-neutral-400">{job.date}</span>
                     </h2>
                     <ul className="list-item text-neutral-600 dark:text-neutral-400">
                       {job.description.map((desc, index) => (

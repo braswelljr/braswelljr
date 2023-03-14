@@ -1,43 +1,35 @@
 'use client'
 
 import '~/styles/globals.css'
-import ProgressBar from '@badrap/bar-of-progress'
-import Router from 'next/router'
 import clsx from 'clsx'
 import useTheme from '~/hooks/useTheme'
 import { XProvider } from '~/context/store'
 import Navbar from '~/components/Navbar'
 import ScrollTop from '~/components/ScrollTop'
+import { siteConfig } from '~/config/site'
 
-const progress = new ProgressBar({
-  size: 3,
-  color: '#ffbf00',
-  className: 'bar-of-progress',
-  delay: 100
-})
-
-// this fixes safari jumping to the bottom of the page
-// when closing the search modal using the `esc` key
-if (typeof window !== 'undefined') {
-  progress.start()
-  progress.finish()
-}
-
-Router.events.on('routeChangeStart', () => progress.start())
-Router.events.on('routeChangeComplete', () => progress.finish())
-Router.events.on('routeChangeError', () => progress.finish())
-
-interface RootLayoutProps {
-  children: React.ReactNode
-}
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const url = process.env.NODE_ENV === 'production' ? new URL(siteConfig.url) : `localhost:3000`
   // theme to get user's preferred theme
   const _ = useTheme()
 
   return (
     <html className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
-      <head />
+      <head>
+        <title>{`${siteConfig.name} - ${siteConfig.description}`}</title>
+        <meta charSet="utf-8" />
+        <meta name="description" content={siteConfig.description} />
+        <link rel="icon" type="image/png" sizes="116x113" href="/icons/icon.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={siteConfig.name} />
+        <meta property="og:description" content={siteConfig.description} />
+        <meta property="og:url" content={url?.toString()} />
+        <meta name="twitter:title" content={siteConfig.name} />
+        <meta name="twitter:description" content={siteConfig.description} />
+        <meta name="twitter:card" content="summary_large_image" />
+      </head>
       <body className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
         <main className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
           <XProvider>
@@ -47,7 +39,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 alt="Background parttern"
                 className="absolute inset-0 h-full w-full"
               />
-              <Navbar className="fixed inset-x-0 top-0 z-[4]" />
+              <Navbar className="fixed inset-x-0 top-0 z-[4] bg-white/90 dark:bg-neutral-800/70" />
               <div className="relative inset-0 z-[1] min-h-screen w-full">{children}</div>
               <ScrollTop className="fixed bottom-5 right-5 z-10" />
             </div>

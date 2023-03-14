@@ -2,7 +2,10 @@
 @import 'backgrounds/bubbles.css';
 @import 'tailwindcss/base';
 
-@import 'tailwindcss/components';
+/*! purgecss start ignore */
+@import 'mdx.css';
+/*! purgecss end ignore */
 
+@import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import 'utilities.css';

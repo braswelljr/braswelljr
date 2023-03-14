@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import { KBarAnimator, KBarPortal, KBarPositioner, KBarProvider, KBarSearch } from 'kbar'
 import { HiDesktopComputer, HiArchive, HiLink, HiMoon, HiSun } from 'react-icons/hi'
+import { ImBlog } from 'react-icons/im'
 import { MdSource } from 'react-icons/md'
 import { RiUser4Fill } from 'react-icons/ri'
 import CommandRenderResults from '~/components/CommandRenderResults'
@@ -30,7 +31,7 @@ export default function CommandBar({ children }: { children?: ReactNode }) {
       id: 'source',
       name: 'View Source',
       shortcut: ['s'],
-      keywords: 'view-source',
+      keywords: 'view source',
       section: 'General',
       perform: () => window.open('https://github.com/braswelljr/braswelljr', '_blank'),
       icon: <MdSource className="h-5 w-auto" />
@@ -39,7 +40,7 @@ export default function CommandBar({ children }: { children?: ReactNode }) {
       id: 'home',
       name: 'Home',
       shortcut: ['g', 'h'],
-      keywords: 'go-home',
+      keywords: 'go home',
       section: 'Go To',
       perform: () => router.push('/'),
       icon: <TbHome2 className="h-5 w-auto" />
@@ -48,7 +49,7 @@ export default function CommandBar({ children }: { children?: ReactNode }) {
       id: 'about',
       name: 'About',
       shortcut: ['g', 'a'],
-      keywords: 'go-about',
+      keywords: 'go about',
       section: 'Go To',
       perform: () => {},
       icon: <RiUser4Fill className="h-5 w-auto" />
@@ -57,13 +58,22 @@ export default function CommandBar({ children }: { children?: ReactNode }) {
       id: 'projects',
       name: 'Projects',
       shortcut: ['g', 'p'],
-      keywords: 'go-projects',
+      keywords: 'go projects',
       section: 'Go To',
       perform: () => router.push('/projects'),
       icon: <HiArchive className="h-5 w-auto" />
     },
     {
-      id: 'syste',
+      id: 'blog',
+      name: 'Blog',
+      shortcut: ['g', 'b'],
+      keywords: 'go blog',
+      section: 'Go To',
+      perform: () => router.push('/blog'),
+      icon: <ImBlog className="h-5 w-auto" />
+    },
+    {
+      id: 'system',
       name: 'System',
       shortcut: ['t', 's'],
       keywords: 'system theme',

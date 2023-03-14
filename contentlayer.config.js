@@ -7,21 +7,23 @@ import { codeImport } from 'remark-code-import'
 import remarkGfm from 'remark-gfm'
 import { getHighlighter, loadTheme } from 'shiki'
 import { visit } from 'unist-util-visit'
+import { rehypeComponent } from './lib/rehype-component'
+import { rehypeNpmCommand } from './lib/rehype-npm-command'
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
   slug: {
     type: 'string',
-    resolve: doc => `/${doc._raw.flattenedPath}`
+    resolve: post => `/${post._raw.flattenedPath}`
   },
   slugAsParams: {
     type: 'string',
-    resolve: doc => doc._raw.flattenedPath.split('/').slice(1).join('/')
+    resolve: post => post._raw.flattenedPath.split('/').slice(1).join('/')
   }
 }
 
-const RadixProperties = defineNestedType(() => ({
-  name: 'RadixProperties',
+const BlogProperties = defineNestedType(() => ({
+  name: 'BlogProperties',
   fields: {
     link: {
       type: 'string'
@@ -32,26 +34,34 @@ const RadixProperties = defineNestedType(() => ({
   }
 }))
 
-export const Doc = defineDocumentType(() => ({
-  name: 'Doc',
-  filePathPattern: `docs/**/*.mdx`,
+export const Blog = defineDocumentType(() => ({
+  name: 'Blog',
+  filePathPattern: `blog/**/*.{mdx,md}`,
   contentType: 'mdx',
   fields: {
     title: {
       type: 'string',
+      description: 'The title of the post',
       required: true
+    },
+    date: {
+      type: 'date',
+      description: 'The date of the post',
+      required: false
     },
     description: {
       type: 'string',
+      description: 'The description of the post',
       required: true
     },
     published: {
       type: 'boolean',
-      default: true
+      description: 'Whether the post is published or not',
+      default: false
     },
-    radix: {
+    blog: {
       type: 'nested',
-      of: RadixProperties
+      of: BlogProperties
     },
     featured: {
       type: 'boolean',
@@ -61,14 +71,15 @@ export const Doc = defineDocumentType(() => ({
   },
   computedFields
 }))
+
 export default makeSource({
   contentDirPath: './content',
-  documentTypes: [Doc],
+  documentTypes: [Blog],
   mdx: {
     remarkPlugins: [remarkGfm, codeImport],
     rehypePlugins: [
       rehypeSlug,
-      // rehypeComponent,
+      rehypeComponent,
       () => tree => {
         visit(tree, node => {
           if (node?.type === 'element' && node?.tagName === 'pre') {
@@ -125,7 +136,7 @@ export default makeSource({
           }
         })
       },
-      // rehypeNpmCommand,
+      rehypeNpmCommand,
       [
         rehypeAutolinkHeadings,
         {

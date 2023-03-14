@@ -6,13 +6,14 @@
   "theme_color": "#ff7b00",
   "background_color": "#ffffff00",
   "display": "standalone",
-  "icons": [{
-      "src": "./favicon.ico",
+  "icons": [
+    {
+      "src": "/favicon.ico",
       "sizes": "116x133",
       "type": "image/x-icon"
     },
     {
-      "src": "./icons/icon.png",
+      "src": "/icons/icon.png",
       "sizes": "116x133",
       "type": "image/png"
     }
