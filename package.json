@@ -68,7 +68,7 @@
     "remark": "^14.0.2",
     "remark-code-import": "^1.1.1",
     "remark-gfm": "^3.0.1",
-    "sharp": "^0.31.3",
+    "sharp": "^0.32.0",
     "shiki": "^0.14.1",
     "simple-functional-loader": "^1.2.1",
     "swiper": "^9.1.0",
