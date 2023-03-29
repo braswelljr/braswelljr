@@ -23,15 +23,15 @@ export default function Index() {
   return (
     <motion.main className={clsx('grid h-screen place-content-center')}>
       <section className="space-y-4">
-        <div className="md:h-72">
+        <div className="md:pt-8">
           <img
             src={require('~/assets/img/man-in-hoodie.png')}
             alt="boy in hoodie"
             className="mx-auto h-64 w-auto"
           />
         </div>
-        <div className="space-y-10 md:space-y-16">
-          <div className="text-center text-xl font-extralight sm:text-2xl">
+        <div className="space-y-8 md:space-y-12">
+          <div className="text-center text-lg font-extralight sm:text-xl md:text-2xl">
             <p className="">I am</p> <p className="">Braswell Kenneth Azu Jr.</p>
           </div>
           {roles.map(
@@ -40,7 +40,7 @@ export default function Index() {
                 <motion.div
                   key={id}
                   className={clsx(
-                    'bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-3 text-center text-2xl font-black text-transparent dark:to-[#ff7056] xxs:text-3xl xs:text-4xl sm:text-5xl'
+                    'bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-3 text-center text-xl font-black uppercase text-transparent dark:to-[#ff7056] xxs:text-2xl xsm:text-3xl sm:text-4xl md:text-5xl'
                   )}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}

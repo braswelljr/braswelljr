@@ -17,7 +17,7 @@ export async function generateStaticParams(): Promise<PageProps['params'][]> {
   return allBlogs.map(blog => ({ slug: blog.slugAsParams.split('/') }))
 }
 
-export default async function DocPage({ params }: PageProps) {
+export default async function BlogPage({ params }: PageProps) {
   const slug = params?.slug?.join('/') || ''
   const blog = allBlogs.find(blog => blog.slugAsParams === slug)
 

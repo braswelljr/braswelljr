@@ -158,7 +158,7 @@ export default function Projects() {
                               }
                               target="_blank"
                               rel="noopener"
-                              className="relative flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                              className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                               onMouseEnter={() => copyLinkIconRef.current?.play()}
                               onMouseLeave={() => copyLinkIconRef.current?.stop()}
                             >
@@ -180,7 +180,7 @@ export default function Projects() {
                 <div className="mt-4 flex justify-end">
                   <button
                     onClick={() => setViewMorePins(!viewMorePins)}
-                    className="flex items-center justify-center space-x-1 rounded-sm bg-neutral-900 py-0.5 pr-1.5 uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    className="inline-flex items-center justify-center space-x-1 rounded-sm bg-neutral-900 py-0.5 pr-1.5 uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                     onMouseEnter={() => listIconRef.current?.play()}
                     onMouseLeave={() => listIconRef.current?.stop()}
                   >
@@ -279,7 +279,7 @@ export default function Projects() {
                               href={isFalsy(project.html_url) ? project.url : project.html_url}
                               target="_blank"
                               rel="noopener"
-                              className="relative flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                              className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                               onMouseEnter={() => copyLinkIconRef.current?.play()}
                               onMouseLeave={() => copyLinkIconRef.current?.stop()}
                             >
@@ -301,7 +301,7 @@ export default function Projects() {
                 <div className="mt-4 flex justify-end">
                   <button
                     onClick={() => setViewMoreProjects(!viewMoreProjects)}
-                    className="flex items-center justify-center space-x-1 rounded-sm bg-neutral-900 py-0.5 pr-1.5 uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    className="inline-flex items-center justify-center space-x-1 rounded-sm bg-neutral-900 py-0.5 pr-1.5 uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                     onMouseEnter={() => listIcon2Ref.current?.play()}
                     onMouseLeave={() => listIcon2Ref.current?.stop()}
                   >
