@@ -356,14 +356,14 @@ export default function Projects() {
                       <p className="line-clamp-3">{project.description}</p>
                     </div>
                     {/* footer */}
-                    <div className="flex items-center justify-end child:flex child:items-center child:space-x-2">
+                    <div className="flex items-center justify-end">
                       {/* link */}
                       <span>
                         <a
                           href={isFalsy(project.homepageUrl) ? project.url : project.homepageUrl}
                           target="_blank"
                           rel="noopener"
-                          className="relative flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                          className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                           onMouseEnter={() => copyLinkIconRef.current?.play()}
                           onMouseLeave={() => copyLinkIconRef.current?.stop()}
                         >

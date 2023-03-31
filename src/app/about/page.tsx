@@ -59,7 +59,7 @@ export default function About() {
           {/* buttons */}
           <div className="">
             <a
-              className="inline-flex w-full items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-2 py-1.5 uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+              className="inline-flex items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-2 py-1.5 uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
               onMouseEnter={() => downloadResumeRef.current?.play()}
               onMouseLeave={() => downloadResumeRef.current?.stop()}
               download
