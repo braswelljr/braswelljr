@@ -15,10 +15,10 @@ export function BlogTableOfContents({ toc }: TocProps) {
     () =>
       toc && toc.items
         ? toc.items
-            .flatMap(item => [item.url, item?.items?.map(item => item.url)])
-            .flat()
-            .filter(Boolean)
-            .map(id => id?.split('#')[1])
+          .flatMap(item => [item.url, item?.items?.map(item => item.url)])
+          .flat()
+          .filter(Boolean)
+          .map(id => id?.split('#')[1])
         : [],
     [toc]
   )
@@ -31,7 +31,7 @@ export function BlogTableOfContents({ toc }: TocProps) {
 
   return (
     <div className="space-y-2">
-      <p className="text-sm font-medium">On This Page</p>
+      <p className="text-sm font-medium uppercase">On This Page</p>
       <Tree tree={toc} activeItem={activeHeading} />
     </div>
   )
@@ -80,17 +80,17 @@ interface TreeProps {
 
 function Tree({ tree, level = 1, activeItem }: TreeProps) {
   return tree?.items?.length && level < 3 ? (
-    <ul className={clsx('m-0 list-none', { 'pl-4': level !== 1 })}>
+    <ul className={clsx('m-0 list-none', { 'pl-2': level !== 1 })}>
       {tree.items.map((item, index) => {
         return (
           <li key={index} className={clsx('mt-0 pt-2')}>
             <a
               href={item.url}
               className={clsx(
-                'inline-block no-underline',
+                'inline-block text-sm no-underline',
                 item.url === `#${activeItem}`
-                  ? 'text-state-900 font-medium'
-                  : 'text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400'
+                  ? 'font-medium text-rose-600 dark:text-orange-300'
+                  : 'text-neutral-700 hover:text-neutral-900 dark:text-neutral-400'
               )}
             >
               {item.title}

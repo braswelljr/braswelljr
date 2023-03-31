@@ -67,7 +67,7 @@ export function rehypeComponent() {
                 u('element', {
                   tagName: 'code',
                   properties: {
-                    className: ['language-tsx']
+                    className: ['language-tsx', 'language-jsx', 'language-html', 'language-markup']
                   },
                   children: [
                     {
@@ -99,7 +99,7 @@ export function rehypeComponent() {
               u('element', {
                 tagName: 'code',
                 properties: {
-                  className: ['language-tsx']
+                  className: ['language-tsx', 'language-jsx', 'language-html', 'language-markup']
                 },
                 children: [
                   {

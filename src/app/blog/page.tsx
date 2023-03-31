@@ -5,7 +5,15 @@ import { HiChevronRight } from 'react-icons/hi'
 import { formatDate } from '~/utils/formatDate'
 
 export default function Page() {
-  const blogs = allBlogs
+  const blogs = allBlogs.sort((a, b) => {
+    // check if the date is valid (or value is not null/undefined)
+    if (!a.date || !b.date) return 0
+    // Sort by date descending
+    if (a.date > b.date) return -1
+    if (a.date < b.date) return 1
+
+    return 0
+  })
 
   return (
     <div className="px-4 pb-10 pt-10 max-lg:pt-28">
@@ -16,7 +24,7 @@ export default function Page() {
         </h1>
         {/* Body */}
         <div className="relative sm:ml-[calc(2rem+1px)] md:ml-[calc(3.5rem+1px)] lg:ml-[max(calc(14.5rem+1px),calc(100%-48rem))]">
-          <div className="absolute top-3 bottom-0 right-full mr-7 hidden w-px bg-neutral-200 dark:bg-neutral-800 sm:block md:mr-[3.25rem]" />
+          <div className="absolute top-3 bottom-0 right-full mr-7 hidden w-px bg-orange-300 sm:block md:mr-[3.25rem]" />
           <div className="space-y-16">
             {blogs.map(({ title, description, date, tags, slugAsParams }, i) => (
               <article key={i} className="group relative">
@@ -24,7 +32,7 @@ export default function Page() {
                 {/* group-hover:bg-neutral-50/70 dark:group-hover:bg-neutral-800/50 */}
                 <svg
                   viewBox="0 0 9 9"
-                  className="absolute right-full top-2 mr-6 hidden h-[calc(0.5rem+1px)] w-[calc(0.5rem+1px)] overflow-visible text-neutral-200 dark:text-neutral-600 sm:block md:mr-12"
+                  className="absolute right-full top-2 mr-6 hidden h-[calc(0.5rem+1px)] w-[calc(0.5rem+1px)] overflow-visible text-orange-300 sm:block md:mr-12"
                 >
                   <circle
                     cx="4.5"
