@@ -76,7 +76,6 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/line-clamp'),
     // direct child selector variant
     function ({ addVariant }) {
       addVariant('child', '& > *')

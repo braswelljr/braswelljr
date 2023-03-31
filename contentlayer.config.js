@@ -59,6 +59,12 @@ export const Blog = defineDocumentType(() => ({
       description: 'Whether the post is published or not',
       default: false
     },
+    tags: {
+      type: 'list',
+      of: { type: 'string' },
+      description: 'The tags of the post',
+      required: false
+    },
     blog: {
       type: 'nested',
       of: BlogProperties

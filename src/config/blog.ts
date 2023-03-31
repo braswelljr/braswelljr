@@ -9,16 +9,19 @@ export const blogConfig: BlogConfig = {
   mainNav: [
     {
       title: 'Blogs',
-      href: '/blog'
+      href: '/blog',
+      tags: ['blog']
     },
     {
       title: 'GitHub',
       href: 'https://github.com/braswelljr/braswelljr',
+      tags: ['github'],
       external: true
     },
     {
       title: 'Twitter',
       href: 'https://twitter.com/braswell_jnr',
+      tags: ['twitter'],
       external: true
     }
   ],

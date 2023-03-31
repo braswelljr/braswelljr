@@ -152,7 +152,7 @@ const components = {
       <>
         <pre
           className={clsx(
-            'mt-6 mb-4 overflow-x-auto rounded-lg border border-neutral-900 bg-neutral-900 py-4 px-2 dark:border-neutral-800 dark:bg-black',
+            'mt-6 mb-4 overflow-x-auto rounded border border-neutral-900 bg-neutral-900 py-4 px-2 dark:border-neutral-800 dark:bg-black',
             className
           )}
           {...props}

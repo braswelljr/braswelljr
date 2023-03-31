@@ -125,7 +125,7 @@ export function CopyNpmCommandButton({ commands, className, ...props }: CopyNpmC
     <DropdownMenu>
       <DropdownMenuTrigger
         className={clsx(
-          'relative z-20 inline-flex h-8 items-center justify-center rounded-md p-2 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-100 focus:outline-none',
+          'absolute z-20 inline-flex h-8 items-center justify-center rounded-md p-2 text-sm font-medium text-white transition-all hover:bg-neutral-100 focus:outline-none',
           className
         )}
         {...props}

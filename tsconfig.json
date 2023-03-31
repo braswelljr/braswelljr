@@ -23,6 +23,9 @@
       "contentlayer/generated": [
         "./.contentlayer/generated"
       ],
+      "content": [
+        "./content"
+      ],
       "~": [
         "./src",
         "./"
@@ -71,5 +74,8 @@
   ],
   "exclude": [
     "node_modules"
+  ],
+  "files": [
+    "types.d.ts",
   ]
 }

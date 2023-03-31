@@ -15,10 +15,10 @@ export function BlogTableOfContents({ toc }: TocProps) {
     () =>
       toc && toc.items
         ? toc.items
-          .flatMap(item => [item.url, item?.items?.map(item => item.url)])
-          .flat()
-          .filter(Boolean)
-          .map(id => id?.split('#')[1])
+            .flatMap(item => [item.url, item?.items?.map(item => item.url)])
+            .flat()
+            .filter(Boolean)
+            .map(id => id?.split('#')[1])
         : [],
     [toc]
   )
@@ -31,7 +31,7 @@ export function BlogTableOfContents({ toc }: TocProps) {
 
   return (
     <div className="space-y-2">
-      <p className="font-medium">On This Page</p>
+      <p className="text-sm font-medium">On This Page</p>
       <Tree tree={toc} activeItem={activeHeading} />
     </div>
   )

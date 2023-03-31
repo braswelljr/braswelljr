@@ -28,14 +28,14 @@ export default async function BlogPage({ params }: PageProps) {
   const toc = await getTableOfContents(blog.body.raw)
 
   return (
-    <main className="relative py-6 lg:gap-10 lg:py-10 xl:grid xl:grid-cols-[1fr_250px]">
-      <div className="mx-auto w-full min-w-0">
+    <main className="relative pt-28 pb-6 lg:grid lg:grid-cols-[1fr_250px] lg:gap-10 lg:pb-10 lg:pt-16">
+      <div className="mx-auto w-full min-w-0 px-5">
         <Mdx code={blog.body.code} />
         <Separator className="my-4 md:my-6" />
         <BlogPaginate blog={blog} />
       </div>
-      <div className="hidden text-sm xl:block">
-        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-10">
+      <div className="hidden text-xs lg:block xl:text-sm">
+        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-10 pr-2">
           <BlogTableOfContents toc={toc} />
         </div>
       </div>
