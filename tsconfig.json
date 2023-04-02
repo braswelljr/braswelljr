@@ -26,6 +26,9 @@
       "content": [
         "./content"
       ],
+      "lib": [
+        "./lib"
+      ],
       "~": [
         "./src",
         "./"

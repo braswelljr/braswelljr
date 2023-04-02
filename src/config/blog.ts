@@ -1,17 +1,13 @@
 import { MainNavItem, SidebarNavItem } from 'types/nav'
 
 interface BlogConfig {
+  socials: MainNavItem[]
   mainNav: MainNavItem[]
   sidebarNav: SidebarNavItem[]
 }
 
 export const blogConfig: BlogConfig = {
-  mainNav: [
-    {
-      title: 'Blogs',
-      href: '/blog',
-      tags: ['blog']
-    },
+  socials: [
     {
       title: 'GitHub',
       href: 'https://github.com/braswelljr/braswelljr',
@@ -25,5 +21,6 @@ export const blogConfig: BlogConfig = {
       external: true
     }
   ],
-  sidebarNav: []
+  sidebarNav: [],
+  mainNav: []
 }

@@ -5,6 +5,16 @@
     "source.fixAll.markdownlint": true
   },
   "editor.formatOnSave": true,
+  "eslint.options": {
+    "extensions": [
+      ".js",
+      ".jsx",
+      ".md",
+      ".mdx",
+      ".ts",
+      ".tsx"
+    ]
+  },
   "eslint.validate": [
     "javascript",
     "typescript",
@@ -34,15 +44,9 @@
     "typescript": "javascript",
     "typescriptreact": "javascript"
   },
-  "window.autoDetectColorScheme": true,
-  "debug.console.fontFamily": "Jetbrains Mono",
   "[typescriptreact]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  // "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
-  // "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
 }

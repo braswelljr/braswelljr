@@ -14,12 +14,36 @@ Tabs are a common UI element that can be used to switch between different views.
 
 ## Requirements
 
-This post assumes that you have a basic understanding of React. If you are new to React, you can follow the [React getting started guide](https://reactjs.org/docs/getting-started.html). We will also use [tailwindcss](https://tailwindcss.com/) for styling and [framer-motion](https://www.framer.com/motion/) a popular animation library for React.
+This post assumes that you have a basic understanding of React. If you are new to React, you can follow the [React getting started guide](https://react.dev/). We will also use [tailwindcss](https://tailwindcss.com/) for styling and [framer-motion](https://www.framer.com/motion/) a popular animation library for React.
 
 ## Setup
 
-We will use next.js to create a new project. You can follow the [next.js getting started guide](https://nextjs.org/docs/getting-started) to create a new project.
+We will install the required dependencies for the project.
 
 ```bash
 yarn add framer-motion tailwindcss postcss autoprefixer
 ````
+
+## Creating the Tabs
+
+We will create a simple array or objects that will hold the tab data.
+
+```tsx
+export const tabs = [
+  {
+    id: 1,
+    title: "Tab 1",
+    content: "Tab 1 content",
+  },
+  {
+    id: 2,
+    title: "Tab 2",
+    content: "Tab 2 content",
+  },
+  {
+    id: 3,
+    title: "Tab 3",
+    content: "Tab 3 content",
+  },
+]
+```
