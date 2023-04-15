@@ -1,4 +1,4 @@
-import { ReactNode, Fragment } from 'react'
+import { Fragment, ReactNode } from 'react'
 
 export function Token({
   token,

@@ -1,5 +1,6 @@
 import path from 'path'
-import { makeSource, defineNestedType, defineDocumentType } from 'contentlayer/source-files'
+
+import { defineDocumentType, defineNestedType, makeSource } from 'contentlayer/source-files'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
@@ -7,6 +8,7 @@ import { codeImport } from 'remark-code-import'
 import remarkGfm from 'remark-gfm'
 import { getHighlighter, loadTheme } from 'shiki'
 import { visit } from 'unist-util-visit'
+
 import { rehypeComponent } from './lib/rehype-component'
 import { rehypeNpmCommand } from './lib/rehype-npm-command'
 

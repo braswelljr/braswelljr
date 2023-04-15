@@ -1,8 +1,9 @@
 'use client'
 
-import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+
+import clsx from 'clsx'
 import { SidebarNavItem } from 'types/nav'
 
 export interface BlogSidebarNavProps {
@@ -38,7 +39,7 @@ export function BlogSidebarNavItems({ items, pathname }: BlogSidebarNavItemsProp
             key={index}
             href={item.href}
             className={clsx(
-              'group flex w-full items-center rounded-md py-1.5 px-2 hover:bg-neutral-50 dark:hover:bg-neutral-800',
+              'group flex w-full items-center rounded-md px-2 py-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800',
               item.disabled && 'cursor-not-allowed opacity-60',
               {
                 'bg-neutral-100 dark:bg-neutral-800': pathname === item.href

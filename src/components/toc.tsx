@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import useMounted from '~/hooks/useMounted'
 
-import { TableOfContents } from 'lib/toc'
 import clsx from 'clsx'
+import { TableOfContents } from 'lib/toc'
+
+import useMounted from '~/hooks/useMounted'
 
 interface TocProps {
   toc: TableOfContents

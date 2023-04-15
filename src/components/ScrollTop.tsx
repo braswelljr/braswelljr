@@ -1,6 +1,7 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+
 import clsx from 'clsx'
 import { HiArrowUp } from 'react-icons/hi'
 

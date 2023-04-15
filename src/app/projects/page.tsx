@@ -1,15 +1,19 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useRef, useState } from 'react'
+
+import Lottie, { LottieRefCurrentProps } from 'lottie-react'
 import { BiGitRepoForked } from 'react-icons/bi'
 import { BsFolder, BsStar } from 'react-icons/bs'
-import Lottie, { LottieRefCurrentProps } from 'lottie-react'
-import useXStore from '~/context/store'
-import loadingIcon from '~/assets/icons/loading.json'
-import listIcon from '~/assets/icons/list-2.json'
 import copyLinkIcon from '~/assets/icons/copy-link.json'
-import isFalsy from '~/utils/isFalsy'
+import listIcon from '~/assets/icons/list-2.json'
+import loadingIcon from '~/assets/icons/loading.json'
+
 import { OTHER_PROJECTS } from '~/components/data'
+
+import useXStore from '~/context/store'
+
+import isFalsy from '~/utils/isFalsy'
 
 export default function Projects() {
   const { pinnedProjects, allProjects } = useXStore()
@@ -35,7 +39,7 @@ export default function Projects() {
     : []
 
   return (
-    <div className="pt-10 pb-10 max-lg:pt-28">
+    <div className="pb-10 pt-10 max-lg:pt-28">
       <div className="mx-auto max-w-2xl space-y-8 px-4 text-gray-800 dark:text-neutral-100 sm:mt-14 sm:space-y-10">
         <h1 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent dark:to-[#ff7056] sm:text-3xl md:text-4xl">
           Work, Hobby and Open Source
@@ -346,7 +350,7 @@ export default function Projects() {
                 return (
                   <div
                     key={i}
-                    className="origin-bottom-right space-y-2 py-3 px-2 backdrop-blur transition-transform odd:bg-zinc-900/20 hover:rotate-1 dark:odd:bg-zinc-900/50 sm:px-4"
+                    className="origin-bottom-right space-y-2 px-2 py-3 backdrop-blur transition-transform odd:bg-zinc-900/20 hover:rotate-1 dark:odd:bg-zinc-900/50 sm:px-4"
                   >
                     {/* header */}
                     <h2 className="flex items-center space-x-2 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-sm uppercase text-transparent dark:to-[#ff7056]">

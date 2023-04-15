@@ -1,9 +1,10 @@
 'use client'
 
 import * as React from 'react'
+
 import * as AccordionPrimitive from '@radix-ui/react-accordion'
-import { HiChevronDown } from 'react-icons/hi'
 import clsx from 'clsx'
+import { HiChevronDown } from 'react-icons/hi'
 
 const Accordion = AccordionPrimitive.Root
 
@@ -51,7 +52,7 @@ const AccordionContent = React.forwardRef<
     )}
     {...props}
   >
-    <div className="pt-0 pb-4">{children}</div>
+    <div className="pb-4 pt-0">{children}</div>
   </AccordionPrimitive.Content>
 ))
 AccordionContent.displayName = AccordionPrimitive.Content.displayName

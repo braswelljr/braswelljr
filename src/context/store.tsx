@@ -1,5 +1,7 @@
-import { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react'
+import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react'
+
 import useSWR from 'swr'
+
 import CommandBar from '~/components/CommandBar'
 
 export interface Project {

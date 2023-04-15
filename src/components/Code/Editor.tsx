@@ -1,6 +1,8 @@
+import { CSSProperties, ReactNode, forwardRef, useMemo, useState } from 'react'
+
 import { cn } from 'lib/utils'
-import { ReactNode, useState, forwardRef, useMemo, CSSProperties } from 'react'
-import type { EditorTabItemI, EditorTabI, EditorCodeWindowI } from 'types/Editor'
+import type { EditorCodeWindowI, EditorTabI, EditorTabItemI } from 'types/Editor'
+
 import { Code } from '~/components/Code/Code'
 
 export const EditorTabItem = forwardRef<
@@ -16,7 +18,7 @@ export const EditorTabItem = forwardRef<
     <div
       ref={ref}
       className={cn(
-        'flex flex-none items-center border-t border-b border-t-transparent border-b-sky-300 px-4 py-1 text-sky-300',
+        'flex flex-none items-center border-b border-t border-b-sky-300 border-t-transparent px-4 py-1 text-sky-300',
         active && 'bg-neutral-900/10',
         hover && 'bg-neutral-900/5',
         open ? 'font-medium' : 'italic',
@@ -57,7 +59,7 @@ export const EditorTab = forwardRef<HTMLDivElement, EditorTabI>(
   ) => {
     return (
       <Component className={cn('flex text-xs text-neutral-400')}>
-        <div className="flex flex-none items-center border-t border-b border-t-transparent border-b-sky-300 px-4 py-1 text-sky-300">
+        <div className="flex flex-none items-center border-b border-t border-b-sky-300 border-t-transparent px-4 py-1 text-sky-300">
           {primary.name}
           {showTabMarkers &&
             (primary.saved ? (
@@ -201,7 +203,7 @@ EditorCode.Code = forwardRef<
           >
             {lineNumbers}
           </div>
-          <code className="relative block flex-auto overflow-auto px-4 pt-4 pb-4 text-slate-50">
+          <code className="relative block flex-auto overflow-auto px-4 pb-4 pt-4 text-slate-50">
             <Code tokens={tokens} {...props} />
           </code>
         </pre>

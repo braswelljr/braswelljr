@@ -1,8 +1,10 @@
 import Link from 'next/link'
+
 import { Blog } from 'contentlayer/generated'
 import { NavItem, NavItemWithChildren } from 'types/nav'
 
 import { blogConfig } from '~/config/blog'
+
 import { Icons } from '~/components/Icons'
 import { buttonVariants } from '~/components/button'
 

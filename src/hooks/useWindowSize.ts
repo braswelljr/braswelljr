@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 /**
  * useWindowSize hook - is used to determine the with and height of a browser window.

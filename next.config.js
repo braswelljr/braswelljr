@@ -8,18 +8,12 @@ const withPWA = require('next-pwa')({
   disable: process.env.NODE_ENV === 'development'
 })
 const { withContentlayer } = require('next-contentlayer')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+})
 
-// const withMDX = require('@next/mdx')({
-//   extension: /\.mdx?$/,
-//   options: {
-//     remarkPlugins: [],
-//     rehypePlugins: [],
-//     // If you use `MDXProvider`, uncomment the following line.
-//     providerImportSource: '@mdx-js/react'
-//   }
-// })
-
-const withALL = (nextConfig = {}) => withPWA(withContentlayer({ ...nextConfig }))
+const withALL = (nextConfig = {}) =>
+  withBundleAnalyzer(withPWA(withContentlayer({ ...nextConfig })))
 
 /** @type {import('next').NextConfig} */
 module.exports = withALL({

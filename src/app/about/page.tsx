@@ -1,8 +1,10 @@
 'use client'
 
 import { useRef } from 'react'
+
 import Lottie, { LottieRefCurrentProps } from 'lottie-react'
 import downloadIcon from '~/assets/icons/download.json'
+
 import { career } from '~/components/data'
 
 export default function About() {

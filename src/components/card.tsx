@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 import clsx from 'clsx'
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {

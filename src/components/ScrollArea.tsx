@@ -1,14 +1,15 @@
 'use client'
 
-import clsx from 'clsx'
-import { forwardRef, ComponentPropsWithoutRef, ElementRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+
 import {
-  Root,
-  Viewport,
   Corner,
+  Root,
   ScrollAreaScrollbar,
-  ScrollAreaThumb
+  ScrollAreaThumb,
+  Viewport
 } from '@radix-ui/react-scroll-area'
+import clsx from 'clsx'
 
 const ScrollArea = forwardRef<ElementRef<typeof Root>, ComponentPropsWithoutRef<typeof Root>>(
   ({ className, children, ...props }, ref) => (

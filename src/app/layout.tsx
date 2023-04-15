@@ -1,12 +1,17 @@
 'use client'
 
 import '~/styles/globals.css'
+
 import clsx from 'clsx'
+
+import { siteConfig } from '~/config/site'
+
 import useTheme from '~/hooks/useTheme'
-import { XProvider } from '~/context/store'
+
 import Navbar from '~/components/Navbar'
 import ScrollTop from '~/components/ScrollTop'
-import { siteConfig } from '~/config/site'
+
+import { XProvider } from '~/context/store'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const url = process.env.NODE_ENV === 'production' ? new URL(siteConfig.url) : `localhost:3000`

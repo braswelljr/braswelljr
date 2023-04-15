@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 /**
  * useSessionStorage hook to get session data

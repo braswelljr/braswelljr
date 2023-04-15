@@ -1,4 +1,4 @@
-import { useEffect, useRef, ReactNode } from 'react'
+import { ReactNode, useEffect, useRef } from 'react'
 
 /**
  * useInterval hook - sets reference to the previous value and returns a given value within a particular duration.

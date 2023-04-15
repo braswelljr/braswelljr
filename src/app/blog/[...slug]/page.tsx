@@ -1,12 +1,15 @@
 import '~/styles/mdx.css'
+
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
+
+import { Mdx } from '@/components/mdx'
+import { Separator } from '@/components/separator'
 import { allBlogs } from 'contentlayer/generated'
 import { getTableOfContents } from 'lib/toc'
-import { Mdx } from '@/components/mdx'
+
 import { BlogPaginate } from '~/components/paginate'
 import { BlogTableOfContents } from '~/components/toc'
-import { Separator } from '@/components/separator'
-import Link from 'next/link'
 
 interface PageProps {
   params: {
@@ -29,19 +32,19 @@ export default async function BlogPage({ params }: PageProps) {
   const toc = await getTableOfContents(blog.body.raw)
 
   return (
-    <main className="relative pt-32 pb-6 md:grid md:grid-cols-[1fr_250px] md:gap-6 md:pb-10 md:pt-16 lg:grid-cols-[1fr_300px]">
+    <main className="relative pb-6 pt-32 md:grid md:grid-cols-[1fr_250px] md:gap-6 md:pb-10 md:pt-16 lg:grid-cols-[1fr_300px]">
       <div className="mx-auto w-full min-w-0 px-5 md:pt-14 lg:pt-0">
         <Mdx code={blog.body.code} />
         <Separator className="my-4 md:my-6" />
         <BlogPaginate blog={blog} />
       </div>
       <div className="hidden text-xs md:block xl:text-sm">
-        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-16 pr-2">
+        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pr-2 pt-16">
           {/* back button */}
           <div className="mb-4 flex items-center">
             <Link
               href="/blog"
-              className="group/link relative inline-flex items-center space-x-2 pl-0.5 pb-1.5 uppercase text-neutral-600 dark:text-neutral-400"
+              className="group/link relative inline-flex items-center space-x-2 pb-1.5 pl-0.5 uppercase text-neutral-600 dark:text-neutral-400"
             >
               <svg
                 className="h-5 w-auto"

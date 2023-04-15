@@ -9,7 +9,7 @@ declare module 'tinytime' {
     padMonth?: boolean
   }
 
-  declare const tinytime: (template: string, options: TinyTimeOptions = {}) => TinyTime
+  declare const tinytime: (template: string, options: TinyTimeOptions) => TinyTime
 
   export default tinytime
 }

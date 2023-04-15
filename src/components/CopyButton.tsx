@@ -1,17 +1,18 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+
 import { DropdownMenuTriggerProps } from '@radix-ui/react-dropdown-menu'
+import { cn } from 'lib/utils'
 import { NpmCommands } from 'types/unist'
 
-import { cn } from 'lib/utils'
-import { Icons } from '~/components/Icons'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '~/components/DropdownMenu'
+import { Icons } from '~/components/Icons'
 
 interface CopyButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   value: string

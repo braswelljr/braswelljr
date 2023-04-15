@@ -1,15 +1,19 @@
 'use client'
 
 import { ReactNode } from 'react'
+
 import { useRouter } from 'next/navigation'
+
 import { KBarAnimator, KBarPortal, KBarPositioner, KBarProvider, KBarSearch } from 'kbar'
-import { HiDesktopComputer, HiArchive, HiLink, HiMoon, HiSun } from 'react-icons/hi'
+import { HiArchive, HiDesktopComputer, HiLink, HiMoon, HiSun } from 'react-icons/hi'
 import { ImBlog } from 'react-icons/im'
 import { MdSource } from 'react-icons/md'
 import { RiUser4Fill } from 'react-icons/ri'
-import CommandRenderResults from '~/components/CommandRenderResults'
-import useTheme from '~/hooks/useTheme'
 import { TbHome2 } from 'react-icons/tb'
+
+import useTheme from '~/hooks/useTheme'
+
+import CommandRenderResults from '~/components/CommandRenderResults'
 
 export default function CommandBar({ children }: { children?: ReactNode }) {
   const router = useRouter()

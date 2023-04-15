@@ -1,9 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
+
 import useInterval from '~/hooks/useInterval'
+
 import { socials } from '~/components/data'
 
 export default function Index() {

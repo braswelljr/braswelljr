@@ -1,16 +1,20 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import clsx from 'clsx'
+import { useEffect, useState } from 'react'
+
 import { usePathname } from 'next/navigation'
-import { HiHome, HiCode, HiOutlineArchive, HiDesktopComputer, HiMoon, HiSun } from 'react-icons/hi'
-import { IoIosPerson } from 'react-icons/io'
-import { TbCommand } from 'react-icons/tb'
-import { MdArticle } from 'react-icons/md'
-import { LayoutGroup, motion, AnimatePresence } from 'framer-motion'
+
+import clsx from 'clsx'
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { useKBar } from 'kbar'
-import LinkWithRef from '~/components/LinkWithRef'
+import { HiCode, HiDesktopComputer, HiHome, HiMoon, HiOutlineArchive, HiSun } from 'react-icons/hi'
+import { IoIosPerson } from 'react-icons/io'
+import { MdArticle } from 'react-icons/md'
+import { TbCommand } from 'react-icons/tb'
+
 import useTheme from '~/hooks/useTheme'
+
+import LinkWithRef from '~/components/LinkWithRef'
 
 export const nav = [
   {
@@ -62,7 +66,7 @@ export default function Navbar({ className }: { className?: string }) {
     <nav
       className={clsx(
         className,
-        'fixed inset-x-0 top-0 z-[4] flex items-center justify-between bg-inherit py-2 px-4 shadow backdrop-blur-sm max-lg:flex-wrap'
+        'fixed inset-x-0 top-0 z-[4] flex items-center justify-between bg-inherit px-4 py-2 shadow backdrop-blur-sm max-lg:flex-wrap'
       )}
     >
       {/* Search Button */}

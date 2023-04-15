@@ -1,7 +1,9 @@
+import Link from 'next/link'
+
 import clsx from 'clsx'
 import { allBlogs } from 'contentlayer/generated'
-import Link from 'next/link'
 import { HiChevronRight } from 'react-icons/hi'
+
 import { formatDate } from '~/utils/formatDate'
 
 export default function Page() {
@@ -24,11 +26,11 @@ export default function Page() {
         </h1>
         {/* Body */}
         <div className="relative sm:ml-[calc(2rem+1px)] md:ml-[calc(3.5rem+1px)] lg:ml-[max(calc(14.5rem+1px),calc(100%-48rem))]">
-          <div className="absolute top-3 bottom-0 right-full mr-7 hidden w-px bg-orange-300 sm:block md:mr-[3.25rem]" />
+          <div className="absolute bottom-0 right-full top-3 mr-7 hidden w-px bg-orange-300 sm:block md:mr-[3.25rem]" />
           <div className="space-y-16">
             {blogs.map(({ title, description, date, tags, slugAsParams }, i) => (
               <article key={i} className="group relative">
-                <div className="absolute -inset-y-2.5 -inset-x-4 md:-inset-y-4 md:-inset-x-6" />
+                <div className="absolute -inset-x-4 -inset-y-2.5 md:-inset-x-6 md:-inset-y-4" />
                 {/* group-hover:bg-neutral-50/70 dark:group-hover:bg-neutral-800/50 */}
                 <svg
                   viewBox="0 0 9 9"
@@ -49,7 +51,7 @@ export default function Page() {
                     {title}
                   </h3>
                   {/* description */}
-                  <div className="line-clamp-2 mt-2 mb-4 text-sm text-neutral-700 dark:text-neutral-400">
+                  <div className="mb-4 mt-2 line-clamp-2 text-sm text-neutral-700 dark:text-neutral-400">
                     {description}
                   </div>
                   {/* tags */}

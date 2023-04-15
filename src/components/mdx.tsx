@@ -1,22 +1,24 @@
 import * as React from 'react'
+
 import Image from 'next/image'
+
 import clsx from 'clsx'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { NpmCommands } from 'types/unist'
 
-import { Callout } from '~/components/callout'
-import { Card } from '~/components/card'
-import { CodeBlockWrapper } from '~/components/CodeBlockWrapper'
-import { ComponentExample } from '~/components/ComponentExample'
-import { ComponentSource } from '~/components/ComponentSource'
-import { CopyButton, CopyNpmCommandButton } from '~/components/CopyButton'
-import { snippets } from '~/components/snippets'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger
 } from '~/components/Accordion'
+import { CodeBlockWrapper } from '~/components/CodeBlockWrapper'
+import { ComponentExample } from '~/components/ComponentExample'
+import { ComponentSource } from '~/components/ComponentSource'
+import { CopyButton, CopyNpmCommandButton } from '~/components/CopyButton'
+import { Callout } from '~/components/callout'
+import { Card } from '~/components/card'
+import { snippets } from '~/components/snippets'
 
 const components = {
   Accordion,
@@ -152,7 +154,7 @@ const components = {
       <>
         <pre
           className={clsx(
-            'mt-6 mb-4 overflow-x-auto rounded border border-neutral-900 bg-neutral-900 py-4 px-2 dark:border-neutral-800 dark:bg-black',
+            'mb-4 mt-6 overflow-x-auto rounded border border-neutral-900 bg-neutral-900 px-2 py-4 dark:border-neutral-800 dark:bg-black',
             className
           )}
           {...props}
@@ -162,7 +164,7 @@ const components = {
             value={__rawString__}
             src={__src__}
             className={clsx(
-              'absolute top-4 right-4 border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100',
+              'absolute right-4 top-4 border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100',
               __withMeta__ && 'top-20'
             )}
           />
@@ -175,7 +177,7 @@ const components = {
               __yarnCommand__
             }}
             className={clsx(
-              'absolute top-4 right-4 border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100',
+              'absolute right-4 top-4 border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100',
               __withMeta__ && 'top-20'
             )}
           />
@@ -186,7 +188,7 @@ const components = {
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
       className={clsx(
-        'relative rounded bg-neutral-100 py-[0.2rem] px-[0.3rem] font-mono text-sm font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-400',
+        'relative rounded bg-neutral-100 px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-400',
         className
       )}
       {...props}

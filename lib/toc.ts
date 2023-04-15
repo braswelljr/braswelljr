@@ -1,7 +1,7 @@
 import { toc } from 'mdast-util-toc'
 import { remark } from 'remark'
-import { visit } from 'unist-util-visit'
 import { UnistNode } from 'types/unist'
+import { visit } from 'unist-util-visit'
 
 const textTypes = ['text', 'emphasis', 'strong', 'inlineCode']
 
