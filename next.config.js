@@ -13,7 +13,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 const withALL = (nextConfig = {}) =>
-  withBundleAnalyzer(withPWA(withContentlayer({ ...nextConfig })))
+  withBundleAnalyzer(withContentlayer(withPWA({ ...nextConfig })))
 
 /** @type {import('next').NextConfig} */
 module.exports = withALL({

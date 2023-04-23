@@ -13,8 +13,8 @@
   "importOrder": [
     "^(react/(.*)$)|^(react$)",
     "^(next/(.*)$)|^(next$)",
+    "^(react-icons/(.*)$)|^(react-icons$)",
     "<THIRD_PARTY_MODULES>",
-    "",
     "^types$",
     "^~local/(.*)$",
     "^~/config/(.*)$",
@@ -26,7 +26,7 @@
     "^~/styles/(.*)$",
     "^[./]"
   ],
-  "importOrderSeparation": true,
+  "importOrderSeparation": false,
   "importOrderSortSpecifiers": true,
   "importOrderBuiltinModulesToTop": true,
   "importOrderParserPlugins": [
@@ -37,6 +37,7 @@
   "importOrderMergeDuplicateImports": true,
   "importOrderCombineTypeAndValueImports": true,
   "plugins": [
-    "@ianvs/prettier-plugin-sort-imports"
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
   ]
 }

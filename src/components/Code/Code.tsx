@@ -2,7 +2,6 @@ import { Fragment, ReactNode } from 'react'
 
 export function Token({
   token,
-  parentTypes,
   tokenIndex,
   children
 }: {

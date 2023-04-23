@@ -29,3 +29,15 @@ export interface TokenI {
   type: string
   value: string
 }
+
+export interface PageI {
+  filename: string
+  saved?: boolean
+  className?: string
+  children?: ReactNode
+}
+
+export interface TextEditorI {
+  children?: PageI[]
+  className?: string
+}

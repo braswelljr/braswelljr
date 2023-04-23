@@ -5,7 +5,7 @@ tags:
   - framer-motion
   - react
   - animation
-date: 2023-03-31
+date: 2023-04-15
 ---
 
 # Tab Animation with Framer Motion
@@ -22,7 +22,7 @@ We will install the required dependencies for the project.
 
 ```bash
 yarn add framer-motion tailwindcss postcss autoprefixer
-````
+```
 
 ## Creating the Tabs
 
@@ -30,20 +30,8 @@ We will create a simple array or objects that will hold the tab data.
 
 ```tsx
 export const tabs = [
-  {
-    id: 1,
-    title: "Tab 1",
-    content: "Tab 1 content",
-  },
-  {
-    id: 2,
-    title: "Tab 2",
-    content: "Tab 2 content",
-  },
-  {
-    id: 3,
-    title: "Tab 3",
-    content: "Tab 3 content",
-  },
+  { id: 1, title: 'tab 1', content: 'tab 1 content' },
+  { id: 2, title: 'tab 2', content: 'tab 2 content' },
+  { id: 3, title: 'tab 3', content: 'tab 3 content' }
 ]
 ```

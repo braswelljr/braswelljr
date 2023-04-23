@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 
+import Image from 'next/image'
+
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 
@@ -27,10 +29,13 @@ export default function Index() {
     <motion.main className={clsx('grid h-screen place-content-center')}>
       <section className="space-y-4">
         <div className="md:pt-8">
-          <img
-            src={require('~/assets/img/man-in-hoodie.png')}
-            alt="boy in hoodie"
-            className="mx-auto h-64 w-auto"
+          <Image
+            src={'/images/man-in-hoodie.png'}
+            alt={'boy in hoodie'}
+            loading="eager"
+            height={200}
+            width={75}
+            style={{ marginRight: 'auto', marginLeft: 'auto' }}
           />
         </div>
         <div className="space-y-8 md:space-y-12">

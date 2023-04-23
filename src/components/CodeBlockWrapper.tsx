@@ -25,8 +25,8 @@ export function CodeBlockWrapper({
         <CollapsibleContent forceMount className={clsx('overflow-hidden', !isOpened && 'max-h-32')}>
           <div
             className={clsx(
-              '[&_pre]:max-h-[650px [&_pre]:my-0 [&_pre]:pb-[100px]',
-              !isOpened ? '[&_pre]:overflow-hidden' : '[&_pre]:overflow-auto]'
+              '[&_pre]:my-0 [&_pre]:max-h-[650px] [&_pre]:pb-[100px]',
+              !isOpened ? '[&_pre]:overflow-hidden' : '[&_pre]:overflow-auto'
             )}
           >
             {children}

@@ -1,8 +1,9 @@
-import { forwardRef, ElementRef, ComponentPropsWithoutRef, ReactElement } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, ReactElement, forwardRef } from 'react'
+
 import * as ToastPrimitives from '@radix-ui/react-toast'
 import { VariantProps, cva } from 'class-variance-authority'
-import { HiX } from 'react-icons/hi'
 import clsx from 'clsx'
+import { HiX } from 'react-icons/hi'
 
 const ToastProvider = ToastPrimitives.Provider
 
