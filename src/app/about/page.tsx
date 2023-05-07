@@ -1,15 +1,7 @@
-'use client'
-
-import { useRef } from 'react'
-
-import Lottie, { LottieRefCurrentProps } from 'lottie-react'
-import downloadIcon from '~/assets/icons/download.json'
-
+import { MdOutlineFileDownload } from 'react-icons/md'
 import { career } from '~/components/data'
 
 export default function About() {
-  const downloadResumeRef = useRef<LottieRefCurrentProps>(null)
-
   return (
     <div className="py-10 max-lg:pt-28">
       <div className="mx-auto max-w-xl px-4 text-gray-800 child:space-y-6 dark:text-neutral-100 sm:mt-14 sm:child:space-y-10">
@@ -61,21 +53,13 @@ export default function About() {
           {/* buttons */}
           <div className="">
             <a
-              className="inline-flex items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-2 py-1.5 uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-              onMouseEnter={() => downloadResumeRef.current?.play()}
-              onMouseLeave={() => downloadResumeRef.current?.stop()}
+              className="inline-flex items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-2 py-1.5 uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
               download
-              href="/documents/braswell-kenneth-azu-junior-cv.pdf"
+              href="/documents/braswell-kenneth-azu-junior-resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Lottie
-                lottieRef={downloadResumeRef}
-                className="h-6 w-auto text-neutral-900"
-                animationData={downloadIcon}
-                loop={false}
-                autoplay={false}
-              />
+              <MdOutlineFileDownload className="h-6 w-auto" />
               <span>
                 Downlaod<span className="max-xxs:hidden"> Resume</span>
               </span>

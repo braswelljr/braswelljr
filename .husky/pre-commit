@@ -7,16 +7,16 @@ REMOVE="rm -rf public/sw.js public/sw.js.map public/workbox-*.js public/workbox-
 eval $REMOVE
 
 # lint and build
-yarn run lint
+pnpm run lint
 
 # lint and fix
-yarn run lint:fix
+pnpm run lint:fix
 
 # format code
-yarn run format
+pnpm run format
 
 # run build and test for truthy
-yarn run build
+pnpm run build
 # test for last command executed
 if [ $? -eq 0 ]; then
   # remove build files

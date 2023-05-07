@@ -1,53 +1,3 @@
----
-title: Tab Animation with framer motion
-description: A simple tab animation with framer motion
-tags:
-  - framer-motion
-  - react
-  - animation
-date: 2023-04-15
----
-
-# Tab Animation with Framer Motion
-
-Tabs are a common UI element that can be used to switch between different views. In this post, we will create a simple tab animation with framer-motion.
-
-## Requirements
-
-This post assumes that you have a basic understanding of React. If you are new to React, you can follow the [React getting started guide](https://react.dev/). We will also use [tailwindcss](https://tailwindcss.com/) for styling and [framer-motion](https://www.framer.com/motion/) a popular animation library for React.
-
-## Setup
-
-We will install the required dependencies for the project.
-
-```bash
-yarn add framer-motion tailwindcss postcss autoprefixer clsx
-```
-
-## Creating the Tabs
-
-### Data for the components
-
-We will create a simple array that will hold the tab data for the component. The data will contain the tab title and content.
-
-```tsx
-export const tabs = [
-  {
-    title: 'Frontend',
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum voluptas ducimus.'
-  },
-  {
-    title: 'Backend',
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-  }
-]
-```
-
-### Tab component
-
-A new file `Tab.tsx` will be created in the `components` folder. This component will take the tab data as props and render the tab title and content.
-
-```tsx
 'use client'
 
 import { useState } from 'react'
@@ -66,7 +16,7 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
     <div className={clsx('my-5', className)}>
       <div className="space-y-2">
         {/* menu items */}
-        <div className="max-xsm:text-sm flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 dark:border-[0.5px]">
+        <div className="flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 dark:border-[0.5px] max-xsm:text-sm">
           {contains.map((item, idx) => (
             <button key={idx} className={clsx('relative')} onClick={() => setTab(item)}>
               <AnimatePresence>
@@ -122,22 +72,3 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
     </div>
   )
 }
-```
-
-### Using the Tab component
-
-We will import the `Tab.tsx` component into your component or page example `app/page.tsx` file and pass the `tabs` data as props.
-
-```tsx
-import { tabs } from '~/data'
-// import the tabs data from where it is stored
-import Tab from '~/components/Tab'
-
-export default function Home() {
-  return (
-    <div className="mx-auto max-w-2xl">
-      <Tab contains={tabs} />
-    </div>
-  )
-}
-```

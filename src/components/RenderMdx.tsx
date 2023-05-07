@@ -1,5 +1,4 @@
 import { ClassAttributes, ImgHTMLAttributes, ReactNode } from 'react'
-
 import { MDXProvider } from '@mdx-js/react'
 
 const mdxComponents = {

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-
 import useIsomorphicLayoutEffect from '~/hooks/useIsomorphicLayout'
 
 function update() {

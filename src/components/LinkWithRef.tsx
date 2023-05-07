@@ -1,5 +1,4 @@
 import { ReactNode, forwardRef } from 'react'
-
 import Link, { LinkProps } from 'next/link'
 
 interface LinkWithRefType extends LinkProps {

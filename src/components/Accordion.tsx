@@ -1,10 +1,9 @@
 'use client'
 
 import * as React from 'react'
-
+import { HiChevronDown } from 'react-icons/hi'
 import * as AccordionPrimitive from '@radix-ui/react-accordion'
 import clsx from 'clsx'
-import { HiChevronDown } from 'react-icons/hi'
 
 const Accordion = AccordionPrimitive.Root
 

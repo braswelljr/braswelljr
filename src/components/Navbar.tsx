@@ -1,19 +1,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-
 import { usePathname } from 'next/navigation'
-
-import clsx from 'clsx'
-import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
-import { useKBar } from 'kbar'
 import { HiCode, HiDesktopComputer, HiHome, HiMoon, HiOutlineArchive, HiSun } from 'react-icons/hi'
 import { IoIosPerson } from 'react-icons/io'
 import { MdArticle } from 'react-icons/md'
 import { TbCommand } from 'react-icons/tb'
-
+import clsx from 'clsx'
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
+import { useKBar } from 'kbar'
 import useTheme from '~/hooks/useTheme'
-
 import LinkWithRef from '~/components/LinkWithRef'
 
 export const nav = [

@@ -1,9 +1,7 @@
 'use client'
 
 import * as React from 'react'
-
 import clsx from 'clsx'
-
 import { CopyButton, CopyWithClassNames } from '~/components/CopyButton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/tabs'
 

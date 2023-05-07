@@ -1,11 +1,8 @@
 import * as React from 'react'
-
 import Image from 'next/image'
-
 import clsx from 'clsx'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { NpmCommands } from 'types/unist'
-
 import {
   Accordion,
   AccordionContent,

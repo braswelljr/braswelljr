@@ -1,9 +1,7 @@
 import Link from 'next/link'
-
+import { HiChevronRight } from 'react-icons/hi'
 import clsx from 'clsx'
 import { allBlogs } from 'contentlayer/generated'
-import { HiChevronRight } from 'react-icons/hi'
-
 import { formatDate } from '~/utils/formatDate'
 
 export default function Page() {

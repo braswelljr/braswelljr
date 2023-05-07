@@ -30,19 +30,19 @@ endif
 .PHONY: dev
 dev: # clean previous build files
 	@make clean
-	yarn run dev
+	pnpm run dev
 
 .PHONY: build
 build:
-	yarn run build
+	pnpm run build
 
 .PHONY:lint
 lint:
-	yarn run lint
+	pnpm run lint
 
 .PHONY: format
 format:
-	yarn run format
+	pnpm run format
 
 .PHONY: clean
 clean:

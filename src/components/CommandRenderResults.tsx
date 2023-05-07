@@ -1,5 +1,4 @@
 import { KBarResults, useMatches } from 'kbar'
-
 import CommandResultItem from '~/components/CommandResultItem'
 
 export default function RenderResults() {

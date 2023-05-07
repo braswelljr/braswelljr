@@ -3,6 +3,6 @@
  * @param value - The value to check.
  * @returns - Returns true if the value is falsy, otherwise false.
  */
-export default function isFalsy(value: unknown): boolean {
+export default function isFalsy<T>(value: T): boolean {
   return !value
 }

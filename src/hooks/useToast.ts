@@ -1,6 +1,5 @@
 // Inspired by react-hot-toast library
 import { useEffect, useState } from 'react'
-
 import { ToastActionElement, type ToastProps } from '~/components/Toast'
 
 const TOAST_LIMIT = 1

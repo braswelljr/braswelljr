@@ -1,9 +1,8 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-
-import clsx from 'clsx'
 import { HiArrowUp } from 'react-icons/hi'
+import clsx from 'clsx'
 
 export default function ScrollTop({ className }: { className?: string }) {
   const scrollRef = useRef<HTMLButtonElement>(null)

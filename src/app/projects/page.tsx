@@ -1,29 +1,18 @@
 'use client'
 
-import { useRef, useState } from 'react'
-
-import Lottie, { LottieRefCurrentProps } from 'lottie-react'
+import { useState } from 'react'
 import { BiGitRepoForked } from 'react-icons/bi'
-import { BsFolder, BsStar } from 'react-icons/bs'
-import copyLinkIcon from '~/assets/icons/copy-link.json'
-import listIcon from '~/assets/icons/list-2.json'
-import loadingIcon from '~/assets/icons/loading.json'
-
+import { BsStar } from 'react-icons/bs'
+import { HiFolderOpen, HiOutlineExternalLink } from 'react-icons/hi'
+import { TfiLayoutListThumb } from 'react-icons/tfi'
 import { OTHER_PROJECTS } from '~/components/data'
-
 import useXStore from '~/context/store'
-
 import isFalsy from '~/utils/isFalsy'
 
 export default function Projects() {
   const { pinnedProjects, allProjects } = useXStore()
   const [viewMorePins, setViewMorePins] = useState(false)
   const [viewMoreProjects, setViewMoreProjects] = useState(false)
-  // lottie animations
-  const loadingIconRef = useRef<LottieRefCurrentProps>(null)
-  const listIconRef = useRef<LottieRefCurrentProps>(null)
-  const listIcon2Ref = useRef<LottieRefCurrentProps>(null)
-  const copyLinkIconRef = useRef<LottieRefCurrentProps>(null)
   // pins
   let limitPins = viewMorePins ? pinnedProjects.length : 2
   const PINNED_PROJECTS = Array.isArray(pinnedProjects) ? pinnedProjects.slice(0, limitPins) : []
@@ -111,16 +100,13 @@ export default function Projects() {
                 <div className="grid gap-6 sm:grid-cols-2">
                   {PINNED_PROJECTS.map((project, i) => {
                     return (
-                      <div
-                        key={i}
-                        className="group origin-bottom-right rounded bg-zinc-900/20 shadow-sm backdrop-blur transition-transform hover:rotate-1"
-                      >
+                      <div key={i} className="rounded bg-zinc-900/20 shadow-sm backdrop-blur">
                         {/* main */}
                         <div className="divide-y divide-zinc-500/25 child:px-2.5 child:py-2.5">
                           {/* header */}
                           <div className="flex items-start justify-between">
                             <h2 className="flex items-center space-x-2">
-                              <BsFolder className="h-5 w-auto group-hover:animate-wiggle" />
+                              <HiFolderOpen className="h-5 w-auto" />
                               <span>{project.name}</span>
                             </h2>
                             {/* stats */}
@@ -162,17 +148,9 @@ export default function Projects() {
                               }
                               target="_blank"
                               rel="noopener"
-                              className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                              onMouseEnter={() => copyLinkIconRef.current?.play()}
-                              onMouseLeave={() => copyLinkIconRef.current?.stop()}
+                              className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                             >
-                              <Lottie
-                                lottieRef={copyLinkIconRef}
-                                className="h-4 w-auto"
-                                animationData={copyLinkIcon}
-                                loop={false}
-                                autoplay={true}
-                              />
+                              <HiOutlineExternalLink className="h-4 w-auto" />
                               <span>Visit</span>
                             </a>
                           </span>
@@ -184,30 +162,15 @@ export default function Projects() {
                 <div className="mt-4 flex justify-end">
                   <button
                     onClick={() => setViewMorePins(!viewMorePins)}
-                    className="inline-flex items-center justify-center space-x-1 rounded-sm bg-neutral-900 py-0.5 pr-1.5 uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                    onMouseEnter={() => listIconRef.current?.play()}
-                    onMouseLeave={() => listIconRef.current?.stop()}
+                    className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                   >
-                    <Lottie
-                      lottieRef={listIconRef}
-                      className="h-10 w-auto"
-                      animationData={listIcon}
-                      loop={false}
-                      autoplay={true}
-                    />
-                    <span>{viewMorePins ? 'View Less' : 'View More'}</span>
+                    <TfiLayoutListThumb className="h-5 w-auto" />
+                    <span>{viewMoreProjects ? 'View Less' : 'View More'}</span>
                   </button>
                 </div>
               </div>
             ) : (
               <div className="flex min-h-[25vh] flex-col items-center justify-center uppercase">
-                <Lottie
-                  lottieRef={loadingIconRef}
-                  className="h-32 w-auto"
-                  animationData={loadingIcon}
-                  loop={true}
-                  autoplay={true}
-                />
                 <span>Loading ...</span>
               </div>
             )}
@@ -231,7 +194,7 @@ export default function Projects() {
                     return (
                       <div
                         key={i}
-                        className="group origin-bottom-right rounded bg-zinc-900/20 shadow-sm backdrop-blur transition-transform hover:rotate-1"
+                        className="group rounded bg-zinc-900/20 shadow-sm backdrop-blur transition-transform"
                       >
                         {/* main */}
                         <div className="divide-y divide-zinc-500/25 child:px-2.5 child:py-2.5">
@@ -283,17 +246,9 @@ export default function Projects() {
                               href={isFalsy(project.html_url) ? project.url : project.html_url}
                               target="_blank"
                               rel="noopener noreferer"
-                              className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                              onMouseEnter={() => copyLinkIconRef.current?.play()}
-                              onMouseLeave={() => copyLinkIconRef.current?.stop()}
+                              className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                             >
-                              <Lottie
-                                lottieRef={copyLinkIconRef}
-                                className="h-4 w-auto"
-                                animationData={copyLinkIcon}
-                                loop={false}
-                                autoplay={true}
-                              />
+                              <HiOutlineExternalLink className="h-4 w-auto" />
                               <span>Visit</span>
                             </a>
                           </span>
@@ -305,30 +260,15 @@ export default function Projects() {
                 <div className="mt-4 flex justify-end">
                   <button
                     onClick={() => setViewMoreProjects(!viewMoreProjects)}
-                    className="inline-flex items-center justify-center space-x-1 rounded-sm bg-neutral-900 py-0.5 pr-1.5 uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                    onMouseEnter={() => listIcon2Ref.current?.play()}
-                    onMouseLeave={() => listIcon2Ref.current?.stop()}
+                    className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                   >
-                    <Lottie
-                      lottieRef={listIcon2Ref}
-                      className="h-10 w-auto"
-                      animationData={listIcon}
-                      loop={false}
-                      autoplay={true}
-                    />
+                    <TfiLayoutListThumb className="h-5 w-auto" />
                     <span>{viewMoreProjects ? 'View Less' : 'View More'}</span>
                   </button>
                 </div>
               </div>
             ) : (
               <div className="flex min-h-[25vh] flex-col items-center justify-center uppercase">
-                <Lottie
-                  lottieRef={loadingIconRef}
-                  className="h-32 w-auto"
-                  animationData={loadingIcon}
-                  loop={true}
-                  autoplay={true}
-                />
                 <span>Loading ...</span>
               </div>
             )}
@@ -350,7 +290,7 @@ export default function Projects() {
                 return (
                   <div
                     key={i}
-                    className="origin-bottom-right space-y-2 px-2 py-3 backdrop-blur transition-transform odd:bg-zinc-900/20 hover:rotate-1 dark:odd:bg-zinc-900/50 sm:px-4"
+                    className="space-y-2 px-2 py-3 backdrop-blur odd:bg-zinc-900/20 dark:odd:bg-zinc-900/50 sm:px-4"
                   >
                     {/* header */}
                     <h2 className="flex items-center space-x-2 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-sm uppercase text-transparent dark:to-[#ff7056]">
@@ -367,17 +307,9 @@ export default function Projects() {
                           href={isFalsy(project.homepageUrl) ? project.url : project.homepageUrl}
                           target="_blank"
                           rel="noopener"
-                          className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                          onMouseEnter={() => copyLinkIconRef.current?.play()}
-                          onMouseLeave={() => copyLinkIconRef.current?.stop()}
+                          className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                         >
-                          <Lottie
-                            lottieRef={copyLinkIconRef}
-                            className="h-4 w-auto"
-                            animationData={copyLinkIcon}
-                            loop={false}
-                            autoplay={true}
-                          />
+                          <HiOutlineExternalLink className="h-4 w-auto" />
                           <span>Visit</span>
                         </a>
                       </span>
