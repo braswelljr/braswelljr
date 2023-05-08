@@ -60,7 +60,7 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
                       stiffness: 260,
                       damping: 20
                     }}
-                    className="h-[30vh] w-full overflow-y-auto"
+                    className="h-[10vh] w-full overflow-y-auto"
                   >
                     {item.content}
                   </motion.div>

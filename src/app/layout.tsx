@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { siteConfig } from '~/config/site'
 import Navbar from '~/components/Navbar'
 import ScrollTop from '~/components/ScrollTop'
-import { XProvider as Store } from '~/context/store'
+import { StoreProvider } from '~/context/store'
 
 export const metadata: Metadata = {
   title: {
@@ -48,7 +48,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <head />
       <body className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
         <main className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
-          <Store>
+          <StoreProvider>
             <div className={clsx('relative')}>
               <Image
                 src="/images/beams-2.png"
@@ -61,7 +61,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="relative inset-0 z-[1] min-h-screen w-full">{children}</div>
               <ScrollTop className="fixed bottom-5 right-5 z-10" />
             </div>
-          </Store>
+          </StoreProvider>
         </main>
       </body>
     </html>

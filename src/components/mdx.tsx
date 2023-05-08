@@ -162,7 +162,7 @@ const components = {
             src={__src__}
             className={clsx(
               'absolute right-4 top-4 border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100',
-              __withMeta__ && 'top-20'
+              __withMeta__ && 'top-14'
             )}
           />
         )}
@@ -175,7 +175,7 @@ const components = {
             }}
             className={clsx(
               'absolute right-4 top-4 border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100',
-              __withMeta__ && 'top-20'
+              __withMeta__ && 'top-14'
             )}
           />
         )}

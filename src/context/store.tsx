@@ -62,7 +62,7 @@ export interface XInterface {
   setPinnedProjectsLoader: (pinnedProjectsLoader: boolean) => void
 }
 
-export const XContext = createContext<XInterface>({
+export const StoreContext = createContext<XInterface>({
   allProjects: [],
   setProjects: () => {},
   pinnedProjects: [],
@@ -73,7 +73,7 @@ export const XContext = createContext<XInterface>({
   setPinnedProjectsLoader: () => {}
 })
 
-export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
+export function StoreProvider({ children }: { children?: ReactNode }): JSX.Element {
   const [projects, setProjects] = useState<GithubProject[]>([])
   const [projectsLoader, setProjectsLoader] = useState<boolean>(false)
   const [pinnedProjects, setPinnedProjects] = useState<PinnedProject[]>([])
@@ -188,12 +188,12 @@ export function XProvider({ children }: { children?: ReactNode }): JSX.Element {
   )
 
   return (
-    <XContext.Provider value={memoizedValue}>
+    <StoreContext.Provider value={memoizedValue}>
       <CommandBar>{children}</CommandBar>
-    </XContext.Provider>
+    </StoreContext.Provider>
   )
 }
 
-export default function useXStore() {
-  return useContext(XContext)
+export default function useStore() {
+  return useContext(StoreContext)
 }

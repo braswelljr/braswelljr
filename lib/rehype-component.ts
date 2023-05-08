@@ -3,6 +3,7 @@ import path from 'path'
 import { UnistNode, UnistTree } from 'types/unist'
 import { u } from 'unist-builder'
 import { visit } from 'unist-util-visit'
+import { languages } from './rehype-languages'
 
 export function rehypeComponent() {
   return async (tree: UnistTree) => {
@@ -26,7 +27,7 @@ export function rehypeComponent() {
               u('element', {
                 tagName: 'code',
                 properties: {
-                  className: ['language-tsx']
+                  className: languages
                 },
                 children: [
                   {
@@ -67,7 +68,7 @@ export function rehypeComponent() {
                 u('element', {
                   tagName: 'code',
                   properties: {
-                    className: ['language-tsx', 'language-jsx', 'language-html', 'language-markup']
+                    className: languages
                   },
                   children: [
                     {
@@ -99,7 +100,7 @@ export function rehypeComponent() {
               u('element', {
                 tagName: 'code',
                 properties: {
-                  className: ['language-tsx', 'language-jsx', 'language-html', 'language-markup']
+                  className: languages
                 },
                 children: [
                   {

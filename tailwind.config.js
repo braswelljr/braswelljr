@@ -17,11 +17,28 @@ module.exports = {
       '5xl': '3840px',
       ...defaultTheme.screens
     },
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px'
+      }
+    },
     extend: {
       fontFamily: {
         sans: ["'Sen'", ...defaultTheme.fontFamily.sans],
         serif: ["'Lobster'", ...defaultTheme.fontFamily.serif],
         mono: ["'Jetbrains Mono'", ...defaultTheme.fontFamily.mono]
+      },
+      fontSize: {
+        xs: ['0.65rem', '0.75rem'],
+        xsm: ['0.75rem', '1rem']
+      },
+      maxWidth: {
+        '8xl': '90rem',
+        '9xl': '100rem',
+        '10xl': '110rem',
+        '11xl': '120rem'
       },
       colors: {
         brown: {

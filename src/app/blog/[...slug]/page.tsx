@@ -1,11 +1,11 @@
 import '~/styles/mdx.css'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { Mdx } from '@/components/mdx'
-import { Separator } from '@/components/separator'
 import { allBlogs } from 'contentlayer/generated'
 import { getTableOfContents } from 'lib/toc'
+import { Mdx } from '~/components/mdx'
 import { BlogPaginate } from '~/components/paginate'
+import { Separator } from '~/components/separator'
 import { BlogTableOfContents } from '~/components/toc'
 
 interface PageProps {

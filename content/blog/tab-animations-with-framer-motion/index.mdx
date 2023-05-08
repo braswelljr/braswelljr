@@ -24,13 +24,55 @@ We will install the required dependencies for the project.
 yarn add framer-motion tailwindcss postcss autoprefixer clsx
 ```
 
+## Styling the Tabs
+
+We will use tailwindcss to style the tabs. We will create a new file `tailwind.config.js` in the root of the project and add the following code.
+
+```js title="tailwind.config.js"
+module.exports = {
+  experimental: {
+    optimizeUniversalDefaults: true
+  },
+  content: ['./src/**/*.{js,jsx,ts,tsx,vue,mdx,md}'],
+  darkMode: 'class',
+  theme: {
+    extend: {}
+  },
+  plugins: []
+}
+```
+
+We will also create a new file `postcss.config.js` in the root of the project and add the following code.
+
+```js title="postcss.config.js"
+module.exports = {
+  plugins: {
+    'tailwindcss/nesting': {}, // enable css nesting
+    tailwindcss: {},
+    autoprefixer: {}
+  }
+}
+```
+
+We will also update the `tailwind.css` file in the `styles` folder with the following code.
+
+```css title="styles/tailwind.css"
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+## Animating the Tabs
+
+We will use the `AnimatePresence` component from framer-motion to animate the tabs. We will also use the `motion` component to animate the tab pointer.
+
 ## Creating the Tabs
 
 ### Data for the components
 
 We will create a simple array that will hold the tab data for the component. The data will contain the tab title and content.
 
-```tsx
+```tsx title="data.ts"
 export const tabs = [
   {
     title: 'Frontend',
@@ -47,7 +89,7 @@ export const tabs = [
 
 A new file `Tab.tsx` will be created in the `components` folder. This component will take the tab data as props and render the tab title and content.
 
-```tsx
+```tsx title="Tab.tsx"
 'use client'
 
 import { useState } from 'react'
@@ -128,9 +170,8 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
 
 We will import the `Tab.tsx` component into your component or page example `app/page.tsx` file and pass the `tabs` data as props.
 
-```tsx
+```tsx title="app/page.tsx"
 import { tabs } from '~/data'
-// import the tabs data from where it is stored
 import Tab from '~/components/Tab'
 
 export default function Home() {
@@ -141,3 +182,20 @@ export default function Home() {
   )
 }
 ```
+
+## Conclusion
+
+We have successfully created a tab component with framer-motion and tailwindcss. Which can be used in any project to display content in a tabbed format. Our tab component is also responsive and can be used on any device. Resulting in a better user experience. Below is the result of the tab component we created.
+
+<TabOne
+  contains={[
+    {
+      title: 'Frontend',
+      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum voluptas ducimus.'
+    },
+    {
+      title: 'Backend',
+      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
+    }
+  ]}
+/>
