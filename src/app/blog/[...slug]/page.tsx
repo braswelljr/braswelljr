@@ -33,7 +33,7 @@ export default async function BlogPage({ params }: PageProps) {
       <div className="mx-auto w-full min-w-0 px-5 md:pt-14 lg:pt-0">
         <Mdx code={blog.body.code} />
         <Separator className="my-4 md:my-6" />
-        <BlogPaginate blog={blog} />
+        <BlogPaginate blogs={allBlogs} activeBlog={blog} />
       </div>
       <div className="hidden text-xs md:block xl:text-sm">
         <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pr-2 pt-16">
