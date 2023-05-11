@@ -17,6 +17,4 @@ export interface State {
   name: string
   repositories: repo[]
   setRepositories: (params: repo[]) => void
-  languages: any[]
-  setLanguages: (params: any[]) => void
 }

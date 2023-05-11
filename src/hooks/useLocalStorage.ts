@@ -3,18 +3,16 @@ import { useEffect, useState } from 'react'
 /**
  * useLocalStorage hook to get localStorage data
  * @param {string} localStorageKey - the key name to get and set
- * @param {any} initialValue - retains and retrieve state after window is closed
- * @returns {any} localStorageValuee - value of the provided key stored in localStorage
+ * @param {T} initialValue - retains and retrieve state after window is closed
+ * @returns {T} localStorageValuee - value of the provided key stored in localStorage
  * @returns {Function} setLocalStorageValue - used to update the localStorage value
  */
-export default function useLocalStorage(
+export default function useLocalStorage<T>(
   localStorageKey: string,
+  initialValue = null
+): [localStorageValue: T, setlocalStorageValue: (value: T) => void] {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  initialValue: any = null
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): [localStorageValue: any, setlocalStorageValue: (value: any) => void] {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [localStorageValue, setLocalStorageValue] = useState<any>(initialValue)
+  const [localStorageValue, setLocalStorageValue] = useState<T | null>(initialValue)
 
   useEffect(() => {
     // get value from storage
@@ -41,5 +39,5 @@ export default function useLocalStorage(
     return () => window.removeEventListener('storage', syncState)
   }, [initialValue, localStorageKey])
 
-  return [localStorageValue, setLocalStorageValue]
+  return [localStorageValue as T, setLocalStorageValue]
 }

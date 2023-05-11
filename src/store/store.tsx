@@ -7,9 +7,9 @@ const useStore = create<State>()(
   devtools(set => ({
     name: 'braswelljr',
     repositories: [],
-    setRepositories: (params: repo[]) => set(state => ({ ...state, repositories: params })),
-    languages: [],
-    setLanguages: (params: any[]) => set(state => ({ ...state, languages: params }))
+    setRepositories: (params: repo[]) => set(state => ({ ...state, repositories: params }))
+    // languages: [],
+    // setLanguages: (params: any[]) => set(state => ({ ...state, languages: params }))
   }))
 )
 

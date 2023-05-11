@@ -8,22 +8,22 @@
 
 type StorageType = 'session' | 'local'
 
-const useStorage = (): {
-  getStorageItem: (key: string, type?: StorageType) => any
-  setStorageItem: (key: string, value: any, type?: StorageType) => void
+export default function useStorage<T>(): {
+  getStorageItem: (key: string, type?: StorageType) => T
+  setStorageItem: (key: string, value: T, type?: StorageType) => void
   removeStorageItem: (key: string, type?: StorageType) => void
   clear: (type?: StorageType) => void
-} => {
+} {
   const storageType = (type?: StorageType): 'localStorage' | 'sessionStorage' =>
     `${type ?? 'session'}Storage`
 
   const isBrowser: boolean = ((): boolean => typeof window !== 'undefined')()
 
-  const getStorageItem = (key: string, type?: StorageType): any => {
+  const getStorageItem = (key: string, type?: StorageType): T => {
     return isBrowser ? JSON.parse(window[storageType(type)][key]) : null
   }
 
-  const setStorageItem = (key: string, value: any, type?: StorageType): void => {
+  const setStorageItem = (key: string, value: T, type?: StorageType): void => {
     if (isBrowser) {
       window[storageType(type)].setStorageItem(key, JSON.stringify(value))
       console.log(`${key} set to ${value} to ${storageType(type)}`)
@@ -45,5 +45,3 @@ const useStorage = (): {
     clear
   }
 }
-
-export default useStorage
