@@ -22,7 +22,7 @@ module.exports = withALL({
   images: { disableStaticImages: true },
   experimental: { esmExternals: true, appDir: true },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config, { defaultLoaders }) => {
     // clear cache
     defaultLoaders.babel.options.cache = false
 
