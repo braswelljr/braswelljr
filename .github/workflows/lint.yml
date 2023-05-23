@@ -27,27 +27,27 @@ jobs:
           node-version: ${{ matrix.node-version }}
           check-latest: true
 
-      - name: Get yarn cache directory path 🛠
-        id: yarn-cache-dir-path
-        run: echo "name=dir::$(yarn cache dir)" >> $GITHUB_OUTPUT
+      - name: Get pnpm cache directory path 🛠
+        id: pnpm-cache-dir-path
+        run: echo "::set-output name=dir::$(pnpm config get cache)" # use this to check for `cache-hit` (`steps.pnpm-cache.outputs.cache-hit != 'true'`)
 
       - name: Cache node_modules 📦
         uses: actions/cache@v3.3.1
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: pnpm-cache # use this to check for `cache-hit` (`steps.pnpm-cache.outputs.cache-hit != 'true'`)
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-
 
       - name: Install dependencies 👨🏻‍💻
-        run: yarn
+        run: pnpm install
 
       - name: Run linter 👀
-        run: yarn lint
+        run: pnpm lint
 
       - name: Run linter 👀🛠️
-        run: yarn lint:fix
+        run: pnpm lint:fix
 
       - name: Run linter 👀🖌️
-        run: yarn format
+        run: pnpm format
