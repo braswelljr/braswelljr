@@ -1,9 +1,9 @@
 'use client'
 
 import * as React from 'react'
-import { HiChevronDown } from 'react-icons/hi'
 import * as AccordionPrimitive from '@radix-ui/react-accordion'
 import clsx from 'clsx'
+import { ChevronDown } from 'lucide-react'
 
 const Accordion = AccordionPrimitive.Root
 
@@ -11,11 +11,7 @@ const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >(({ className, ...props }, ref) => (
-  <AccordionPrimitive.Item
-    ref={ref}
-    className={clsx('border-b border-b-neutral-200 dark:border-b-neutral-700', className)}
-    {...props}
-  />
+  <AccordionPrimitive.Item ref={ref} className={clsx('border-b', className)} {...props} />
 ))
 AccordionItem.displayName = 'AccordionItem'
 
@@ -33,7 +29,7 @@ const AccordionTrigger = React.forwardRef<
       {...props}
     >
       {children}
-      <HiChevronDown className="h-4 w-4 transition-transform duration-200" />
+      <ChevronDown className="h-4 w-4 transition-transform duration-200" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ))
@@ -46,7 +42,7 @@ const AccordionContent = React.forwardRef<
   <AccordionPrimitive.Content
     ref={ref}
     className={clsx(
-      'data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden text-sm transition-all',
+      'data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm transition-all',
       className
     )}
     {...props}

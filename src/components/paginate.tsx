@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import clsx from 'clsx'
 import { Blog } from 'contentlayer/generated'
-import { Icons } from '~/components/Icons'
 import { buttonVariants } from '~/components/button'
+import { Icons } from '~/components/Icons'
 
 interface BlogPaginationProps {
   blogs: Blog[]

@@ -9,12 +9,12 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '~/components/Accordion'
+import { Callout } from '~/components/callout'
+import { Card } from '~/components/card'
 import { CodeBlockWrapper } from '~/components/CodeBlockWrapper'
 import { ComponentExample } from '~/components/ComponentExample'
 import { ComponentSource } from '~/components/ComponentSource'
 import { CopyButton, CopyNpmCommandButton } from '~/components/CopyButton'
-import { Callout } from '~/components/callout'
-import { Card } from '~/components/card'
 import { snippets } from '~/components/snippets'
 
 const components = {
@@ -199,6 +199,9 @@ const components = {
   CodeBlockWrapper: ({ ...props }) => (
     <CodeBlockWrapper className="rounded-md border border-neutral-100" {...props} />
   ),
+  Steps: ({ ...props }) => (
+    <div className="[&>h3]:step mb-12 ml-4 border-l pl-8 [counter-reset:step]" {...props} />
+  ),
   ...snippets
 }
 
@@ -211,7 +214,8 @@ export function Mdx({ code }: MdxProps) {
 
   return (
     <div className="mdx">
-      <Component components={components} />
+      {/* // eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <Component components={components as any} />
     </div>
   )
 }

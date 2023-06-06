@@ -30,16 +30,7 @@ export const metadata: Metadata = {
     shortcut: '/icons/icon.png',
     apple: '/icons/icon.png'
   },
-  manifest: `/manifest.json`,
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: []
-  }
+  manifest: `/manifest.json`
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {

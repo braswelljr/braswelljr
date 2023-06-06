@@ -3,7 +3,7 @@ import { FaFigma, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from 'react-ico
 export const socials = [
   {
     name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/braswell-kenneth-junior-azu-870827192/',
+    url: 'https://www.linkedin.com/in/braswell-kenneth-870827192/',
     icon: FaLinkedin
   },
   {
