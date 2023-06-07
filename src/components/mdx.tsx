@@ -3,12 +3,6 @@ import Image from 'next/image'
 import clsx from 'clsx'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { NpmCommands } from 'types/unist'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '~/components/Accordion'
 import { Callout } from '~/components/callout'
 import { Card } from '~/components/card'
 import { CodeBlockWrapper } from '~/components/CodeBlockWrapper'
@@ -18,10 +12,6 @@ import { CopyButton, CopyNpmCommandButton } from '~/components/CopyButton'
 import { snippets } from '~/components/snippets'
 
 const components = {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={clsx(
@@ -207,15 +197,15 @@ const components = {
 
 interface MdxProps {
   code: string
+  className?: string
 }
 
-export function Mdx({ code }: MdxProps) {
+export function Mdx({ code, className }: MdxProps) {
   const Component = useMDXComponent(code)
 
   return (
-    <div className="mdx">
-      {/* // eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <Component components={components as any} />
+    <div className={clsx('mdx', className)}>
+      <Component components={components as never} />
     </div>
   )
 }

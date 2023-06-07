@@ -1,80 +1,11 @@
----
-title: Grid Card animation with framer motion
-description: A simple layout animation with framer motion
-tags:
-  - framer-motion
-  - react
-  - animation
-  - grid
-  - css
-  - layout
-date: 2023-05-08 12:00:00
----
+'use client'
 
-## Grid Card animation with framer motion
+import { useState } from 'react'
+import Image from 'next/image'
+import { HiX } from 'react-icons/hi'
+import { AnimatePresence, motion } from 'framer-motion'
 
-A simple layout animation with framer motion and react. Animating the active card in a grid of cards can help the user to focus on the content of the card. This is a simple example of how to do it.
-
-## Requirements
-
-This post assumes that you have a basic understanding of React. If you are new to React, you can follow the [React getting started guide](https://react.dev/). We will also use [tailwindcss](https://tailwindcss.com/) for styling and [framer-motion](https://www.framer.com/motion/) a popular animation library for React.
-
-## Setup
-
-### Dependencies Installation
-
-We will install the required dependencies for the project.
-
-```bash
-yarn add framer-motion tailwindcss postcss autoprefixer clsx
-```
-
-### Styling the Grid Card
-
-We will use tailwindcss to style the tabs. We will create a new file `tailwind.config.js` in the root of the project and add the following code.
-
-```js title="tailwind.config.js"
-module.exports = {
-  experimental: {
-    optimizeUniversalDefaults: true
-  },
-  content: ['./src/**/*.{js,jsx,ts,tsx,vue,mdx,md}'],
-  darkMode: 'class',
-  theme: {
-    extend: {}
-  },
-  plugins: []
-}
-```
-
-We will also create a new file `postcss.config.js` in the root of the project and add the following code.
-
-```js title="postcss.config.js"
-module.exports = {
-  plugins: {
-    'tailwindcss/nesting': {}, // enable css nesting
-    tailwindcss: {},
-    autoprefixer: {}
-  }
-}
-```
-
-We will also update the `tailwind.css` file in the `styles` folder with the following code.
-
-```css title="styles/tailwind.css"
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-## Creating the Component
-
-### Data for the component
-
-We will create a simple array that will hold the data for the component.
-
-```tsx title="data.ts"
-export interface ProductI {
+interface ProductI {
   id: string
   name: string
   price: number
@@ -88,7 +19,7 @@ export interface ProductI {
   updatedAt: string
 }
 
-export const data: ProductI[] = [
+const products: ProductI[] = [
   {
     id: 'ecdc8405-87a9-4950-872e-885e27311481',
     name: 'Battlefield',
@@ -97,7 +28,7 @@ export const data: ProductI[] = [
     weight: 0.07,
     description: 'Game, Thriller, Action',
     image: {
-      url: '--image-url--'
+      url: '/images/grid-component/540202.jpg'
     },
     createdAt: '2023-04-30T18:54:35.564Z',
     updatedAt: '2023-04-30T18:54:35.564Z'
@@ -110,22 +41,12 @@ export const data: ProductI[] = [
     weight: 0.08,
     description: 'Thriller, Game, Action',
     image: {
-      url: '--image-url--'
+      url: '/images/grid-component/320623.png'
     },
     createdAt: '2023-04-30T18:55:30.687Z',
     updatedAt: '2023-04-30T18:55:30.687Z'
   }
 ]
-```
-
-## Gid Card Component
-
-We will create a new file `GridCard.tsx` in the `components` folder and add the following code.
-
-```tsx title="components/GridCard.tsx"
-import { useState } from 'react'
-import { data, ProductI } from '---location-of-data---'
-import { motion } from 'framer-motion'
 
 export default function AnimatedGridComponent() {
   const [selectedProduct, setSelectedProduct] = useState<ProductI | null>(null)
@@ -135,7 +56,7 @@ export default function AnimatedGridComponent() {
       {/* body */}
       <section className="mx-auto max-w-5xl px-6 py-7 max-lg:mx-5 md:px-12 xl:max-w-7xl">
         <div className="">
-          <div className="xsm:grid-cols-[repeat(auto-fill,minmax(320px,1fr))] grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8 text-xs">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8 text-xs xsm:grid-cols-[repeat(auto-fill,minmax(320px,1fr))]">
             {products.map(product => (
               <motion.div
                 key={product.id}
@@ -177,10 +98,19 @@ export default function AnimatedGridComponent() {
                   layoutId={selectedProduct.id}
                 >
                   <div className="relative min-h-[30vh] overflow-hidden bg-neutral-900">
-                    <img
+                    <Image
+                      fill
                       src={selectedProduct.image.url}
                       alt={selectedProduct.name}
-                      className="absolute inset-0 h-full w-full object-cover object-center"
+                      // className="absolute inset-0 h-full w-full object-cover object-center"
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        height: '100%',
+                        width: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'center'
+                      }}
                     />
                   </div>
                   <div className="relative px-3 py-4 pr-4 pt-4">
@@ -191,7 +121,7 @@ export default function AnimatedGridComponent() {
                     >
                       <HiX className="h-6 w-6 text-neutral-900" />
                     </button>
-                    <div className="text-xsm mx-auto flex h-full w-11/12 flex-col justify-between max-sm:space-y-8 sm:text-base ">
+                    <div className="mx-auto flex h-full w-11/12 flex-col justify-between text-xsm max-sm:space-y-8 sm:text-base ">
                       {/* about */}
                       <div className="space-y-2">
                         <div className="line-clamp-1">{selectedProduct.id}</div>
@@ -218,10 +148,3 @@ export default function AnimatedGridComponent() {
     </main>
   )
 }
-```
-
-## Conclusion
-
-We have successfully created a grid with a selected item animation. You can use this animation to create a grid of products, images, or any other content. You can also use this animation to create a grid of cards with a selected item animation.
-
-<AnimatedGridComponent />

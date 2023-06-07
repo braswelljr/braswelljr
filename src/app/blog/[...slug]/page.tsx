@@ -5,6 +5,7 @@ import { allBlogs } from 'contentlayer/generated'
 import { getTableOfContents } from 'lib/toc'
 import { Mdx } from '~/components/mdx'
 import { BlogPaginate } from '~/components/paginate'
+import { ScrollToTopWithBlog } from '~/components/ScrollTop'
 import { Separator } from '~/components/separator'
 import { BlogTableOfContents } from '~/components/toc'
 
@@ -31,20 +32,20 @@ export default async function BlogPage({ params }: PageProps) {
   return (
     <main className="relative pb-6 pt-32 md:grid md:grid-cols-[1fr_250px] md:gap-6 md:pb-10 md:pt-16 lg:grid-cols-[1fr_300px]">
       <div className="mx-auto w-full min-w-0 px-5 md:pt-14 lg:pt-0">
-        <Mdx code={blog.body.code} />
+        <Mdx code={blog.body.code} className="min-h-[80vh]" />
         <Separator className="my-4 md:my-6" />
         <BlogPaginate blogs={allBlogs} activeBlog={blog} />
       </div>
       <div className="hidden text-xs md:block xl:text-sm">
         <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pr-2 pt-16">
           {/* back button */}
-          <div className="mb-4 flex items-center">
+          <span className="mb-4 inline-flex flex-col space-y-2 child:w-auto">
             <Link
               href="/blog"
               className="group/link relative inline-flex items-center space-x-2 pb-1.5 pl-0.5 uppercase text-neutral-600 dark:text-neutral-400"
             >
               <svg
-                className="h-5 w-auto"
+                className="h-4 w-auto"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +62,9 @@ export default async function BlogPage({ params }: PageProps) {
                 aria-hidden="true"
               />
             </Link>
-          </div>
+            {/* scroll to top */}
+            <ScrollToTopWithBlog />
+          </span>
           {/* Table of contents */}
           <BlogTableOfContents toc={toc} />
         </div>

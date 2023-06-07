@@ -1,3 +1,5 @@
+'use client'
+
 // https://github.com/streamich/react-use/blob/master/src/useMedia.ts
 import { useEffect, useState } from 'react'
 
