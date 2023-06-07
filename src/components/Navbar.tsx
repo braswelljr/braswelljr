@@ -14,7 +14,7 @@ import LinkWithRef from '~/components/LinkWithRef'
 
 export const nav = [
   {
-    name: 'Home',
+    name: 'Me',
     path: '/',
     icon: HiHome
   },
