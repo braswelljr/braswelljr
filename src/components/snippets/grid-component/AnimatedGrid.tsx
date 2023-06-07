@@ -102,7 +102,6 @@ export default function AnimatedGridComponent() {
                       fill
                       src={selectedProduct.image.url}
                       alt={selectedProduct.name}
-                      // className="absolute inset-0 h-full w-full object-cover object-center"
                       style={{
                         position: 'absolute',
                         inset: 0,

@@ -26,7 +26,7 @@ export function BlogPaginate({ blogs, activeBlog }: BlogPaginationProps) {
   const xsm = useMedia('(max-width: 425px)')
 
   return (
-    <div className="relative flex flex-row items-center justify-between pt-5">
+    <div className="relative flex flex-row items-center justify-between py-5">
       {pager && pager.prev?.slug && (
         <Link
           href={pager.prev.slug}
