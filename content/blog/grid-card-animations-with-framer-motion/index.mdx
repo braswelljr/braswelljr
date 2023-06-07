@@ -131,29 +131,29 @@ export default function AnimatedGridComponent() {
   const [selectedProduct, setSelectedProduct] = useState<ProductI | null>(null)
 
   return (
-    <main className="relative min-h-[40vh] border border-neutral-800">
+    <main className="relative min-h-[60vh] border border-neutral-800">
       {/* body */}
-      <section className="mx-auto max-w-5xl px-6 py-7 max-lg:mx-5 md:px-12 xl:max-w-7xl">
+      <section className="mx-auto max-w-5xl px-2 py-7 max-lg:mx-5 md:px-12 xl:max-w-7xl">
         <div className="">
           <div className="xsm:grid-cols-[repeat(auto-fill,minmax(320px,1fr))] grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8 text-xs">
             {products.map(product => (
               <motion.div
                 key={product.id}
                 layoutId={product.id}
-                className="space-y-7 border border-neutral-800 p-4 text-sm"
+                className="space-y-7 border border-neutral-800 p-4 text-xs"
               >
                 {/* body */}
                 <div className="space-y-2">
                   <div className="line-clamp-1">{product.id}</div>
                   <div className="font-bold uppercase">{product.name}</div>
                   <div className="">$ {product.price}</div>
-                  <div className="text-sm">Weight : {product.weight} KG</div>
+                  <div className="text-xs">Weight : {product.weight} KG</div>
 
                   {/* actions */}
                   <div className="">
                     <button
                       type="button"
-                      className="bg-neutral-300 px-2 py-1 text-sm font-bold uppercase dark:bg-neutral-700"
+                      className="bg-neutral-300 px-2 py-1 text-xs font-bold uppercase dark:bg-neutral-700"
                       onClick={() => setSelectedProduct(product)}
                     >
                       View Details
@@ -173,31 +173,40 @@ export default function AnimatedGridComponent() {
                   onClick={() => setSelectedProduct(null)}
                 />
                 <motion.div
-                  className="relative z-10 grid w-11/12 grid-cols-1 items-stretch rounded-md bg-white dark:bg-neutral-800 max-sm:max-w-3xl sm:w-auto md:grid-cols-[2fr,3fr]"
+                  className="relative z-10 grid w-2/3 grid-cols-1 items-stretch rounded-md bg-white text-xs dark:bg-neutral-800 max-lg:h-[45vh] max-sm:max-w-3xl sm:w-auto lg:grid-cols-[2fr,3fr]"
                   layoutId={selectedProduct.id}
                 >
-                  <div className="relative min-h-[30vh] overflow-hidden bg-neutral-900">
-                    <img
+                  <div className="relative min-h-[20vh] overflow-hidden bg-neutral-900 lg:min-h-[30vh]">
+                    <Image
+                      fill
                       src={selectedProduct.image.url}
                       alt={selectedProduct.name}
-                      className="absolute inset-0 h-full w-full object-cover object-center"
+                      // className="absolute inset-0 h-full w-full object-cover object-center"
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        height: '100%',
+                        width: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'center'
+                      }}
                     />
                   </div>
                   <div className="relative px-3 py-4 pr-4 pt-4">
                     <button
                       type="button"
-                      className="absolute right-4 top-4 rounded-lg bg-neutral-300 p-2"
+                      className="absolute right-4 rounded-lg bg-neutral-300 p-2 dark:bg-neutral-700 max-md:bottom-4 md:top-4"
                       onClick={() => setSelectedProduct(null)}
                     >
-                      <HiX className="h-6 w-6 text-neutral-900" />
+                      <HiX className="h-4 w-auto text-neutral-900 dark:text-neutral-200" />
                     </button>
-                    <div className="text-xsm mx-auto flex h-full w-11/12 flex-col justify-between max-sm:space-y-8 sm:text-base ">
+                    <div className="mx-auto flex h-full w-11/12 flex-col justify-between text-xs max-sm:space-y-8 ">
                       {/* about */}
                       <div className="space-y-2">
                         <div className="line-clamp-1">{selectedProduct.id}</div>
                         <div className="font-bold uppercase">{selectedProduct.name}</div>
                         <div className="">$ {selectedProduct.price}</div>
-                        <div className="text-sm">Weight : {selectedProduct.weight} KG</div>
+                        <div className="text-xs">Weight : {selectedProduct.weight} KG</div>
                       </div>
                       {/* type */}
                       <div className="">
