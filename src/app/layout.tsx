@@ -1,5 +1,6 @@
 import '~/styles/globals.css'
 import { Metadata } from 'next'
+import LocalFont from 'next/font/local'
 import Image from 'next/image'
 import clsx from 'clsx'
 import { siteConfig } from '~/config/site'
@@ -33,21 +34,52 @@ export const metadata: Metadata = {
   manifest: `/manifest.json`
 }
 
+const Sen = LocalFont({
+  src: [
+    { path: './sen.regular.otf', style: 'normal' },
+    { path: './sen.bold.otf', style: 'normal' },
+    { path: './sen.extrabold.otf', style: 'normal' }
+  ],
+  variable: '--font-sen'
+})
+
+const Lobster = LocalFont({
+  src: [{ path: './lobster.ttf', style: 'normal' }],
+  variable: '--font-lobster'
+})
+
+const JetbrainsMono = LocalFont({
+  src: [
+    { path: './jetbrainsmono.ttf', style: 'normal' },
+    { path: './jetbrainsmono-italic.ttf', style: 'italic' }
+  ],
+  variable: '--font-mono'
+})
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
+    <html
+      className={clsx(
+        'bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white',
+        Sen.variable,
+        Lobster.variable,
+        JetbrainsMono.variable
+      )}
+    >
       <head />
       <body className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
         <main className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
           <StoreProvider>
             <div className={clsx('relative')}>
-              <Image
-                src="/images/beams-2.png"
-                alt="Background parttern"
-                loading="eager"
-                fill
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-              />
+              <div className="fixed inset-0">
+                <Image
+                  src="/images/beams-2.png"
+                  alt="Background parttern"
+                  loading="eager"
+                  fill
+                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+                />
+              </div>
               <Navbar className="fixed inset-x-0 top-0 z-[4] bg-white/90 dark:bg-neutral-800/70" />
               <div className="relative inset-0 z-[1] min-h-screen w-full">{children}</div>
               <ScrollTop className="fixed bottom-5 right-5 z-10" disableOnLayouts={['/blog/']} />

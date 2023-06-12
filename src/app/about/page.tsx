@@ -55,7 +55,7 @@ export default function About() {
             <a
               className="inline-flex items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-2 py-1.5 uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
               download
-              href="/documents/braswell-kenneth-azu-junior-resume.pdf"
+              href="/Braswell-Kenneth-Azu-Junior-Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
