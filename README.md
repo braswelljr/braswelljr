@@ -1,8 +1,6 @@
 <h1 align="center">Braswell Kenneth Azu Junior (Software Engineer) 👨‍</h1>
 
-I am [`braswelljr`](https://braswelljr.vercel.app/) a Software Engineer based in `0101`. I mostly work with the `WEB` and also opts into a little bit of designing mobile application `UIs`.
-
-I like to work with the `Frontend` of most applications.
+I am [`braswelljr`](https://braswelljr.vercel.app/) a Software Engineer based in `0101`. Committed to continuous learning and professional growth, I possess a relentless drive for exploration. My ultimate goal is to use software to drive development and innovation.
 
 * 🌳 I’m currently learning Golang, Docker and NextJS! <br>
 
