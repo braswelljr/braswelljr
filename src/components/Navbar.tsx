@@ -47,7 +47,7 @@ export default function Navbar({ className }: { className?: string }) {
   const { query } = useKBar()
 
   useEffect(() => {
-    const routerTab = pathname?.split('/')[1] ? pathname?.split('/')[1] : '/'
+    const routerTab = pathname.split('/')[1] ? pathname.split('/')[1] : '/'
     if (routerTab) {
       nav.forEach(({ path: href }) => {
         let hrefTab = href.split('/')[1] ? href.split('/')[1] : '/'

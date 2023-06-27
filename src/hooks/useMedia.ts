@@ -4,9 +4,16 @@
 import { useEffect, useState } from 'react'
 
 /**
- *useMedia hook to detect media queries
+ * useMedia hook to detect media queries
+ * @param {string} query - media query to evaluate
+ * @param {boolean} defaultState - default state
+ * @returns boolean
+ * @example
+ * const isWide = useMedia('(min-width: 480px)')
+ * // isWide is true if screen width is >= 480px
+ *
  */
-export default function useMedia(query: string, defaultState = false) {
+export default function useMedia(query: string, defaultState = false): boolean {
   const [state, setState] = useState(defaultState)
 
   useEffect(() => {

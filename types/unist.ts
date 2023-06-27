@@ -9,9 +9,10 @@ export interface UnistNode extends Node {
   properties?: {
     __rawString__?: string
     __className__?: string
+    __filename__?: string
     className?: string[]
     [key: string]: unknown
-  } & NpmCommands
+  } & TerminalCommands
   attributes?: {
     name: string
     value: unknown
@@ -24,7 +25,7 @@ export interface UnistTree extends Node {
   children: UnistNode[]
 }
 
-export interface NpmCommands {
+export interface TerminalCommands {
   __npmCommand__?: string
   __yarnCommand__?: string
   __pnpmCommand__?: string

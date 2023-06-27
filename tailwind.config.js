@@ -1,5 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+/* eslint-disable @typescript-eslint/no-var-requires */
 const defaultTheme = require('tailwindcss/defaultTheme')
+const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   experimental: {
@@ -98,6 +99,29 @@ module.exports = {
       addVariant('child', '& > *')
       addVariant('not-first', '& > *:not(:first-child)')
       addVariant('not-last', '& > *:not(:last-child)')
-    }
+    },
+    // neon shadows
+    plugin(({ addUtilities, theme }) => {
+      const neonUtilities = {}
+      const colors = theme('colors')
+
+      // loop through colors
+      for (const color in colors) {
+        // check if color is an object
+        if (typeof colors[color] === 'object') {
+          // get the color shades
+          const first = colors[color][100]
+          const last = colors[color][900]
+
+          // loop through shades
+          neonUtilities[`.neon-${color}`] = {
+            boxShadow: `0 0 5px ${first}, 0 0 10px ${last}`
+          }
+        }
+      }
+
+      // add utilities
+      addUtilities(neonUtilities)
+    })
   ]
 }

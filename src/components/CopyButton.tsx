@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { DropdownMenuTriggerProps } from '@radix-ui/react-dropdown-menu'
 import { cn } from 'lib/utils'
-import { NpmCommands } from 'types/unist'
+import { TerminalCommands } from 'types/unist'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -102,7 +102,7 @@ export function CopyWithClassNames({
 }
 
 interface CopyNpmCommandButtonProps extends DropdownMenuTriggerProps {
-  commands: Required<NpmCommands>
+  commands: Required<TerminalCommands>
   className?: string
 }
 
@@ -124,7 +124,7 @@ export function CopyNpmCommandButton({ commands, className, ...props }: CopyNpmC
     <DropdownMenu>
       <DropdownMenuTrigger
         className={cn(
-          'absolute z-20 inline-flex h-8 items-center justify-center rounded-md p-2 text-sm font-medium text-white transition-all hover:bg-neutral-100 focus:outline-none',
+          'relative z-20 inline-flex h-8 items-center justify-center rounded-md p-2 text-sm font-medium text-white transition-all hover:bg-neutral-100 focus:outline-none',
           className
         )}
         {...props}

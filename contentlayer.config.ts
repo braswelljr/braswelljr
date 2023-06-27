@@ -136,6 +136,23 @@ export default makeSource({
 
             preElement.properties['__withMeta__'] = node.children.at(0).tagName === 'div'
             preElement.properties['__rawString__'] = node.__rawString__
+            // get the filename
+            if (node.children.at(0).tagName === 'div') {
+              preElement.properties['__filename__'] = node.children.at(0).children.at(0).value
+            }
+
+            // remove the element with `data-rehype-pretty-code-title` attribute
+            node.children = node.children.filter(
+              (
+                child: UnistNode & {
+                  properties: {
+                    'data-rehype-pretty-code-title'?: string
+                  }
+                }
+              ) => {
+                return !('data-rehype-pretty-code-title' in child.properties)
+              }
+            )
 
             if (node.__src__) {
               preElement.properties['__src__'] = node.__src__
