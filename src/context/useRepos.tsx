@@ -62,7 +62,7 @@ export interface XInterface {
   setPinnedProjectsLoader: (pinnedProjectsLoader: boolean) => void
 }
 
-export const StoreContext = createContext<XInterface>({
+export const RepoContext = createContext<XInterface>({
   allProjects: [],
   setProjects: () => {},
   pinnedProjects: [],
@@ -73,7 +73,7 @@ export const StoreContext = createContext<XInterface>({
   setPinnedProjectsLoader: () => {}
 })
 
-export function StoreProvider({ children }: { children?: ReactNode }): JSX.Element {
+export function RepoProvider({ children }: { children?: ReactNode }): JSX.Element {
   const [projects, setProjects] = useState<GithubProject[]>([])
   const [projectsLoader, setProjectsLoader] = useState<boolean>(false)
   const [pinnedProjects, setPinnedProjects] = useState<PinnedProject[]>([])
@@ -83,10 +83,7 @@ export function StoreProvider({ children }: { children?: ReactNode }): JSX.Eleme
   const { data: project_data, error: project_error } = useSWR<GithubProject[]>(
     `https://api.github.com/users/braswelljr/repos`,
     (url: URL) => fetch(url).then(res => res.json()),
-    {
-      refreshInterval: 60000,
-      shouldRetryOnError: true
-    }
+    { shouldRetryOnError: true }
   )
 
   // fetch pinned projects from github api
@@ -138,7 +135,7 @@ export function StoreProvider({ children }: { children?: ReactNode }): JSX.Eleme
           }`
         })
       }).then(res => res.json()),
-    { refreshInterval: 60000, shouldRetryOnError: true }
+    { shouldRetryOnError: true }
   )
 
   // set loading state
@@ -188,12 +185,12 @@ export function StoreProvider({ children }: { children?: ReactNode }): JSX.Eleme
   )
 
   return (
-    <StoreContext.Provider value={memoizedValue}>
+    <RepoContext.Provider value={memoizedValue}>
       <CommandBar>{children}</CommandBar>
-    </StoreContext.Provider>
+    </RepoContext.Provider>
   )
 }
 
-export default function useStore() {
-  return useContext(StoreContext)
+export default function useRepos() {
+  return useContext(RepoContext)
 }

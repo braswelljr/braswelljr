@@ -6,7 +6,10 @@ const useStore = create<State>()(
   devtools(set => ({
     name: 'braswelljr',
     repositories: [],
-    setRepositories: (params: repo[]) => set(state => ({ ...state, repositories: params }))
+    setRepositories: (params: repo[]) => set(state => ({ ...state, repositories: params })),
+    blogpagemenutoogle: false,
+    setBlogpagemenutoogle: (params: boolean) =>
+      set(state => ({ ...state, blogpagemenutoogle: params }))
   }))
 )
 

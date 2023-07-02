@@ -6,7 +6,7 @@ import { BsStar } from 'react-icons/bs'
 import { HiFolderOpen, HiOutlineExternalLink } from 'react-icons/hi'
 import { TfiLayoutListThumb } from 'react-icons/tfi'
 import { OTHER_PROJECTS } from '~/components/data'
-import useXStore from '~/context/store'
+import useXStore from '~/context/useRepos'
 import isFalsy from '~/utils/isFalsy'
 
 export default function Projects() {

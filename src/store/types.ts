@@ -17,4 +17,6 @@ export interface State {
   name: string
   repositories: repo[]
   setRepositories: (params: repo[]) => void
+  blogpagemenutoogle: boolean
+  setBlogpagemenutoogle: (params: boolean) => void
 }

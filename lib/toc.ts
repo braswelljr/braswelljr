@@ -20,10 +20,6 @@ interface Item {
   items?: Item[]
 }
 
-interface Items {
-  items?: Item[]
-}
-
 function getItems(node: UnistNode, current: Item): Item | undefined {
   if (!node) {
     return undefined
@@ -67,10 +63,12 @@ const getToc = () => (node: any, file: any) => {
   file.data = getItems(table.map as UnistNode, {} as Item)
 }
 
-export type TableOfContents = Items
+export type TableOfContents = {
+  items?: Item[]
+}
 
 export async function getTableOfContents(content: string): Promise<TableOfContents> {
   const result = await remark().use(getToc).process(content)
 
-  return result.data
+  return result.data as TableOfContents
 }
