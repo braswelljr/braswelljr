@@ -95,15 +95,22 @@ export default function Navbar({ className }: { className?: string }) {
       <button
         id="search-button"
         className={cn(
-          'flex h-7 items-center rounded-sm bg-neutral-900 text-neutral-100 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500 dark:text-white md:justify-center',
-          pathname.startsWith('/blog/') ? 'w-[40%] xsm:w-1/2 md:w-7' : 'w-7'
+          'flex h-7 items-center rounded-sm bg-neutral-900 text-neutral-100 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500 dark:text-white',
+          pathname.startsWith('/blog/') ? 'w-[40%] xsm:w-1/2 md:w-7' : 'w-7 justify-center'
         )}
         onClick={query.toggle}
         aria-label="Search"
         aria-controls="kbar"
       >
-        <TbCommand className="hidden h-4 w-auto md:inline" />
-        <span className="ml-3 text-xs font-normal uppercase md:hidden">Search ...</span>
+        <TbCommand
+          className={cn(
+            'h-4 w-auto',
+            pathname.startsWith('/blog/') ? 'hidden md:inline' : 'inline'
+          )}
+        />
+        {pathname.startsWith('/blog/') && (
+          <span className={cn('ml-3 text-xs font-normal uppercase md:hidden')}>Search ...</span>
+        )}
       </button>
 
       {/* menu items */}
