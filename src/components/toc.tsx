@@ -54,7 +54,8 @@ export function BlogTableOfContents({ toc, className }: TocProps) {
           'text-xs transition-transform xl:text-sm',
           {
             'fixed inset-y-0 left-0 z-[21] w-4/5 translate-x-0 bg-white/90 text-neutral-900 backdrop-blur-[2px] dark:bg-neutral-900/90 dark:text-white sm:w-2/3':
-              blogpagemenutoogle && !md
+              blogpagemenutoogle && !md,
+            hidden: !blogpagemenutoogle && !md
           },
           className
         )}

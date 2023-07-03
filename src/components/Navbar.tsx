@@ -75,8 +75,8 @@ export default function Navbar({ className }: { className?: string }) {
   return (
     <nav
       className={cn(
-        className,
-        'fixed inset-x-0 top-0 z-[4] flex items-center justify-between bg-inherit px-4 py-2 shadow backdrop-blur-[2px] max-lg:flex-wrap'
+        'fixed inset-x-0 top-0 z-[4] flex items-center justify-between bg-inherit px-4 py-2 shadow backdrop-blur-[2px] max-lg:flex-wrap',
+        className
       )}
     >
       {/* blog page menu */}
@@ -95,8 +95,8 @@ export default function Navbar({ className }: { className?: string }) {
       <button
         id="search-button"
         className={cn(
-          'flex h-7 items-center rounded-sm bg-neutral-900 text-neutral-100 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500 dark:text-white',
-          pathname.startsWith('/blog/') ? 'w-[40%] xsm:w-1/2 md:w-7' : 'w-7 justify-center'
+          'flex h-7 items-center rounded-sm bg-neutral-900 text-neutral-100 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500 dark:text-white md:justify-center',
+          pathname.startsWith('/blog/') ? 'w-[40%] xsm:w-1/2 md:w-7' : 'w-7'
         )}
         onClick={query.toggle}
         aria-label="Search"
