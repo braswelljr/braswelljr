@@ -89,7 +89,7 @@
     "@types/node": "^20.3.3",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
-    "@types/unist": "^2.0.6",
+    "@types/unist": "^3.0.0",
     "@types/webpack-env": "^1.18.1",
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^5.61.0",
