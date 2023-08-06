@@ -16,8 +16,8 @@ export default function TerminlIcon({ className }: { className?: string }) {
       width="24"
       color="currentColor"
     >
-      <path d="M4 17l6-6-6-6"></path>
-      <path d="M12 19h8"></path>
+      <path d="M4 17l6-6-6-6" />
+      <path d="M12 19h8" />
     </svg>
   )
 }
