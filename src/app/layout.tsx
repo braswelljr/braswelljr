@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: 'braswelljr',
-      url: 'https://braswelljr.engineer'
+      url: 'https://braswelljr.vercel.app'
     }
   ],
   creator: 'braswelljr',
