@@ -1,17 +1,17 @@
 import * as React from 'react'
 import Image from 'next/image'
+import { BsTerminalFill } from 'react-icons/bs'
 import { LiaFileInvoiceSolid } from 'react-icons/lia'
 import { cn } from 'lib/utils'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { TerminalCommands } from 'types/unist'
 import { Callout } from '~/components/callout'
-import { Card } from '~/components/card'
 import { CodeBlockWrapper } from '~/components/CodeBlockWrapper'
 import { ComponentExample } from '~/components/ComponentExample'
 import { ComponentSource } from '~/components/ComponentSource'
 import { CopyButton, CopyNpmCommandButton } from '~/components/CopyButton'
 import { snippets } from '~/components/snippets'
-import TerminalIcon from '~/components/TerminalIcon'
+import { Card } from '~/components/ui/card'
 
 const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
@@ -42,29 +42,17 @@ const components = {
     />
   ),
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h4
-      className={cn('mt-8 scroll-m-20 text-xl font-semibold tracking-tight', className)}
-      {...props}
-    />
+    <h4 className={cn('mt-8 scroll-m-20 text-xl font-semibold tracking-tight', className)} {...props} />
   ),
   h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h5
-      className={cn('mt-8 scroll-m-20 text-lg font-semibold tracking-tight', className)}
-      {...props}
-    />
+    <h5 className={cn('mt-8 scroll-m-20 text-lg font-semibold tracking-tight', className)} {...props} />
   ),
   h6: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h6
-      className={cn('mt-8 scroll-m-20 text-base font-semibold tracking-tight', className)}
-      {...props}
-    />
+    <h6 className={cn('mt-8 scroll-m-20 text-base font-semibold tracking-tight', className)} {...props} />
   ),
   a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
     <a
-      className={cn(
-        'font-medium text-neutral-900 underline underline-offset-4 dark:text-neutral-50',
-        className
-      )}
+      className={cn('font-medium text-neutral-900 underline underline-offset-4 dark:text-neutral-50', className)}
       {...props}
     />
   ),
@@ -102,10 +90,7 @@ const components = {
     </div>
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
-    <tr
-      className={cn('m-0 border-t border-neutral-300 p-0 even:bg-neutral-100', className)}
-      {...props}
-    />
+    <tr className={cn('m-0 border-t border-neutral-300 p-0 even:bg-neutral-100', className)} {...props} />
   ),
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
@@ -156,7 +141,7 @@ const components = {
               </>
             ) : (
               <>
-                <TerminalIcon className="h-4 w-auto text-white" aria-hidden />
+                <BsTerminalFill className="h-4 w-auto text-white" aria-hidden />
                 <span className="text-neutral-400">Terminal</span>
               </>
             )}
@@ -166,9 +151,7 @@ const components = {
             <CopyButton
               value={__rawString__}
               src={__src__}
-              className={cn(
-                'border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100'
-              )}
+              className={cn('border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100')}
             />
           )}
           {__rawString__ && __npmCommand__ && __yarnCommand__ && __pnpmCommand__ && (
@@ -178,18 +161,13 @@ const components = {
                 __pnpmCommand__,
                 __yarnCommand__
               }}
-              className={cn(
-                'border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100'
-              )}
+              className={cn('border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100')}
             />
           )}
         </div>
         {/* code */}
         <pre
-          className={cn(
-            'overflow-x-auto bg-neutral-900 px-2 py-4 !font-mono dark:bg-black sm:px-4',
-            className
-          )}
+          className={cn('overflow-x-auto bg-neutral-900 px-2 py-4 !font-mono dark:bg-black sm:px-4', className)}
           {...props}
         />
       </div>
@@ -209,12 +187,8 @@ const components = {
   Card,
   ComponentExample,
   ComponentSource,
-  CodeBlockWrapper: ({ ...props }) => (
-    <CodeBlockWrapper className="rounded-md border border-neutral-100" {...props} />
-  ),
-  Steps: ({ ...props }) => (
-    <div className="[&>h3]:step mb-12 ml-4 border-l pl-8 [counter-reset:step]" {...props} />
-  ),
+  CodeBlockWrapper: ({ ...props }) => <CodeBlockWrapper className="rounded-md border border-neutral-100" {...props} />,
+  Steps: ({ ...props }) => <div className="[&>h3]:step mb-12 ml-4 border-l pl-8 [counter-reset:step]" {...props} />,
   ...snippets
 }
 

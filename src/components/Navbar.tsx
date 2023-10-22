@@ -2,15 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import {
-  HiCode,
-  HiDesktopComputer,
-  HiHome,
-  HiMoon,
-  HiOutlineArchive,
-  HiOutlineMenuAlt2,
-  HiSun
-} from 'react-icons/hi'
+import { HiCode, HiDesktopComputer, HiHome, HiMoon, HiOutlineArchive, HiOutlineMenuAlt2, HiSun } from 'react-icons/hi'
 import { IoIosPerson } from 'react-icons/io'
 import { MdArticle } from 'react-icons/md'
 import { TbCommand } from 'react-icons/tb'
@@ -19,7 +11,6 @@ import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { useKBar } from 'kbar'
 import { cn } from 'lib/utils'
 import { useTheme } from 'next-themes'
-import { shallow } from 'zustand/shallow'
 import LinkWithRef from '~/components/LinkWithRef'
 
 export const nav = [
@@ -55,10 +46,10 @@ export default function Navbar({ className }: { className?: string }) {
   const [tab, setTab] = useState(nav[0].path)
   const pathname = usePathname()
   const { query } = useKBar()
-  const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(
-    state => [state.blogpagemenutoogle, state.setBlogpagemenutoogle],
-    shallow
-  )
+  const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(state => [
+    state.blogpagemenutoogle,
+    state.setBlogpagemenutoogle
+  ])
 
   useEffect(() => {
     const routerTab = pathname.split('/')[1] ? pathname.split('/')[1] : '/'
@@ -102,12 +93,7 @@ export default function Navbar({ className }: { className?: string }) {
         aria-label="Search"
         aria-controls="kbar"
       >
-        <TbCommand
-          className={cn(
-            'h-4 w-auto',
-            pathname.startsWith('/blog/') ? 'hidden md:inline' : 'inline'
-          )}
-        />
+        <TbCommand className={cn('h-4 w-auto', pathname.startsWith('/blog/') ? 'hidden md:inline' : 'inline')} />
         {pathname.startsWith('/blog/') && (
           <span className={cn('ml-3 text-xs font-normal uppercase md:hidden')}>Search ...</span>
         )}
@@ -146,11 +132,7 @@ export default function Navbar({ className }: { className?: string }) {
             dark: <HiMoon className={cn('h-4 w-auto')} />,
             light: <HiSun className={cn('h-4 w-auto')} />
           }).map(([key, value], i, self) => (
-            <li
-              key={key}
-              className={cn('relative block cursor-pointer p-1.5')}
-              onClick={() => setTheme(key)}
-            >
+            <li key={key} className={cn('relative block cursor-pointer p-1.5')} onClick={() => setTheme(key)}>
               <AnimatePresence>
                 {key === theme && (
                   <motion.div

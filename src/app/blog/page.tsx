@@ -67,12 +67,8 @@ export default function Page() {
                   )}
                   <dl className="absolute left-0 top-0 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]">
                     <dt className="sr-only">Date</dt>
-                    <dd
-                      className={clsx('whitespace-nowrap text-sm leading-6 dark:text-orange-400')}
-                    >
-                      <time dateTime={date}>
-                        {date ? formatDate(date, '{MMMM} {DD}, {YYYY}') : 'unknown'}
-                      </time>
+                    <dd className={clsx('whitespace-nowrap text-sm leading-6 dark:text-orange-400')}>
+                      <time dateTime={date}>{date ? formatDate(date, '{MMMM} {DD}, {YYYY}') : 'unknown'}</time>
                     </dd>
                   </dl>
                 </div>

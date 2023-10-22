@@ -23,8 +23,7 @@ export default function useLocalStorage<T>(
 
   useEffect(() => {
     // set value in storage if value is not initial value
-    if (localStorageValue !== initialValue)
-      localStorage.setItem(localStorageKey, JSON.stringify(localStorageValue))
+    if (localStorageValue !== initialValue) localStorage.setItem(localStorageKey, JSON.stringify(localStorageValue))
   }, [localStorageValue, localStorageKey, initialValue])
 
   useEffect(() => {

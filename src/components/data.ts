@@ -1,4 +1,5 @@
 import { FaFigma, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa'
+import { Career } from 'types/types'
 
 export const socials = [
   {
@@ -31,9 +32,31 @@ export const socials = [
 /**
  * career - List of careers
  */
-export const career = [
+export const career: Array<Career> = [
   {
     role: 'Software Engineer',
+    company: 'Morlan Technologies, Ghana (Remote)',
+    companyLink: 'https://morlan.tech',
+    date: 'April 1, 2023 - Present',
+    description: [
+      'Plan solutions for software projects.',
+      'Design and implement backend APIs for web and mobile applications.',
+      'Implement frontend web applications.'
+    ]
+  },
+  {
+    role: 'Software Engineer',
+    company: 'Infinanze Technologies, US (Remote)',
+    companyLink: '#',
+    date: 'July 1, 2023 - Present',
+    description: [
+      'Implement frontend web applications and websites.',
+      'Suggest and plan solutions with the UI/UX team.',
+      'Collaborate with the backend team to integrate APIs to make functional frontend applications.'
+    ]
+  },
+  {
+    role: 'Software Engineer (National Service)',
     company: 'Solar Taxi, Accra - Ghana',
     companyLink: 'https://solartaxi.co',
     date: 'November 1, 2022 - Present',
@@ -45,7 +68,7 @@ export const career = [
     ]
   },
   {
-    role: 'Software Engineer',
+    role: 'Software Engineer (Internship)',
     company: 'The Hive, Kumasi - Ghana',
     companyLink: 'https://kumasi-hive.com',
     date: 'April 20, 2021 - November 12, 2021',

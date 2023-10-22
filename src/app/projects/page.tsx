@@ -23,9 +23,7 @@ export default function Projects() {
   const filteredProjects = allProjects.filter(
     project => !pinnedProjects.find(pinnedProject => pinnedProject.name === project.name)
   )
-  const ALL_PROJECTS = Array.isArray(filteredProjects)
-    ? filteredProjects.slice(0, limitProjects)
-    : []
+  const ALL_PROJECTS = Array.isArray(filteredProjects) ? filteredProjects.slice(0, limitProjects) : []
 
   return (
     <div className="pb-10 pt-10 max-lg:pt-28">
@@ -40,8 +38,8 @@ export default function Projects() {
             <span className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text px-3 uppercase text-transparent dark:to-[#ff7056]">
               enthusiast
             </span>{' '}
-            and I love to contribute to open source. I am also a hobbyist and I love to build things
-            that are fun to use.
+            and I love to contribute to open source. I am also a hobbyist and I love to build things that are fun to
+            use.
           </p>
           <p>
             {' '}
@@ -143,9 +141,7 @@ export default function Projects() {
                           {/* link */}
                           <span>
                             <a
-                              href={
-                                isFalsy(project.homepageUrl) ? project.url : project.homepageUrl
-                              }
+                              href={isFalsy(project.homepageUrl) ? project.url : project.homepageUrl}
                               target="_blank"
                               rel="noopener"
                               className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
