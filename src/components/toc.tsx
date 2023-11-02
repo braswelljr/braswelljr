@@ -9,7 +9,6 @@ import clsx from 'clsx'
 import { TableOfContents } from 'lib/toc'
 import { cn } from 'lib/utils'
 import { createPortal } from 'react-dom'
-import { shallow } from 'zustand/shallow'
 import useMedia from '~/hooks/useMedia'
 import useMounted from '~/hooks/useMounted'
 import { ScrollToTopWithBlog } from './ScrollTop'
@@ -33,10 +32,10 @@ export function BlogTableOfContents({ toc, className }: TocProps) {
   }, [toc])
   const activeHeading = useActiveItem(itemIds as string[])
   const mounted = useMounted()
-  const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(
-    state => [state.blogpagemenutoogle, state.setBlogpagemenutoogle],
-    shallow
-  )
+  const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(state => [
+    state.blogpagemenutoogle,
+    state.setBlogpagemenutoogle
+  ])
   const md = useMedia('(min-width: 768px)')
 
   useEffect(() => {
@@ -154,10 +153,10 @@ interface TreeProps {
 }
 
 function Tree({ tree, level = 1, activeItem }: TreeProps) {
-  const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(
-    state => [state.blogpagemenutoogle, state.setBlogpagemenutoogle],
-    shallow
-  )
+  const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(state => [
+    state.blogpagemenutoogle,
+    state.setBlogpagemenutoogle
+  ])
 
   return tree?.items?.length && level < 3 ? (
     <ul className={cn('m-0 list-none', { 'pl-2': level !== 1 })}>
@@ -176,9 +175,7 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
             >
               {item.title}
             </a>
-            {item.items?.length ? (
-              <Tree tree={item} level={level + 1} activeItem={activeItem} />
-            ) : null}
+            {item.items?.length ? <Tree tree={item} level={level + 1} activeItem={activeItem} /> : null}
           </li>
         )
       })}

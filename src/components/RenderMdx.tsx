@@ -2,11 +2,7 @@ import { ClassAttributes, ImgHTMLAttributes, ReactNode } from 'react'
 import { MDXProvider } from '@mdx-js/react'
 
 const mdxComponents = {
-  img: (
-    props: JSX.IntrinsicAttributes &
-      ClassAttributes<HTMLImageElement> &
-      ImgHTMLAttributes<HTMLImageElement>
-  ) => (
+  img: (props: JSX.IntrinsicAttributes & ClassAttributes<HTMLImageElement> & ImgHTMLAttributes<HTMLImageElement>) => (
     <div className="not-prose relative my-[2em] overflow-hidden rounded-lg first:mt-0 last:mb-0">
       {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <img {...props} decoding="async" />

@@ -2,19 +2,14 @@
 
 import { useState } from 'react'
 import clsx from 'clsx'
-import { Button } from '~/components/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/collapsible'
+import { Button } from '~/components/ui/button'
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   expandButtonTitle?: string
 }
 
-export function CodeBlockWrapper({
-  expandButtonTitle = 'View Code',
-  className,
-  children,
-  ...props
-}: CodeBlockProps) {
+export function CodeBlockWrapper({ expandButtonTitle = 'View Code', className, children, ...props }: CodeBlockProps) {
   const [isOpened, setIsOpened] = useState(false)
 
   return (

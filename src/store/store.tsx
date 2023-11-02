@@ -1,15 +1,15 @@
 import { repo, State } from '~/store/types'
-import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
+// import { shallow } from 'zustand/shallow'
+import { createWithEqualityFn } from 'zustand/traditional'
 
-const useStore = create<State>()(
+const useStore = createWithEqualityFn<State>()(
   devtools(set => ({
     name: 'braswelljr',
     repositories: [],
     setRepositories: (params: repo[]) => set(state => ({ ...state, repositories: params })),
     blogpagemenutoogle: false,
-    setBlogpagemenutoogle: (params: boolean) =>
-      set(state => ({ ...state, blogpagemenutoogle: params }))
+    setBlogpagemenutoogle: (params: boolean) => set(state => ({ ...state, blogpagemenutoogle: params }))
   }))
 )
 

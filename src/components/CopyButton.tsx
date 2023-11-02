@@ -4,12 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { DropdownMenuTriggerProps } from '@radix-ui/react-dropdown-menu'
 import { cn } from 'lib/utils'
 import { TerminalCommands } from 'types/unist'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '~/components/DropdownMenu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '~/components/DropdownMenu'
 import { Icons } from '~/components/Icons'
 
 interface CopyButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
@@ -56,12 +51,7 @@ interface CopyWithClassNamesProps extends DropdownMenuTriggerProps {
   className: string
 }
 
-export function CopyWithClassNames({
-  value,
-  classNames,
-  className,
-  ...props
-}: CopyWithClassNamesProps) {
+export function CopyWithClassNames({ value, classNames, className, ...props }: CopyWithClassNamesProps) {
   const [hasCopied, setHasCopied] = useState(false)
 
   useEffect(() => {
