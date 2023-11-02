@@ -2,12 +2,12 @@ import '~/styles/globals.css'
 import { Metadata } from 'next'
 import LocalFont from 'next/font/local'
 import Image from 'next/image'
+import { ThemeProvider } from '~/providers/theme'
 import { cn } from 'lib/utils'
 import { siteConfig } from '~/config/site'
 import Navbar from '~/components/Navbar'
 import ScrollTop from '~/components/ScrollTop'
 import { RepoProvider } from '~/context/useRepos'
-import ThemeProvider from '~/context/useTheme'
 
 export const metadata: Metadata = {
   title: {
@@ -66,6 +66,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         Lobster.variable,
         JetbrainsMono.variable
       )}
+      suppressHydrationWarning
     >
       <head />
       <body className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">

@@ -27,10 +27,7 @@ export const EditorTabItem = forwardRef<
     >
       {name}
       {saved ? (
-        <svg
-          viewBox="0 0 4 4"
-          className="ml-2.5 h-1 w-1 flex-none overflow-visible text-neutral-500"
-        >
+        <svg viewBox="0 0 4 4" className="ml-2.5 h-1 w-1 flex-none overflow-visible text-neutral-500">
           <path d="M-1 -1L5 5M5 -1L-1 5" fill="none" stroke="currentColor" strokeLinecap="round" />
         </svg>
       ) : (
@@ -44,15 +41,7 @@ EditorTabItem.displayName = 'EditorTabItem'
 
 export const EditorTab = forwardRef<HTMLDivElement, EditorTabI>(
   (
-    {
-      Component = 'div',
-      primary,
-      secondary = [],
-      showTabMarkers = true,
-      side = 'left',
-      translucent = false,
-      children
-    },
+    { Component = 'div', primary, secondary = [], showTabMarkers = true, side = 'left', translucent = false, children },
     _ref
   ) => {
     return (
@@ -61,16 +50,8 @@ export const EditorTab = forwardRef<HTMLDivElement, EditorTabI>(
           {primary.name}
           {showTabMarkers &&
             (primary.saved ? (
-              <svg
-                viewBox="0 0 4 4"
-                className="ml-2.5 h-1 w-1 flex-none overflow-visible text-neutral-500"
-              >
-                <path
-                  d="M-1 -1L5 5M5 -1L-1 5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                />
+              <svg viewBox="0 0 4 4" className="ml-2.5 h-1 w-1 flex-none overflow-visible text-neutral-500">
+                <path d="M-1 -1L5 5M5 -1L-1 5" fill="none" stroke="currentColor" strokeLinecap="round" />
               </svg>
             ) : (
               <div className="ml-2.5 h-1 w-1 flex-none rounded-full bg-current" />
@@ -93,9 +74,7 @@ export const EditorTab = forwardRef<HTMLDivElement, EditorTabI>(
               {name}
             </div>
           ))}
-          {children && (
-            <div className="flex flex-auto items-center justify-end space-x-4 px-4">{children}</div>
-          )}
+          {children && <div className="flex flex-auto items-center justify-end space-x-4 px-4">{children}</div>}
         </div>
       </Component>
     )
@@ -103,35 +82,25 @@ export const EditorTab = forwardRef<HTMLDivElement, EditorTabI>(
 )
 EditorTab.displayName = 'EditorTab'
 
-export const EditorCodeWrapper = forwardRef<HTMLDivElement, { children?: ReactNode }>(
-  ({ children }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className="flex flex-auto overflow-hidden bg-neutral-900/5 dark:bg-neutral-800/50"
-      >
-        {children}
-      </div>
-    )
-  }
-)
+export const EditorCodeWrapper = forwardRef<HTMLDivElement, { children?: ReactNode }>(({ children }, ref) => {
+  return (
+    <div ref={ref} className="flex flex-auto overflow-hidden bg-neutral-900/5 dark:bg-neutral-800/50">
+      {children}
+    </div>
+  )
+})
 EditorCodeWrapper.displayName = 'EditorCodeWrapper'
 
-export const EditorCodeWindow = forwardRef<HTMLDivElement, EditorCodeWindowI>(
-  ({ children, className }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          'flex flex-auto flex-col overflow-hidden bg-neutral-900/5 dark:bg-neutral-800/50',
-          className
-        )}
-      >
-        {children}
-      </div>
-    )
-  }
-)
+export const EditorCodeWindow = forwardRef<HTMLDivElement, EditorCodeWindowI>(({ children, className }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn('flex flex-auto flex-col overflow-hidden bg-neutral-900/5 dark:bg-neutral-800/50', className)}
+    >
+      {children}
+    </div>
+  )
+})
 EditorCodeWindow.displayName = 'EditorCodeWindow'
 
 export function EditorCode({

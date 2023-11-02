@@ -13,10 +13,7 @@ import { useEffect, useState } from 'react'
  * }
  * }, [someState])
  */
-export default function useCtrlorCmd(
-  key: string,
-  callback: (isCtrlOrCmd: boolean) => void
-): boolean {
+export default function useCtrlorCmd(key: string, callback: (isCtrlOrCmd: boolean) => void): boolean {
   const [isCtrlOrCmd, setIsCtrlOrCmd] = useState(false)
 
   useEffect(() => {
