@@ -23,10 +23,10 @@ export const metadata: Metadata = {
     }
   ],
   creator: 'braswelljr',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' }
-  ],
+  // themeColor: [
+  //   { media: '(prefers-color-scheme: light)', color: 'white' },
+  //   { media: '(prefers-color-scheme: dark)', color: 'black' }
+  // ],
   icons: {
     icon: '/favicon.ico',
     shortcut: '/icons/icon.png',
@@ -72,7 +72,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
         <ThemeProvider>
           <RepoProvider>
-            <main className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
+            <main className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white" suppressHydrationWarning>
               <div className={cn('relative')}>
                 <div className="fixed inset-0">
                   <Image

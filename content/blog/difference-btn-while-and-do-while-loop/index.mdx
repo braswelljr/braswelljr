@@ -6,7 +6,69 @@ tags:
   - WHILE
   - PROGRAMMING
   - ALGORITHM
-date: 2023-06-29 11:19:00
+date: 2023-11-02 21:13:00
 ---
 
-## Difference between WHILE and DO WHILE loop
+Loops are essential constructs in programming, allowing developers to execute a block of code repeatedly based on a condition. Two commonly used types of loops are the while loop and the do-while loop. Although they serve similar purposes, there are subtle differences between them that are crucial to understand. In this article, we’ll explore the differences between while and do-while loops in Typescript.
+
+## The While loop
+
+The while loop is a pre-test loop, meaning it evaluates the condition before executing the loop's body. If the condition is false initially, the loop body will never execute. The syntax for a while loop is as follows:
+
+```typescript title="while-loop.ts"
+while (condition) {
+  // loop body
+}
+```
+
+### Example
+
+The following example demonstrates a while loop that prints to the console the numbers from 1 to 5 using a counter variable:
+
+```typescript title="while-loop.ts"
+let i: number = 1
+
+while (i <= 5) {
+  console.log(i)
+  i++
+}
+```
+
+## The Do-While loop
+
+The do-while loop is a post-test loop, meaning it evaluates the condition after executing the loop's body. This guarantees that the loop body will execute at least once, even if the condition is false initially. The syntax for a do-while loop is as follows:
+
+```typescript title="do-while-loop.ts"
+do {
+  // loop body
+} while (condition)
+```
+
+### Example
+
+The following example demonstrates a do-while loop that prints to the console the numbers from 1 to 5 using a counter variable:
+
+```typescript title="do-while-loop.ts"
+let i: number = 1
+
+do {
+  console.log(i)
+  i++
+} while (i <= 5)
+```
+
+## Key Differences
+
+### Execution Guarantee
+
+- `while` loop: The loop body will execute only if the condition is true initially.
+- `do-while` loop: The loop body will execute at least once, even if the condition is false initially.
+
+### Pre-test vs. Post-test
+
+- `while` loop: The condition is evaluated before executing the loop body.
+- `do-while` loop: The condition is evaluated after executing the loop body.
+
+## Conclusion
+
+Understanding the differences between while and do-while loops is fundamental for writing efficient and error-free code. Whether you choose a while loop for its simplicity and straightforwardness or a do-while loop for its guaranteed initial execution, selecting the right type of loop depends on the specific requirements of your program. By mastering these looping constructs, you enhance your ability to create robust and effective algorithms in your programs.
