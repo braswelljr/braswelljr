@@ -31,11 +31,7 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
                   />
                 )}
               </AnimatePresence>
-              <div
-                className={clsx(
-                  'relative z-[1] flex items-center space-x-2 px-3 py-1 font-light uppercase'
-                )}
-              >
+              <div className={clsx('relative z-[1] flex items-center space-x-2 px-3 py-1 font-light uppercase')}>
                 {/* <item.icon className="h-4 w-auto" /> */}
                 <span>{item.title}</span>
               </div>

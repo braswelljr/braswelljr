@@ -1,82 +1,17 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
-const { createLoader } = require('simple-functional-loader')
-const runtimeCaching = require('next-pwa/cache')
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  runtimeCaching,
-  disable: process.env.NODE_ENV === 'development'
-})
-const { withContentlayer } = require('next-contentlayer')
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true'
-})
-
-const withALL = (nextConfig = {}) =>
-  withBundleAnalyzer(withContentlayer(withPWA({ ...nextConfig })))
+const { createContentlayerPlugin } = require('next-contentlayer')
 
 /** @type {import('next').NextConfig} */
-module.exports = withALL({
-  swcMinify: true,
+const nextConfig = {
   reactStrictMode: true,
-  images: { disableStaticImages: true },
-  experimental: { esmExternals: true, appDir: true },
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-  webpack: (config, { defaultLoaders }) => {
-    // clear cache
-    defaultLoaders.babel.options.cache = false
-
-    // resolve path
-    config.resolve.modules.push(path.resolve(`./`))
-
-    // file-loader config
-    config.module.rules.push({
-      test: /\.(jpe?g|png|svg|gif|ico|eot|ttf|woff|woff2|mp4|pdf|webp|avif|txt)$/i,
-      issuer: /\.(jsx?|tsx?|mdx?)$/,
-      use: [
-        {
-          loader: 'file-loader',
-          options: {
-            esModule: false,
-            publicPath: '/_next',
-            name: 'static/media/[name].[hash].[ext]'
-          }
-        }
-      ]
-    })
-
-    // load svg as react component
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: [
-        {
-          loader: '@svgr/webpack',
-          options: { svgoConfig: { plugins: { removeViewBox: false } } }
-        },
-        {
-          loader: 'file-loader',
-          options: {
-            publicPath: '/_next',
-            name: 'static/media/[name].[hash].[ext]'
-          }
-        }
-      ]
-    })
-
-    // Remove the 3px deadzone for drag gestures in Framer Motion
-    config.module.rules.push({
-      test: /framer-motion/,
-      use: createLoader(function (source) {
-        return source.replace(
-          /var isDistancePastThreshold = .*?$/m,
-          'var isDistancePastThreshold = true'
-        )
-      })
-    })
-
-    return config
-  },
+  swcMinify: true,
   async redirects() {
-    return require('./redirects.json')
+    return []
   }
+}
+
+const withContentlayer = createContentlayerPlugin({
+  // Additional Contentlayer config options
 })
+
+module.exports = withContentlayer(nextConfig)

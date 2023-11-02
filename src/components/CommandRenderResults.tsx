@@ -12,9 +12,7 @@ export default function RenderResults() {
           return <div className="px-5 py-2.5 text-sm uppercase dark:text-neutral-200">{item}</div>
         }
 
-        return (
-          <CommandResultItem action={item} active={active} currentRootActionId={rootActionId} />
-        )
+        return <CommandResultItem action={item} active={active} currentRootActionId={rootActionId} />
       }}
     />
   )

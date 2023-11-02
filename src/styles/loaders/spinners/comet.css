@@ -3,11 +3,7 @@
   height: 56px; /* -> change size for customization */
   border-radius: 50%;
   background: conic-gradient(#0000 10%, #474bff); /* -> change color for customization */
-  -webkit-mask: radial-gradient(
-    farthest-side,
-    #0000 calc(100% - 9px),
-    #000 0
-  ); /* -> change color for customization */
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 9px), #000 0); /* -> change color for customization */
   animation: spinner-comet 1s infinite linear;
 }
 

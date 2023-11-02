@@ -3,7 +3,7 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import { CopyButton, CopyWithClassNames } from '~/components/CopyButton'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
 
 interface ComponentExampleProps extends React.HTMLAttributes<HTMLDivElement> {
   extractClassname?: boolean
@@ -36,11 +36,7 @@ export function ComponentExample({
             <TabsTrigger value="code">Code</TabsTrigger>
           </TabsList>
           {extractedClassNames ? (
-            <CopyWithClassNames
-              value={codeString}
-              classNames={extractedClassNames}
-              className="border-none"
-            />
+            <CopyWithClassNames value={codeString} classNames={extractedClassNames} className="border-none" />
           ) : (
             codeString && <CopyButton value={codeString} />
           )}
