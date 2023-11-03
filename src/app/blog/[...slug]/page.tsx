@@ -1,8 +1,11 @@
 import '~/styles/mdx.css'
 import { notFound } from 'next/navigation'
+import { MdOutlineWorkspacePremium } from 'react-icons/md'
 import { allBlogs } from 'contentlayer/generated'
+import { subDays } from 'date-fns'
 import { getTableOfContents } from 'lib/toc'
 import { cn } from 'lib/utils'
+import moment from 'moment'
 import { Mdx } from '~/components/mdx'
 import { BlogPaginate } from '~/components/paginate'
 import { Separator } from '~/components/separator'
@@ -18,7 +21,7 @@ export async function generateStaticParams(): Promise<PageProps['params'][]> {
   return allBlogs.map(blog => ({ slug: blog.slugAsParams.split('/') }))
 }
 
-export default async function BlogPage({ params }: PageProps) {
+export default async function Page({ params }: PageProps) {
   const slug = params?.slug?.join('/') || ''
   const blog = allBlogs.find(blog => blog.slugAsParams === slug)
 
@@ -34,12 +37,18 @@ export default async function BlogPage({ params }: PageProps) {
         <div className="flex h-full min-h-[85vh] flex-1 flex-col  justify-between">
           <div className="">
             <div className="space-y-2">
+              {moment(blog.date).isAfter(subDays(new Date(), 150)) && (
+                <span className="inline-flex h-6 w-auto items-center space-x-1 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
+                  <MdOutlineWorkspacePremium className="h-3 w-auto" />
+                  <span>New</span>
+                </span>
+              )}
               <h1
                 className={cn(
                   'scroll-m-20 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent dark:to-[#ff7056] sm:text-3xl md:text-4xl'
                 )}
               >
-                {blog.title}
+                {blog.title}{' '}
               </h1>
               {blog.description && <p className="text-muted-foreground text-lg">{blog.description}</p>}
             </div>

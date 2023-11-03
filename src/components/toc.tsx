@@ -2,8 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { BsArrowUpRight } from 'react-icons/bs'
-import { HiX } from 'react-icons/hi'
+import { HiOutlineExternalLink, HiX } from 'react-icons/hi'
 import useStore from '~/store/store'
 import clsx from 'clsx'
 import { TableOfContents } from 'lib/toc'
@@ -85,7 +84,7 @@ export function BlogTableOfContents({ toc, className }: TocProps) {
               href="/blog"
               className="group/link relative inline-flex items-center space-x-2 pb-1.5 uppercase text-neutral-600 dark:text-neutral-400"
             >
-              <BsArrowUpRight className="h-3 w-auto" />
+              <HiOutlineExternalLink className="h-3.5 w-auto" />
               <span>Back to blog</span>
               <span
                 className="absolute inset-x-0 bottom-1 h-0.5 w-0 bg-current transition-width group-hover/link:w-full"

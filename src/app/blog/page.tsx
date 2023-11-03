@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import { HiChevronRight } from 'react-icons/hi'
+import { MdOutlineWorkspacePremium } from 'react-icons/md'
 import clsx from 'clsx'
 import { allBlogs } from 'contentlayer/generated'
+import { subDays } from 'date-fns'
+import moment from 'moment'
 import { formatDate } from '~/utils/formatDate'
 
 export default function Page() {
@@ -44,6 +47,15 @@ export default function Page() {
                   />
                 </svg>
                 <div className="relative">
+                  {/* check if the date is less than 30 days old */}
+                  {moment(date).isAfter(subDays(new Date(), 150)) && (
+                    <div className="pb-4">
+                      <span className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
+                        <MdOutlineWorkspacePremium className="h-3 w-auto" />
+                        <span>New</span>
+                      </span>
+                    </div>
+                  )}
                   {/* header */}
                   <h3 className="pt-8 font-semibold uppercase tracking-tight text-neutral-900 dark:text-neutral-200 lg:pt-0">
                     {title}
@@ -54,7 +66,7 @@ export default function Page() {
                   </div>
                   {/* tags */}
                   {tags && (
-                    <div className="my-2 flex flex-wrap gap-2">
+                    <div className="my-2 mb-4 flex flex-wrap gap-2">
                       {tags.map((tag, i) => (
                         <span
                           key={i}
@@ -65,17 +77,21 @@ export default function Page() {
                       ))}
                     </div>
                   )}
+
                   <dl className="absolute left-0 top-0 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]">
                     <dt className="sr-only">Date</dt>
                     <dd className={clsx('whitespace-nowrap text-sm leading-6 dark:text-orange-400')}>
                       <time dateTime={date}>{date ? formatDate(date, '{MMMM} {DD}, {YYYY}') : 'unknown'}</time>
+                      <caption className="">
+                        <span className=""></span>
+                      </caption>
                     </dd>
                   </dl>
                 </div>
                 {/* Link */}
                 <Link
                   href={`/blog/${slugAsParams}`}
-                  className="group/link relative mt-6 inline pb-2 text-sm font-medium uppercase text-[#ff2600] dark:text-[#ff7056]"
+                  className="group/link relative mt-5 inline pb-2.5 text-sm font-medium uppercase text-[#ff2600] dark:text-[#ff7056]"
                 >
                   <span className="inline-flex items-center justify-start space-x-2">
                     <span className="">

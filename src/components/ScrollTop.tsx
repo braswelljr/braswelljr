@@ -90,7 +90,7 @@ export function ScrollToTopWithBlog({
         })
       }}
     >
-      <HiArrowUp className="h-3 w-auto" />
+      <HiArrowUp className="h-2.5 w-auto" />
       <span>Scroll to top</span>
     </button>
   )
