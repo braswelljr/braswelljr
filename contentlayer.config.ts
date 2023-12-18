@@ -3,7 +3,7 @@ import { defineDocumentType, defineNestedType, makeSource } from 'contentlayer/s
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
-import { codeImport } from 'remark-code-import'
+import codeImport from 'remark-code-import'
 import remarkGfm from 'remark-gfm'
 import { getHighlighter, loadTheme } from 'shiki'
 import { UnistNode, UnistTree } from 'types/unist'
@@ -83,7 +83,7 @@ export default makeSource({
   contentDirPath: './content',
   documentTypes: [Blog],
   mdx: {
-    remarkPlugins: [remarkGfm, codeImport],
+    remarkPlugins: [remarkGfm, codeImport as () => void],
     rehypePlugins: [
       rehypeSlug,
       rehypeComponent,

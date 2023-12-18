@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { HiChevronRight } from 'react-icons/hi'
 import { MdOutlineWorkspacePremium } from 'react-icons/md'
-import clsx from 'clsx'
 import { allBlogs } from 'contentlayer/generated'
 import { subDays } from 'date-fns'
+import { cn } from 'lib/utils'
 import moment from 'moment'
 import { formatDate } from '~/utils/formatDate'
 
@@ -49,15 +49,13 @@ export default function Page() {
                 <div className="relative">
                   {/* check if the date is less than 30 days old */}
                   {moment(date).isAfter(subDays(new Date(), 150)) && (
-                    <div className="pb-4">
-                      <span className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
-                        <MdOutlineWorkspacePremium className="h-3 w-auto" />
-                        <span>New</span>
-                      </span>
-                    </div>
+                    <span className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400 max-lg:mt-8">
+                      <MdOutlineWorkspacePremium className="h-3 w-auto" />
+                      <span>New</span>
+                    </span>
                   )}
                   {/* header */}
-                  <h3 className="pt-8 font-semibold uppercase tracking-tight text-neutral-900 dark:text-neutral-200 lg:pt-0">
+                  <h3 className="pt-6 font-semibold uppercase tracking-tight text-neutral-900 dark:text-neutral-200 lg:pt-2">
                     {title}
                   </h3>
                   {/* description */}
@@ -80,7 +78,7 @@ export default function Page() {
 
                   <dl className="absolute left-0 top-0 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]">
                     <dt className="sr-only">Date</dt>
-                    <dd className={clsx('whitespace-nowrap text-sm leading-6 dark:text-orange-400')}>
+                    <dd className={cn('whitespace-nowrap text-sm leading-6 dark:text-orange-400')}>
                       <time dateTime={date}>{date ? formatDate(date, '{MMMM} {DD}, {YYYY}') : 'unknown'}</time>
                       <caption className="">
                         <span className=""></span>

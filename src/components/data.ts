@@ -91,6 +91,13 @@ export const career: Array<Career> = [
 
 export const OTHER_PROJECTS = [
   {
+    name: 'Carbazza',
+    homepageUrl: 'https://carbazza.vercel.app',
+    url: '',
+    description:
+      'Carbazza is a comprehensive online platform for car enthusiasts, providing a wide range of services and resources to help them make informed decisions about purchasing, maintaining, and upgrading their vehicles.'
+  },
+  {
     name: 'TheseuxX',
     homepageUrl: 'https://theseusx.vercel.app',
     url: '',

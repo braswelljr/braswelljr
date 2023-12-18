@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { HiArrowUp } from 'react-icons/hi'
-import clsx from 'clsx'
+import { cn } from 'lib/utils'
 import useTop from '~/hooks/useTop'
 
 export default function ScrollTop({
@@ -44,7 +44,7 @@ export default function ScrollTop({
   return (
     <button
       ref={scrollRef}
-      className={clsx(
+      className={cn(
         className,
         'flex h-10 w-10 translate-y-20 items-center justify-center rounded-sm bg-neutral-900 text-white transition-transform dark:bg-neutral-500 dark:text-white',
         disableOnRoutes && disableOnRoutes.map(route => route === pathname && 'hidden'),
@@ -76,7 +76,7 @@ export function ScrollToTopWithBlog({
 
   return (
     <button
-      className={clsx(
+      className={cn(
         className,
         'group/link relative inline-flex items-center space-x-2 pb-1.5 pl-0.5 uppercase text-neutral-600 dark:text-neutral-400',
         disableOnRoutes && disableOnRoutes.map(route => route === pathname && 'hidden'),

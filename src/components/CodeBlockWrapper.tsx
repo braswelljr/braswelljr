@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import clsx from 'clsx'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/collapsible'
+import { cn } from 'lib/utils'
 import { Button } from '~/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   expandButtonTitle?: string
@@ -14,10 +14,10 @@ export function CodeBlockWrapper({ expandButtonTitle = 'View Code', className, c
 
   return (
     <Collapsible open={isOpened} onOpenChange={setIsOpened}>
-      <div className={clsx('relative overflow-hidden', className)} {...props}>
-        <CollapsibleContent forceMount className={clsx('overflow-hidden', !isOpened && 'max-h-32')}>
+      <div className={cn('relative overflow-hidden', className)} {...props}>
+        <CollapsibleContent forceMount className={cn('overflow-hidden', !isOpened && 'max-h-32')}>
           <div
-            className={clsx(
+            className={cn(
               '[&_pre]:my-0 [&_pre]:max-h-[650px] [&_pre]:pb-[100px]',
               !isOpened ? '[&_pre]:overflow-hidden' : '[&_pre]:overflow-auto'
             )}
@@ -26,7 +26,7 @@ export function CodeBlockWrapper({ expandButtonTitle = 'View Code', className, c
           </div>
         </CollapsibleContent>
         <div
-          className={clsx(
+          className={cn(
             'absolute flex items-center justify-center bg-gradient-to-b from-neutral-900/30 to-neutral-900/90 p-2',
             isOpened ? 'inset-x-0 bottom-3 h-12' : 'inset-0'
           )}

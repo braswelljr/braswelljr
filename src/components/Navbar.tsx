@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { HiCode, HiDesktopComputer, HiHome, HiMoon, HiOutlineArchive, HiOutlineMenuAlt2, HiSun } from 'react-icons/hi'
 import { IoIosPerson } from 'react-icons/io'
@@ -8,10 +9,9 @@ import { MdArticle } from 'react-icons/md'
 import { TbCommand } from 'react-icons/tb'
 import useStore from '~/store/store'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
-import { useKBar } from 'kbar'
 import { cn } from 'lib/utils'
 import { useTheme } from 'next-themes'
-import LinkWithRef from '~/components/LinkWithRef'
+import Search from '~/components/search'
 
 export const nav = [
   {
@@ -44,8 +44,11 @@ export const nav = [
 export default function Navbar({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme()
   const [tab, setTab] = useState(nav[0].path)
+  const [open, onOpenChange] = useState(false)
+  const searchButtonRef = useRef<HTMLButtonElement>(null)
+  const lid = useId()
+  const tid = useId()
   const pathname = usePathname()
-  const { query } = useKBar()
   const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(state => [
     state.blogpagemenutoogle,
     state.setBlogpagemenutoogle
@@ -62,6 +65,17 @@ export default function Navbar({ className }: { className?: string }) {
       })
     }
   }, [pathname])
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === '/' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        onOpenChange(open => !open)
+      }
+    }
+    document.addEventListener('keydown', down)
+    return () => document.removeEventListener('keydown', down)
+  }, [])
 
   return (
     <nav
@@ -86,28 +100,28 @@ export default function Navbar({ className }: { className?: string }) {
       <button
         id="search-button"
         className={cn(
-          'flex h-7 items-center rounded-sm bg-neutral-900 text-neutral-100 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500 dark:text-white md:justify-center',
-          pathname.startsWith('/blog/') ? 'w-[40%] xsm:w-1/2 md:w-7' : 'w-7'
+          'flex h-7 items-center rounded-sm bg-neutral-900 text-neutral-100 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500 dark:text-white',
+          pathname.startsWith('/blog/') ? 'w-[40%] xsm:w-1/2 md:w-7 md:justify-center' : 'w-7 justify-center'
         )}
-        onClick={query.toggle}
         aria-label="Search"
-        aria-controls="kbar"
+        onClick={() => onOpenChange(!open)}
       >
         <TbCommand className={cn('h-4 w-auto', pathname.startsWith('/blog/') ? 'hidden md:inline' : 'inline')} />
         {pathname.startsWith('/blog/') && (
           <span className={cn('ml-3 text-xs font-normal uppercase md:hidden')}>Search ...</span>
         )}
       </button>
+      <Search open={open} setOpen={onOpenChange} searchButtonRef={searchButtonRef} />
 
       {/* menu items */}
       <LayoutGroup>
         <ul className="flex w-full items-center justify-center space-x-4 whitespace-nowrap max-lg:order-2 max-lg:mt-4 max-lg:grow max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto max-xsm:text-sm">
           {nav.map((item, idx) => (
-            <LinkWithRef key={idx} href={item.path} className={cn('relative pb-2')}>
+            <Link key={idx} href={item.path} className={cn('relative pb-2')}>
               <AnimatePresence>
                 {tab === item.path && (
                   <motion.div
-                    layoutId="menuLayoutIdPointer"
+                    layoutId={lid}
                     className={cn(
                       'absolute inset-x-0 bottom-0 h-1 bg-neutral-900 dark:bg-white',
                       idx === 0 && 'rounded-l-sm',
@@ -120,7 +134,7 @@ export default function Navbar({ className }: { className?: string }) {
                 {/* <item.icon className="h-4 w-auto" /> */}
                 <span>{item.name}</span>
               </div>
-            </LinkWithRef>
+            </Link>
           ))}
         </ul>
       </LayoutGroup>
@@ -136,7 +150,7 @@ export default function Navbar({ className }: { className?: string }) {
               <AnimatePresence>
                 {key === theme && (
                   <motion.div
-                    layoutId="themeIdPointer"
+                    layoutId={tid}
                     initial={false}
                     className={cn(
                       'absolute inset-0 bg-neutral-800 dark:bg-neutral-500',

@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import clsx from 'clsx'
+import { cn } from 'lib/utils'
 import { CopyButton, CopyWithClassNames } from '~/components/CopyButton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
 
@@ -28,7 +28,7 @@ export function ComponentExample({
   }, [Code])
 
   return (
-    <div className={clsx('group relative my-4 flex flex-col space-y-2', className)} {...props}>
+    <div className={cn('group relative my-4 flex flex-col space-y-2', className)} {...props}>
       <Tabs defaultValue="preview" className="mr-auto w-full">
         <div className="flex items-center justify-between">
           <TabsList>
@@ -43,7 +43,7 @@ export function ComponentExample({
         </div>
         <TabsContent value="preview" className="p-0">
           <div
-            className={clsx('flex min-h-[350px] justify-center p-10', {
+            className={cn('flex min-h-[350px] justify-center p-10', {
               'items-center': align === 'center',
               'items-start': align === 'start',
               'items-end': align === 'end'

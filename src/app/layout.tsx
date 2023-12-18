@@ -23,10 +23,6 @@ export const metadata: Metadata = {
     }
   ],
   creator: 'braswelljr',
-  // themeColor: [
-  //   { media: '(prefers-color-scheme: light)', color: 'white' },
-  //   { media: '(prefers-color-scheme: dark)', color: 'black' }
-  // ],
   icons: {
     icon: '/favicon.ico',
     shortcut: '/icons/icon.png',

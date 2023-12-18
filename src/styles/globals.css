@@ -1,10 +1,10 @@
 /* @import 'fonts.css'; */
-@import 'tailwindcss/base';
+@import 'base.css';
 
 /*! purgecss start ignore */
 @import 'mdx.css';
+@import 'docsearch.css';
 /*! purgecss end ignore */
 
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import 'components.css';
 @import 'utilities.css';

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import clsx from 'clsx'
+import { cn } from 'lib/utils'
 import { SidebarNavItem } from 'types/nav'
 
 export interface BlogSidebarNavProps {
@@ -15,7 +15,7 @@ export function BlogSidebarNav({ items }: BlogSidebarNavProps) {
   return items.length ? (
     <div className="w-full">
       {items.map((item, index) => (
-        <div key={index} className={clsx('pb-6')}>
+        <div key={index} className={cn('pb-6')}>
           <h4 className="mb-1 rounded-md px-2 py-1 text-sm font-semibold">{item.title}</h4>
           {item?.items?.length && <BlogSidebarNavItems items={item.items} pathname={pathname} />}
         </div>
@@ -37,12 +37,10 @@ export function BlogSidebarNavItems({ items, pathname }: BlogSidebarNavItemsProp
           <Link
             key={index}
             href={item.href}
-            className={clsx(
+            className={cn(
               'group flex w-full items-center rounded-md px-2 py-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800',
               item.disabled && 'cursor-not-allowed opacity-60',
-              {
-                'bg-neutral-100 dark:bg-neutral-800': pathname === item.href
-              }
+              pathname === item.href && 'bg-neutral-100 dark:bg-neutral-800'
             )}
             target={item.external ? '_blank' : ''}
             rel={item.external ? 'noreferrer' : ''}

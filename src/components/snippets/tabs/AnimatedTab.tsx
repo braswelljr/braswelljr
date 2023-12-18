@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
-import clsx from 'clsx'
+import { useId, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { cn } from 'lib/utils'
 
 interface TabProps {
   title: string
@@ -11,19 +11,20 @@ interface TabProps {
 
 export default function Tab({ contains, className }: { contains: TabProps[]; className?: string }) {
   const [tab, setTab] = useState(contains[0])
+  const animationId = useId()
 
   return (
-    <div className={clsx('my-5', className)}>
+    <div className={cn('my-5', className)}>
       <div className="space-y-2">
         {/* menu items */}
         <div className="flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 dark:border-[0.5px] max-xsm:text-sm">
           {contains.map((item, idx) => (
-            <button key={idx} className={clsx('relative')} onClick={() => setTab(item)}>
+            <button key={idx} className={cn('relative')} onClick={() => setTab(item)}>
               <AnimatePresence>
                 {tab.title === item.title && (
                   <motion.div
-                    layoutId="tab-example-pointer"
-                    className={clsx(
+                    layoutId={animationId}
+                    className={cn(
                       'absolute inset-0 bottom-0 h-full w-full bg-orange-300/50 backdrop-blur',
                       idx === 0 && 'rounded-l-sm',
                       idx === contains.length - 1 && 'rounded-r-sm'
@@ -31,7 +32,7 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
                   />
                 )}
               </AnimatePresence>
-              <div className={clsx('relative z-[1] flex items-center space-x-2 px-3 py-1 font-light uppercase')}>
+              <div className={cn('relative z-[1] flex items-center space-x-2 px-3 py-1 font-light uppercase')}>
                 {/* <item.icon className="h-4 w-auto" /> */}
                 <span>{item.title}</span>
               </div>

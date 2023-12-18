@@ -5,12 +5,12 @@ import { LiaFileInvoiceSolid } from 'react-icons/lia'
 import { cn } from 'lib/utils'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { TerminalCommands } from 'types/unist'
-import { Callout } from '~/components/callout'
 import { CodeBlockWrapper } from '~/components/CodeBlockWrapper'
 import { ComponentExample } from '~/components/ComponentExample'
 import { ComponentSource } from '~/components/ComponentSource'
 import { CopyButton, CopyNpmCommandButton } from '~/components/CopyButton'
 import { snippets } from '~/components/snippets'
+import { Callout } from '~/components/ui/callout'
 import { Card } from '~/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
 
@@ -199,7 +199,7 @@ const components = {
   TabsTrigger: ({ className, ...props }: React.ComponentProps<typeof TabsTrigger>) => (
     <TabsTrigger
       className={cn(
-        'text-muted-foreground data-[state=active]:border-b-primary data-[state=active]:text-foreground relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold shadow-none transition-none data-[state=active]:shadow-none',
+        'relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none',
         className
       )}
       {...props}

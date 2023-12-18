@@ -8,8 +8,8 @@ import { cn } from 'lib/utils'
 import moment from 'moment'
 import { Mdx } from '~/components/mdx'
 import { BlogPaginate } from '~/components/paginate'
-import { Separator } from '~/components/separator'
 import { BlogTableOfContents } from '~/components/toc'
+import { Separator } from '~/components/ui/separator'
 
 interface PageProps {
   params: {
@@ -50,7 +50,7 @@ export default async function Page({ params }: PageProps) {
               >
                 {blog.title}{' '}
               </h1>
-              {blog.description && <p className="text-muted-foreground text-lg">{blog.description}</p>}
+              {blog.description && <p className="text-lg text-muted-foreground">{blog.description}</p>}
             </div>
             {blog.tags && blog.tags?.length && (
               <div className="my-2 flex flex-wrap gap-2 py-6">

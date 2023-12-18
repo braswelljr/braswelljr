@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { HiOutlineExternalLink, HiX } from 'react-icons/hi'
 import useStore from '~/store/store'
-import clsx from 'clsx'
 import { TableOfContents } from 'lib/toc'
 import { cn } from 'lib/utils'
 import { createPortal } from 'react-dom'
@@ -39,7 +38,8 @@ export function BlogTableOfContents({ toc, className }: TocProps) {
 
   useEffect(() => {
     if (md) setBlogpagemenutoogle(false)
-  }, [md, setBlogpagemenutoogle])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [md])
 
   if (!toc?.items || !mounted) {
     return null
@@ -161,7 +161,7 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
     <ul className={cn('m-0 list-none', { 'pl-2': level !== 1 })}>
       {tree.items.map((item, index) => {
         return (
-          <li key={index} className={clsx('mt-0 pt-2')}>
+          <li key={index} className={cn('mt-0 pt-2')}>
             <a
               href={item.url}
               className={cn(

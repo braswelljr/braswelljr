@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef, ReactElement } from '
 import { HiX } from 'react-icons/hi'
 import * as ToastPrimitives from '@radix-ui/react-toast'
 import { cva, VariantProps } from 'class-variance-authority'
-import clsx from 'clsx'
+import { cn } from 'lib/utils'
 
 const ToastProvider = ToastPrimitives.Provider
 
@@ -12,7 +12,7 @@ const ToastViewport = forwardRef<
 >(({ className, ...props }, ref) => (
   <ToastPrimitives.Viewport
     ref={ref}
-    className={clsx(
+    className={cn(
       'fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]',
       className
     )}
@@ -43,7 +43,7 @@ const Toast = forwardRef<
   ElementRef<typeof ToastPrimitives.Root>,
   ComponentPropsWithoutRef<typeof ToastPrimitives.Root> & VariantProps<typeof toastVariants>
 >(({ className, variant, ...props }, ref) => {
-  return <ToastPrimitives.Root ref={ref} className={clsx(toastVariants({ variant }), className)} {...props} />
+  return <ToastPrimitives.Root ref={ref} className={cn(toastVariants({ variant }), className)} {...props} />
 })
 Toast.displayName = ToastPrimitives.Root.displayName
 
@@ -53,7 +53,7 @@ const ToastAction = forwardRef<
 >(({ className, ...props }, ref) => (
   <ToastPrimitives.Action
     ref={ref}
-    className={clsx(
+    className={cn(
       'inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-transparent px-3 text-sm font-medium transition-colors hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-red-100 group-[.destructive]:hover:border-slate-50 group-[.destructive]:hover:bg-red-100 group-[.destructive]:hover:text-red-600 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-700 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800',
       className
     )}
@@ -68,7 +68,7 @@ const ToastClose = forwardRef<
 >(({ className, ...props }, ref) => (
   <ToastPrimitives.Close
     ref={ref}
-    className={clsx(
+    className={cn(
       'absolute right-2 top-2 rounded-md p-1 text-slate-500 opacity-0 transition-opacity hover:text-slate-900 focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600 dark:hover:text-slate-50',
       className
     )}
@@ -84,7 +84,7 @@ const ToastTitle = forwardRef<
   ElementRef<typeof ToastPrimitives.Title>,
   ComponentPropsWithoutRef<typeof ToastPrimitives.Title>
 >(({ className, ...props }, ref) => (
-  <ToastPrimitives.Title ref={ref} className={clsx('text-sm font-semibold', className)} {...props} />
+  <ToastPrimitives.Title ref={ref} className={cn('text-sm font-semibold', className)} {...props} />
 ))
 ToastTitle.displayName = ToastPrimitives.Title.displayName
 
@@ -92,7 +92,7 @@ const ToastDescription = forwardRef<
   ElementRef<typeof ToastPrimitives.Description>,
   ComponentPropsWithoutRef<typeof ToastPrimitives.Description>
 >(({ className, ...props }, ref) => (
-  <ToastPrimitives.Description ref={ref} className={clsx('text-sm opacity-90', className)} {...props} />
+  <ToastPrimitives.Description ref={ref} className={cn('text-sm opacity-90', className)} {...props} />
 ))
 ToastDescription.displayName = ToastPrimitives.Description.displayName
 

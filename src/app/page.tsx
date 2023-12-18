@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import clsx from 'clsx'
 import { motion } from 'framer-motion'
+import { cn } from 'lib/utils'
 import useInterval from '~/hooks/useInterval'
 import { socials } from '~/components/data'
 
@@ -22,7 +22,7 @@ export default function Index() {
   }, 5000)
 
   return (
-    <motion.main className={clsx('grid h-screen place-content-center')}>
+    <motion.main className={cn('grid h-screen place-content-center')}>
       <section className="space-y-4">
         <div className="md:pt-8">
           <Image
@@ -36,14 +36,14 @@ export default function Index() {
         </div>
         <div className="space-y-8 md:space-y-12">
           <div className="text-center text-lg font-extralight sm:text-xl md:text-2xl">
-            <p className="">I am</p> <p className="">Braswell Kenneth Azu Jr.</p>
+            <div className="">I am</div> <div className="">Braswell Kenneth Azu Jr.</div>
           </div>
           {roles.map(
             (role, id) =>
               r === id && (
                 <motion.div
                   key={id}
-                  className={clsx(
+                  className={cn(
                     'bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-3 text-center text-xl font-black uppercase text-transparent dark:to-[#ff7056] xxs:text-2xl xsm:text-3xl sm:text-4xl md:text-5xl'
                   )}
                   initial={{ y: 20, opacity: 0 }}

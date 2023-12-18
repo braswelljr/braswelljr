@@ -1,8 +1,8 @@
-import clsx from 'clsx'
+import { cn } from 'lib/utils'
 
-const BubblesBackground = ({ className }: { className?: string }) => {
+export default function BubblesBackground({ className }: { className?: string }) {
   return (
-    <div className={clsx('bubbles', className)}>
+    <div className={cn('bubbles', className)}>
       <div className="bubble" />
       <div className="bubble" />
       <div className="bubble" />
@@ -56,5 +56,3 @@ const BubblesBackground = ({ className }: { className?: string }) => {
     </div>
   )
 }
-
-export default BubblesBackground

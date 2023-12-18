@@ -2,7 +2,6 @@
 
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 import useSWR from 'swr'
-import CommandBar from '~/components/CommandBar'
 
 export interface Project {
   name: string
@@ -184,11 +183,7 @@ export function RepoProvider({ children }: { children?: ReactNode }): JSX.Elemen
     [projects, pinnedProjects, projectsLoader, pinnedProjectsLoader]
   )
 
-  return (
-    <RepoContext.Provider value={memoizedValue}>
-      <CommandBar>{children}</CommandBar>
-    </RepoContext.Provider>
-  )
+  return <RepoContext.Provider value={memoizedValue}>{children}</RepoContext.Provider>
 }
 
 export default function useRepos() {

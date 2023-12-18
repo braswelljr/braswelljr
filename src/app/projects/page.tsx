@@ -242,9 +242,9 @@ export default function Projects() {
                               href={isFalsy(project.html_url) ? project.url : project.html_url}
                               target="_blank"
                               rel="noopener noreferer"
-                              className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                              className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                             >
-                              <HiOutlineExternalLink className="h-4 w-auto" />
+                              <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
                               <span>Visit</span>
                             </a>
                           </span>
@@ -256,9 +256,9 @@ export default function Projects() {
                 <div className="mt-4 flex justify-end">
                   <button
                     onClick={() => setViewMoreProjects(!viewMoreProjects)}
-                    className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                   >
-                    <TfiLayoutListThumb className="h-5 w-auto" />
+                    <TfiLayoutListThumb className="h-5 w-auto  group-hover:scale-95" />
                     <span>{viewMoreProjects ? 'View Less' : 'View More'}</span>
                   </button>
                 </div>
@@ -288,12 +288,12 @@ export default function Projects() {
                     key={i}
                     className="space-y-2 px-2 py-3 backdrop-blur odd:bg-zinc-900/20 dark:odd:bg-zinc-900/50 sm:px-4"
                   >
-                    {/* header */}
-                    <h2 className="flex items-center space-x-2 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-sm uppercase text-transparent dark:to-[#ff7056]">
-                      {project.name}
-                    </h2>
-                    <div className="text-xs">
-                      <p className="line-clamp-3">{project.description}</p>
+                    <div className="space-y-2">
+                      {/* header */}
+                      <h2 className="flex items-center space-x-2 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-sm uppercase text-transparent dark:to-[#ff7056]">
+                        {project.name}
+                      </h2>
+                      <p className="line-clamp-2">{project.description}</p>
                     </div>
                     {/* footer */}
                     <div className="flex items-center justify-end">
@@ -303,9 +303,9 @@ export default function Projects() {
                           href={isFalsy(project.homepageUrl) ? project.url : project.homepageUrl}
                           target="_blank"
                           rel="noopener"
-                          className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                          className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                         >
-                          <HiOutlineExternalLink className="h-4 w-auto" />
+                          <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
                           <span>Visit</span>
                         </a>
                       </span>
