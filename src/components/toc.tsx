@@ -113,10 +113,7 @@ interface TreeProps {
 }
 
 function Tree({ tree, level = 1, activeItem }: TreeProps) {
-  const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(state => [
-    state.blogpagemenutoogle,
-    state.setBlogpagemenutoogle
-  ])
+  const [setBlogpagemenutoogle] = useStore(state => [state.setBlogpagemenutoogle])
 
   return tree?.items?.length && level < 3 ? (
     <ul className={cn('m-0 list-none', { 'pl-2': level !== 1 })}>
@@ -131,7 +128,7 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
                   ? 'font-medium text-rose-600 dark:text-orange-300'
                   : 'text-neutral-700 hover:text-neutral-900 dark:text-neutral-400'
               )}
-              onClick={() => setBlogpagemenutoogle(!blogpagemenutoogle)}
+              onClick={() => setBlogpagemenutoogle(false)}
             >
               {item.title}
             </a>

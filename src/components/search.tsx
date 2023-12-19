@@ -67,8 +67,8 @@ const Search = ({
               initialQuery={searchQuery}
               initialScrollY={window.scrollY}
               onClose={onClose}
-              appId=""
-              apiKey=""
+              appId="QKSUPW3S6U"
+              apiKey="c7fe5c895331a45ebd59889d32de1165"
               indexName="braswelljr"
               navigator={{
                 navigate({ itemUrl }) {
