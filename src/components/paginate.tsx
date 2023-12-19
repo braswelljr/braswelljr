@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Blog } from 'contentlayer/generated'
 import { cn } from 'lib/utils'
 import useMedia from '~/hooks/useMedia'
-import { Icons } from '~/components/Icons'
+import { Icons } from '~/components/icons'
 import { buttonVariants } from '~/components/ui/button'
 
 interface BlogPaginationProps {

@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 import { cn } from 'lib/utils'
-import { TextEditorI } from 'types/Editor'
+import { TextEditorI } from 'types/editor'
 
 export const TextEditor = forwardRef<HTMLDivElement, TextEditorI>(({ children, className }, ref) => {
   if (!children) {

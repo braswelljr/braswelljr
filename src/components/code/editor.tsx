@@ -1,6 +1,6 @@
 import { CSSProperties, forwardRef, ReactNode, useMemo, useState } from 'react'
 import { cn } from 'lib/utils'
-import type { EditorCodeWindowI, EditorTabI, EditorTabItemI } from 'types/Editor'
+import type { EditorCodeWindowI, EditorTabI, EditorTabItemI } from 'types/editor'
 import { Code } from '~/components/code/code'
 
 export const EditorTabItem = forwardRef<
