@@ -144,9 +144,9 @@ export default function Projects() {
                               href={isFalsy(project.homepageUrl) ? project.url : project.homepageUrl}
                               target="_blank"
                               rel="noopener"
-                              className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                              className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                             >
-                              <HiOutlineExternalLink className="h-4 w-auto" />
+                              <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
                               <span>Visit</span>
                             </a>
                           </span>
@@ -158,9 +158,9 @@ export default function Projects() {
                 <div className="mt-4 flex justify-end">
                   <button
                     onClick={() => setViewMorePins(!viewMorePins)}
-                    className="relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                   >
-                    <TfiLayoutListThumb className="h-5 w-auto" />
+                    <TfiLayoutListThumb className="h-5 w-auto group-hover:scale-95" />
                     <span>{viewMoreProjects ? 'View Less' : 'View More'}</span>
                   </button>
                 </div>

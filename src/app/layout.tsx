@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { ThemeProvider } from '~/providers/theme'
 import { cn } from 'lib/utils'
 import { siteConfig } from '~/config/site'
-import Navbar from '~/components/Navbar'
-import ScrollTop from '~/components/ScrollTop'
+import Navbar from '~/components/navbar'
+import ScrollTop from '~/components/scroll-top'
 import { RepoProvider } from '~/context/useRepos'
 
 export const metadata: Metadata = {

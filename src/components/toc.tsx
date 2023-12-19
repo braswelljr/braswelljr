@@ -1,15 +1,14 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { HiOutlineExternalLink, HiX } from 'react-icons/hi'
+import { HiOutlineExternalLink } from 'react-icons/hi'
 import useStore from '~/store/store'
 import { TableOfContents } from 'lib/toc'
 import { cn } from 'lib/utils'
-import { createPortal } from 'react-dom'
-import useMedia from '~/hooks/useMedia'
 import useMounted from '~/hooks/useMounted'
-import { ScrollToTopWithBlog } from './ScrollTop'
+import { Sheet, SheetContent } from '~/components/ui/sheet'
+import { ScrollToTopWithBlog } from './scroll-top'
 
 interface TocProps {
   toc: TableOfContents
@@ -34,80 +33,48 @@ export function BlogTableOfContents({ toc, className }: TocProps) {
     state.blogpagemenutoogle,
     state.setBlogpagemenutoogle
   ])
-  const md = useMedia('(min-width: 768px)')
-
-  useEffect(() => {
-    if (md) setBlogpagemenutoogle(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [md])
 
   if (!toc?.items || !mounted) {
     return null
   }
 
   const content = (
-    <>
-      <aside
-        className={cn(
-          'text-xs transition-transform xl:text-sm',
-          {
-            'fixed inset-y-0 left-0 z-[21] w-4/5 translate-x-0 bg-white/90 text-neutral-900 backdrop-blur-[2px] dark:bg-neutral-900/90 dark:text-white sm:w-2/3':
-              blogpagemenutoogle && !md,
-            hidden: !blogpagemenutoogle && !md
-          },
-          className
-        )}
-      >
-        {/* close button */}
-        {blogpagemenutoogle && !md && (
-          <button
-            type="button"
-            className={cn(
-              'absolute right-4 top-4 inline-flex h-6 w-6 items-center justify-center rounded-sm border border-neutral-800/40 dark:border-neutral-200/50'
-            )}
-            onClick={() => setBlogpagemenutoogle(false)}
-          >
-            <HiX className="h-4 w-auto" />
-          </button>
-        )}
-        {/* Table of content */}
-        <div
-          className={cn('space-y-2', {
-            'sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pr-2 pt-16': md,
-            'mt-14 px-4': !md
-          })}
-        >
-          <p className="text-sm font-medium uppercase">On This Page</p>
-          <span className="mb-4 inline-flex flex-col space-y-2 child:w-auto">
-            {/* blogs */}
-            <Link
-              href="/blog"
-              className="group/link relative inline-flex items-center space-x-2 pb-1.5 uppercase text-neutral-600 dark:text-neutral-400"
-            >
-              <HiOutlineExternalLink className="h-3.5 w-auto" />
-              <span>Back to blog</span>
-              <span
-                className="absolute inset-x-0 bottom-1 h-0.5 w-0 bg-current transition-width group-hover/link:w-full"
-                aria-hidden="true"
-              />
-            </Link>
-            {/* scroll to top */}
-            <ScrollToTopWithBlog />
-          </span>
-          <Tree tree={toc} activeItem={activeHeading} />
-        </div>
-      </aside>
-      {blogpagemenutoogle && !md && (
-        <button
-          type="button"
-          onClick={() => setBlogpagemenutoogle(false)}
-          className={cn('fixed inset-0 z-20 h-full w-full bg-neutral-800/50 md:hidden')}
-        />
+    <div
+      className={cn(
+        'space-y-2 text-xs md:sticky md:top-16 md:-mt-10 md:max-h-[calc(var(--vh)-4rem)] md:overflow-y-auto md:pr-2 md:pt-16 xl:text-sm',
+        className
       )}
-    </>
+    >
+      {/* Table of content */}
+      <p className="text-sm font-medium uppercase">On This Page</p>
+      <span className="mb-4 inline-flex flex-col space-y-2 child:w-auto">
+        {/* blogs */}
+        <Link
+          href="/blog"
+          className="group/link relative inline-flex items-center space-x-2 pb-1.5 uppercase text-neutral-600 dark:text-neutral-400"
+        >
+          <HiOutlineExternalLink className="h-3.5 w-auto" />
+          <span>Back to blog</span>
+          <span
+            className="absolute inset-x-0 bottom-1 h-0.5 w-0 bg-current transition-width group-hover/link:w-full"
+            aria-hidden="true"
+          />
+        </Link>
+        {/* scroll to top */}
+        <ScrollToTopWithBlog />
+      </span>
+      <Tree tree={toc} activeItem={activeHeading} />
+    </div>
   )
 
-  return <>{blogpagemenutoogle && !md ? createPortal(content, document.body) : content}</>
+  return (
+    <Fragment>
+      <Sheet open={blogpagemenutoogle} onOpenChange={setBlogpagemenutoogle}>
+        <SheetContent side="left">{content}</SheetContent>
+      </Sheet>
+      <aside className="max-md:hidden">{content}</aside>
+    </Fragment>
+  )
 }
 
 function useActiveItem(itemIds: string[]) {
@@ -117,9 +84,7 @@ function useActiveItem(itemIds: string[]) {
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id || '')
-          }
+          if (entry.isIntersecting) setActiveId(entry.target.id || '')
         })
       },
       { rootMargin: `0% 0% -80% 0%` }
@@ -127,17 +92,13 @@ function useActiveItem(itemIds: string[]) {
 
     itemIds?.forEach(id => {
       const element = document.getElementById(id)
-      if (element) {
-        observer.observe(element)
-      }
+      if (element) observer.observe(element)
     })
 
     return () => {
       itemIds?.forEach(id => {
         const element = document.getElementById(id)
-        if (element) {
-          observer.unobserve(element)
-        }
+        if (element) observer.unobserve(element)
       })
     }
   }, [itemIds])
