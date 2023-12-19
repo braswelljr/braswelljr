@@ -5,10 +5,10 @@ import { LiaFileInvoiceSolid } from 'react-icons/lia'
 import { cn } from 'lib/utils'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { TerminalCommands } from 'types/unist'
-import { CodeBlockWrapper } from '~/components/CodeBlockWrapper'
-import { ComponentExample } from '~/components/ComponentExample'
-import { ComponentSource } from '~/components/ComponentSource'
-import { CopyButton, CopyNpmCommandButton } from '~/components/CopyButton'
+import { CodeBlockWrapper } from '~/components/code-block-wrapper'
+import { ComponentExample } from '~/components/component-example'
+import { ComponentSource } from '~/components/component-source'
+import { CopyButton, CopyNpmCommandButton } from '~/components/copy-button'
 import { snippets } from '~/components/snippets'
 import { Callout } from '~/components/ui/callout'
 import { Card } from '~/components/ui/card'
@@ -18,7 +18,7 @@ const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
-        'mt-2 scroll-m-20 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent dark:to-[#ff7056] sm:text-3xl md:text-4xl',
+        'mt-2 scroll-m-20 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent sm:text-3xl md:text-4xl dark:to-[#ff7056]',
         className
       )}
       {...props}
@@ -83,7 +83,7 @@ const components = {
     <img className={cn('rounded-md border border-neutral-200', className)} alt={alt} {...props} />
   ),
   hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
-    <hr className="my-4 border-neutral-200 dark:border-neutral-800 md:my-8" {...props} />
+    <hr className="my-4 border-neutral-200 md:my-8 dark:border-neutral-800" {...props} />
   ),
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
     <div className="my-6 w-full overflow-y-auto">
@@ -168,7 +168,7 @@ const components = {
         </div>
         {/* code */}
         <pre
-          className={cn('overflow-x-auto bg-neutral-900 px-2 py-4 !font-mono dark:bg-black sm:px-4', className)}
+          className={cn('overflow-x-auto bg-neutral-900 px-2 py-4 !font-mono sm:px-4 dark:bg-black', className)}
           {...props}
         />
       </div>

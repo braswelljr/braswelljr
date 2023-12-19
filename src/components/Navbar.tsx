@@ -89,7 +89,7 @@ export default function Navbar({ className }: { className?: string }) {
         <button
           type="button"
           className={cn(
-            'flex h-7 w-7 items-center justify-center rounded-sm bg-neutral-900 text-neutral-100 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500 dark:text-white md:hidden'
+            'flex h-7 w-7 items-center justify-center rounded-sm bg-neutral-900 text-neutral-100 hover:bg-neutral-800 focus:outline-none md:hidden dark:bg-neutral-500 dark:text-white'
           )}
           onClick={() => setBlogpagemenutoogle(!blogpagemenutoogle)}
         >

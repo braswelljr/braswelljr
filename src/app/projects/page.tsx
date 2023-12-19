@@ -27,8 +27,8 @@ export default function Projects() {
 
   return (
     <div className="pb-10 pt-10 max-lg:pt-28">
-      <div className="mx-auto max-w-2xl space-y-8 px-4 text-gray-800 dark:text-neutral-100 sm:mt-14 sm:space-y-10">
-        <h1 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent dark:to-[#ff7056] sm:text-3xl md:text-4xl">
+      <div className="mx-auto max-w-2xl space-y-8 px-4 text-gray-800 sm:mt-14 sm:space-y-10 dark:text-neutral-100">
+        <h1 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent sm:text-3xl md:text-4xl dark:to-[#ff7056]">
           Work, Hobby and Open Source
         </h1>
         {/* Write up */}
@@ -86,7 +86,7 @@ export default function Projects() {
         <div className="space-y-6">
           {/* header */}
           <div className="flex items-end justify-between">
-            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl md:text-4xl">
+            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
               Starred Projects
             </h2>
             <span className="text-lg">({pinnedProjects.length})</span>
@@ -176,7 +176,7 @@ export default function Projects() {
         <div className="space-y-6">
           {/* header */}
           <div className="flex items-end justify-between">
-            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl md:text-4xl">
+            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
               All Projects{' '}
             </h2>
             <span className="text-lg">({filteredProjects.length})</span>
@@ -274,7 +274,7 @@ export default function Projects() {
         <div className="space-y-6">
           {/* Header */}
           <div className="flex items-end justify-between">
-            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl md:text-4xl">
+            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
               Other Projects
             </h2>
             <span className="text-lg">({OTHER_PROJECTS.length})</span>
@@ -286,7 +286,7 @@ export default function Projects() {
                 return (
                   <div
                     key={i}
-                    className="space-y-2 px-2 py-3 backdrop-blur odd:bg-zinc-900/20 dark:odd:bg-zinc-900/50 sm:px-4"
+                    className="space-y-2 px-2 py-3 backdrop-blur odd:bg-zinc-900/20 sm:px-4 dark:odd:bg-zinc-900/50"
                   >
                     <div className="space-y-2">
                       {/* header */}

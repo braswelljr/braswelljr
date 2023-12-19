@@ -94,7 +94,7 @@ export default function AnimatedGridComponent() {
                   onClick={() => setSelectedProduct(null)}
                 />
                 <motion.div
-                  className="relative z-10 grid w-2/3 grid-cols-1 items-stretch rounded-md bg-white text-xs dark:bg-neutral-800 max-lg:h-[45vh] max-sm:max-w-3xl sm:w-auto lg:grid-cols-[2fr,3fr]"
+                  className="relative z-10 grid w-2/3 grid-cols-1 items-stretch rounded-md bg-white text-xs max-lg:h-[45vh] max-sm:max-w-3xl sm:w-auto lg:grid-cols-[2fr,3fr] dark:bg-neutral-800"
                   layoutId={selectedProduct.id}
                 >
                   <div className="relative min-h-[20vh] overflow-hidden bg-neutral-900 lg:min-h-[30vh]">
@@ -115,7 +115,7 @@ export default function AnimatedGridComponent() {
                   <div className="relative px-3 py-4 pr-4 pt-4">
                     <button
                       type="button"
-                      className="absolute right-4 rounded-lg bg-neutral-300 p-2 dark:bg-neutral-700 max-md:bottom-4 md:top-4"
+                      className="absolute right-4 rounded-lg bg-neutral-300 p-2 max-md:bottom-4 md:top-4 dark:bg-neutral-700"
                       onClick={() => setSelectedProduct(null)}
                     >
                       <HiX className="h-4 w-auto text-neutral-900 dark:text-neutral-200" />

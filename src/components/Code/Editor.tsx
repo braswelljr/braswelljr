@@ -1,7 +1,7 @@
 import { CSSProperties, forwardRef, ReactNode, useMemo, useState } from 'react'
 import { cn } from 'lib/utils'
 import type { EditorCodeWindowI, EditorTabI, EditorTabItemI } from 'types/Editor'
-import { Code } from '~/components/Code/Code'
+import { Code } from '~/components/code/code'
 
 export const EditorTabItem = forwardRef<
   HTMLDivElement,
@@ -115,7 +115,7 @@ export function EditorCode({
   return (
     <div
       className={cn(
-        'relative flex h-[31.625rem] max-h-[60vh] overflow-hidden bg-neutral-800 shadow-xl dark:bg-neutral-900/70 dark:ring-1 dark:ring-inset dark:ring-white/10 dark:backdrop-blur sm:max-h-[none] sm:rounded-xl lg:h-[34.6875rem] xl:h-[31.625rem]',
+        'relative flex h-[31.625rem] max-h-[60vh] overflow-hidden bg-neutral-800 shadow-xl sm:max-h-[none] sm:rounded-xl lg:h-[34.6875rem] xl:h-[31.625rem] dark:bg-neutral-900/70 dark:ring-1 dark:ring-inset dark:ring-white/10 dark:backdrop-blur',
         className
       )}
     >

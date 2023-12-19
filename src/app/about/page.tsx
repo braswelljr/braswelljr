@@ -4,7 +4,7 @@ import { career } from '~/components/data'
 export default function About() {
   return (
     <div className="py-10 max-lg:pt-28">
-      <div className="mx-auto max-w-xl px-4 text-gray-800 child:space-y-6 dark:text-neutral-100 sm:mt-14 sm:child:space-y-10">
+      <div className="mx-auto max-w-xl px-4 text-gray-800 child:space-y-6 sm:mt-14 sm:child:space-y-10 dark:text-neutral-100">
         {/* About */}
         <div className="md:leading-relaxed">
           <p className="">

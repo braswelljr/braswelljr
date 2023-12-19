@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { cn } from 'lib/utils'
-import { CopyButton, CopyWithClassNames } from '~/components/CopyButton'
+import { CopyButton, CopyWithClassNames } from '~/components/copy-button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
 
 interface ComponentExampleProps extends React.HTMLAttributes<HTMLDivElement> {

@@ -44,7 +44,7 @@ export default function Index() {
                 <motion.div
                   key={id}
                   className={cn(
-                    'bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-3 text-center text-xl font-black uppercase text-transparent dark:to-[#ff7056] xxs:text-2xl xsm:text-3xl sm:text-4xl md:text-5xl'
+                    'bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-3 text-center text-xl font-black uppercase text-transparent xxs:text-2xl xsm:text-3xl sm:text-4xl md:text-5xl dark:to-[#ff7056]'
                   )}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
