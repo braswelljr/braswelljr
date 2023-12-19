@@ -81,8 +81,8 @@ dependencies:
     specifier: ^6.0.2
     version: 6.0.2(postcss@8.4.32)
   date-fns:
-    specifier: ^2.30.0
-    version: 2.30.0
+    specifier: ^3.0.0
+    version: 3.0.0
   file-loader:
     specifier: ^6.2.0
     version: 6.2.0(webpack@5.81.0)
@@ -5896,6 +5896,10 @@ packages:
     engines: {node: '>=0.11'}
     dependencies:
       '@babel/runtime': 7.23.2
+    dev: false
+
+  /date-fns@3.0.0:
+    resolution: {integrity: sha512-xjDz3rNN9jp+Lh3P/4MeY4E5HkaRnEnrJCcrdRZnKdn42gJlIe6hwrrwVXePRwVR2kh1UcMnz00erYBnHF8PFA==}
     dev: false
 
   /debug@3.2.7:
