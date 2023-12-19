@@ -39,7 +39,7 @@
     "cmdk": "^0.2.0",
     "concurrently": "^8.2.2",
     "contentlayer": "^0.3.4",
-    "cssnano": "^6.0.1",
+    "cssnano": "^6.0.2",
     "date-fns": "^2.30.0",
     "file-loader": "^6.2.0",
     "framer-motion": "^10.16.16",
