@@ -135,8 +135,8 @@ dependencies:
     specifier: ^8.4.32
     version: 8.4.32
   postcss-focus-visible:
-    specifier: ^9.0.0
-    version: 9.0.0(postcss@8.4.32)
+    specifier: ^9.0.1
+    version: 9.0.1(postcss@8.4.32)
   postcss-import:
     specifier: ^15.1.0
     version: 15.1.0(postcss@8.4.32)
@@ -10068,8 +10068,8 @@ packages:
       postcss: 8.4.32
     dev: false
 
-  /postcss-focus-visible@9.0.0(postcss@8.4.32):
-    resolution: {integrity: sha512-zA4TbVaIaT8npZBEROhZmlc+GBKE8AELPHXE7i4TmIUEQhw/P/mSJfY9t6tBzpQ1rABeGtEOHYrW4SboQeONMQ==}
+  /postcss-focus-visible@9.0.1(postcss@8.4.32):
+    resolution: {integrity: sha512-N2VQ5uPz3Z9ZcqI5tmeholn4d+1H14fKXszpjogZIrFbhaq0zNAtq8sAnw6VLiqGbL8YBzsnu7K9bBkTqaRimQ==}
     engines: {node: ^14 || ^16 || >=18}
     peerDependencies:
       postcss: ^8.4
