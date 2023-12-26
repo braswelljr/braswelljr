@@ -1,33 +1,28 @@
-<h1 align="center">Braswell Kenneth Azu Junior (Software Engineer) 👨‍</h1>
+# Hi there! 👋 I'm Braswell Kenneth Azu Junior
 
-I am [`braswelljr`](https://braswelljr.vercel.app/) a Software Engineer based in `0101`. Committed to continuous learning and professional growth, I possess a relentless drive for exploration. My ultimate goal is to use software to drive development and innovation.
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/braswell-kenneth-870827192/)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=flat&logo=github)](https://github.com/braswelljr)
+[![Twitter](https://img.shields.io/badge/Twitter-Follow-blue?style=flat&logo=twitter)](https://twitter.com/braswell_jnr)
+[![Instagram](https://img.shields.io/badge/Instagram-Follow-red?style=flat&logo=instagram)](https://www.instagram.com/braswelljr/)
 
-* 🌳 I’m currently learning Golang, Docker and NextJS! <br>
+I am [`braswelljr`](https://braswelljr.vercel.app/), I write and debug Software applications.
 
-* 👯 I’m looking to collaborate on Vue.js, Tailwindcss, Zustand <br>
+## ⚙️ TECHNOLOGIES AND SKILLS
 
-* 🐾 I’m looking to network and make friends here! <br>
+### Languages, Frameworks, and Tools
 
-* ☕ Interest: Computer Science, Engineering, Designing and Gaming. <br>
+![Languages, Frameworks, and Tools](https://skillicons.dev/icons?i=git,github,githubactions,nodejs,js,ts,webpack,react,vue,vite,nextjs,ts,go,vercel,express,html,css,sass,tailwind,bootstrap)
 
-* :octocat: Hobbies: Sleeping, Reading, Gaming. <br><br>
+### Actively Learning
 
+![Actively Learning](https://skillicons.dev/icons?i=redux,mongodb,firebase,supabase,docker,graphql)
 
- <h2 align="center"> <strong> ⚙️ TECHNOLOGIES AND SKILLS </strong></h2><br>
- <h3> <strong> Languages, Frameworks, and Tools </strong></h3>
- <img src="https://skillicons.dev/icons?i=git,github,githubactions,nodejs,js,ts,webpack,react,vue,vite,nextjs,ts,go,vscode,netlify,vercel,express,html,css,sass,tailwind,bootstrap" alt="skills logos" /> <br>
-  
-<h3> <strong> Actively Learning </strong></h3>
-<img src="https://skillicons.dev/icons?i=redux,mongodb,firebase,supabase,docker,graphql" alt="skills actively learning logos"> <br> 
-  
-<h3> <strong> Planning to Learn </strong></h3>
-<img src="https://skillicons.dev/icons?i=angular,rust" alt="skills planning to learn logos">
+### Planning to Learn
 
-<div align="center">
-<br><br>
-<img src="https://github-readme-stats-godkingjay.vercel.app/api/top-langs/?username=braswelljr&theme=radical&langs_count=10&card_width=540&layout=compact" alt="Most used languages">
- 
-<br><br>
-<img src="https://streak-stats.demolab.com?user=braswelljr&theme=radical" height="150" alt="streaks graph" />
-</div>
+![Planning to Learn](https://skillicons.dev/icons?i=angular,rust)
 
+## 📈 GitHub Stats
+
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=braswelljr&theme=radical&langs_count=10&layout=compact&card_width=540)
+
+![streaks graph](https://streak-stats.demolab.com?user=braswelljr&theme=radical)
