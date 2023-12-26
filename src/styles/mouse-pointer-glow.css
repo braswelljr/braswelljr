@@ -1,0 +1,52 @@
+[data-mouse-glow] {
+  --base: 200;
+  --hue: calc(var(--base) + (var(--xp) * var(--yp)));
+
+  @apply fixed z-[1] h-[120rem] w-[120rem] rounded-full -translate-x-1/2 -translate-y-1/2;
+  top: calc(var(--y, 1) * 1px);
+  left: calc(var(--x, 1) * 1px);
+  border-radius: 999px;
+  background-image: radial-gradient(
+    circle,
+    transparent 0%,
+    hsla(var(--hue), 100%, 70%, 0.35) 10%,
+    #ff8d2223 25%,
+    #ff26000c 50%,
+    #48ffd104 80%,
+    transparent 25%
+  );
+  background-repeat: no-repeat;
+  animation: glow 1s ease infinite;
+
+  .dark & {
+    background-image: radial-gradient(
+      circle,
+      transparent 0%,
+      hsla(var(--hue), 100%, 70%, 0.1) 10%,
+      #ff8d2213 25%,
+      #ff260002 50%,
+      #48ffd101 80%,
+      transparent 25%
+    );
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+[data-mouse-glow]::before,
+[data-mouse-glow]::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-attachment: fixed;
+  background-size: 100%;
+  background-position: 50% 50%;
+}

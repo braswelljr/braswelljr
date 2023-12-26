@@ -66,6 +66,7 @@ const Search = ({
             <DocSearchModal
               initialQuery={searchQuery}
               initialScrollY={window.scrollY}
+              placeholder="Search..."
               onClose={onClose}
               appId="QKSUPW3S6U"
               apiKey="c7fe5c895331a45ebd59889d32de1165"

@@ -46,8 +46,8 @@ export function BlogTableOfContents({ toc, className }: TocProps) {
       )}
     >
       {/* Table of content */}
-      <p className="text-sm font-medium uppercase">On This Page</p>
-      <span className="mb-4 inline-flex flex-col space-y-2 child:w-auto">
+      <div className="text-sm font-medium uppercase">On This Page</div>
+      <div className="mb-4 inline-flex flex-col space-y-2 child:w-auto">
         {/* blogs */}
         <Link
           href="/blog"
@@ -62,7 +62,7 @@ export function BlogTableOfContents({ toc, className }: TocProps) {
         </Link>
         {/* scroll to top */}
         <ScrollToTopWithBlog />
-      </span>
+      </div>
       <Tree tree={toc} activeItem={activeHeading} />
     </div>
   )

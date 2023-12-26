@@ -27,7 +27,7 @@ export default function Projects() {
 
   return (
     <div className="pb-10 pt-10 max-lg:pt-28">
-      <div className="mx-auto max-w-2xl space-y-8 px-4 text-gray-800 sm:mt-14 sm:space-y-10 dark:text-neutral-100">
+      <div className="mx-auto max-w-7xl space-y-8 px-4 text-gray-800 sm:mt-14 sm:space-y-10 dark:text-neutral-100">
         <h1 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent sm:text-3xl md:text-4xl dark:to-[#ff7056]">
           Work, Hobby and Open Source
         </h1>
@@ -95,7 +95,7 @@ export default function Projects() {
           <div className="">
             {PINNED_PROJECTS.length > 0 ? (
               <div className="">
-                <div className="grid gap-6 sm:grid-cols-2">
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {PINNED_PROJECTS.map((project, i) => {
                     return (
                       <div key={i} className="rounded bg-zinc-900/20 shadow-sm backdrop-blur">
@@ -110,15 +110,15 @@ export default function Projects() {
                             {/* stats */}
                             <div className="flex items-center justify-end space-x-3 child:flex child:items-center child:space-x-1">
                               {/* stars */}
-                              <span>
+                              <div className="">
                                 <BsStar className="h-4 w-auto" />
                                 <span>{project.stargazers.totalCount}</span>
-                              </span>
+                              </div>
                               {/* forks */}
-                              <span>
+                              <div className="">
                                 <BiGitRepoForked className="h-4 w-auto" />
                                 <span>{project.forks.totalCount}</span>
-                              </span>
+                              </div>
                             </div>
                           </div>
                           {/* body */}
@@ -139,17 +139,15 @@ export default function Projects() {
                             <span>{project.primaryLanguage.name}</span>
                           </span>
                           {/* link */}
-                          <span>
-                            <a
-                              href={isFalsy(project.homepageUrl) ? project.url : project.homepageUrl}
-                              target="_blank"
-                              rel="noopener"
-                              className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                            >
-                              <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
-                              <span>Visit</span>
-                            </a>
-                          </span>
+                          <a
+                            href={isFalsy(project.homepageUrl) ? project.url : project.homepageUrl}
+                            target="_blank"
+                            rel="noopener"
+                            className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                          >
+                            <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
+                            <span>Visit</span>
+                          </a>
                         </div>
                       </div>
                     )
@@ -158,7 +156,7 @@ export default function Projects() {
                 <div className="mt-4 flex justify-end">
                   <button
                     onClick={() => setViewMorePins(!viewMorePins)}
-                    className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                   >
                     <TfiLayoutListThumb className="h-5 w-auto group-hover:scale-95" />
                     <span>{viewMoreProjects ? 'View Less' : 'View More'}</span>
@@ -185,7 +183,7 @@ export default function Projects() {
           <div className="">
             {ALL_PROJECTS.length > 0 ? (
               <div className="">
-                <div className="grid gap-6 sm:grid-cols-2">
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {ALL_PROJECTS.map((project, i) => {
                     return (
                       <div
@@ -203,15 +201,15 @@ export default function Projects() {
                             {/* stats */}
                             <div className="space-x-3 text-sm child:flex child:items-center child:space-x-1">
                               {/* stars */}
-                              <span>
+                              <div>
                                 <BsStar className="h-4 w-auto" />
                                 <span>{project.stargazers_count}</span>
-                              </span>
+                              </div>
                               {/* forks */}
-                              <span>
+                              <div>
                                 <BiGitRepoForked className="h-4 w-auto" />
                                 <span>{project.forks_count}</span>
-                              </span>
+                              </div>
                             </div>
                             {/* body */}
                           </div>
@@ -237,17 +235,15 @@ export default function Projects() {
                             <span>{project.primaryLanguage.name}</span> */}
                           </span>
                           {/* link */}
-                          <span>
-                            <a
-                              href={isFalsy(project.html_url) ? project.url : project.html_url}
-                              target="_blank"
-                              rel="noopener noreferer"
-                              className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                            >
-                              <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
-                              <span>Visit</span>
-                            </a>
-                          </span>
+                          <a
+                            href={isFalsy(project.html_url) ? project.url : project.html_url}
+                            target="_blank"
+                            rel="noopener noreferer"
+                            className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                          >
+                            <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
+                            <span>Visit</span>
+                          </a>
                         </div>
                       </div>
                     )
@@ -256,7 +252,7 @@ export default function Projects() {
                 <div className="mt-4 flex justify-end">
                   <button
                     onClick={() => setViewMoreProjects(!viewMoreProjects)}
-                    className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                   >
                     <TfiLayoutListThumb className="h-5 w-auto  group-hover:scale-95" />
                     <span>{viewMoreProjects ? 'View Less' : 'View More'}</span>
@@ -280,14 +276,16 @@ export default function Projects() {
             <span className="text-lg">({OTHER_PROJECTS.length})</span>
           </div>
           {/* projects */}
-          <div className="">
-            <div className="">
-              {OTHER_PROJECTS.map((project, i) => {
-                return (
-                  <div
-                    key={i}
-                    className="space-y-2 px-2 py-3 backdrop-blur odd:bg-zinc-900/20 sm:px-4 dark:odd:bg-zinc-900/50"
-                  >
+          <div className="grid gap-6 sm:grid-cols-2">
+            {OTHER_PROJECTS.map((project, i) => {
+              return (
+                <div key={i} className="border border-neutral-700/30 backdrop-blur dark:odd:bg-zinc-900/50">
+                  <iframe
+                    src={project.homepageUrl ? project.homepageUrl : project.url}
+                    title={project.name}
+                    className="pointer-events-none h-[28rem] w-full"
+                  />
+                  <div className="space-y-2 px-2 py-3 sm:px-4">
                     <div className="space-y-2">
                       {/* header */}
                       <h2 className="flex items-center space-x-2 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-sm uppercase text-transparent dark:to-[#ff7056]">
@@ -296,24 +294,22 @@ export default function Projects() {
                       <p className="line-clamp-2">{project.description}</p>
                     </div>
                     {/* footer */}
-                    <div className="flex items-center justify-end">
+                    <div className="flex items-center">
                       {/* link */}
-                      <span>
-                        <a
-                          href={isFalsy(project.homepageUrl) ? project.url : project.homepageUrl}
-                          target="_blank"
-                          rel="noopener"
-                          className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                        >
-                          <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
-                          <span>Visit</span>
-                        </a>
-                      </span>
+                      <a
+                        href={project.homepageUrl ? project.homepageUrl : project.url}
+                        target="_blank"
+                        rel="noopener"
+                        className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:scale-105 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                      >
+                        <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
+                        <span>Visit</span>
+                      </a>
                     </div>
                   </div>
-                )
-              })}
-            </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>

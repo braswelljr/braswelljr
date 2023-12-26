@@ -38,10 +38,10 @@ export default async function Page({ params }: PageProps) {
           <div className="">
             <div className="space-y-2">
               {moment(blog.date).isAfter(subDays(new Date(), 150)) && (
-                <span className="inline-flex h-6 w-auto items-center space-x-1 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
+                <div className="inline-flex h-6 w-auto items-center space-x-1 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
                   <MdOutlineWorkspacePremium className="h-3 w-auto" />
                   <span>New</span>
-                </span>
+                </div>
               )}
               <h1
                 className={cn(

@@ -2,31 +2,11 @@ import { FaFigma, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from 'react-ico
 import { Career } from 'types/types'
 
 export const socials = [
-  {
-    name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/braswell-kenneth-870827192/',
-    icon: FaLinkedin
-  },
-  {
-    name: 'GitHub',
-    url: 'https://github.com/braswelljr',
-    icon: FaGithub
-  },
-  {
-    name: 'Instagram',
-    url: 'https://www.instagram.com/braswell_jr/',
-    icon: FaInstagram
-  },
-  {
-    name: 'Twitter',
-    url: 'https://twitter.com/braswell_jnr',
-    icon: FaTwitter
-  },
-  {
-    name: 'Figma',
-    url: 'https://www.figma.com/@braswelljr',
-    icon: FaFigma
-  }
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/braswell-kenneth-870827192/', icon: FaLinkedin },
+  { name: 'GitHub', url: 'https://github.com/braswelljr', icon: FaGithub },
+  { name: 'Instagram', url: 'https://www.instagram.com/braswell_jr/', icon: FaInstagram },
+  { name: 'Twitter', url: 'https://twitter.com/braswell_jnr', icon: FaTwitter },
+  { name: 'Figma', url: 'https://www.figma.com/@braswelljr', icon: FaFigma }
 ]
 
 /**
@@ -52,6 +32,7 @@ export const career: Array<Career> = [
     description: [
       'Implement frontend web applications and websites.',
       'Suggest and plan solutions with the UI/UX team.',
+      'Suggest and Plan solutions for software projects.',
       'Collaborate with the backend team to integrate APIs to make functional frontend applications.'
     ]
   },
@@ -98,6 +79,12 @@ export const OTHER_PROJECTS = [
       'Carbazza is a comprehensive online platform for car enthusiasts, providing a wide range of services and resources to help them make informed decisions about purchasing, maintaining, and upgrading their vehicles.'
   },
   {
+    name: 'OZ Moview',
+    homepageUrl: 'https://oz-seven.vercel.app/',
+    url: 'https://github.com/braswelljr/oz',
+    description: 'Oz Moview is a movie review platform utilizing the TMDB API.'
+  },
+  {
     name: 'TheseuxX',
     homepageUrl: 'https://theseusx.vercel.app',
     url: '',
@@ -108,17 +95,5 @@ export const OTHER_PROJECTS = [
     homepageUrl: 'https://yomyom.vercel.app',
     url: '',
     description: 'Express Delivery and More'
-  },
-  {
-    name: 'Dup',
-    homepageUrl: 'https://dup.vercel.app',
-    url: '',
-    description: 'The Wallet for the Generation.'
-  },
-  {
-    name: 'UMaT HR',
-    homepageUrl: 'https://umat-hr.vercel.app',
-    url: '',
-    description: 'UMAT Human Resource Management System'
   }
 ]

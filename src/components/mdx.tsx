@@ -136,15 +136,15 @@ const components = {
             {/* meta */}
             {/* icon */}
             {__withMeta__ && __filename__ ? (
-              <>
+              <React.Fragment>
                 <LiaFileInvoiceSolid className="h-4 w-auto text-white" aria-hidden />
                 <span className="text-neutral-400">{__filename__}</span>
-              </>
+              </React.Fragment>
             ) : (
-              <>
+              <React.Fragment>
                 <BsTerminalFill className="h-4 w-auto text-white" aria-hidden />
                 <span className="text-neutral-400">Terminal</span>
-              </>
+              </React.Fragment>
             )}
           </h2>
           {/* copy button */}

@@ -68,7 +68,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
         <ThemeProvider>
           <RepoProvider>
-            <main className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white" suppressHydrationWarning>
+            <main className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
               <div className={cn('relative')}>
                 <div className="fixed inset-0">
                   <Image
@@ -80,8 +80,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   />
                 </div>
                 <Navbar className="fixed inset-x-0 top-0 z-[4] bg-white/90 dark:bg-neutral-800/90" />
-                <div className="relative inset-0 z-[1] min-h-screen w-full">{children}</div>
-                <ScrollTop className="fixed bottom-5 right-5 z-10" disableOnLayouts={['/blog/']} />
+                <div className="relative inset-0 z-[1] min-h-screen w-full">
+                  {children}
+                  <ScrollTop className="fixed bottom-5 right-5 z-10" disableOnLayouts={['/blog/']} />
+                </div>
               </div>
             </main>
           </RepoProvider>

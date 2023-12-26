@@ -5,10 +5,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { HiCode, HiDesktopComputer, HiHome, HiMoon, HiOutlineArchive, HiOutlineMenuAlt2, HiSun } from 'react-icons/hi'
 import { IoIosPerson } from 'react-icons/io'
+import { IconBaseProps } from 'react-icons/lib'
 import { MdArticle } from 'react-icons/md'
 import { TbCommand } from 'react-icons/tb'
 import useStore from '~/store/store'
-import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from 'lib/utils'
 import { useTheme } from 'next-themes'
 import Search from '~/components/search'
@@ -80,7 +81,7 @@ export default function Navbar({ className }: { className?: string }) {
   return (
     <nav
       className={cn(
-        'fixed inset-x-0 top-0 z-[4] flex items-center justify-between bg-inherit px-4 py-2 shadow backdrop-blur-[2px] max-lg:flex-wrap',
+        'fixed inset-x-0 top-0 z-[4] flex items-center justify-between overflow-hidden bg-inherit px-4 py-2 shadow backdrop-blur-[2px] max-lg:flex-wrap',
         className
       )}
     >
@@ -89,7 +90,7 @@ export default function Navbar({ className }: { className?: string }) {
         <button
           type="button"
           className={cn(
-            'flex h-7 w-7 items-center justify-center rounded-sm bg-neutral-900 text-neutral-100 hover:bg-neutral-800 focus:outline-none md:hidden dark:bg-neutral-500 dark:text-white'
+            'flex h-7 w-7 items-center justify-center rounded-sm bg-neutral-900 text-white focus:outline-none md:hidden dark:bg-neutral-500'
           )}
           onClick={() => setBlogpagemenutoogle(!blogpagemenutoogle)}
         >
@@ -100,7 +101,7 @@ export default function Navbar({ className }: { className?: string }) {
       <button
         id="search-button"
         className={cn(
-          'flex h-7 items-center rounded-sm bg-neutral-900 text-neutral-100 hover:bg-neutral-800 focus:outline-none dark:bg-neutral-500 dark:text-white',
+          'flex h-7 items-center rounded-sm bg-neutral-900 text-white focus:outline-none dark:bg-neutral-500',
           pathname.startsWith('/blog/') ? 'w-[40%] xsm:w-1/2 md:w-7 md:justify-center' : 'w-7 justify-center'
         )}
         aria-label="Search"
@@ -114,63 +115,58 @@ export default function Navbar({ className }: { className?: string }) {
       <Search open={open} setOpen={onOpenChange} searchButtonRef={searchButtonRef} />
 
       {/* menu items */}
-      <LayoutGroup>
-        <ul className="flex w-full items-center justify-center space-x-4 whitespace-nowrap max-lg:order-2 max-lg:mt-4 max-lg:grow max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto max-xsm:text-sm">
-          {nav.map((item, idx) => (
-            <Link key={idx} href={item.path} className={cn('relative pb-2')}>
-              <AnimatePresence>
-                {tab === item.path && (
-                  <motion.div
-                    layoutId={lid}
-                    className={cn(
-                      'absolute inset-x-0 bottom-0 h-1 bg-neutral-900 dark:bg-white',
-                      idx === 0 && 'rounded-l-sm',
-                      idx === nav.length - 1 && 'rounded-r-sm'
-                    )}
-                  />
-                )}
-              </AnimatePresence>
-              <div className={cn('flex items-center space-x-2 font-light uppercase')}>
-                {/* <item.icon className="h-4 w-auto" /> */}
-                <span>{item.name}</span>
-              </div>
-            </Link>
-          ))}
-        </ul>
-      </LayoutGroup>
+      <ul className="flex w-full items-center justify-center space-x-4 whitespace-nowrap max-lg:order-2 max-lg:mt-4 max-lg:grow max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto max-xsm:text-sm">
+        {nav.map((item, idx) => (
+          <Link key={idx} href={item.path} className={cn('relative pb-2')}>
+            <AnimatePresence>
+              {tab === item.path && (
+                <motion.div
+                  layoutId={lid}
+                  className={cn(
+                    'absolute inset-x-0 bottom-0 h-1 bg-neutral-900 dark:bg-white',
+                    idx === 0 && 'rounded-l-sm',
+                    idx === nav.length - 1 && 'rounded-r-sm'
+                  )}
+                />
+              )}
+            </AnimatePresence>
+            <div className={cn('flex items-center space-x-2 font-light uppercase')}>
+              {/* <item.icon className="h-4 w-auto" /> */}
+              {item.name}
+            </div>
+          </Link>
+        ))}
+      </ul>
 
-      <LayoutGroup>
-        <ul className={cn('flex items-center justify-center space-x-2 max-lg:order-1')}>
-          {Object.entries({
-            system: <HiDesktopComputer className={cn('h-4 w-auto')} />,
-            dark: <HiMoon className={cn('h-4 w-auto')} />,
-            light: <HiSun className={cn('h-4 w-auto')} />
-          }).map(([key, value], i, self) => (
-            <li key={key} className={cn('relative block cursor-pointer p-1.5')} onClick={() => setTheme(key)}>
-              <AnimatePresence>
-                {key === theme && (
-                  <motion.div
-                    layoutId={tid}
-                    initial={false}
-                    className={cn(
-                      'absolute inset-0 bg-neutral-800 dark:bg-neutral-500',
-                      i === 0 && 'rounded-l-sm',
-                      i === self.length - 1 && 'rounded-r-sm'
-                    )}
-                  />
-                )}
-              </AnimatePresence>
-              <span
-                className={cn('relative z-[1] block h-full w-full', {
-                  'text-white': key === theme
-                })}
-              >
-                {value}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </LayoutGroup>
+      <ul className={cn('flex items-center justify-center space-x-2 max-lg:order-1')}>
+        {Object.entries({
+          system: (props: IconBaseProps) => <HiDesktopComputer {...props} />,
+          dark: (props: IconBaseProps) => <HiMoon {...props} />,
+          light: (props: IconBaseProps) => <HiSun {...props} />
+        }).map(([key, Value], i, self) => (
+          <li
+            key={key}
+            className={cn('relative block cursor-pointer p-1.5')}
+            onClick={() => setTheme(key)}
+            suppressHydrationWarning
+          >
+            <AnimatePresence>
+              {key === theme && (
+                <motion.div
+                  layoutId={tid}
+                  initial={false}
+                  className={cn(
+                    'absolute inset-0 bg-neutral-800 dark:bg-neutral-500',
+                    i === 0 && 'rounded-l-sm',
+                    i === self.length - 1 && 'rounded-r-sm'
+                  )}
+                />
+              )}
+            </AnimatePresence>
+            <Value className={cn('relative z-[1] h-4 w-auto', key === theme && 'text-white')} />
+          </li>
+        ))}
+      </ul>
     </nav>
   )
 }

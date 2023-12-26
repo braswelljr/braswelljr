@@ -49,10 +49,10 @@ export default function Page() {
                 <div className="relative">
                   {/* check if the date is less than 30 days old */}
                   {moment(date).isAfter(subDays(new Date(), 150)) && (
-                    <span className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 max-lg:mt-8 dark:bg-neutral-800 dark:text-orange-400">
+                    <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 max-lg:mt-8 dark:bg-neutral-800 dark:text-orange-400">
                       <MdOutlineWorkspacePremium className="h-3 w-auto" />
                       <span>New</span>
-                    </span>
+                    </div>
                   )}
                   {/* header */}
                   <h3 className="pt-6 font-semibold uppercase tracking-tight text-neutral-900 lg:pt-2 dark:text-neutral-200">
@@ -91,13 +91,13 @@ export default function Page() {
                   href={`/blog/${slugAsParams}`}
                   className="group/link relative mt-5 inline pb-2.5 text-sm font-medium uppercase text-[#ff2600] dark:text-[#ff7056]"
                 >
-                  <span className="inline-flex items-center justify-start space-x-2">
+                  <div className="inline-flex items-center justify-start space-x-2">
                     <span className="">
                       Read more<span className="sr-only">, {title}</span>
                     </span>
                     <HiChevronRight className="h-5 w-auto overflow-visible" />
-                  </span>
-                  <span
+                  </div>
+                  <div
                     className="absolute inset-x-0 bottom-1 h-1 w-0 bg-current transition-width group-hover/link:w-full"
                     aria-hidden="true"
                   />

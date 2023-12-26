@@ -7,22 +7,21 @@ import { cn } from 'lib/utils'
 import useInterval from '~/hooks/useInterval'
 import { socials } from '~/components/data'
 
-export default function Index() {
+export default function Page() {
   const [r, setR] = useState<number>(0)
   const roles: string[] = ['Software Engineer', 'Web Designer', 'UX / UI Designer']
 
   useInterval(() => {
     if (roles.length > 0) {
       let newIdx = r + 1
-      if (newIdx >= roles.length) {
-        newIdx = 0
-      }
+      if (newIdx >= roles.length) newIdx = 0
+
       setR(newIdx)
     }
   }, 5000)
 
   return (
-    <motion.main className={cn('grid h-screen place-content-center')}>
+    <main className={cn('grid h-screen place-content-center')}>
       <section className="space-y-4">
         <div className="md:pt-8">
           <Image
@@ -49,13 +48,7 @@ export default function Index() {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: 20, opacity: 0 }}
-                  transition={{
-                    type: 'spring',
-                    duration: 1,
-                    delay: 0.25,
-                    stiffness: 260,
-                    damping: 20
-                  }}
+                  transition={{ type: 'spring', duration: 1, delay: 0.25, stiffness: 260, damping: 20 }}
                 >
                   a {role}
                 </motion.div>
@@ -72,6 +65,6 @@ export default function Index() {
           </div>
         </div>
       </section>
-    </motion.main>
+    </main>
   )
 }

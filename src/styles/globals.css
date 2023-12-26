@@ -4,6 +4,7 @@
 /*! purgecss start ignore */
 @import 'mdx.css';
 @import 'docsearch.css';
+@import 'mouse-pointer-glow.css';
 /*! purgecss end ignore */
 
 @import 'components.css';

@@ -16,7 +16,7 @@ export function Callout({ children, icon, type = 'default', ...props }: CalloutP
       })}
       {...props}
     >
-      {icon && <span className="mr-4 text-2xl">{icon}</span>}
+      {icon && <div className="mr-4 text-2xl">{icon}</div>}
       <div>{children}</div>
     </div>
   )
