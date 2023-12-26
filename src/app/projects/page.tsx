@@ -5,6 +5,7 @@ import { BiGitRepoForked } from 'react-icons/bi'
 import { BsStar } from 'react-icons/bs'
 import { HiFolderOpen, HiOutlineExternalLink } from 'react-icons/hi'
 import { TfiLayoutListThumb } from 'react-icons/tfi'
+import useMedia from '~/hooks/useMedia'
 import { OTHER_PROJECTS } from '~/components/data'
 import useXStore from '~/context/useRepos'
 import isFalsy from '~/utils/isFalsy'
@@ -13,12 +14,13 @@ export default function Projects() {
   const { pinnedProjects, allProjects } = useXStore()
   const [viewMorePins, setViewMorePins] = useState(false)
   const [viewMoreProjects, setViewMoreProjects] = useState(false)
+  const lg = useMedia('(min-width: 1024px)')
   // pins
-  let limitPins = viewMorePins ? pinnedProjects.length : 2
+  let limitPins = viewMorePins ? pinnedProjects.length : lg ? 3 : 2
   const PINNED_PROJECTS = Array.isArray(pinnedProjects) ? pinnedProjects.slice(0, limitPins) : []
 
   // projects
-  let limitProjects = viewMoreProjects ? allProjects.length : 4
+  let limitProjects = viewMoreProjects ? allProjects.length : lg ? 6 : 4
   // remove pinned projects from all projects
   const filteredProjects = allProjects.filter(
     project => !pinnedProjects.find(pinnedProject => pinnedProject.name === project.name)

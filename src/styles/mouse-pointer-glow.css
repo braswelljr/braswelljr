@@ -2,7 +2,7 @@
   --base: 200;
   --hue: calc(var(--base) + (var(--xp) * var(--yp)));
 
-  @apply fixed z-[1] h-[120rem] w-[120rem] rounded-full -translate-x-1/2 -translate-y-1/2;
+  @apply fixed z-[1] h-[120rem] w-[120rem] -translate-x-1/2 -translate-y-1/2 rounded-full;
   top: calc(var(--y, 1) * 1px);
   left: calc(var(--x, 1) * 1px);
   border-radius: 999px;
@@ -32,7 +32,8 @@
 }
 
 @keyframes glow {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
@@ -43,7 +44,7 @@
 [data-mouse-glow]::before,
 [data-mouse-glow]::after {
   pointer-events: none;
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background-attachment: fixed;
