@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@docsearch/react": "3",
-    "@headlessui/react": "^1.7.17",
+    "@headlessui/react": "^1.7.18",
     "@juggle/resize-observer": "^3.4.0",
     "@mdx-js/loader": "^3.0.0",
     "@mdx-js/react": "^3.0.0",
