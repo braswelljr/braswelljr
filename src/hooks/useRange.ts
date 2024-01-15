@@ -9,7 +9,7 @@ import { useMemo } from 'react'
  * @param {number} outMax - The maximum value of the output range
  * @returns {number}
  */
-export default function useRange(num: number, inMin: number, inMax: number, outMin: number, outMax: number) {
+export default function useRange(num: number, inMin: number, inMax: number, outMin: number, outMax: number): number {
   const mappedValue = useMemo(() => {
     const newValue = ((num - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin
     const largest = Math.max(outMin, outMax)
