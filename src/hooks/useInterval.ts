@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 /**
  * useInterval hook - sets reference to the previous value and returns a given value within a particular duration.
@@ -6,8 +6,8 @@ import { ReactNode, useEffect, useRef } from 'react'
  * @param delay - delay in milliseconds
  * @returns {void}
  */
-export default function useInterval(callback: () => ReactNode | void, delay = 1000) {
-  const savedCallback = useRef<() => ReactNode | void>()
+export default function useInterval(callback: () => unknown, delay = 1000): void {
+  const savedCallback = useRef<() => unknown>()
 
   // Remember the latest callback.
   useEffect(() => {
@@ -16,13 +16,13 @@ export default function useInterval(callback: () => ReactNode | void, delay = 10
 
   // Set up the interval.
   useEffect(() => {
-    let id = setInterval(
+    let id = window.setInterval(
       () =>
         typeof savedCallback.current === 'function' && typeof savedCallback.current !== 'undefined'
           ? savedCallback.current()
           : savedCallback.current,
       delay
     )
-    return () => clearInterval(id)
+    return () => window.clearInterval(id)
   }, [delay])
 }
