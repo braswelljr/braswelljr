@@ -20,9 +20,9 @@ export default function Page() {
 
   return (
     <div className="px-4 pb-10 pt-10 max-lg:pt-28">
-      <div className="mx-auto max-w-3xl px-4 text-gray-800 child:space-y-6 sm:mt-14 sm:child:space-y-10 dark:text-neutral-100">
+      <div className="mx-auto max-w-3xl px-4 text-gray-800 child:space-y-6 dark:text-neutral-100 sm:mt-14 sm:child:space-y-10">
         {/* Header */}
-        <h1 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent sm:text-3xl md:text-4xl dark:to-[#ff7056]">
+        <h1 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent dark:to-[#ff7056] sm:text-3xl md:text-4xl">
           Blog
         </h1>
         {/* Body */}
@@ -49,13 +49,13 @@ export default function Page() {
                 <div className="relative">
                   {/* check if the date is less than 30 days old */}
                   {moment(date).isAfter(subDays(new Date(), 150)) && (
-                    <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 max-lg:mt-8 dark:bg-neutral-800 dark:text-orange-400">
+                    <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400 max-lg:mt-8">
                       <MdOutlineWorkspacePremium className="h-3 w-auto" />
                       <span>New</span>
                     </div>
                   )}
                   {/* header */}
-                  <h3 className="pt-6 font-semibold uppercase tracking-tight text-neutral-900 lg:pt-2 dark:text-neutral-200">
+                  <h3 className="pt-6 font-semibold uppercase tracking-tight text-neutral-900 dark:text-neutral-200 lg:pt-2">
                     {title}
                   </h3>
                   {/* description */}
@@ -80,9 +80,6 @@ export default function Page() {
                     <dt className="sr-only">Date</dt>
                     <dd className={cn('whitespace-nowrap text-sm leading-6 dark:text-orange-400')}>
                       <time dateTime={date}>{date ? formatDate(date, '{MMMM} {DD}, {YYYY}') : 'unknown'}</time>
-                      <caption className="">
-                        <span className=""></span>
-                      </caption>
                     </dd>
                   </dl>
                 </div>

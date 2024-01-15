@@ -1,10 +1,10 @@
 import { MdOutlineFileDownload } from 'react-icons/md'
-import { career } from '~/components/data'
+import { career } from '~/config/data'
 
 export default function About() {
   return (
     <div className="py-10 max-lg:pt-28">
-      <div className="mx-auto max-w-2xl px-4 text-gray-800 child:space-y-6 sm:mt-14 sm:child:space-y-10 dark:text-neutral-100">
+      <div className="mx-auto max-w-2xl px-4 text-gray-800 child:space-y-6 dark:text-neutral-100 sm:mt-14 sm:child:space-y-10">
         {/* About */}
         <div className="md:leading-relaxed">
           <p className="">

@@ -19,6 +19,18 @@ export const blogConfig: BlogConfig = {
       href: 'https://twitter.com/braswell_jnr',
       tags: ['twitter'],
       external: true
+    },
+    {
+      title: 'Linkedin',
+      href: 'https://www.linkedin.com/in/braswell-kenneth-870827192',
+      tags: ['linkedin'],
+      external: true
+    },
+    {
+      title: 'Instagram',
+      href: 'https://www.instagram.com/braswell_jr/',
+      tags: ['instagram'],
+      external: true
     }
   ],
   sidebarNav: [],

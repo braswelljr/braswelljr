@@ -17,7 +17,7 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
     <div className={cn('my-5', className)}>
       <div className="space-y-2">
         {/* menu items */}
-        <div className="flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 max-xsm:text-sm dark:border-[0.5px]">
+        <div className="flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 dark:border-[0.5px] max-xsm:text-sm">
           {contains.map((item, idx) => (
             <button key={idx} className={cn('relative')} onClick={() => setTab(item)}>
               <AnimatePresence>

@@ -7,3 +7,11 @@ export type Career = {
   date: string
   description: string[]
 }
+
+export type Education = {
+  name: string
+  degree: string
+  date: Date
+  school: string
+  description: string[]
+}

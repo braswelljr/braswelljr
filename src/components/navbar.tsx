@@ -1,15 +1,16 @@
 'use client'
 
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { HiCode, HiDesktopComputer, HiHome, HiMoon, HiOutlineArchive, HiOutlineMenuAlt2, HiSun } from 'react-icons/hi'
+import { FaSpotify } from 'react-icons/fa6'
+import { HiCode, HiDesktopComputer, HiHome, HiMoon, HiOutlineMenuAlt2, HiSun } from 'react-icons/hi'
 import { IoIosPerson } from 'react-icons/io'
 import { IconBaseProps } from 'react-icons/lib'
 import { MdArticle } from 'react-icons/md'
 import { TbCommand } from 'react-icons/tb'
-import useStore from '~/store/store'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useStore } from '~/store/store'
+import { motion } from 'framer-motion'
 import { cn } from 'lib/utils'
 import { useTheme } from 'next-themes'
 import Search from '~/components/search'
@@ -26,13 +27,13 @@ export const nav = [
     icon: IoIosPerson
   },
   {
-    name: 'Projects',
-    path: '/projects',
-    icon: HiOutlineArchive
+    name: 'Listen With Me (Spotify)',
+    path: '/listen-with-me',
+    icon: FaSpotify
   },
   {
-    name: 'Technical Skills',
-    path: '/technical-skills',
+    name: 'Projects / Technical Skills',
+    path: '/projects',
     icon: HiCode
   },
   {
@@ -47,8 +48,6 @@ export default function Navbar({ className }: { className?: string }) {
   const [tab, setTab] = useState(nav[0].path)
   const [open, onOpenChange] = useState(false)
   const searchButtonRef = useRef<HTMLButtonElement>(null)
-  const lid = useId()
-  const tid = useId()
   const pathname = usePathname()
   const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(state => [
     state.blogpagemenutoogle,
@@ -90,7 +89,7 @@ export default function Navbar({ className }: { className?: string }) {
         <button
           type="button"
           className={cn(
-            'flex h-7 w-7 items-center justify-center rounded-sm bg-neutral-900 text-white focus:outline-none md:hidden dark:bg-neutral-500'
+            'flex h-7 w-7 items-center justify-center rounded-sm bg-neutral-900 text-white focus:outline-none dark:bg-neutral-500 md:hidden'
           )}
           onClick={() => setBlogpagemenutoogle(!blogpagemenutoogle)}
         >
@@ -115,28 +114,26 @@ export default function Navbar({ className }: { className?: string }) {
       <Search open={open} setOpen={onOpenChange} searchButtonRef={searchButtonRef} />
 
       {/* menu items */}
-      <ul className="flex w-full items-center justify-center space-x-4 whitespace-nowrap max-lg:order-2 max-lg:mt-4 max-lg:grow max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto max-xsm:text-sm">
+      <div className="flex w-full items-center justify-center space-x-4 whitespace-nowrap max-lg:order-2 max-lg:mt-4 max-lg:grow max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto max-xsm:text-sm">
         {nav.map((item, idx) => (
           <Link key={idx} href={item.path} className={cn('relative pb-2')}>
-            <AnimatePresence>
-              {tab === item.path && (
-                <motion.div
-                  layoutId={lid}
-                  className={cn(
-                    'absolute inset-x-0 bottom-0 h-1 bg-neutral-900 dark:bg-white',
-                    idx === 0 && 'rounded-l-sm',
-                    idx === nav.length - 1 && 'rounded-r-sm'
-                  )}
-                />
-              )}
-            </AnimatePresence>
-            <div className={cn('flex items-center space-x-2 font-light uppercase')}>
+            {tab === item.path && (
+              <motion.span
+                layoutId="menu-bubble"
+                className={cn(
+                  'absolute inset-x-0 bottom-0 h-1 bg-neutral-900 dark:bg-white',
+                  idx === 0 && 'rounded-l-sm',
+                  idx === nav.length - 1 && 'rounded-r-sm'
+                )}
+              />
+            )}
+            <span className={cn('flex items-center space-x-2 font-light uppercase')}>
               {/* <item.icon className="h-4 w-auto" /> */}
               {item.name}
-            </div>
+            </span>
           </Link>
         ))}
-      </ul>
+      </div>
 
       <ul className={cn('flex items-center justify-center space-x-2 max-lg:order-1')}>
         {Object.entries({
@@ -144,25 +141,17 @@ export default function Navbar({ className }: { className?: string }) {
           dark: (props: IconBaseProps) => <HiMoon {...props} />,
           light: (props: IconBaseProps) => <HiSun {...props} />
         }).map(([key, Value], i, self) => (
-          <li
-            key={key}
-            className={cn('relative block cursor-pointer p-1.5')}
-            onClick={() => setTheme(key)}
-            suppressHydrationWarning
-          >
-            <AnimatePresence>
-              {key === theme && (
-                <motion.div
-                  layoutId={tid}
-                  initial={false}
-                  className={cn(
-                    'absolute inset-0 bg-neutral-800 dark:bg-neutral-500',
-                    i === 0 && 'rounded-l-sm',
-                    i === self.length - 1 && 'rounded-r-sm'
-                  )}
-                />
-              )}
-            </AnimatePresence>
+          <li key={key} className={cn('relative block cursor-pointer p-1.5')} onClick={() => setTheme(key)}>
+            {key === theme && (
+              <motion.span
+                layoutId="theme-bubble"
+                className={cn(
+                  'absolute inset-0 bg-neutral-800 dark:bg-neutral-500',
+                  i === 0 && 'rounded-l-sm',
+                  i === self.length - 1 && 'rounded-r-sm'
+                )}
+              />
+            )}
             <Value className={cn('relative z-[1] h-4 w-auto', key === theme && 'text-white')} />
           </li>
         ))}

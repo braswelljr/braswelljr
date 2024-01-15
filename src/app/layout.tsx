@@ -62,10 +62,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         Lobster.variable,
         JetbrainsMono.variable
       )}
-      suppressHydrationWarning
     >
       <head />
-      <body className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
+      <body className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white" suppressHydrationWarning>
         <ThemeProvider>
           <RepoProvider>
             <main className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">

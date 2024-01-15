@@ -5,8 +5,8 @@ import { BiGitRepoForked } from 'react-icons/bi'
 import { BsStar } from 'react-icons/bs'
 import { HiFolderOpen, HiOutlineExternalLink } from 'react-icons/hi'
 import { TfiLayoutListThumb } from 'react-icons/tfi'
+import { OTHER_PROJECTS } from '~/config/data'
 import useMedia from '~/hooks/useMedia'
-import { OTHER_PROJECTS } from '~/components/data'
 import useXStore from '~/context/useRepos'
 import isFalsy from '~/utils/isFalsy'
 
@@ -29,8 +29,8 @@ export default function Projects() {
 
   return (
     <div className="pb-10 pt-10 max-lg:pt-28">
-      <div className="mx-auto max-w-7xl space-y-8 px-4 text-gray-800 sm:mt-14 sm:space-y-10 dark:text-neutral-100">
-        <h1 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent sm:text-3xl md:text-4xl dark:to-[#ff7056]">
+      <div className="mx-auto max-w-7xl space-y-8 px-4 text-gray-800 dark:text-neutral-100 sm:mt-14 sm:space-y-10">
+        <h1 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent dark:to-[#ff7056] sm:text-3xl md:text-4xl">
           Work, Hobby and Open Source
         </h1>
         {/* Write up */}
@@ -88,7 +88,7 @@ export default function Projects() {
         <div className="space-y-6">
           {/* header */}
           <div className="flex items-end justify-between">
-            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
+            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl md:text-4xl">
               Starred Projects
             </h2>
             <span className="text-lg">({pinnedProjects.length})</span>
@@ -176,7 +176,7 @@ export default function Projects() {
         <div className="space-y-6">
           {/* header */}
           <div className="flex items-end justify-between">
-            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
+            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl md:text-4xl">
               All Projects{' '}
             </h2>
             <span className="text-lg">({filteredProjects.length})</span>
@@ -272,7 +272,7 @@ export default function Projects() {
         <div className="space-y-6">
           {/* Header */}
           <div className="flex items-end justify-between">
-            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
+            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl md:text-4xl">
               Other Projects
             </h2>
             <span className="text-lg">({OTHER_PROJECTS.length})</span>

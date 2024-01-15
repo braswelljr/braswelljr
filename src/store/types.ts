@@ -1,4 +1,4 @@
-export interface repo {
+export interface Repo {
   name: string
   description: string
   url: string
@@ -15,8 +15,8 @@ export interface repo {
 
 export interface State {
   name: string
-  repositories: repo[]
-  setRepositories: (params: repo[]) => void
+  repositories: Repo[]
+  setRepositories: (params: Repo[]) => void
   blogpagemenutoogle: boolean
   setBlogpagemenutoogle: (params: boolean) => void
 }

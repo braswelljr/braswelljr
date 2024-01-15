@@ -9,6 +9,8 @@ export const socials = [
   { name: 'Figma', url: 'https://www.figma.com/@braswelljr', icon: FaFigma }
 ]
 
+export const education = []
+
 /**
  * career - List of careers
  */
@@ -40,7 +42,7 @@ export const career: Array<Career> = [
     role: 'Software Engineer (National Service)',
     company: 'Solar Taxi, Accra - Ghana',
     companyLink: 'https://solartaxi.co',
-    date: 'November 1, 2022 - Present',
+    date: 'November 1, 2022 - October 31, 2023',
     description: [
       'Plan solutions for software projects.',
       'Design and implement backend APIs for web and mobile applications.',

@@ -18,7 +18,7 @@ const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
-        'mt-2 scroll-m-20 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent sm:text-3xl md:text-4xl dark:to-[#ff7056]',
+        'mt-2 scroll-m-20 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent dark:to-[#ff7056] sm:text-3xl md:text-4xl',
         className
       )}
       {...props}
@@ -101,7 +101,7 @@ const components = {
     <img className={cn('rounded-md border border-neutral-200', className)} alt={alt} {...props} />
   ),
   hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
-    <hr className="my-4 border-neutral-200 md:my-8 dark:border-neutral-800" {...props} />
+    <hr className="my-4 border-neutral-200 dark:border-neutral-800 md:my-8" {...props} />
   ),
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
     <div className="my-6 w-full overflow-y-auto">
@@ -146,47 +146,60 @@ const components = {
     __src__?: string
   } & TerminalCommands) => {
     return (
-      <div className="my-4 rounded border border-neutral-900 dark:border-neutral-800">
+      <div
+        className={cn(
+          'relative my-4 rounded border border-neutral-900 dark:border-neutral-800',
+          !__withMeta__ && !__filename__ && 'relative'
+        )}
+      >
         {/* header */}
-        <div className="flex items-center justify-between bg-neutral-900 px-4 py-2 dark:bg-neutral-800">
-          {/* title */}
-          <h2 className="flex max-w-[80%] items-center space-x-2">
-            {/* meta */}
-            {/* icon */}
-            {__withMeta__ && __filename__ ? (
-              <React.Fragment>
-                <LiaFileInvoiceSolid className="h-4 w-auto text-white" aria-hidden />
-                <span className="text-neutral-400">{__filename__}</span>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <BsTerminalFill className="h-4 w-auto text-white" aria-hidden />
-                <span className="text-neutral-400">Terminal</span>
-              </React.Fragment>
+        {__withMeta__ && __filename__ ? (
+          <div className="flex items-center justify-between bg-neutral-900 px-4 py-2 dark:bg-neutral-800">
+            {/* title */}
+            <h2 className="flex max-w-[80%] items-center space-x-2">
+              {__withMeta__ && __filename__ ? (
+                <React.Fragment>
+                  <LiaFileInvoiceSolid className="h-4 w-auto text-white" aria-hidden />
+                  <span className="text-neutral-400">{__filename__}</span>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <BsTerminalFill className="h-4 w-auto text-white" aria-hidden />
+                  <span className="text-neutral-400">Terminal</span>
+                </React.Fragment>
+              )}
+            </h2>
+            {/* copy button */}
+            {__rawString__ && (!__npmCommand__ || !__yarnCommand__ || !__pnpmCommand__) && (
+              <CopyButton
+                value={__rawString__}
+                src={__src__}
+                className={cn('border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100')}
+              />
             )}
-          </h2>
-          {/* copy button */}
-          {__rawString__ && !__npmCommand__ && (
-            <CopyButton
-              value={__rawString__}
-              src={__src__}
-              className={cn('border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100')}
-            />
-          )}
-          {__rawString__ && __npmCommand__ && __yarnCommand__ && __pnpmCommand__ && (
-            <CopyNpmCommandButton
-              commands={{
-                __npmCommand__,
-                __pnpmCommand__,
-                __yarnCommand__
-              }}
-              className={cn('border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100')}
-            />
-          )}
-        </div>
+            {__rawString__ && __npmCommand__ && __yarnCommand__ && __pnpmCommand__ && (
+              <CopyNpmCommandButton
+                commands={{
+                  __npmCommand__,
+                  __pnpmCommand__,
+                  __yarnCommand__
+                }}
+                className={cn('border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100')}
+              />
+            )}
+          </div>
+        ) : (
+          <CopyButton
+            value={__rawString__ || ''}
+            src={__src__}
+            className={cn(
+              'absolute right-2 top-2 border-none text-neutral-300 opacity-50 hover:bg-transparent hover:opacity-100'
+            )}
+          />
+        )}
         {/* code */}
         <pre
-          className={cn('overflow-x-auto bg-neutral-900 px-2 py-4 !font-mono sm:px-4 dark:bg-black', className)}
+          className={cn('overflow-x-auto bg-neutral-900 px-2 py-4 !font-mono dark:bg-black sm:px-4', className)}
           {...props}
         />
       </div>

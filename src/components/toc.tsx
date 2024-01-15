@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { HiOutlineExternalLink } from 'react-icons/hi'
-import useStore from '~/store/store'
+import { useStore } from '~/store/store'
 import { TableOfContents } from 'lib/toc'
 import { cn } from 'lib/utils'
 import useMounted from '~/hooks/useMounted'
@@ -16,6 +16,28 @@ interface TocProps {
 }
 
 export function BlogTableOfContents({ toc, className }: TocProps) {
+  const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(state => [
+    state.blogpagemenutoogle,
+    state.setBlogpagemenutoogle
+  ])
+
+  return (
+    <Fragment>
+      <Sheet open={blogpagemenutoogle} onOpenChange={setBlogpagemenutoogle}>
+        <SheetContent side="left">
+          <Content toc={toc} className={className} />
+        </SheetContent>
+      </Sheet>
+      <aside className="max-md:hidden">
+        <Content toc={toc} className={className} />
+      </aside>
+    </Fragment>
+  )
+}
+
+function Content({ toc, className }: TocProps) {
+  const mounted = useMounted()
+
   const itemIds = useMemo(() => {
     if (toc && toc.items) {
       return toc.items
@@ -28,17 +50,11 @@ export function BlogTableOfContents({ toc, className }: TocProps) {
     return []
   }, [toc])
   const activeHeading = useActiveItem(itemIds as string[])
-  const mounted = useMounted()
-  const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(state => [
-    state.blogpagemenutoogle,
-    state.setBlogpagemenutoogle
-  ])
 
   if (!toc?.items || !mounted) {
     return null
   }
-
-  const content = (
+  return (
     <div
       className={cn(
         'space-y-2 text-xs md:sticky md:top-16 md:-mt-10 md:max-h-[calc(var(--vh)-4rem)] md:overflow-y-auto md:pr-2 md:pt-16 xl:text-sm',
@@ -65,15 +81,6 @@ export function BlogTableOfContents({ toc, className }: TocProps) {
       </div>
       <Tree tree={toc} activeItem={activeHeading} />
     </div>
-  )
-
-  return (
-    <Fragment>
-      <Sheet open={blogpagemenutoogle} onOpenChange={setBlogpagemenutoogle}>
-        <SheetContent side="left">{content}</SheetContent>
-      </Sheet>
-      <aside className="max-md:hidden">{content}</aside>
-    </Fragment>
   )
 }
 

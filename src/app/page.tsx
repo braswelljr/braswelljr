@@ -4,8 +4,8 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { cn } from 'lib/utils'
+import { socials } from '~/config/data'
 import useInterval from '~/hooks/useInterval'
-import { socials } from '~/components/data'
 
 export default function Page() {
   const [r, setR] = useState<number>(0)
@@ -43,7 +43,7 @@ export default function Page() {
                 <motion.div
                   key={id}
                   className={cn(
-                    'bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-3 text-center text-xl font-black uppercase text-transparent xxs:text-2xl xsm:text-3xl sm:text-4xl md:text-5xl dark:to-[#ff7056]'
+                    'bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-3 text-center text-xl font-black uppercase text-transparent dark:to-[#ff7056] xxs:text-2xl xsm:text-3xl sm:text-4xl md:text-5xl'
                   )}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
