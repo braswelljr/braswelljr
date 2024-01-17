@@ -3,9 +3,9 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 /**
  * useSessionStorage hook to get session data
  * @param {string} sessionKey - the key name to get and set
- * @param {unknown} options.initialValue (default - null) - initial value to set
+ * @param {T} options.initialValue (default - null) - initial value to set
  * @param {boolean} options.keepOnWindowClosed (default - false) - retains and retrieve state after window is closed
- * @returns {unknown} sessionValue - value of the provided key stored in session storage
+ * @returns {T} sessionValue - value of the provided key stored in session storage
  * @returns {Function} setSessionValue - used to update the session value
  */
 export default function useSessionStorage<T>(

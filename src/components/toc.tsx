@@ -4,6 +4,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { HiOutlineExternalLink } from 'react-icons/hi'
 import { useStore } from '~/store/store'
+import { BlogLinksAndResources } from 'contentlayer/generated'
 import { TableOfContents } from 'lib/toc'
 import { cn } from 'lib/utils'
 import useMounted from '~/hooks/useMounted'
@@ -12,10 +13,11 @@ import { ScrollToTopWithBlog } from './scroll-top'
 
 interface TocProps {
   toc: TableOfContents
+  resources?: BlogLinksAndResources[]
   className?: string
 }
 
-export function BlogTableOfContents({ toc, className }: TocProps) {
+export function BlogTableOfContents({ toc, className, resources }: TocProps) {
   const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(state => [
     state.blogpagemenutoogle,
     state.setBlogpagemenutoogle
@@ -25,17 +27,17 @@ export function BlogTableOfContents({ toc, className }: TocProps) {
     <Fragment>
       <Sheet open={blogpagemenutoogle} onOpenChange={setBlogpagemenutoogle}>
         <SheetContent side="left">
-          <Content toc={toc} className={className} />
+          <Content toc={toc} resources={resources} className={className} />
         </SheetContent>
       </Sheet>
       <aside className="max-md:hidden">
-        <Content toc={toc} className={className} />
+        <Content toc={toc} resources={resources} className={className} />
       </aside>
     </Fragment>
   )
 }
 
-function Content({ toc, className }: TocProps) {
+function Content({ toc, className, resources }: TocProps) {
   const mounted = useMounted()
 
   const itemIds = useMemo(() => {
@@ -67,12 +69,12 @@ function Content({ toc, className }: TocProps) {
         {/* blogs */}
         <Link
           href="/blog"
-          className="group/link relative inline-flex items-center space-x-2 pb-1.5 uppercase text-neutral-600 dark:text-neutral-400"
+          className="group/link relative inline-flex items-center space-x-2 pb-1.5 uppercase text-[#ff2600] dark:text-[#ff8d22]"
         >
           <HiOutlineExternalLink className="h-3.5 w-auto" />
           <span>Back to blog</span>
           <span
-            className="absolute inset-x-0 bottom-1 h-0.5 w-0 bg-current transition-width group-hover/link:w-full"
+            className="absolute -left-2 bottom-0 right-2 h-0.5 w-0 bg-current transition-width group-hover/link:w-full"
             aria-hidden="true"
           />
         </Link>
@@ -80,6 +82,21 @@ function Content({ toc, className }: TocProps) {
         <ScrollToTopWithBlog />
       </div>
       <Tree tree={toc} activeItem={activeHeading} />
+      {resources?.length && (
+        <div className="mt-5">
+          <h3 className="text-sm font-medium uppercase">Links and Resources</h3>
+          <ol className="mt-2 list-disc space-y-2 pl-4">
+            {resources.map((resource, i) => (
+              <li
+                key={i}
+                className="text-sm font-medium text-neutral-600 hover:text-[#ff2600] hover:underline dark:text-neutral-400 dark:hover:text-[#ff8d22]"
+              >
+                <Link href={resource.url}>{resource.title}</Link>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
     </div>
   )
 }
@@ -122,27 +139,31 @@ interface TreeProps {
 function Tree({ tree, level = 1, activeItem }: TreeProps) {
   const [setBlogpagemenutoogle] = useStore(state => [state.setBlogpagemenutoogle])
 
-  return tree?.items?.length && level < 3 ? (
-    <ul className={cn('m-0 list-none', { 'pl-2': level !== 1 })}>
-      {tree.items.map((item, index) => {
-        return (
-          <li key={index} className={cn('mt-0 pt-2')}>
-            <a
-              href={item.url}
-              className={cn(
-                'inline-block text-sm no-underline',
-                item.url === `#${activeItem}`
-                  ? 'font-medium text-rose-600 dark:text-orange-300'
-                  : 'text-neutral-700 hover:text-neutral-900 dark:text-neutral-400'
-              )}
-              onClick={() => setBlogpagemenutoogle(false)}
-            >
-              {item.title}
-            </a>
-            {item.items?.length ? <Tree tree={item} level={level + 1} activeItem={activeItem} /> : null}
-          </li>
-        )
-      })}
-    </ul>
-  ) : null
+  return (
+    <div>
+      {tree?.items?.length && level < 3 ? (
+        <ul className={cn('m-0 list-none', { 'pl-2': level !== 1 })}>
+          {tree.items.map((item, index) => {
+            return (
+              <li key={index} className={cn('mt-0 pt-2')}>
+                <a
+                  href={item.url}
+                  className={cn(
+                    'inline-block text-sm no-underline',
+                    item.url === `#${activeItem}`
+                      ? 'font-medium text-rose-600 dark:text-orange-300'
+                      : 'text-neutral-700 hover:text-neutral-900 dark:text-neutral-400'
+                  )}
+                  onClick={() => setBlogpagemenutoogle(false)}
+                >
+                  {item.title}
+                </a>
+                {item.items?.length ? <Tree tree={item} level={level + 1} activeItem={activeItem} /> : null}
+              </li>
+            )
+          })}
+        </ul>
+      ) : null}
+    </div>
+  )
 }

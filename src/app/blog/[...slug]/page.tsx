@@ -29,7 +29,7 @@ export default async function Page({ params }: PageProps) {
     return notFound()
   }
 
-  const toc = await getTableOfContents(blog.body.raw)
+  const toc = await getTableOfContents(blog?.body?.raw)
 
   return (
     <main className="relative pb-6 pt-32 md:grid md:grid-cols-[1fr_250px] md:gap-6 md:pb-10 md:pt-16 lg:grid-cols-[1fr_300px]">
@@ -64,7 +64,7 @@ export default async function Page({ params }: PageProps) {
                 ))}
               </div>
             )}
-            <Mdx code={blog.body.code} className="pt-8" />
+            <Mdx code={blog?.body?.code} className="pt-8" />
           </div>
           <div className="">
             <Separator className="my-4 md:my-6" />
@@ -73,7 +73,7 @@ export default async function Page({ params }: PageProps) {
         </div>
       </div>
       {/* Table of contents */}
-      <BlogTableOfContents toc={toc} />
+      <BlogTableOfContents toc={toc} resources={blog?.linksAndResources} />
     </main>
   )
 }

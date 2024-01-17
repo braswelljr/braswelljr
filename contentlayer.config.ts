@@ -35,6 +35,15 @@ const BlogProperties = defineNestedType(() => ({
   }
 }))
 
+const BlogLinksAndResources = defineNestedType(() => ({
+  name: 'BlogLinksAndResources',
+  fields: {
+    title: { type: 'string', required: true },
+    url: { type: 'string', required: true },
+    description: { type: 'string', required: false }
+  }
+}))
+
 export const Blog = defineDocumentType(() => ({
   name: 'Blog',
   filePathPattern: `blog/**/*.{mdx,md}`,
@@ -73,6 +82,15 @@ export const Blog = defineDocumentType(() => ({
     featured: {
       type: 'boolean',
       default: false,
+      required: false
+    },
+    coverImage: {
+      type: 'image',
+      required: false
+    },
+    linksAndResources: {
+      type: 'list',
+      of: BlogLinksAndResources,
       required: false
     }
   },
