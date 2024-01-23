@@ -43,7 +43,7 @@
     "framer-motion": "^10.18.0",
     "gsap": "^3.12.4",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.309.0",
+    "lucide-react": "^0.314.0",
     "match-sorter": "^6.3.3",
     "mdast-util-toc": "^7.0.0",
     "moment": "^2.30.1",
