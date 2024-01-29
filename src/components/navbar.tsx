@@ -111,6 +111,7 @@ export default function Navbar({ className }: { className?: string }) {
           <span className={cn('ml-3 text-xs font-normal uppercase md:hidden')}>Search ...</span>
         )}
       </button>
+
       <Search open={open} setOpen={onOpenChange} searchButtonRef={searchButtonRef} />
 
       {/* menu items */}

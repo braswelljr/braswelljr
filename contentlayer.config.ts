@@ -67,7 +67,8 @@ export const Blog = defineDocumentType(() => ({
     published: {
       type: 'boolean',
       description: 'Whether the post is published or not',
-      default: false
+      required: false,
+      default: true
     },
     tags: {
       type: 'list',

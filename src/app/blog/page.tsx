@@ -6,6 +6,7 @@ import { subDays } from 'date-fns'
 import { cn } from 'lib/utils'
 import moment from 'moment'
 import { formatDate } from '~/utils/formatDate'
+import { IoAlbums } from "react-icons/io5";
 
 export default function Page() {
   const blogs = allBlogs.sort((a, b) => {
@@ -29,7 +30,7 @@ export default function Page() {
         <div className="relative sm:ml-[calc(2rem+1px)] md:ml-[calc(3.5rem+1px)] lg:ml-[max(calc(14.5rem+1px),calc(100%-48rem))]">
           <div className="absolute bottom-0 right-full top-3 mr-7 hidden w-px bg-orange-300 sm:block md:mr-[3.25rem]" />
           <div className="space-y-16">
-            {blogs.map(({ title, description, date, tags, slugAsParams }, i) => (
+            {blogs.map(({ title, description, date, tags, slugAsParams, published }, i) => (
               <article key={i} className="group relative">
                 <div className="absolute -inset-x-4 -inset-y-2.5 md:-inset-x-6 md:-inset-y-4" />
                 {/* group-hover:bg-neutral-50/70 dark:group-hover:bg-neutral-800/50 */}
@@ -47,13 +48,25 @@ export default function Page() {
                   />
                 </svg>
                 <div className="relative">
-                  {/* check if the date is less than 30 days old */}
-                  {moment(date).isAfter(subDays(new Date(), 150)) && (
-                    <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400 max-lg:mt-8">
-                      <MdOutlineWorkspacePremium className="h-3 w-auto" />
-                      <span>New</span>
-                    </div>
-                  )}
+                  {(moment(date).isAfter(subDays(new Date(), 150)) || !published) && <div className="flex flex-wrap gap-4 max-lg:mt-8">
+                    {/* check if the date is less than 30 days old */}
+                    {moment(date).isAfter(subDays(new Date(), 150)) && (
+                      <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
+                        <MdOutlineWorkspacePremium className="h-3 w-auto" />
+                        <span>New</span>
+                      </div>
+                    )}
+
+                    {/* published */}
+                    {!published && (
+                      <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
+                        <IoAlbums className='h-3.5 w-auto' />
+                        <span className="">
+                          Draft / Unpublished<span className="sr-only">, {title}</span>
+                        </span>
+                      </div>
+                    )}
+                  </div>}
                   {/* header */}
                   <h3 className="pt-6 font-semibold uppercase tracking-tight text-neutral-900 dark:text-neutral-200 lg:pt-2">
                     {title}

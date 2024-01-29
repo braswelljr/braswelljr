@@ -1,0 +1,32 @@
+---
+title: A Simple Guide to Context in React
+description: Context is a powerful feature in React that allows you to share state between components without having to pass props down manually at every level.
+tags:
+  - react
+  - context
+  - state
+  - props
+  - provider
+  - javascript
+date: 2024-01-29
+published: false
+linksAndResources:
+  - title: Context in React (createContext, Provider, Consumer)
+    url: https://react.dev/reference/react/createContext
+  - title: React Context API (useContext)
+    url: https://react.dev/reference/react/useContext
+---
+
+Context is a powerful feature in React that allows you to share state between components without having to pass props down manually at every level. `Prop Drilling` is a term used to describe the process of passing props from a parent component to a child component, then to another child component, and so on. This can be a tedious process, especially if you have a deeply nested component tree. Context solves this problem by allowing you to pass data through the component tree without having to pass props down manually at every level.
+
+**NOTE:** Context is not a replacement for Redux or other state management libraries. It is meant to be used for sharing state between components that are closely related, such as siblings or cousins. This a post assumes you have a basic understanding of React and JavaScript.
+
+## Creating a Context (React)
+
+The first step in using Context is to create a context object. This is done using the `createContext` method from the React library. The `createContext` method takes an initial value as an argument and returns a context object. The initial value is used when no provider is found in the component tree. This is useful for testing purposes or when you want to provide a default value for your context.
+
+```jsx
+import * as React from 'react';
+
+const MyContext = React.createContext('default value');
+```
