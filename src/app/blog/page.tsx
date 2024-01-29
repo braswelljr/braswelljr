@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import { HiChevronRight } from 'react-icons/hi'
+import { IoAlbums } from 'react-icons/io5'
 import { MdOutlineWorkspacePremium } from 'react-icons/md'
 import { allBlogs } from 'contentlayer/generated'
 import { subDays } from 'date-fns'
 import { cn } from 'lib/utils'
 import moment from 'moment'
 import { formatDate } from '~/utils/formatDate'
-import { IoAlbums } from "react-icons/io5";
 
 export default function Page() {
   const blogs = allBlogs.sort((a, b) => {
@@ -48,25 +48,27 @@ export default function Page() {
                   />
                 </svg>
                 <div className="relative">
-                  {(moment(date).isAfter(subDays(new Date(), 150)) || !published) && <div className="flex flex-wrap gap-4 max-lg:mt-8">
-                    {/* check if the date is less than 30 days old */}
-                    {moment(date).isAfter(subDays(new Date(), 150)) && (
-                      <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
-                        <MdOutlineWorkspacePremium className="h-3 w-auto" />
-                        <span>New</span>
-                      </div>
-                    )}
+                  {(moment(date).isAfter(subDays(new Date(), 150)) || !published) && (
+                    <div className="relative flex flex-wrap gap-2 max-lg:pt-8">
+                      {/* check if the date is less than 30 days old */}
+                      {moment(date).isAfter(subDays(new Date(), 150)) && (
+                        <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
+                          <MdOutlineWorkspacePremium className="h-3 w-auto" />
+                          <span>New</span>
+                        </div>
+                      )}
 
-                    {/* published */}
-                    {!published && (
-                      <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
-                        <IoAlbums className='h-3.5 w-auto' />
-                        <span className="">
-                          Draft / Unpublished<span className="sr-only">, {title}</span>
-                        </span>
-                      </div>
-                    )}
-                  </div>}
+                      {/* published */}
+                      {!published && (
+                        <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
+                          <IoAlbums className="h-3.5 w-auto" />
+                          <span className="">
+                            Draft / Unpublished<span className="sr-only">, {title}</span>
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
                   {/* header */}
                   <h3 className="pt-6 font-semibold uppercase tracking-tight text-neutral-900 dark:text-neutral-200 lg:pt-2">
                     {title}
