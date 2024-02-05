@@ -90,8 +90,8 @@ dependencies:
     specifier: ^4.17.21
     version: 4.17.21
   lucide-react:
-    specifier: ^0.316.0
-    version: 0.316.0(react@18.2.0)
+    specifier: ^0.322.0
+    version: 0.322.0(react@18.2.0)
   match-sorter:
     specifier: ^6.3.3
     version: 6.3.3
@@ -6146,8 +6146,8 @@ packages:
     engines: {node: 14 || >=16.14}
     dev: true
 
-  /lucide-react@0.316.0(react@18.2.0):
-    resolution: {integrity: sha512-dTmYX1H4IXsRfVcj/KUxworV6814ApTl7iXaS21AimK2RUEl4j4AfOmqD3VR8phe5V91m4vEJ8tCK4uT1jE5nA==}
+  /lucide-react@0.322.0(react@18.2.0):
+    resolution: {integrity: sha512-7knx2HzI/J7wCVaAzbO4y622PYjBqy4w03DvXKri0EBxg1s3ogPHkLXvFoNVS6WTXgxLsIZDdvgY3AWQmc4JXA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
