@@ -87,7 +87,7 @@
     "@types/react-dom": "^18.2.18",
     "@types/unist": "^3.0.2",
     "@types/webpack-env": "^1.18.4",
-    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.1.0",
