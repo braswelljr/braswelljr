@@ -35,7 +35,7 @@
     "autoprefixer": "^10.4.17",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "cmdk": "^0.2.1",
+    "cmdk": "^1.0.0",
     "concurrently": "^8.2.2",
     "contentlayer": "^0.3.4",
     "cssnano": "^6.0.3",
