@@ -84,7 +84,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
     "@types/node": "^20.11.30",
     "@types/react": "^18.2.64",
-    "@types/react-dom": "^18.2.19",
+    "@types/react-dom": "^18.2.23",
     "@types/unist": "^3.0.2",
     "@types/webpack-env": "^1.18.4",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
