@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   ],
   creator: 'braswelljr',
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/icons/icon.png',
-    apple: '/icons/icon.png'
+    icon: '/favicon.ico?v=2',
+    shortcut: '/icons/icon.png?v=2',
+    apple: '/icons/icon.png?v=2'
   },
   manifest: `/manifest.json`
 }

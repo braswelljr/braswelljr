@@ -8,7 +8,7 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "/favicon.ico",
+      "src": "/favicon.ico?v=2",
       "sizes": "116x133",
       "type": "image/x-icon"
     },
