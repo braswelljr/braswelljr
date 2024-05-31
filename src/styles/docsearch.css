@@ -556,3 +556,7 @@
 .DocSearch-Hit-action + .DocSearch-Hit-action {
   @apply ml-3 border-l border-neutral-200 pl-3 dark:border-neutral-200/5;
 }
+
+.DocSearch-VisuallyHiddenForAccessibility {
+  display: none;
+}
