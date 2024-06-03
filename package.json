@@ -40,7 +40,7 @@
     "contentlayer": "^0.3.4",
     "cssnano": "^7.0.1",
     "date-fns": "^3.6.0",
-    "framer-motion": "^11.2.9",
+    "framer-motion": "^11.2.10",
     "gsap": "^3.12.5",
     "lodash": "^4.17.21",
     "lucide-react": "^0.381.0",
