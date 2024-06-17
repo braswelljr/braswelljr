@@ -38,7 +38,7 @@
     "cmdk": "^0.2.1",
     "concurrently": "^8.2.2",
     "contentlayer": "^0.3.4",
-    "cssnano": "^7.0.1",
+    "cssnano": "^7.0.2",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.2.10",
     "gsap": "^3.12.5",
