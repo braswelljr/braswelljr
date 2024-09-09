@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react'
 export default function useWindowSize() {
   const isClient = typeof window === 'object'
   const [windowSize, setWindowSize] = useState({
-    width: isClient ? window.innerWidth : undefined,
-    height: isClient ? window.innerHeight : undefined
+    width: isClient ? window.innerWidth : 0,
+    height: isClient ? window.innerHeight : 0
   })
 
   useEffect(() => {

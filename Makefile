@@ -52,3 +52,7 @@ clean:
 verbose-clean:
 	@make clean
 	rm -rf node_modules/
+
+.PHONY: lint/fix
+lint/fix:
+	pnpm run lint:fix

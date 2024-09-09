@@ -17,6 +17,6 @@ export interface State {
   name: string
   repositories: Repo[]
   setRepositories: (params: Repo[]) => void
-  blogpagemenutoogle: boolean
-  setBlogpagemenutoogle: (params: boolean) => void
+  toggle: boolean
+  onToggle: (params: boolean) => void
 }

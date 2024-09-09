@@ -1,0 +1,4 @@
+{
+	"$schema": "https://json.schemastore.org/lintstagedrc.schema",
+	"**/*.{js,ts,jsx,tsx}": ["npx eslint ./**/*.{js,ts,jsx,tsx} --quiet --fix", "npm run format"]
+}

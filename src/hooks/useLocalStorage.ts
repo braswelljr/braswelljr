@@ -28,7 +28,7 @@ export default function useLocalStorage<T>(
 
   useEffect(() => {
     const syncState = (event: StorageEvent) => {
-      let storageValue = localStorage.getItem(localStorageKey)
+      const storageValue = localStorage.getItem(localStorageKey)
       if (event.key === localStorageKey) {
         setLocalStorageValue(storageValue ? JSON.parse(storageValue) : initialValue)
       }

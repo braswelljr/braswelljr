@@ -34,7 +34,7 @@ export default async function Page({ params }: PageProps) {
   return (
     <main className="relative pb-6 pt-32 md:grid md:grid-cols-[1fr_250px] md:gap-6 md:pb-10 md:pt-16 lg:grid-cols-[1fr_300px]">
       <div className="mx-auto w-full min-w-0 px-5 md:pt-14 lg:pt-0">
-        <div className="flex h-full min-h-[85vh] flex-1 flex-col  justify-between">
+        <div className="flex h-full min-h-[85vh] flex-1 flex-col justify-between">
           <div className="">
             <div className="space-y-2">
               {moment(blog.date).isAfter(subDays(new Date(), 150)) && (

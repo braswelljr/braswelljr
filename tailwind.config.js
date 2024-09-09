@@ -72,7 +72,9 @@ module.exports = {
         spin: 'spin 1s linear infinite',
         wiggle: 'wiggle 200ms ease-in-out infinite',
         'slide-up-fade': '100ms ease-in forwards slide-up-fade',
-        'slide-down-fade': '100ms ease-in forwards slide-down-fade'
+        'slide-down-fade': '100ms ease-in forwards slide-down-fade',
+        'collapsible-down': 'collapsible-down 0.2s ease-out',
+        'collapsible-up': 'collapsible-up 0.2s ease-out'
       },
       keyframes: {
         spin: {
@@ -98,6 +100,14 @@ module.exports = {
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' }
+        },
+        'collapsible-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-collapsible-content-height)' }
+        },
+        'collapsible-up': {
+          from: { height: 'var(--radix-collapsible-content-height)' },
+          to: { height: '0' }
         }
       },
       transitionProperty: {
@@ -115,7 +125,6 @@ module.exports = {
     extend: {}
   },
   plugins: [
-    require('@tailwindcss/aspect-ratio'),
     require('tailwindcss-animate'),
     // direct child selector variant
     function ({ addVariant }) {

@@ -16,11 +16,11 @@ export default function Projects() {
   const [viewMoreProjects, setViewMoreProjects] = useState(false)
   const lg = useMedia('(min-width: 1024px)')
   // pins
-  let limitPins = viewMorePins ? pinnedProjects.length : lg ? 3 : 2
+  const limitPins = viewMorePins ? pinnedProjects.length : lg ? 3 : 2
   const PINNED_PROJECTS = Array.isArray(pinnedProjects) ? pinnedProjects.slice(0, limitPins) : []
 
   // projects
-  let limitProjects = viewMoreProjects ? allProjects.length : lg ? 6 : 4
+  const limitProjects = viewMoreProjects ? allProjects.length : lg ? 6 : 4
   // remove pinned projects from all projects
   const filteredProjects = allProjects.filter(
     project => !pinnedProjects.find(pinnedProject => pinnedProject.name === project.name)
@@ -28,7 +28,7 @@ export default function Projects() {
   const ALL_PROJECTS = Array.isArray(filteredProjects) ? filteredProjects.slice(0, limitProjects) : []
 
   return (
-    <div className="pb-10 pt-10 max-lg:pt-28">
+    <div className="py-10 max-lg:pt-28">
       <div className="mx-auto max-w-7xl space-y-8 px-4 text-gray-800 dark:text-neutral-100 sm:mt-14 sm:space-y-10">
         <h1 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent dark:to-[#ff7056] sm:text-3xl md:text-4xl">
           Work, Hobby and Open Source
@@ -36,7 +36,7 @@ export default function Projects() {
         {/* Write up */}
         <div className="space-y-6 text-neutral-600 dark:text-neutral-400">
           <p className="">
-            I'm obsessed with building things that are useful and fun to use. I am an{' '}
+            I&rsquo;m obsessed with building things that are useful and fun to use. I am an{' '}
             <span className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text px-3 uppercase text-transparent dark:to-[#ff7056]">
               enthusiast
             </span>{' '}
@@ -102,7 +102,7 @@ export default function Projects() {
                     return (
                       <div key={i} className="rounded bg-zinc-900/20 shadow-sm backdrop-blur">
                         {/* main */}
-                        <div className="divide-y divide-zinc-500/25 child:px-2.5 child:py-2.5">
+                        <div className="divide-y divide-zinc-500/25 child:p-2.5">
                           {/* header */}
                           <div className="flex items-start justify-between">
                             <h2 className="flex items-center space-x-2">
@@ -124,16 +124,16 @@ export default function Projects() {
                             </div>
                           </div>
                           {/* body */}
-                          <div className="min-h-[4rem] text-sm font-thin">
+                          <div className="min-h-16 text-sm font-thin">
                             <p className="line-clamp-3">{project.description}</p>
                           </div>
                         </div>
                         {/* footer */}
-                        <div className="flex items-center justify-between space-x-3 px-2 py-2 child:flex child:items-center child:space-x-2">
+                        <div className="flex items-center justify-between space-x-3 p-2 child:flex child:items-center child:space-x-2">
                           {/* language */}
                           <span className="space-x-2">
                             <span
-                              className="h-3 w-3 rounded-full"
+                              className="size-3 rounded-full"
                               style={{
                                 backgroundColor: project.primaryLanguage.color ?? `#ef5453`
                               }}
@@ -144,7 +144,7 @@ export default function Projects() {
                           <a
                             href={isFalsy(project.homepageUrl) ? project.url : project.homepageUrl}
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                           >
                             <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
@@ -193,9 +193,9 @@ export default function Projects() {
                         className="group rounded bg-zinc-900/20 shadow-sm backdrop-blur transition-transform"
                       >
                         {/* main */}
-                        <div className="divide-y divide-zinc-500/25 child:px-2.5 child:py-2.5">
+                        <div className="divide-y divide-zinc-500/25 child:p-2.5">
                           {/* header */}
-                          <div className="flex items-center justify-between space-x-3 px-2 py-2 child:flex child:items-center child:space-x-2">
+                          <div className="flex items-center justify-between space-x-3 p-2 child:flex child:items-center child:space-x-2">
                             {/* title */}
                             <h2 className="text-lg font-bold leading-tight tracking-tight text-neutral-900 dark:text-neutral-100">
                               {project.name}
@@ -215,7 +215,7 @@ export default function Projects() {
                             </div>
                             {/* body */}
                           </div>
-                          <div className="min-h-[4rem] text-sm font-thin">
+                          <div className="min-h-16 text-sm font-thin">
                             <p className="line-clamp-2">
                               {isFalsy(project.description)
                                 ? 'Lorem ipsum dolor sit amet consectetur.'
@@ -224,7 +224,7 @@ export default function Projects() {
                           </div>
                         </div>
                         {/* footer */}
-                        <div className="flex items-center justify-between space-x-3 px-2 py-2 child:flex child:items-center child:space-x-2">
+                        <div className="flex items-center justify-between space-x-3 p-2 child:flex child:items-center child:space-x-2">
                           {/* language */}
                           <span className="space-x-2">
                             {/* <span
@@ -240,7 +240,7 @@ export default function Projects() {
                           <a
                             href={isFalsy(project.html_url) ? project.url : project.html_url}
                             target="_blank"
-                            rel="noopener noreferer"
+                            rel="noopener noreferer noreferrer"
                             className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                           >
                             <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
@@ -256,7 +256,7 @@ export default function Projects() {
                     onClick={() => setViewMoreProjects(!viewMoreProjects)}
                     className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                   >
-                    <TfiLayoutListThumb className="h-5 w-auto  group-hover:scale-95" />
+                    <TfiLayoutListThumb className="h-5 w-auto group-hover:scale-95" />
                     <span>{viewMoreProjects ? 'View Less' : 'View More'}</span>
                   </button>
                 </div>
@@ -301,7 +301,7 @@ export default function Projects() {
                       <a
                         href={project.homepageUrl ? project.homepageUrl : project.url}
                         target="_blank"
-                        rel="noopener"
+                        rel="noopener noreferrer"
                         className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:scale-105 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                       >
                         <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />

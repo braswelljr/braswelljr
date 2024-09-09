@@ -17,7 +17,12 @@ export default function About() {
           <p>
             I have had multiple experiences with firms and individuals with which I would say benefited me and my
             experence. I completed{' '}
-            <a href="https://umat.edu.gh" target="_blank" rel="noopener" className="group/solar-link relative pb-1">
+            <a
+              href="https://umat.edu.gh"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/solar-link relative pb-1"
+            >
               <span className="relative bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-transparent dark:to-[#ff7056]">
                 The University of Mines and Technology
               </span>

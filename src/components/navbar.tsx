@@ -3,16 +3,16 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTheme } from 'next-themes'
 import { FaSpotify } from 'react-icons/fa6'
 import { HiCode, HiDesktopComputer, HiHome, HiMoon, HiOutlineMenuAlt2, HiSun } from 'react-icons/hi'
 import { IoIosPerson } from 'react-icons/io'
 import { IconBaseProps } from 'react-icons/lib'
 import { MdArticle } from 'react-icons/md'
 import { TbCommand } from 'react-icons/tb'
-import { useStore } from '~/store/store'
 import { motion } from 'framer-motion'
+import { useStore } from '~/store/store'
 import { cn } from 'lib/utils'
-import { useTheme } from 'next-themes'
 import Search from '~/components/search'
 
 export const nav = [
@@ -49,16 +49,13 @@ export default function Navbar({ className }: { className?: string }) {
   const [open, onOpenChange] = useState(false)
   const searchButtonRef = useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
-  const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(state => [
-    state.blogpagemenutoogle,
-    state.setBlogpagemenutoogle
-  ])
+  const { toggle, onToggle } = useStore(s => s)
 
   useEffect(() => {
     const routerTab = pathname.split('/')[1] ? pathname.split('/')[1] : '/'
     if (routerTab) {
       nav.forEach(({ path: href }) => {
-        let hrefTab = href.split('/')[1] ? href.split('/')[1] : '/'
+        const hrefTab = href.split('/')[1] ? href.split('/')[1] : '/'
         if (hrefTab === routerTab) {
           setTab(href)
         }
@@ -89,9 +86,9 @@ export default function Navbar({ className }: { className?: string }) {
         <button
           type="button"
           className={cn(
-            'flex h-7 w-7 items-center justify-center rounded-sm bg-neutral-900 text-white focus:outline-none dark:bg-neutral-500 md:hidden'
+            'flex size-7 items-center justify-center rounded-sm bg-neutral-900 text-white focus:outline-none dark:bg-neutral-500 md:hidden'
           )}
-          onClick={() => setBlogpagemenutoogle(!blogpagemenutoogle)}
+          onClick={() => onToggle(!toggle)}
         >
           <HiOutlineMenuAlt2 className="h-4 w-auto" />
         </button>
@@ -101,7 +98,7 @@ export default function Navbar({ className }: { className?: string }) {
         id="search-button"
         className={cn(
           'flex h-7 items-center rounded-sm bg-neutral-900 text-white focus:outline-none dark:bg-neutral-500',
-          pathname.startsWith('/blog/') ? 'w-[40%] xsm:w-1/2 md:w-7 md:justify-center' : 'w-7 justify-center'
+          pathname.startsWith('/blog/') ? 'w-2/5 xsm:w-1/2 md:w-7 md:justify-center' : 'w-7 justify-center'
         )}
         aria-label="Search"
         onClick={() => onOpenChange(!open)}

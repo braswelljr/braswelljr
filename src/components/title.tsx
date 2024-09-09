@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 
 export default function Title({ suffix, children }: { suffix?: string; children?: string | JSX.Element }) {
   const pathname = usePathname()
-  let title = children + (suffix ? ` - ${suffix}` : '')
+  const title = children + (suffix ? ` - ${suffix}` : '')
 
   return (
     <Head>

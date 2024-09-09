@@ -40,7 +40,7 @@ export default function useSessionStorage<T>(
       // get type of storage
       const storage = options.keepOnWindowClosed ? window.localStorage : window.sessionStorage
       // get value from storage
-      let storageValue = storage.getItem(sessionKey)
+      const storageValue = storage.getItem(sessionKey)
       // if event is for the provided key
       if (event.key === sessionKey) {
         // set value

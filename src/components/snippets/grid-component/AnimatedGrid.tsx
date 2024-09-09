@@ -120,7 +120,7 @@ export default function AnimatedGridComponent() {
                     >
                       <HiX className="h-4 w-auto text-neutral-900 dark:text-neutral-200" />
                     </button>
-                    <div className="mx-auto flex h-full w-11/12 flex-col justify-between text-xs max-sm:space-y-8 ">
+                    <div className="mx-auto flex h-full w-11/12 flex-col justify-between text-xs max-sm:space-y-8">
                       {/* about */}
                       <div className="space-y-2">
                         <div className="line-clamp-1">{selectedProduct.id}</div>

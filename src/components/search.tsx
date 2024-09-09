@@ -55,7 +55,7 @@ export default function Search({
   return (
     <div
       id="search-body"
-      className={cn('fixed inset-0 z-[11] h-full w-full bg-neutral-500/80', {
+      className={cn('fixed inset-0 z-[11] size-full bg-neutral-500/80', {
         hidden: !open
       })}
     >

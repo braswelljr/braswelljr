@@ -1,13 +1,13 @@
-import { Repo, State } from '~/store/types'
+import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { createWithEqualityFn } from 'zustand/traditional'
+import { Repo, State } from '~/store/types'
 
-export const useStore = createWithEqualityFn<State>()(
+export const useStore = create<State>()(
   devtools(set => ({
     name: 'braswelljr',
     repositories: [],
-    setRepositories: (params: Repo[]) => set(state => ({ ...state, repositories: params })),
-    blogpagemenutoogle: false,
-    setBlogpagemenutoogle: (params: boolean) => set(state => ({ ...state, blogpagemenutoogle: params }))
+    setRepositories: (params: Repo[]) => set({ repositories: params }),
+    toggle: false,
+    onToggle: (params: boolean) => set({ toggle: params })
   }))
 )

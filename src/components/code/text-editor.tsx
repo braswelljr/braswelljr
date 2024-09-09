@@ -19,3 +19,4 @@ export const TextEditor = forwardRef<HTMLDivElement, TextEditorI>(({ children, c
     </div>
   )
 })
+TextEditor.displayName = 'TextEditor'

@@ -18,14 +18,11 @@ interface TocProps {
 }
 
 export function BlogTableOfContents({ toc, className, resources }: TocProps) {
-  const [blogpagemenutoogle, setBlogpagemenutoogle] = useStore(state => [
-    state.blogpagemenutoogle,
-    state.setBlogpagemenutoogle
-  ])
+  const { toggle, onToggle } = useStore(s => s)
 
   return (
     <Fragment>
-      <Sheet open={blogpagemenutoogle} onOpenChange={setBlogpagemenutoogle}>
+      <Sheet open={toggle} onOpenChange={onToggle}>
         <SheetContent side="left">
           <Content toc={toc} resources={resources} className={className} />
         </SheetContent>
@@ -137,7 +134,7 @@ interface TreeProps {
 }
 
 function Tree({ tree, level = 1, activeItem }: TreeProps) {
-  const [setBlogpagemenutoogle] = useStore(state => [state.setBlogpagemenutoogle])
+  const { onToggle } = useStore(state => state)
 
   return (
     <div>
@@ -154,7 +151,7 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
                       ? 'font-medium text-rose-600 dark:text-orange-300'
                       : 'text-neutral-700 hover:text-neutral-900 dark:text-neutral-400'
                   )}
-                  onClick={() => setBlogpagemenutoogle(false)}
+                  onClick={() => onToggle(false)}
                 >
                   {item.title}
                 </a>

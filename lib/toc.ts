@@ -6,7 +6,7 @@ import { visit } from 'unist-util-visit'
 const textTypes = ['text', 'emphasis', 'strong', 'inlineCode']
 
 function flattenNode(node: UnistNode) {
-  let p: (string | undefined)[] = []
+  const p: (string | undefined)[] = []
   visit(node, node => {
     if (!textTypes.includes(node.type)) return
     p.push(node.value)

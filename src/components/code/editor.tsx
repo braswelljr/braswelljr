@@ -16,7 +16,7 @@ export const EditorTabItem = forwardRef<
     <div
       ref={ref}
       className={cn(
-        'flex flex-none items-center border-b border-t border-b-sky-300 border-t-transparent px-4 py-1 text-sky-300',
+        'flex flex-none items-center border-y border-b-sky-300 border-t-transparent px-4 py-1 text-sky-300',
         active && 'bg-neutral-900/10',
         hover && 'bg-neutral-900/5',
         open ? 'font-medium' : 'italic',
@@ -27,11 +27,11 @@ export const EditorTabItem = forwardRef<
     >
       {name}
       {saved ? (
-        <svg viewBox="0 0 4 4" className="ml-2.5 h-1 w-1 flex-none overflow-visible text-neutral-500">
+        <svg viewBox="0 0 4 4" className="ml-2.5 size-1 flex-none overflow-visible text-neutral-500">
           <path d="M-1 -1L5 5M5 -1L-1 5" fill="none" stroke="currentColor" strokeLinecap="round" />
         </svg>
       ) : (
-        <div className="ml-2.5 h-1 w-1 flex-none rounded-full bg-current" />
+        <div className="ml-2.5 size-1 flex-none rounded-full bg-current" />
       )}
       {children}
     </div>
@@ -46,15 +46,15 @@ export const EditorTab = forwardRef<HTMLDivElement, EditorTabI>(
   ) => {
     return (
       <Component className={cn('flex text-xs text-neutral-400')}>
-        <div className="flex flex-none items-center border-b border-t border-b-sky-300 border-t-transparent px-4 py-1 text-sky-300">
+        <div className="flex flex-none items-center border-y border-b-sky-300 border-t-transparent px-4 py-1 text-sky-300">
           {primary.name}
           {showTabMarkers &&
             (primary.saved ? (
-              <svg viewBox="0 0 4 4" className="ml-2.5 h-1 w-1 flex-none overflow-visible text-neutral-500">
+              <svg viewBox="0 0 4 4" className="ml-2.5 size-1 flex-none overflow-visible text-neutral-500">
                 <path d="M-1 -1L5 5M5 -1L-1 5" fill="none" stroke="currentColor" strokeLinecap="round" />
               </svg>
             ) : (
-              <div className="ml-2.5 h-1 w-1 flex-none rounded-full bg-current" />
+              <div className="ml-2.5 size-1 flex-none rounded-full bg-current" />
             ))}
         </div>
         <div
@@ -115,16 +115,16 @@ export function EditorCode({
   return (
     <div
       className={cn(
-        'relative flex h-[31.625rem] max-h-[60vh] overflow-hidden bg-neutral-800 shadow-xl dark:bg-neutral-900/70 dark:ring-1 dark:ring-inset dark:ring-white/10 dark:backdrop-blur sm:max-h-[none] sm:rounded-xl lg:h-[34.6875rem] xl:h-[31.625rem]',
+        'relative flex h-[31.625rem] max-h-[60vh] overflow-hidden bg-neutral-800 shadow-xl dark:bg-neutral-900/70 dark:ring-1 dark:ring-inset dark:ring-white/10 dark:backdrop-blur sm:max-h-none sm:rounded-xl lg:h-[34.6875rem] xl:h-[31.625rem]',
         className
       )}
     >
       <div className="relative flex w-full flex-col">
         <div className={cn('flex-none', border && 'border-b border-neutral-500/30')}>
           <div className="flex h-8 items-center space-x-1.5 px-3">
-            <div className="h-2.5 w-2.5 rounded-full bg-neutral-600" />
-            <div className="h-2.5 w-2.5 rounded-full bg-neutral-600" />
-            <div className="h-2.5 w-2.5 rounded-full bg-neutral-600" />
+            <div className="size-2.5 rounded-full bg-neutral-600" />
+            <div className="size-2.5 rounded-full bg-neutral-600" />
+            <div className="size-2.5 rounded-full bg-neutral-600" />
           </div>
         </div>
         <div className="relative flex min-h-0 flex-auto flex-col">{children}</div>
@@ -170,7 +170,7 @@ EditorCode.Code = forwardRef<
           >
             {lineNumbers}
           </div>
-          <code className="relative block flex-auto overflow-auto px-4 pb-4 pt-4 text-slate-50">
+          <code className="relative block flex-auto overflow-auto p-4 text-slate-50">
             <Code tokens={tokens} {...props} />
           </code>
         </pre>
@@ -178,4 +178,4 @@ EditorCode.Code = forwardRef<
     </div>
   )
 })
-EditorCode.displayName = 'EditorCode'
+EditorCode.Code.displayName = 'EditorCode'

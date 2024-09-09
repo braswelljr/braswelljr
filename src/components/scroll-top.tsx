@@ -46,7 +46,7 @@ export default function ScrollTop({
       ref={scrollRef}
       className={cn(
         className,
-        'flex h-10 w-10 translate-y-20 items-center justify-center rounded-sm bg-neutral-900 text-white transition-transform dark:bg-neutral-500 dark:text-white',
+        'flex size-10 translate-y-20 items-center justify-center rounded-sm bg-neutral-900 text-white transition-transform dark:bg-neutral-500 dark:text-white',
         disableOnRoutes && disableOnRoutes.map(route => route === pathname && 'hidden'),
         disableOnLayouts && disableOnLayouts.map(layout => pathname.startsWith(layout) && 'hidden')
       )}
