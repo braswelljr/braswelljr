@@ -41,7 +41,7 @@ yarn.lock
 
 # editor configs
 .idea
-.vscode
+# .vscode
 .sublime
 
 # registered workers

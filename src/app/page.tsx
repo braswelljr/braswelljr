@@ -5,11 +5,20 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { cn } from 'lib/utils'
 import { socials } from '~/config/data'
+import { useDevice } from '~/hooks/useDevice'
 import useInterval from '~/hooks/useInterval'
+import FloatingDock from '~/components/ui/floating-dock'
 
-export default function Page() {
+type PageProps = {
+  searchParams?: {
+    q?: string
+  }
+}
+
+export default function Page(_: PageProps) {
   const [r, setR] = useState<number>(0)
   const roles: string[] = ['Software Engineer', 'Web Designer', 'UX / UI Designer']
+  const device = useDevice()
 
   useInterval(() => {
     if (roles.length > 0) {
@@ -21,7 +30,7 @@ export default function Page() {
   }, 5000)
 
   return (
-    <main className={cn('grid h-screen place-content-center')}>
+    <main className={cn('grid h-dvh place-content-center')}>
       <section className="space-y-4">
         <div className="md:pt-8">
           <Image
@@ -54,14 +63,24 @@ export default function Page() {
                 </motion.div>
               )
           )}
-          <div className="">
-            <div className="mx-auto flex items-center justify-center space-x-3 xs:space-x-6">
-              {socials.map(item => (
-                <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer">
-                  <item.icon className="h-6 w-auto md:h-9" />
-                </a>
-              ))}
-            </div>
+          <div className="mx-auto w-full max-w-sm">
+            {device === 'desktop' ? (
+              <FloatingDock
+                className="mx-auto justify-center rounded-md bg-white/40 backdrop-blur dark:bg-neutral-900/40"
+                items={socials.map(s => ({ title: s.name, icon: <s.icon className="size-9" />, href: s.url }))}
+                classNames={{
+                  container: 'data-[motion-hover=true]:bg-gradient-to-l from-[#ff8d22] to-[#ff2600] backdrop-blur-md'
+                }}
+              />
+            ) : (
+              <div className="mx-auto flex items-center justify-center space-x-3 xs:space-x-6">
+                {socials.map(item => (
+                  <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer">
+                    <item.icon className="h-6 w-auto md:h-9" />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>

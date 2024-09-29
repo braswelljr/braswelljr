@@ -2,6 +2,7 @@ export type Primitive = string | number | boolean | bigint | symbol | undefined 
 
 export type Career = {
   role: string
+  type: string
   company: string
   companyLink: string
   date: string
@@ -14,4 +15,8 @@ export type Education = {
   date: Date
   school: string
   description: string[]
+}
+
+export interface ErrorCause extends Error {
+  cause?: { error: Error; response: Response }
 }

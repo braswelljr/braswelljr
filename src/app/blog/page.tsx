@@ -20,8 +20,8 @@ export default function Page() {
   })
 
   return (
-    <div className="px-4 pb-10 pt-10 max-lg:pt-28">
-      <div className="mx-auto max-w-3xl px-4 text-gray-800 child:space-y-6 dark:text-neutral-100 sm:mt-14 sm:child:space-y-10">
+    <div className="px-4 py-10 max-lg:pt-28">
+      <div className="mx-auto max-w-4xl px-4 text-gray-800 child:space-y-6 dark:text-neutral-100 sm:mt-14 sm:child:space-y-10">
         {/* Header */}
         <h1 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent dark:to-[#ff7056] sm:text-3xl md:text-4xl">
           Blog
@@ -36,7 +36,7 @@ export default function Page() {
                 {/* group-hover:bg-neutral-50/70 dark:group-hover:bg-neutral-800/50 */}
                 <svg
                   viewBox="0 0 9 9"
-                  className="absolute right-full top-2 mr-6 hidden h-[calc(0.5rem+1px)] w-[calc(0.5rem+1px)] overflow-visible text-orange-300 sm:block md:mr-12"
+                  className="absolute right-full top-2 mr-6 hidden size-[calc(0.5rem+1px)] overflow-visible text-orange-300 sm:block md:mr-12"
                 >
                   <circle
                     cx="4.5"

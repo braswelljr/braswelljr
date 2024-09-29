@@ -2,12 +2,11 @@ import '~/styles/globals.css'
 import { Metadata } from 'next'
 import LocalFont from 'next/font/local'
 import Image from 'next/image'
-import { ThemeProvider } from '~/providers/theme'
+import Base from '~/providers/base'
 import { cn } from 'lib/utils'
 import { siteConfig } from '~/config/site'
 import Navbar from '~/components/navbar'
 import ScrollTop from '~/components/scroll-top'
-import { RepoProvider } from '~/context/useRepos'
 
 export const metadata: Metadata = {
   title: {
@@ -55,38 +54,29 @@ const JetbrainsMono = LocalFont({
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      className={cn(
-        'bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white',
-        Sen.variable,
-        Lobster.variable,
-        JetbrainsMono.variable
-      )}
-    >
+    <html lang="en" suppressHydrationWarning className={cn(Sen.className, Lobster.variable, JetbrainsMono.variable)}>
       <head />
-      <body className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white" suppressHydrationWarning>
-        <ThemeProvider>
-          <RepoProvider>
-            <main className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white">
-              <div className={cn('relative')}>
-                <div className="fixed inset-0">
-                  <Image
-                    src="/images/beams-2.png"
-                    alt="Background parttern"
-                    loading="eager"
-                    fill
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-                  />
-                </div>
-                <Navbar className="fixed inset-x-0 top-0 z-[4] bg-white/90 dark:bg-neutral-800/90" />
-                <div className="relative inset-0 z-[1] min-h-screen w-full">
-                  {children}
-                  <ScrollTop className="fixed bottom-5 right-5 z-10" disableOnLayouts={['/blog/']} />
-                </div>
+      <body className="min-h-dvh bg-white text-neutral-900 antialiased dark:bg-neutral-900 dark:text-white">
+        <Base>
+          <main>
+            <div className={cn('relative')}>
+              <div className="fixed inset-0 min-h-dvh w-full">
+                <Image
+                  src="/images/beams-2.png"
+                  alt="Background parttern"
+                  loading="eager"
+                  fill
+                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+                />
               </div>
-            </main>
-          </RepoProvider>
-        </ThemeProvider>
+              <Navbar className="fixed inset-x-0 top-0 z-[4] bg-white/90 dark:bg-neutral-800/90" />
+              <div className="relative inset-0 z-[1] min-h-dvh w-full">
+                {children}
+                <ScrollTop className="fixed bottom-5 right-5 z-10" disableOnLayouts={['/blog/']} />
+              </div>
+            </div>
+          </main>
+        </Base>
       </body>
     </html>
   )

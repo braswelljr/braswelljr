@@ -1,11 +1,12 @@
-import { FaFigma, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa'
+import { FaFigma, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 import { Career } from 'types/types'
 
 export const socials = [
   { name: 'LinkedIn', url: 'https://www.linkedin.com/in/braswell-kenneth-870827192/', icon: FaLinkedin },
   { name: 'GitHub', url: 'https://github.com/braswelljr', icon: FaGithub },
   { name: 'Instagram', url: 'https://www.instagram.com/braswell_jr/', icon: FaInstagram },
-  { name: 'Twitter', url: 'https://twitter.com/braswell_jnr', icon: FaTwitter },
+  { name: 'X', url: 'https://x.com/braswell_jnr', icon: FaXTwitter },
   { name: 'Figma', url: 'https://www.figma.com/@braswelljr', icon: FaFigma }
 ]
 
@@ -17,18 +18,8 @@ export const education = []
 export const career: Array<Career> = [
   {
     role: 'Software Engineer',
-    company: 'Morlan Technologies, Ghana (Remote)',
-    companyLink: 'https://morlan.tech',
-    date: 'April 1, 2023 - Present',
-    description: [
-      'Plan solutions for software projects.',
-      'Design and implement backend APIs for web and mobile applications.',
-      'Implement frontend web applications.'
-    ]
-  },
-  {
-    role: 'Software Engineer',
-    company: 'Infinanze Technologies, US (Remote)',
+    type: '(Remote / Freelancing)',
+    company: 'Infinanze Technologies, US',
     companyLink: '#',
     date: 'July 1, 2023 - Present',
     description: [
@@ -39,7 +30,20 @@ export const career: Array<Career> = [
     ]
   },
   {
-    role: 'Software Engineer (National Service)',
+    role: 'Software Engineer',
+    type: '(Remote / Freelancing)',
+    company: 'Morlan Technologies, Ghana',
+    companyLink: 'https://morlan.tech',
+    date: 'April, 2023 - August, 2024',
+    description: [
+      'Plan solutions for software projects.',
+      'Design and implement backend APIs for web and mobile applications.',
+      'Implement frontend web applications.'
+    ]
+  },
+  {
+    role: 'Software Engineer',
+    type: '(National Service / Seasonal)',
     company: 'Solar Taxi, Accra - Ghana',
     companyLink: 'https://solartaxi.co',
     date: 'November 1, 2022 - October 31, 2023',
@@ -51,7 +55,8 @@ export const career: Array<Career> = [
     ]
   },
   {
-    role: 'Software Engineer (Internship)',
+    role: 'Software Engineer',
+    type: '(Internship)',
     company: 'The Hive, Kumasi - Ghana',
     companyLink: 'https://kumasi-hive.com',
     date: 'April 20, 2021 - November 12, 2021',
@@ -63,6 +68,7 @@ export const career: Array<Career> = [
   },
   {
     role: 'Software Engineer',
+    type: '(Freelancing)',
     company: 'Freelancing',
     companyLink: '#',
     date: 'Sep 14, 2018 - Present',

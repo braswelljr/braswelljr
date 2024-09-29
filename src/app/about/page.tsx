@@ -4,7 +4,7 @@ import { career } from '~/config/data'
 export default function About() {
   return (
     <div className="py-10 max-lg:pt-28">
-      <div className="mx-auto max-w-2xl px-4 text-gray-800 child:space-y-6 dark:text-neutral-100 sm:mt-14 sm:child:space-y-10">
+      <div className="mx-auto max-w-4xl px-4 text-gray-800 child:space-y-6 dark:text-neutral-100 sm:mt-14 sm:child:space-y-10">
         {/* About */}
         <div className="md:leading-relaxed">
           <p className="">
@@ -40,9 +40,9 @@ export default function About() {
           {/* buttons */}
           <p>
             <a
-              className="inline-flex items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-2 py-1.5 uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:scale-105 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+              className="inline-flex items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-2 py-1.5 uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:translate-y-0.5 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
               download
-              href="/Braswell-Kenneth-Azu-Junior-Resume.pdf"
+              href="/documents/Braswell-Kenneth-Azu-Junior-Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -60,7 +60,9 @@ export default function About() {
             <div className="divide-y divide-neutral-500/50">
               {career.map((job, index) => (
                 <div key={index} className="space-y-3 py-5">
-                  <h1 className="">{job.role}</h1>
+                  <h1 className="">
+                    {job.role} {job.type}
+                  </h1>
                   <h2 className="space-x-2">
                     <span className="">{job.company}</span>
                     <span className="">|</span>

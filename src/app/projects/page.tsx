@@ -29,7 +29,7 @@ export default function Projects() {
 
   return (
     <div className="py-10 max-lg:pt-28">
-      <div className="mx-auto max-w-7xl space-y-8 px-4 text-gray-800 dark:text-neutral-100 sm:mt-14 sm:space-y-10">
+      <div className="mx-auto max-w-4xl space-y-8 px-4 text-gray-800 dark:text-neutral-100 sm:mt-14 sm:space-y-10">
         <h1 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent dark:to-[#ff7056] sm:text-3xl md:text-4xl">
           Work, Hobby and Open Source
         </h1>

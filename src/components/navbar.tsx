@@ -1,19 +1,20 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useTheme } from 'next-themes'
 import { FaSpotify } from 'react-icons/fa6'
-import { HiCode, HiDesktopComputer, HiHome, HiMoon, HiOutlineMenuAlt2, HiSun } from 'react-icons/hi'
+import { HiCode, HiHome, HiOutlineMenuAlt2 } from 'react-icons/hi'
 import { IoIosPerson } from 'react-icons/io'
-import { IconBaseProps } from 'react-icons/lib'
 import { MdArticle } from 'react-icons/md'
 import { TbCommand } from 'react-icons/tb'
 import { motion } from 'framer-motion'
 import { useStore } from '~/store/store'
 import { cn } from 'lib/utils'
 import Search from '~/components/search'
+
+const ThemeSwitch = dynamic(() => import('~/components/theme-switch'), { ssr: false })
 
 export const nav = [
   {
@@ -44,7 +45,6 @@ export const nav = [
 ]
 
 export default function Navbar({ className }: { className?: string }) {
-  const { theme, setTheme } = useTheme()
   const [tab, setTab] = useState(nav[0].path)
   const [open, onOpenChange] = useState(false)
   const searchButtonRef = useRef<HTMLButtonElement>(null)
@@ -125,35 +125,12 @@ export default function Navbar({ className }: { className?: string }) {
                 )}
               />
             )}
-            <span className={cn('flex items-center space-x-2 font-light uppercase')}>
-              {/* <item.icon className="h-4 w-auto" /> */}
-              {item.name}
-            </span>
+            <span className={cn('flex items-center space-x-2 font-light uppercase')}>{item.name}</span>
           </Link>
         ))}
       </div>
 
-      <ul className={cn('flex items-center justify-center space-x-2 max-lg:order-1')}>
-        {Object.entries({
-          system: (props: IconBaseProps) => <HiDesktopComputer {...props} />,
-          dark: (props: IconBaseProps) => <HiMoon {...props} />,
-          light: (props: IconBaseProps) => <HiSun {...props} />
-        }).map(([key, Value], i, self) => (
-          <li key={key} className={cn('relative block cursor-pointer p-1.5')} onClick={() => setTheme(key)}>
-            {key === theme && (
-              <motion.span
-                layoutId="theme-bubble"
-                className={cn(
-                  'absolute inset-0 bg-neutral-800 dark:bg-neutral-500',
-                  i === 0 && 'rounded-l-sm',
-                  i === self.length - 1 && 'rounded-r-sm'
-                )}
-              />
-            )}
-            <Value className={cn('relative z-[1] h-4 w-auto', key === theme && 'text-white')} />
-          </li>
-        ))}
-      </ul>
+      <ThemeSwitch className="max-lg:order-1" />
     </nav>
   )
 }

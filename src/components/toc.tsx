@@ -98,7 +98,7 @@ function Content({ toc, className, resources }: TocProps) {
   )
 }
 
-function useActiveItem(itemIds: string[]) {
+function useActiveItem(itemIds: string[], options?: IntersectionObserverInit) {
   const [activeId, setActiveId] = useState<string | undefined>(undefined)
 
   useEffect(() => {
@@ -108,7 +108,7 @@ function useActiveItem(itemIds: string[]) {
           if (entry.isIntersecting) setActiveId(entry.target.id || '')
         })
       },
-      { rootMargin: `0% 0% -80% 0%` }
+      { rootMargin: `0% 0% -80% 0%`, ...options }
     )
 
     itemIds?.forEach(id => {
