@@ -82,7 +82,7 @@
     "@commitlint/cli": "^19.4.1",
     "@commitlint/config-conventional": "^19.4.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
-    "@types/node": "^20",
+    "@types/node": "^22",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/unist": "^3.0.2",
