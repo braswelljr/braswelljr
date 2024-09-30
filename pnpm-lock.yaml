@@ -84,8 +84,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       framer-motion:
-        specifier: ^11.5.4
-        version: 11.5.4(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^11.9.0
+        version: 11.9.0(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       gsap:
         specifier: ^3.12.5
         version: 3.12.5
@@ -2797,8 +2797,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@11.5.4:
-    resolution: {integrity: sha512-E+tb3/G6SO69POkdJT+3EpdMuhmtCh9EWuK4I1DnIC23L7tFPrl8vxP+LSovwaw6uUr73rUbpb4FgK011wbRJQ==}
+  framer-motion@11.9.0:
+    resolution: {integrity: sha512-nCfGxvsQecVLjjYDu35G2F5ls+ArE3FBfhxV0RSiisMaUKqteq5DMBFNRKwMyVj+VqKTNhawt+BV480YCHKFlQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0
@@ -7196,7 +7196,7 @@ snapshots:
 
   aria-hidden@1.2.4:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.7.0
 
   aria-query@5.3.0:
     dependencies:
@@ -7961,7 +7961,7 @@ snapshots:
       remark-parse: 11.0.0
       remark-stringify: 11.0.0
       synckit: 0.9.0
-      tslib: 2.6.2
+      tslib: 2.7.0
       unified: 11.0.4
       unified-engine: 11.2.1
       unist-util-visit: 5.0.0
@@ -8295,9 +8295,9 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@11.5.4(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  framer-motion@11.9.0(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.7.0
     optionalDependencies:
       '@emotion/is-prop-valid': 1.2.2
       react: 18.3.1

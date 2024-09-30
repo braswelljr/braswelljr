@@ -14,22 +14,37 @@ export const AUTH_TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`
 export const SPOTIFY_COOKIE_STORE = '__spot-tokie__' //Secure-
 export const REFRESH_SPOTIFY_COOKIE_STORE = '__refresh-spot-tokie__'
 
-export const SpotifySDK = SpotifyApi.withClientCredentials(
-  SPOTIFY_CLIENT_ID,
-  SPOTIFY_CLIENT_SECRET,
-  [
-    'user-library-read',
-    'user-read-private',
-    'user-read-email',
-    'user-read-recently-played',
-    'user-top-read',
-    'user-read-currently-playing'
-  ],
-  {
-    afterRequest(_, __, response) {
-      if (!response.ok) {
-        throw new Error(response.statusText, { cause: { response } })
-      }
+export const SPOTIFY_USER_ID = `wgohxgl1iukgpy3aya7ni2q66`
+
+export const AUTH_SCOPES = [
+  'user-library-read',
+  'user-read-private',
+  'user-read-email',
+  'user-read-recently-played',
+  'user-top-read',
+  'user-read-currently-playing'
+]
+
+export const REDIRECT_TARGET =
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://braswelljr.vercel.app'
+
+// export const SpotifySDK = SpotifyApi.withUserAuthorization(
+//   SPOTIFY_CLIENT_ID,
+//   `${REDIRECT_TARGET}/api/callback`,
+//   AUTH_SCOPES,
+//   {
+//     afterRequest(_, __, response) {
+//       if (!response.ok) {
+//         throw new Error(response.statusText, { cause: { response } })
+//       }
+//     }
+//   }
+// )
+
+export const SpotifySDK = SpotifyApi.withClientCredentials(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, AUTH_SCOPES, {
+  afterRequest(_, __, response) {
+    if (!response.ok) {
+      throw new Error(response.statusText, { cause: { response } })
     }
   }
-)
+})

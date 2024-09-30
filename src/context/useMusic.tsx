@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useMemo } from 'react'
+import { createContext, useContext, useMemo } from 'react'
 import { Page, SimplifiedPlaylist, UserProfile } from '@spotify/web-api-ts-sdk'
 
 type MusicProps = {
@@ -26,4 +26,14 @@ export function MusicProvider({ children }: MusicProviderProps) {
     []
   )
   return <MusicContext.Provider value={memoizedValue}>{children}</MusicContext.Provider>
+}
+
+export function useMusic() {
+  const context = useContext(MusicContext)
+
+  if (!context) {
+    throw new Error('useMusic must be used within a <MusicProvider />')
+  }
+
+  return context
 }

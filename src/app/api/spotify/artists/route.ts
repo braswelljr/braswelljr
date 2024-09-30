@@ -4,12 +4,11 @@ import { SPOTIFY_USER_ID, SpotifySDK } from '~/config/spotify'
 
 export async function GET() {
   try {
-    const profile = await SpotifySDK.users.profile(SPOTIFY_USER_ID)
+    const playlists = await SpotifySDK.playlists.getUsersPlaylists(SPOTIFY_USER_ID)
 
-    // Check if both promises were successful
-    if (!profile) throw new Error(`couldn't retrieve profile`)
+    if (!playlists) throw new Error(`couldn't retrieve playlists`)
 
-    return NextResponse.json({ message: 'successfully retrieved profile', data: profile }, { status: 200 })
+    return NextResponse.json({ message: 'successfully retrieved playlists', data: playlists }, { status: 200 })
   } catch (error) {
     let err: ErrorCause
 

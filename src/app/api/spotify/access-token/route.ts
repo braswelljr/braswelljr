@@ -4,7 +4,7 @@ import { AUTH_TOKEN_ENDPOINT, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_
 
 type DataI = {
   access_token: string
-  token_type: 'Bearer'
+  token_type: 'Bearer' | 'Basic'
   expires_in: number
 }
 
@@ -16,9 +16,7 @@ export async function POST() {
         Authorization: `Basic ${Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
         'content-type': 'application/x-www-form-urlencoded'
       },
-      body: new URLSearchParams({
-        grant_type: 'client_credentials'
-      })
+      body: new URLSearchParams({ grant_type: 'client_credentials' })
     })
 
     if (!response.ok) throw new Error(response.statusText, { cause: { response } })
@@ -30,12 +28,7 @@ export async function POST() {
 
     return NextResponse.json(
       { message: `Token set successfully`, data }, // Include data in response
-      {
-        status: 200,
-        headers: {
-          'Set-Cookie': cookieString // Set the access_token as a cookie
-        }
-      }
+      { status: 200, headers: { 'Set-Cookie': cookieString } }
     )
   } catch (error) {
     let err: ErrorCause
@@ -47,12 +40,8 @@ export async function POST() {
     }
 
     return NextResponse.json(
-      {
-        message: err.cause?.response?.statusText || 'Something happened'
-      },
-      {
-        status: err.cause?.response?.status ?? 500
-      }
+      { message: err.cause?.response?.statusText || 'Something happened' },
+      { status: err.cause?.response?.status ?? 500 }
     )
   }
 }
