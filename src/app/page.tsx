@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { cn } from 'lib/utils'
 import { socials } from '~/config/data'
@@ -75,9 +76,9 @@ export default function Page(_: PageProps) {
             ) : (
               <div className="mx-auto flex items-center justify-center space-x-3 xs:space-x-6">
                 {socials.map(item => (
-                  <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer">
+                  <Link key={item.name} href={item.url} target="_blank" rel="noopener noreferrer">
                     <item.icon className="h-6 w-auto md:h-9" />
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}

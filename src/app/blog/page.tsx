@@ -101,18 +101,12 @@ export default function Page() {
                 {/* Link */}
                 <Link
                   href={`/blog/${slugAsParams}`}
-                  className="group/link relative mt-5 inline pb-1.5 text-sm font-medium uppercase text-[#ff2600] dark:text-[#ff7056]"
+                  className="link-underline relative mt-5 inline-flex items-center justify-start space-x-2 pb-1.5 text-sm font-medium uppercase text-[#ff2600] hover:[background-size:95%_3px] dark:text-[#ff7056]"
                 >
-                  <div className="inline-flex items-center justify-start space-x-2">
-                    <span className="">
-                      Read more<span className="sr-only">, {title}</span>
-                    </span>
-                    <HiChevronRight className="h-5 w-auto overflow-visible" />
-                  </div>
-                  <div
-                    className="absolute -left-0.5 bottom-0 right-1 h-1 w-0 bg-current transition-width group-hover/link:w-full"
-                    aria-hidden="true"
-                  />
+                  <span className="">
+                    Read more<span className="sr-only">, {title}</span>
+                  </span>
+                  <HiChevronRight className="h-5 w-auto overflow-visible" />
                 </Link>
               </article>
             ))}

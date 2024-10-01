@@ -74,7 +74,8 @@ module.exports = {
         'slide-up-fade': '100ms ease-in forwards slide-up-fade',
         'slide-down-fade': '100ms ease-in forwards slide-down-fade',
         'collapsible-down': 'collapsible-down 0.2s ease-out',
-        'collapsible-up': 'collapsible-up 0.2s ease-out'
+        'collapsible-up': 'collapsible-up 0.2s ease-out',
+        'border-spin': 'border-spin 7s linear infinite'
       },
       keyframes: {
         spin: {
@@ -107,7 +108,12 @@ module.exports = {
         },
         'collapsible-up': {
           from: { height: 'var(--radix-collapsible-content-height)' },
-          to: { height: '0' }
+          to: { height: '0' },
+          'border-spin': {
+            '100%': {
+              transform: 'rotate(-360deg)'
+            }
+          }
         }
       },
       transitionProperty: {

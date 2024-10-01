@@ -1,13 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { HiMusicNote } from 'react-icons/hi'
+import Link from 'next/link'
+import { HiExternalLink } from 'react-icons/hi'
 import { MdRefresh } from 'react-icons/md'
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import type { Page, Playlist, TrackItem } from '@spotify/web-api-ts-sdk'
 import { useQuery } from '@tanstack/react-query'
 import { cn } from 'lib/utils'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card'
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
+import { Card, CardContent, CardDescription, CardFooter, CardTitle } from '~/components/ui/card'
 import Skeleton from '~/components/ui/skeleton'
 
 type Paginate = {
@@ -18,13 +19,16 @@ type Paginate = {
 }
 
 export function Playlist({ className }: { className?: string }) {
-  const [pagination, setPagination] = useState<Paginate>({
+  const [pagination, _setPagination] = useState<Paginate>({
     total: 0,
     offset: 0,
     previous: null,
     next: null
   })
-  const { data, error, isLoading, refetch } = useQuery<{ message: string; data: Page<Playlist<TrackItem>> }>({
+  const { data, refetch, isFetching } = useQuery<{
+    message: string
+    data: Page<Playlist<TrackItem>>
+  }>({
     queryKey: [pagination],
     queryFn: () =>
       fetch(`/api/spotify/playlists?offset=${pagination.offset}`, {
@@ -45,22 +49,22 @@ export function Playlist({ className }: { className?: string }) {
           className="flex size-6 items-center justify-center rounded-full outline-none hover:outline-none focus:outline-none"
           onClick={() => refetch()}
         >
-          <MdRefresh className={cn('size-5', isLoading && 'animate-spin')} />
+          <MdRefresh className={cn('size-5', isFetching && 'animate-spin')} />
         </button>
       </nav>
 
       <div className="mt-4">
         {data?.data && Array.isArray(data?.data?.items) && data?.data?.items?.length ? (
-          <ProfileData data={data?.data} />
+          <PlaylistData data={data?.data} />
         ) : (
-          <ProfileError />
+          <PlaylistError />
         )}
       </div>
     </section>
   )
 }
 
-export function ProfileError({ className }: { className?: string }) {
+export function PlaylistError({ className }: { className?: string }) {
   return (
     <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-5', className)}>
       {Array(10)
@@ -87,24 +91,38 @@ export function ProfileError({ className }: { className?: string }) {
   )
 }
 
-export function ProfileData({ className, data }: { className?: string; data: Page<Playlist<TrackItem>> }) {
+export function PlaylistData({ className, data }: { className?: string; data: Page<Playlist<TrackItem>> }) {
   return (
     <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-5', className)}>
       {data?.items?.map((playlist, i) => (
-        <Card key={i} className="grid border-0 bg-neutral-100/60 dark:bg-neutral-800/60">
-          <CardContent className={cn('grid grid-cols-2 gap-2 p-4')}>
-            <Avatar className="h-[176px] w-full">
-              <AvatarImage src="" />
-              <AvatarFallback></AvatarFallback>
-            </Avatar>
-          </CardContent>
-          <CardFooter className="flex-col items-start gap-2 p-4 pt-0">
-            <CardTitle className="line-clamp-1 w-full">{playlist.name}</CardTitle>
-            <div className="flex w-full items-center gap-2">
-              <HiMusicNote className="size-4" />
-              <CardDescription className="line-clamp-1">{playlist.owner?.display_name}</CardDescription>
-            </div>
-          </CardFooter>
+        <Card
+          key={i}
+          className="playlist-card grid border-0 bg-neutral-100/60 hover:cursor-pointer focus:cursor-pointer dark:bg-neutral-800/60"
+        >
+          <div className="relative z-[1] rounded-lg bg-neutral-100 dark:bg-neutral-800">
+            <CardContent className={cn('p-4')}>
+              <Avatar className="h-[176px] w-full rounded bg-neutral-400/80 dark:bg-neutral-900/80">
+                <AvatarImage src={playlist?.images?.at(0)?.url} className="aspect-auto size-full object-cover" />
+                <AvatarFallback className="size-full animate-pulse rounded bg-neutral-900/0">
+                  {playlist?.name?.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
+            </CardContent>
+            <CardFooter className="flex-col items-start gap-2 p-4 pt-0">
+              <Link
+                href={playlist.external_urls?.spotify}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-center gap-2 hover:text-[#ff8d22]"
+              >
+                <HiExternalLink className="size-6" />
+                <CardTitle className="line-clamp-1 w-full text-lg">{playlist.name}</CardTitle>
+              </Link>
+              <div className="flex w-full items-center gap-2">
+                <CardDescription className="line-clamp-1">{playlist.owner?.display_name}</CardDescription>
+              </div>
+            </CardFooter>
+          </div>
         </Card>
       ))}
     </div>

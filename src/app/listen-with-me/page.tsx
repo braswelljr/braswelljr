@@ -1,5 +1,3 @@
-'use client'
-
 import { Playlist } from './sections/playlists'
 
 export default function Page() {
