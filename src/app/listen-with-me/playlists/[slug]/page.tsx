@@ -3,10 +3,6 @@
 import type { Playlist, Page as SptifyResPage, TrackItem } from '@spotify/web-api-ts-sdk'
 import { useQuery } from '@tanstack/react-query'
 
-export async function generateStaticParams() {
-  return []
-}
-
 type PageProps = {
   params: { slug: string }
 }
