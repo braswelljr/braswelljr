@@ -3,7 +3,7 @@ import { endOfWeek, subDays, subYears } from 'date-fns'
 import type { Activity } from 'rsc-activity-calendar'
 import { ErrorCause, GitHubProperties } from 'types/types'
 
-export const maxDuration = 300
+export const maxDuration = 60
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
 
