@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
 import { MdRefresh } from 'react-icons/md'
 import { useQuery } from '@tanstack/react-query'
@@ -10,30 +9,13 @@ import { AnimatedBackground } from '~/components/ui/animated-background'
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
 import Skeleton from '~/components/ui/skeleton'
 
-type Paginate = {
-  total: number
-  offset: number
-  previous: number | null
-  next: number | null
-}
-
 export function TopTracks({ className }: { className?: string }) {
-  const [pagination, _setPagination] = useState<Paginate>({
-    total: 0,
-    offset: 0,
-    previous: null,
-    next: null
-  })
   const { data, refetch, isFetching } = useQuery<{
     message: string
     data: Array<SpotifyTrack>
   }>({
-    queryKey: [pagination],
-    queryFn: () =>
-      fetch(`/api/spotify/top-tracks?offset=${pagination.offset}`, {
-        method: 'GET',
-        mode: 'cors'
-      }).then(res => res.json()),
+    queryKey: ['top-tracks'],
+    queryFn: () => fetch(`/api/spotify/top-tracks?limit=6`, { method: 'GET', mode: 'cors' }).then(res => res.json()),
     retry: true
   })
 
@@ -63,15 +45,15 @@ export function TopTracks({ className }: { className?: string }) {
   )
 }
 
-export function TracksLoader({ className }: { className?: string }) {
+export function TracksLoader({ className, items = 6 }: { className?: string; items?: number }) {
   return (
     <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] gap-8', className)}>
-      {Array(10)
+      {Array(items || 6)
         .fill('')
         .map((_, i) => (
-          <div key={i} className="grid grid-cols-[2rem_5rem_1fr] gap-4 p-4">
+          <div key={i} className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-4">
             <div className="">{i + 1}.</div>
-            <Skeleton className="mx-auto size-20 overflow-hidden rounded bg-neutral-400/80 dark:bg-neutral-700/80" />
+            <Skeleton className="mx-auto size-28 overflow-hidden rounded bg-neutral-400/80 dark:bg-neutral-700/80" />
             <div className="space-y-2">
               <Skeleton className="h-4 w-3/5 bg-neutral-400/80 dark:bg-neutral-700/80" />
               <div className="mt-4 flex items-center gap-2">
@@ -102,15 +84,15 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
             target="_blank"
             rel="noopener noreferrer"
           >
-            <div className="grid grid-cols-[2rem_5rem_1fr] gap-4 p-4">
+            <div className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-4">
               <div className="">{i + 1}.</div>
-              <Avatar className="mx-auto size-20 overflow-hidden rounded">
+              <Avatar className="mx-auto size-28 overflow-hidden rounded">
                 <AvatarImage src={track?.image} alt={track?.name} />
                 <AvatarFallback className="animate-pulse rounded-xl">{track?.name?.charAt(0)}</AvatarFallback>
               </Avatar>
               <div className="space-y-2">
-                <h4 className="">{track?.name}</h4>
-                <p className="">
+                <h4 className="line-clamp-2 text-sm sm:text-base">{track?.name}</h4>
+                <p className="line-clamp-2 text-xsm sm:text-sm">
                   {track?.artists?.map((a, i) => (
                     <>
                       {i !== 0 && ','}
@@ -119,7 +101,7 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
                         href={a?.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={cn('text-sm text-orange-500 underline', i === 0 && 'font-semibold')}
+                        className={cn('text-orange-500 underline', i === 0 && 'font-semibold')}
                       >
                         {a?.name}
                       </Link>

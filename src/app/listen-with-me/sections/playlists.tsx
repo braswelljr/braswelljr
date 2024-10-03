@@ -29,7 +29,7 @@ export function Playlist({ className }: { className?: string }) {
     message: string
     data: Page<Playlist<TrackItem>>
   }>({
-    queryKey: [pagination],
+    queryKey: ['playlists'],
     queryFn: () =>
       fetch(`/api/spotify/playlists?offset=${pagination.offset}`, {
         method: 'GET',
