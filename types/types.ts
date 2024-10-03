@@ -1,3 +1,5 @@
+import { type Activity } from 'rsc-activity-calendar'
+
 export type Primitive = string | number | boolean | bigint | symbol | undefined | null
 
 export type Career = {
@@ -19,4 +21,9 @@ export type Education = {
 
 export interface ErrorCause extends Error {
   cause?: { error: Error; response: Response }
+}
+
+export type GitHubProperties = {
+  total: number
+  data: Activity[]
 }

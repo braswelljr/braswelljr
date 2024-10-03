@@ -10,9 +10,9 @@ export default function Base({ children }: { children?: React.ReactNode }) {
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
-        {/* <AuthProvider> */}
-        <RepoProvider>{children}</RepoProvider>
-        {/* </AuthProvider> */}
+        <AuthProvider>
+          <RepoProvider>{children}</RepoProvider>
+        </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
   )

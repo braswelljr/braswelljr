@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const defaultTheme = require('tailwindcss/defaultTheme')
-const plugin = require('tailwindcss/plugin')
+import type { Config } from 'tailwindcss'
+import defaultTheme from 'tailwindcss/defaultTheme'
+import plugin from 'tailwindcss/plugin'
 
-module.exports = {
+const config: Config = {
   experimental: {
     optimizeUniversalDefaults: true
   },
@@ -87,12 +87,12 @@ module.exports = {
           '50%': { transform: 'rotate(15deg)' }
         },
         'slide-up-fade': {
-          '0%': { opacity: 0, transform: 'translateY(20px)' },
-          '100%': { opacity: 1, transform: 'translateY(0)' }
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' }
         },
         'slide-down-fade': {
-          '0%': { opacity: 1, transform: 'translateY(0)' },
-          '100%': { opacity: 0, transform: 'translateY(20px)' }
+          '0%': { opacity: '1', transform: 'translateY(0)' },
+          '100%': { opacity: '0', transform: 'translateY(20px)' }
         },
         'accordion-down': {
           from: { height: '0' },
@@ -108,12 +108,10 @@ module.exports = {
         },
         'collapsible-up': {
           from: { height: 'var(--radix-collapsible-content-height)' },
-          to: { height: '0' },
-          'border-spin': {
-            '100%': {
-              transform: 'rotate(-360deg)'
-            }
-          }
+          to: { height: '0' }
+        },
+        'border-spin': {
+          to: { transform: 'rotate(-360deg)' }
         }
       },
       transitionProperty: {
@@ -132,34 +130,14 @@ module.exports = {
   },
   plugins: [
     require('tailwindcss-animate'),
-    // direct child selector variant
-    function ({ addVariant }) {
+    // neon shadows
+    plugin(({ addVariant }) => {
+      // direct child selector variant
       addVariant('child', '& > *')
       addVariant('not-first', '& > *:not(:first-child)')
       addVariant('not-last', '& > *:not(:last-child)')
-    },
-    // neon shadows
-    plugin(({ addUtilities, theme }) => {
-      const neonUtilities = {}
-      const colors = theme('colors')
-
-      // loop through colors
-      for (const color in colors) {
-        // check if color is an object
-        if (typeof colors[color] === 'object') {
-          // get the color shades
-          const first = colors[color][100]
-          const last = colors[color][900]
-
-          // loop through shades
-          neonUtilities[`.neon-${color}`] = {
-            boxShadow: `0 0 5px ${first}, 0 0 10px ${last}`
-          }
-        }
-      }
-
-      // add utilities
-      addUtilities(neonUtilities)
     })
   ]
 }
+
+export default config

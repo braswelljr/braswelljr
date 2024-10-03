@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ErrorCause } from 'types/types'
-import { SPOTIFY_USER_ID, SpotifySDK } from '~/config/spotify'
+import { SpotifySDK } from '~/config/spotify'
 
 type Props = {
   params?: {
@@ -15,7 +15,7 @@ export async function GET(_: NextRequest, { params }: Props) {
     return NextResponse.json({ message: 'Playlist id not not found', data: null }, { status: 500 })
   }
   try {
-    const playlist = await SpotifySDK.playlists.getUsersPlaylists(SPOTIFY_USER_ID)
+    const playlist = await SpotifySDK.playlists.getPlaylist(id)
 
     if (!playlist) throw new Error(`couldn't retrieve playlist`)
 

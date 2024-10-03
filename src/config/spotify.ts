@@ -1,7 +1,9 @@
 import { SpotifyApi } from '@spotify/web-api-ts-sdk'
+import ky from 'ky'
 
 export const SPOTIFY_CLIENT_ID = process.env.AUTH_SPOTIFY_ID || ''
 export const SPOTIFY_CLIENT_SECRET = process.env.AUTH_SPOTIFY_SECRET || ''
+export const SPOTIFY_REFRESH_TOKEN = process.env.AUTH_SPOTIFY_REFRESH_TOKEN || ''
 
 const BASE_URL = `https://api.spotify.com/v1`
 
@@ -25,22 +27,6 @@ export const AUTH_SCOPES = [
   'user-read-currently-playing'
 ]
 
-export const REDIRECT_TARGET =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://braswelljr.vercel.app'
-
-// export const SpotifySDK = SpotifyApi.withUserAuthorization(
-//   SPOTIFY_CLIENT_ID,
-//   `${REDIRECT_TARGET}/api/callback`,
-//   AUTH_SCOPES,
-//   {
-//     afterRequest(_, __, response) {
-//       if (!response.ok) {
-//         throw new Error(response.statusText, { cause: { response } })
-//       }
-//     }
-//   }
-// )
-
 export const SpotifySDK = SpotifyApi.withClientCredentials(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, AUTH_SCOPES, {
   afterRequest(_, __, response) {
     if (!response.ok) {
@@ -48,3 +34,25 @@ export const SpotifySDK = SpotifyApi.withClientCredentials(SPOTIFY_CLIENT_ID, SP
     }
   }
 })
+
+export async function getAccessToken(): Promise<string> {
+  const tokenResponse = await ky
+    .post<{
+      access_token: string
+    }>('https://accounts.spotify.com/api/token', {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString('base64')}`
+      },
+      body: new URLSearchParams({
+        grant_type: 'refresh_token',
+        refresh_token: SPOTIFY_REFRESH_TOKEN
+      }),
+      next: {
+        revalidate: 0
+      }
+    })
+    .json()
+
+  return tokenResponse.access_token
+}

@@ -39,9 +39,9 @@ export function Playlist({ className }: { className?: string }) {
   })
 
   return (
-    <section className={cn('mt-8', className)}>
+    <section className={cn('', className)}>
       <nav className="flex items-center justify-between">
-        <h2 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]">
+        <h2 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]">
           Playlist
         </h2>
         <button
@@ -95,35 +95,34 @@ export function PlaylistData({ className, data }: { className?: string; data: Pa
   return (
     <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-5', className)}>
       {data?.items?.map((playlist, i) => (
-        <Card
-          key={i}
-          className="playlist-card grid border-0 bg-neutral-100/60 hover:cursor-pointer focus:cursor-pointer dark:bg-neutral-800/60"
-        >
-          <div className="relative z-[1] rounded-lg bg-neutral-100 dark:bg-neutral-800">
-            <CardContent className={cn('p-4')}>
-              <Avatar className="h-[176px] w-full rounded bg-neutral-400/80 dark:bg-neutral-900/80">
-                <AvatarImage src={playlist?.images?.at(0)?.url} className="aspect-auto size-full object-cover" />
-                <AvatarFallback className="size-full animate-pulse rounded bg-neutral-900/0">
-                  {playlist?.name?.charAt(0)}
-                </AvatarFallback>
-              </Avatar>
-            </CardContent>
-            <CardFooter className="flex-col items-start gap-2 p-4 pt-0">
-              <Link
-                href={playlist.external_urls?.spotify}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-center gap-2 hover:text-[#ff8d22]"
-              >
-                <HiExternalLink className="size-6" />
-                <CardTitle className="line-clamp-1 w-full text-lg">{playlist.name}</CardTitle>
-              </Link>
-              <div className="flex w-full items-center gap-2">
-                <CardDescription className="line-clamp-1">{playlist.owner?.display_name}</CardDescription>
-              </div>
-            </CardFooter>
-          </div>
-        </Card>
+        <Link key={i} href={`/listen-with-me/playlists/${playlist?.id}`} passHref>
+          <Card className="playlist-card grid border-0 bg-neutral-100/60 hover:cursor-pointer focus:cursor-pointer dark:bg-neutral-800/60">
+            <div className="relative z-[1] rounded-lg bg-neutral-100 dark:bg-neutral-800">
+              <CardContent className={cn('p-4')}>
+                <Avatar className="h-[176px] w-full rounded bg-neutral-400/80 dark:bg-neutral-900/80">
+                  <AvatarImage src={playlist?.images?.at(0)?.url} className="aspect-auto size-full object-cover" />
+                  <AvatarFallback className="size-full animate-pulse rounded bg-neutral-900/0">
+                    {playlist?.name?.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+              </CardContent>
+              <CardFooter className="flex-col items-start gap-2 p-4 pt-0">
+                <Link
+                  href={playlist.external_urls?.spotify}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-center gap-2 hover:text-[#ff8d22]"
+                >
+                  <HiExternalLink className="size-6" />
+                  <CardTitle className="line-clamp-1 w-full text-lg">{playlist.name}</CardTitle>
+                </Link>
+                <div className="flex w-full items-center gap-2">
+                  <CardDescription className="line-clamp-1">{playlist.owner?.display_name}</CardDescription>
+                </div>
+              </CardFooter>
+            </div>
+          </Card>
+        </Link>
       ))}
     </div>
   )

@@ -9,6 +9,7 @@ import { OTHER_PROJECTS } from '~/config/data'
 import useMedia from '~/hooks/useMedia'
 import useXStore from '~/context/useRepos'
 import isFalsy from '~/utils/isFalsy'
+import { GitHubContributionGraph } from './components/github-contribution-graph'
 
 export default function Projects() {
   const { pinnedProjects, allProjects } = useXStore()
@@ -84,6 +85,7 @@ export default function Projects() {
             .
           </p>
         </div>
+        <GitHubContributionGraph className="" />
         {/* Starred Projects */}
         <div className="space-y-6">
           {/* header */}
