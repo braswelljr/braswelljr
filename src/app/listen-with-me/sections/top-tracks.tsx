@@ -41,7 +41,7 @@ export function TopTracks({ className }: { className?: string }) {
     <section className={cn('', className)}>
       <nav className="flex items-center justify-between">
         <h2 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]">
-          Playlist
+          Top Tracks
         </h2>
         <button
           type="button"

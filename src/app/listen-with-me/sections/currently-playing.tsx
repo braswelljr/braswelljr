@@ -89,18 +89,18 @@ function PlayerLoader({ className }: { className?: string }) {
   return (
     <div className={cn('', className)}>
       <div className={cn('grid gap-6 px-2 py-4 xsm:grid-cols-[auto_1fr]', className)}>
-        <Skeleton className="size-32 rounded-xl bg-neutral-400/80 dark:bg-neutral-900/80" />
+        <Skeleton className="size-32 rounded-xl bg-neutral-400/80 dark:bg-neutral-700/80" />
         <div className="flex flex-col justify-between gap-4">
           <div className="space-y-2">
-            <Skeleton className="size-4 w-1/2 bg-neutral-400/80 dark:bg-neutral-900/80" />
+            <Skeleton className="size-4 w-1/2 bg-neutral-400/80 dark:bg-neutral-700/80" />
             <div className="flex items-center gap-2">
-              <Skeleton className="size-4 bg-neutral-400/80 dark:bg-neutral-900/80" />
-              <Skeleton className="h-4 w-3/5 bg-neutral-400/80 dark:bg-neutral-900/80" />
+              <Skeleton className="size-4 bg-neutral-400/80 dark:bg-neutral-700/80" />
+              <Skeleton className="h-4 w-3/5 bg-neutral-400/80 dark:bg-neutral-700/80" />
             </div>
           </div>
           <div className="mt-4 flex items-center gap-2">
-            <Skeleton className="size-4 bg-neutral-400/80 dark:bg-neutral-900/80" />
-            <Skeleton className="h-4 w-2/5 bg-neutral-400/80 dark:bg-neutral-900/80" />
+            <Skeleton className="size-4 bg-neutral-400/80 dark:bg-neutral-700/80" />
+            <Skeleton className="h-4 w-2/5 bg-neutral-400/80 dark:bg-neutral-700/80" />
           </div>
         </div>
       </div>
