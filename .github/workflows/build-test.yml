@@ -52,10 +52,5 @@ jobs:
             AUTH_SPOTIFY_REFRESH_TOKEN=${{ secrets.AUTH_SPOTIFY_REFRESH_TOKEN }}
           file_name: .env
 
-      - name: Verify envfile
-        run: |
-          echo "Verifying .env file content"
-          diff .env <(printf "AUTH_SPOTIFY_ID=${{ secrets.AUTH_SPOTIFY_ID }}\nAUTH_SPOTIFY_SECRET=${{ secrets.AUTH_SPOTIFY_SECRET }}\nAUTH_SPOTIFY_REFRESH_TOKEN=${{ secrets.AUTH_SPOTIFY_REFRESH_TOKEN }}") || (echo "Environment variables mismatch" && exit 1)
-
       - name: Build project
         run: pnpm run build
