@@ -19,9 +19,9 @@ export const maxDuration = 60
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
 
-if (!SPOTIFY_CLIENT_ID || !SPOTIFY_CLIENT_SECRET || !SPOTIFY_REFRESH_TOKEN) {
-  throw new Error('Missing Spotify Client ID, Client Secret, or Refresh Token')
-}
+// if (!SPOTIFY_CLIENT_ID || !SPOTIFY_CLIENT_SECRET || !SPOTIFY_REFRESH_TOKEN) {
+//   throw new Error('Missing Spotify Client ID, Client Secret, or Refresh Token')
+// }
 
 export async function GET() {
   try {
