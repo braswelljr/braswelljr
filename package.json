@@ -35,7 +35,7 @@
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "cmdk": "^0.2.1",
+    "cmdk": "^1.0.4",
     "concurrently": "^8.2.2",
     "contentlayer": "^0.3.4",
     "cssnano": "^7.0.3",
