@@ -44,7 +44,7 @@
     "gsap": "^3.12.5",
     "ky": "^1.7.2",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.417.0",
+    "lucide-react": "^0.469.0",
     "match-sorter": "^6.3.4",
     "mdast-util-toc": "^7.0.1",
     "moment": "^2.30.1",
