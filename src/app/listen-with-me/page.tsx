@@ -1,5 +1,5 @@
 import CurrentlyPlaying from './sections/currently-playing'
-// import { Playlist } from './sections/playlists'
+import { Playlist } from './sections/playlists'
 import { TopTracks } from './sections/top-tracks'
 
 export default function Page() {
@@ -15,7 +15,7 @@ export default function Page() {
         <div className="mt-8 space-y-8">
           <CurrentlyPlaying />
           <TopTracks />
-          {/* <Playlist /> */}
+          <Playlist />
         </div>
       </div>
     </div>
