@@ -89,7 +89,7 @@ export default function AnimatedGridComponent() {
             {selectedProduct && (
               <motion.div className="absolute inset-0 flex items-center justify-center">
                 <motion.button
-                  className="absolute inset-0 block h-full w-full bg-neutral-900/40 dark:bg-green-700/40"
+                  className="absolute inset-0 block size-full bg-neutral-900/40 dark:bg-green-700/40"
                   tabIndex={-1}
                   onClick={() => setSelectedProduct(null)}
                 />
@@ -112,7 +112,7 @@ export default function AnimatedGridComponent() {
                       }}
                     />
                   </div>
-                  <div className="relative px-3 py-4 pr-4 pt-4">
+                  <div className="relative px-3 py-4 pr-4">
                     <button
                       type="button"
                       className="absolute right-4 rounded-lg bg-neutral-300 p-2 dark:bg-neutral-700 max-md:bottom-4 md:top-4"

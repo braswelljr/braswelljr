@@ -38,9 +38,8 @@ fetch(input, init)
   - **redirect** - The redirect mode to use: `follow`, `error`, or `manual`. The default is `follow`.
   - **referrer** - A USVString specifying `no-referrer`, `client`, or a URL. The default is `client`.
   - **referrerPolicy** - Specifies the value of the referer HTTP header. May be one of `no-referrer`, `no-referrer-when-downgrade`, `origin`, `origin-when-cross-origin`,
-  `same-origin`, `strict-origin`, `strict-origin-when-cross-origin`, or `unsafe-url`.
+    `same-origin`, `strict-origin`, `strict-origin-when-cross-origin`, or `unsafe-url`.
   - **integrity** - Contains the subresource integrity value of the request (e.g., sha256-BpfBw7ivV8q2jLiT13fxDYAeHtYK7DDiZ0L+FL/4vow=).
-
 
 ### Example
 
@@ -62,8 +61,8 @@ try {
     mode: 'cors', // mode to use for request
     headers: {
       Authorization: `Bearer ${token}`, // Add token to the header if needed for authentication and authorization
-      'Content-Type': 'application/json'  // Add content type if needed
-    },
+      'Content-Type': 'application/json' // Add content type if needed
+    }
   })
 
   // Check if the response is ok and throw an error to the catch block if not
@@ -81,7 +80,6 @@ try {
 
   if (error instanceof Error) err = error as ErrorCause
   else err = new Error('Error fetching todo', { cause: { error } }) as ErrorCause
-
 
   // since the error was thrown from the try block with the response object, we can access the response object from the error object
   // Handle errors based on the status code
@@ -113,10 +111,10 @@ fetch('https://jsonplaceholder.typicode.com/todos/1', {
   mode: 'cors', // mode to use for request
   headers: {
     Authorization: `Bearer ${token}`, // Add token to the header if needed for authentication and authorization
-    'Content-Type': 'application/json'  // Add content type if needed
-  },
+    'Content-Type': 'application/json' // Add content type if needed
+  }
 })
-  .then((response) => {
+  .then(response => {
     // Check if the response is ok and throw an error to the catch block if not
     if (!response.ok) throw new Error('Something went wrong', { cause: { response } })
 
@@ -126,10 +124,10 @@ fetch('https://jsonplaceholder.typicode.com/todos/1', {
     // Parse the response to JSON
     return response.json()
   })
-  .then((data) => {
+  .then(data => {
     // do something with the data
   })
-  .catch((error) => {
+  .catch(error => {
     let err: ErrorCause
 
     if (error instanceof Error) err = error as ErrorCause

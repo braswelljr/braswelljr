@@ -11,7 +11,6 @@
     "format": "prettier --write \"**/*.{js,ts,jsx,tsx,md,mdx}\"",
     "prepare": "husky",
     "typecheck": "contentlayer build && tsc --noEmit",
-    "format:write": "prettier --write \"**/*.{js,ts,jsx,tsx,css}\" --cache",
     "format:check": "prettier --check \"**/*.{js,ts,jsx,tsx,css}\" --cache"
   },
   "dependencies": {
@@ -101,5 +100,8 @@
     "prettier": "^3",
     "prettier-plugin-tailwindcss": "^0.6.10",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

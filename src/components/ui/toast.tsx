@@ -75,7 +75,7 @@ const ToastClose = forwardRef<
     toast-close=""
     {...props}
   >
-    <HiX className="h-4 w-4" />
+    <HiX className="size-4" />
   </ToastPrimitives.Close>
 ))
 ToastClose.displayName = ToastPrimitives.Close.displayName

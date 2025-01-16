@@ -1,8 +1,8 @@
 'use client'
 
 import { useId, useState } from 'react'
-import { cn } from 'lib/utils'
 import { AnimatePresence, motion } from 'motion/react'
+import { cn } from 'lib/utils'
 
 interface TabProps {
   title: string
@@ -25,7 +25,7 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
                   <motion.div
                     layoutId={animationId}
                     className={cn(
-                      'absolute inset-0 bottom-0 h-full w-full bg-orange-300/50 backdrop-blur',
+                      'absolute inset-0 size-full bg-orange-300/50 backdrop-blur',
                       idx === 0 && 'rounded-l-sm',
                       idx === contains.length - 1 && 'rounded-r-sm'
                     )}

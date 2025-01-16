@@ -1,8 +1,8 @@
 'use client'
 
 import { ReactNode, useMemo, useState } from 'react'
-import { cn } from 'lib/utils'
 import { AnimatePresence, motion, MotionConfig } from 'motion/react'
+import { cn } from 'lib/utils'
 import useMeasure from 'react-use-measure'
 
 type Tab = {
@@ -34,7 +34,7 @@ function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgImageSecti
       const newDirection = newTabId > activeTab ? 1 : -1
       setDirection(newDirection)
       setActiveTab(newTabId)
-      onChange ? onChange() : null
+      onChange?.()
     }
   }
 

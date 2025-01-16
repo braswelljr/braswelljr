@@ -6,7 +6,6 @@
 
 import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { cn } from 'lib/utils'
 import {
   AnimatePresence,
   motion,
@@ -16,6 +15,7 @@ import {
   useSpring,
   useTransform
 } from 'motion/react'
+import { cn } from 'lib/utils'
 
 export type IconT = { title: string; icon: React.ReactNode; href: string }
 

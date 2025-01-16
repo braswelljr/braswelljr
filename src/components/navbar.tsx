@@ -9,9 +9,9 @@ import { HiCode, HiHome, HiOutlineMenuAlt2 } from 'react-icons/hi'
 import { IoIosPerson } from 'react-icons/io'
 import { MdArticle } from 'react-icons/md'
 import { TbCommand } from 'react-icons/tb'
+import { motion } from 'motion/react'
 import { useStore } from '~/store/store'
 import { cn } from 'lib/utils'
-import { motion } from 'motion/react'
 import Search from '~/components/search'
 
 const ThemeSwitch = dynamic(() => import('~/components/theme-switch'), { ssr: false })
