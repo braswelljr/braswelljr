@@ -10,13 +10,7 @@ import { useDevice } from '~/hooks/useDevice'
 import useInterval from '~/hooks/useInterval'
 import FloatingDock from '~/components/ui/floating-dock'
 
-type PageProps = {
-  searchParams?: {
-    q?: string
-  }
-}
-
-export default function Page(_: PageProps) {
+export default function Page() {
   const [r, setR] = useState<number>(0)
   const roles: string[] = ['Software Engineer', 'Web Designer', 'UX / UI Designer']
   const device = useDevice()
