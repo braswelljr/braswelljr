@@ -1,5 +1,6 @@
 'use client'
 
+import { Fragment } from 'react'
 import Link from 'next/link'
 import { MdRefresh } from 'react-icons/md'
 import { useQuery } from '@tanstack/react-query'
@@ -104,7 +105,7 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
           <div className="line-clamp-1">
             <span className="mr-2 text-neutral-600">by</span>
             {data?.artists?.map((a, i) => (
-              <>
+              <Fragment key={i}>
                 {i !== 0 && ','}
                 <Link
                   key={a?.id}
@@ -115,7 +116,7 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
                 >
                   {a?.name}
                 </Link>
-              </>
+              </Fragment>
             ))}
           </div>
         </div>

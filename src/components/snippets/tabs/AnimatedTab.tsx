@@ -1,8 +1,8 @@
 'use client'
 
 import { useId, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from 'lib/utils'
+import { AnimatePresence, motion } from 'motion/react'
 
 interface TabProps {
   title: string

@@ -12,9 +12,7 @@ import { BlogTableOfContents } from '~/components/toc'
 import { Separator } from '~/components/ui/separator'
 
 interface PageProps {
-  params: {
-    slug: string[]
-  }
+  params: Promise<{ slug: string[] }>
 }
 
 export async function generateStaticParams(): Promise<PageProps['params'][]> {
@@ -22,7 +20,7 @@ export async function generateStaticParams(): Promise<PageProps['params'][]> {
 }
 
 export default async function Page({ params }: PageProps) {
-  const slug = params?.slug?.join('/') || ''
+  const slug = (await params)?.slug?.join('/') || ''
   const blog = allBlogs.find(blog => blog.slugAsParams === slug)
 
   if (!blog) {

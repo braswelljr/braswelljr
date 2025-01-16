@@ -2,8 +2,8 @@
 
 import { useTheme } from 'next-themes'
 import { HiDesktopComputer, HiMoon, HiSun } from 'react-icons/hi'
-import { motion } from 'framer-motion'
 import { cn } from 'lib/utils'
+import { motion } from 'motion/react'
 
 export default function ThemeSwitch({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme()

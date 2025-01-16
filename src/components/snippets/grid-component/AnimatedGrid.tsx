@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { HiX } from 'react-icons/hi'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'motion/react'
 
 interface ProductI {
   id: string

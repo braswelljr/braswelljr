@@ -2,7 +2,7 @@
 title: Tab Animation with framer motion
 description: A simple tab animation with framer motion
 tags:
-  - framer-motion
+  - motion/react
   - react
   - animation
 date: 2023-04-15
@@ -10,16 +10,16 @@ date: 2023-04-15
 
 ## Requirements
 
-Tabs are a common UI element that can be used to switch between different views. In this post, we will create a simple tab animation with framer-motion.
+Tabs are a common UI element that can be used to switch between different views. In this post, we will create a simple tab animation with motion/react.
 
-This post assumes that you have a basic understanding of React. If you are new to React, you can follow the [React getting started guide](https://react.dev/). We will also use [tailwindcss](https://tailwindcss.com/) for styling and [framer-motion](https://www.framer.com/motion/) a popular animation library for React.
+This post assumes that you have a basic understanding of React. If you are new to React, you can follow the [React getting started guide](https://react.dev/). We will also use [tailwindcss](https://tailwindcss.com/) for styling and [motion/react](https://www.framer.com/motion/) a popular animation library for React.
 
 ## Setup
 
 We will install the required dependencies for the project.
 
 ```bash
-yarn add framer-motion tailwindcss postcss autoprefixer clsx
+yarn add motion/react tailwindcss postcss autoprefixer clsx
 ```
 
 ## Styling the Tabs
@@ -62,7 +62,7 @@ We will also update the `tailwind.css` file in the `styles` folder with the foll
 
 ## Animating the Tabs
 
-We will use the `AnimatePresence` component from framer-motion to animate the tabs. We will also use the `motion` component to animate the tab pointer.
+We will use the `AnimatePresence` component from motion/react to animate the tabs. We will also use the `motion` component to animate the tab pointer.
 
 ## Creating the Tabs
 
@@ -91,8 +91,8 @@ A new file `Tab.tsx` will be created in the `components` folder. This component 
 'use client'
 
 import { useState } from 'react'
-import { cn} from 'lib/utils'
-import { AnimatePresence, motion } from 'framer-motion'
+import { cn } from 'lib/utils'
+import { AnimatePresence, motion } from 'motion/react'
 
 interface TabProps {
   title: string
@@ -179,7 +179,7 @@ export default function Home() {
 
 ## Conclusion
 
-We have successfully created a tab component with framer-motion and tailwindcss. Which can be used in any project to display content in a tabbed format. Our tab component is also responsive and can be used on any device. Resulting in a better user experience. Below is the result of the tab component we created.
+We have successfully created a tab component with motion/react and tailwindcss. Which can be used in any project to display content in a tabbed format. Our tab component is also responsive and can be used on any device. Resulting in a better user experience. Below is the result of the tab component we created.
 
 <AnimatedTab
   contains={[

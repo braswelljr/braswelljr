@@ -1,8 +1,8 @@
 'use client'
 
 import { ReactNode, useMemo, useState } from 'react'
-import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
 import { cn } from 'lib/utils'
+import { AnimatePresence, motion, MotionConfig } from 'motion/react'
 import useMeasure from 'react-use-measure'
 
 type Tab = {

@@ -2,7 +2,7 @@
 title: Grid Card animation with framer motion
 description: A simple layout animation with framer motion
 tags:
-  - framer-motion
+  - motion/react
   - react
   - animation
   - grid
@@ -15,7 +15,7 @@ date: 2023-05-08 12:00:00
 
 A simple layout animation with framer motion and react. Animating the active card in a grid of cards can help the user to focus on the content of the card. This is a simple example of how to do it.
 
-This post assumes that you have a basic understanding of React. If you are new to React, you can follow the [React getting started guide](https://react.dev/). We will also use [tailwindcss](https://tailwindcss.com/) for styling and [framer-motion](https://www.framer.com/motion/) a popular animation library for React.
+This post assumes that you have a basic understanding of React. If you are new to React, you can follow the [React getting started guide](https://react.dev/). We will also use [tailwindcss](https://tailwindcss.com/) for styling and [motion/react](https://www.framer.com/motion/) a popular animation library for React.
 
 ## Setup
 
@@ -24,7 +24,7 @@ This post assumes that you have a basic understanding of React. If you are new t
 We will install the required dependencies for the project.
 
 ```bash
-yarn add framer-motion tailwindcss postcss autoprefixer clsx
+yarn add motion/react tailwindcss postcss autoprefixer clsx
 ```
 
 ### Styling the Grid Card
@@ -124,7 +124,7 @@ We will create a new file `GridCard.tsx` in the `components` folder and add the 
 import { useState } from 'react'
 import Image from 'next/image' // nextjs image component
 import { data, ProductI } from '---location-of-data---'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 
 export default function AnimatedGridComponent() {
   const [selectedProduct, setSelectedProduct] = useState<ProductI | null>(null)
@@ -172,7 +172,7 @@ export default function AnimatedGridComponent() {
                   onClick={() => setSelectedProduct(null)}
                 />
                 <motion.div
-                  className="relative z-10 grid w-2/3 grid-cols-1 items-stretch rounded-md bg-white text-xs dark:bg-neutral-800 max-lg:h-[45vh] max-sm:max-w-3xl sm:w-auto lg:grid-cols-[2fr,3fr]"
+                  className="relative z-10 grid w-2/3 grid-cols-1 items-stretch rounded-md bg-white text-xs max-lg:h-[45vh] max-sm:max-w-3xl sm:w-auto lg:grid-cols-[2fr,3fr] dark:bg-neutral-800"
                   layoutId={selectedProduct.id}
                 >
                   <div className="relative min-h-[20vh] overflow-hidden bg-neutral-900 lg:min-h-[30vh]">
@@ -193,12 +193,12 @@ export default function AnimatedGridComponent() {
                   <div className="relative px-3 py-4 pr-4 pt-4">
                     <button
                       type="button"
-                      className="absolute right-4 rounded-lg bg-neutral-300 p-2 dark:bg-neutral-700 max-md:bottom-4 md:top-4"
+                      className="absolute right-4 rounded-lg bg-neutral-300 p-2 max-md:bottom-4 md:top-4 dark:bg-neutral-700"
                       onClick={() => setSelectedProduct(null)}
                     >
                       <HiX className="h-4 w-auto text-neutral-900 dark:text-neutral-200" />
                     </button>
-                    <div className="mx-auto flex h-full w-11/12 flex-col justify-between text-xs max-sm:space-y-8 ">
+                    <div className="mx-auto flex h-full w-11/12 flex-col justify-between text-xs max-sm:space-y-8">
                       {/* about */}
                       <div className="space-y-2">
                         <div className="line-clamp-1">{selectedProduct.id}</div>

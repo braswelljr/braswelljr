@@ -1,5 +1,6 @@
 'use client'
 
+import { Fragment } from 'react'
 import Link from 'next/link'
 import { MdRefresh } from 'react-icons/md'
 import { useQuery } from '@tanstack/react-query'
@@ -94,7 +95,7 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
                 <h4 className="line-clamp-2 text-sm sm:text-base">{track?.name}</h4>
                 <p className="line-clamp-2 text-xsm sm:text-sm">
                   {track?.artists?.map((a, i) => (
-                    <>
+                    <Fragment key={i}>
                       {i !== 0 && ','}
                       <Link
                         key={a?.id}
@@ -105,7 +106,7 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
                       >
                         {a?.name}
                       </Link>
-                    </>
+                    </Fragment>
                   ))}
                 </p>
               </div>

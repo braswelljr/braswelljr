@@ -95,7 +95,7 @@ export function PlaylistData({ className, data }: { className?: string; data: Pa
   return (
     <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-5', className)}>
       {data?.items?.map((playlist, i) => (
-        <Link key={i} href={`/listen-with-me/playlists/${playlist?.id}`} passHref>
+        <Link key={i} href={`/listen-with-me/playlists/${playlist?.id}`} passHref suppressHydrationWarning>
           <Card className="playlist-card grid border-0 bg-neutral-100/60 hover:cursor-pointer focus:cursor-pointer dark:bg-neutral-800/60">
             <div className="relative z-[1] rounded-lg bg-neutral-100 dark:bg-neutral-800">
               <CardContent className={cn('p-4')}>
