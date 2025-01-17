@@ -3,7 +3,7 @@ import { defineDocumentType, defineNestedType, makeSource } from 'contentlayer/s
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
-import codeImport from 'remark-code-import'
+import { codeImport } from 'remark-code-import'
 import remarkGfm from 'remark-gfm'
 import { getHighlighter, loadTheme } from 'shiki'
 import { UnistNode, UnistTree } from 'types/unist'
@@ -154,7 +154,9 @@ export default makeSource({
             }
 
             preElement.properties['__withMeta__'] = node.children.at(0).tagName === 'div'
+
             preElement.properties['__rawString__'] = node.__rawString__
+
             // get the filename
             if (node.children.at(0).tagName === 'div') {
               preElement.properties['__filename__'] = node.children.at(0).children.at(0).value
@@ -175,6 +177,14 @@ export default makeSource({
 
             if (node.__src__) {
               preElement.properties['__src__'] = node.__src__
+            }
+
+            if (node.__event__) {
+              preElement.properties['__event__'] = node.__event__
+            }
+
+            if (node.__style__) {
+              preElement.properties['__style__'] = node.__style__
             }
           }
         })

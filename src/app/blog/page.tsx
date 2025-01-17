@@ -30,7 +30,7 @@ export default function Page() {
         <div className="relative sm:ml-[calc(2rem+1px)] md:ml-[calc(3.5rem+1px)] lg:ml-[max(calc(14.5rem+1px),calc(100%-48rem))]">
           <div className="absolute bottom-0 right-full top-3 mr-7 hidden w-px bg-orange-300 sm:block md:mr-[3.25rem]" />
           <div className="space-y-16">
-            {blogs.map(({ title, description, date, tags, slugAsParams, published }, i) => (
+            {blogs.map(({ title, description, date, tags, slug, published }, i) => (
               <article key={i} className="group relative">
                 <div className="absolute -inset-x-4 -inset-y-2.5 md:-inset-x-6 md:-inset-y-4" />
                 {/* group-hover:bg-neutral-50/70 dark:group-hover:bg-neutral-800/50 */}
@@ -100,7 +100,7 @@ export default function Page() {
                 </div>
                 {/* Link */}
                 <Link
-                  href={`/blog/${slugAsParams}`}
+                  href={slug}
                   className="link-underline relative mt-5 inline-flex items-center justify-start space-x-2 pb-1.5 text-sm font-medium uppercase text-[#ff2600] hover:[background-size:95%_3px] dark:text-[#ff7056]"
                 >
                   <span className="">

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const { createContentlayerPlugin } = require('next-contentlayer')
 
 /** @type {import('next').NextConfig} */
@@ -9,8 +8,6 @@ const nextConfig = {
   }
 }
 
-const withContentlayer = createContentlayerPlugin({
-  // Additional Contentlayer config options
-})
+const withContentlayer = createContentlayerPlugin({})
 
 module.exports = withContentlayer(nextConfig)
