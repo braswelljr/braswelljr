@@ -84,25 +84,25 @@ export default function Search({
 
                 const hash = a.hash === '#content-wrapper' ? '' : a.hash;
 
-                // if (item.hierarchy?.lvl0) {
-                //   item.hierarchy.lvl0 = item.hierarchy.lvl0.replace(/&amp;/g, '&');
-                // }
+                if (item.hierarchy?.lvl0) {
+                  item.hierarchy.lvl0 = item.hierarchy.lvl0.replace(/&amp;/g, '&');
+                }
 
-                // if (item._highlightResult?.hierarchy?.lvl0?.value) {
-                //   item._highlightResult.hierarchy.lvl0.value = item._highlightResult.hierarchy.lvl0.value.replace(
-                //     /&amp;/g,
-                //     '&'
-                //   );
-                // }
+                if (item._highlightResult?.hierarchy?.lvl0?.value) {
+                  item._highlightResult.hierarchy.lvl0.value = item._highlightResult.hierarchy.lvl0.value.replace(
+                    /&amp;/g,
+                    '&'
+                  );
+                }
 
                 return {
                   ...item,
-                  url: `${a.pathname}${hash}`
-                  // __is_result: () => true,
-                  // __is_parent: () => item.type === 'lvl1' && items.length > 1 && index === 0,
-                  // __is_child: () => item.type !== 'lvl1' && items.length > 1 && items[0].type === 'lvl1' && index !== 0,
-                  // __is_first: () => index === 1,
-                  // __is_last: () => index === items.length - 1 && index !== 0
+                  url: `${a.pathname}${hash}`,
+                  __is_result: () => true,
+                  __is_parent: () => item.type === 'lvl1' && items.length > 1 && index === 0,
+                  __is_child: () => item.type !== 'lvl1' && items.length > 1 && items[0].type === 'lvl1' && index !== 0,
+                  __is_first: () => index === 1,
+                  __is_last: () => index === items.length - 1 && index !== 0
                 };
               });
             }}

@@ -11,7 +11,6 @@ export default function useLocalStorage<T>(
   localStorageKey: string,
   initialValue = null
 ): [localStorageValue: T, setlocalStorageValue: (value: T) => void] {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [localStorageValue, setLocalStorageValue] = useState<T | null>(initialValue);
 
   useEffect(() => {

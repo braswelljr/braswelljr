@@ -72,7 +72,7 @@ export const RepoContext = createContext<XInterface>({
   setPinnedProjectsLoader: () => {}
 });
 
-export function RepoProvider({ children }: { children?: ReactNode }): JSX.Element {
+export function RepoProvider({ children }: { children?: ReactNode }): React.JSX.Element {
   const [projects, setProjects] = useState<GithubProject[]>([]);
   const [projectsLoader, setProjectsLoader] = useState<boolean>(false);
   const [pinnedProjects, setPinnedProjects] = useState<PinnedProject[]>([]);

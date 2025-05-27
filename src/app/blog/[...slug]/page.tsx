@@ -18,7 +18,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const page = allBlogs.find(page => page.params?.split('/') === slug);
+  const page = allBlogs.find(page => page.params === slug?.join('/'));
 
   if (!page) {
     return {};
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export async function generateStaticParams() {
-  return allBlogs.map(blog => ({ slug: blog.slug.split('/') }));
+  return allBlogs.map(blog => ({ slug: blog.params.split('/') }));
 }
 
 export default async function Page({ params }: PageProps) {

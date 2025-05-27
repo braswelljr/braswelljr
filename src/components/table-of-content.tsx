@@ -4,12 +4,16 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import { useStore } from '~/store/store';
-import { BlogResources } from 'contentlayer/generated';
 import { TableOfContents as TableOfContentsType } from 'lib/toc';
 import { cn } from 'lib/utils';
 import useMounted from '~/hooks/useMounted';
 import { Sheet, SheetContent } from '~/components/ui/sheet';
 import { ScrollToTopWithBlog } from './scroll-top';
+
+type BlogResources = {
+  title: string;
+  url: string;
+};
 
 interface TocProps {
   toc: TableOfContentsType;
