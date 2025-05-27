@@ -1,12 +1,12 @@
-import '~/styles/globals.css'
-import { Metadata } from 'next'
-import LocalFont from 'next/font/local'
-import Image from 'next/image'
-import Base from '~/providers/base'
-import { cn } from 'lib/utils'
-import { siteConfig } from '~/config/site'
-import Navbar from '~/components/navbar'
-import ScrollTop from '~/components/scroll-top'
+import '~/styles/main.css';
+import { Metadata } from 'next';
+import LocalFont from 'next/font/local';
+import Image from 'next/image';
+import Base from '~/providers/base';
+import { cn } from 'lib/utils';
+import { siteConfig } from '~/config/site';
+import Navbar from '~/components/navbar';
+import ScrollTop from '~/components/scroll-top';
 
 export const metadata: Metadata = {
   title: {
@@ -28,35 +28,47 @@ export const metadata: Metadata = {
     apple: '/icons/icon.png?v=2'
   },
   manifest: `/manifest.json`
-}
+};
 
-const Sen = LocalFont({
-  src: [
-    { path: './sen.regular.otf', style: 'normal' },
-    { path: './sen.bold.otf', style: 'normal' },
-    { path: './sen.extrabold.otf', style: 'normal' }
-  ],
-  variable: '--font-sen'
-})
-
-const Lobster = LocalFont({
-  src: [{ path: './lobster.ttf', style: 'normal' }],
-  variable: '--font-lobster'
-})
-
+const Satoshi = LocalFont({
+  src: './_fonts/Satoshi-Variable.woff2',
+  variable: '--font-satoshi'
+});
+const Inter = LocalFont({
+  src: './_fonts/Inter[slnt,wght].ttf',
+  variable: '--font-inter'
+});
 const JetbrainsMono = LocalFont({
   src: [
-    { path: './jetbrainsmono.ttf', style: 'normal' },
-    { path: './jetbrainsmono-italic.ttf', style: 'italic' }
+    { path: './_fonts/jetbrainsmono.ttf', style: 'normal' },
+    { path: './_fonts/jetbrainsmono-italic.ttf', style: 'italic' }
   ],
   variable: '--font-mono'
-})
+});
+
+const abyssinicaSIL = LocalFont({
+  src: './_fonts/AbyssinicaSIL-Regular.ttf',
+  variable: '--font-abyssinca'
+});
+const Cascadia = LocalFont({
+  src: './_fonts/Cascadia.ttf',
+  variable: '--font-cascadia'
+});
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn(Sen.className, Lobster.variable, JetbrainsMono.variable)}>
+    <html lang="en" suppressHydrationWarning>
       <head />
-      <body className="min-h-dvh bg-white text-neutral-900 antialiased dark:bg-neutral-900 dark:text-white">
+      <body
+        className={cn(
+          'min-h-dvh bg-white font-sans text-neutral-900 antialiased dark:bg-neutral-900 dark:text-white',
+          Satoshi.className,
+          Inter.variable,
+          JetbrainsMono.variable,
+          abyssinicaSIL.variable,
+          Cascadia.variable
+        )}
+      >
         <Base>
           <main>
             <div className={cn('relative')}>
@@ -72,12 +84,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <Navbar className="fixed inset-x-0 top-0 z-[4] bg-white/90 dark:bg-neutral-800/90" />
               <div className="relative inset-0 z-[1] min-h-dvh w-full">
                 {children}
-                <ScrollTop className="fixed bottom-5 right-5 z-10" disableOnLayouts={['/blog/']} />
+                <ScrollTop className="fixed right-5 bottom-5 z-10" disableOnLayouts={['/blog/']} />
               </div>
             </div>
           </main>
         </Base>
       </body>
     </html>
-  )
+  );
 }

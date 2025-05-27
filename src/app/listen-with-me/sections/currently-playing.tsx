@@ -1,45 +1,45 @@
-'use client'
+'use client';
 
-import { Fragment } from 'react'
-import Link from 'next/link'
-import { MdRefresh } from 'react-icons/md'
-import { useQuery } from '@tanstack/react-query'
-import { cn } from 'lib/utils'
-import { SpotifyTrack } from 'types/spotify'
-import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
-import Skeleton from '~/components/ui/skeleton'
-import { Tracks, TracksLoader } from './top-tracks'
+import { Fragment } from 'react';
+import Link from 'next/link';
+import { MdRefresh } from 'react-icons/md';
+import { useQuery } from '@tanstack/react-query';
+import { cn } from 'lib/utils';
+import { SpotifyTrack } from 'types/spotify';
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import Skeleton from '~/components/ui/skeleton';
+import { Tracks, TracksLoader } from './top-tracks';
 
 export default function CurrentlyPlaying({ className }: { className?: string }) {
   const { data, refetch, isFetching } = useQuery<{
-    message: string
-    data: SpotifyTrack
+    message: string;
+    data: SpotifyTrack;
   }>({
     queryKey: ['currently-playing'],
     queryFn: () => fetch('/api/spotify/currently-playing', { method: 'GET' }).then(res => res.json()),
     retry: true
-  })
+  });
 
   const {
     data: cd,
     refetch: rf,
     isFetching: irf
   } = useQuery<{
-    message: string
-    data: Array<SpotifyTrack>
+    message: string;
+    data: Array<SpotifyTrack>;
   }>({
     queryKey: ['recently-played'],
     queryFn: () => fetch('/api/spotify/recently-played?limit=4', { method: 'GET' }).then(res => res.json()),
     retry: true
-  })
+  });
 
-  const firstTrack = cd?.data?.at(0)
+  const firstTrack = cd?.data?.at(0);
 
   return (
     <div className={cn('space-y-8', className)}>
       <section className="w-full rounded-xl bg-neutral-300/80 p-2 dark:bg-neutral-800/80">
         <nav className="flex items-center justify-between px-2">
-          <h2 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text font-semibold uppercase tracking-tight text-transparent dark:to-[#ff7056]">
+          <h2 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text font-semibold tracking-tight text-transparent uppercase dark:to-[#ff7056]">
             {data?.data
               ? 'Curently Playing'
               : cd?.data && Array.isArray(cd?.data) && cd?.data?.length
@@ -89,13 +89,13 @@ export default function CurrentlyPlaying({ className }: { className?: string }) 
         </div>
       </section>
     </div>
-  )
+  );
 }
 
 function Player({ className, data }: { className?: string; data: SpotifyTrack }) {
   return (
-    <div className={cn('grid gap-6 px-2 py-4 xsm:grid-cols-[auto_1fr]', className)}>
-      <Avatar className="mx-auto size-40 overflow-hidden rounded-xl max-xsm:w-full">
+    <div className={cn('xsm:grid-cols-[auto_1fr] grid gap-6 px-2 py-4', className)}>
+      <Avatar className="max-xsm:w-full mx-auto size-40 overflow-hidden rounded-xl">
         <AvatarImage src={data?.image} alt={data?.name} className="object-cover object-center" />
         <AvatarFallback className="animate-pulse rounded-xl">{data?.name?.charAt(0)}</AvatarFallback>
       </Avatar>
@@ -127,21 +127,21 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
             href={data?.album?.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn('text-sm uppercase text-orange-500 hover:underline focus:underline')}
+            className={cn('text-sm text-orange-500 uppercase hover:underline focus:underline')}
           >
             {data?.album?.name}
           </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function PlayerLoader({ className }: { className?: string }) {
   return (
     <div className={cn('', className)}>
-      <div className={cn('grid gap-6 px-2 py-4 xsm:grid-cols-[auto_1fr]', className)}>
-        <Skeleton className="size-40 rounded-xl bg-neutral-400/80 dark:bg-neutral-700/80 max-xsm:w-full" />
+      <div className={cn('xsm:grid-cols-[auto_1fr] grid gap-6 px-2 py-4', className)}>
+        <Skeleton className="max-xsm:w-full size-40 rounded-xl bg-neutral-400/80 dark:bg-neutral-700/80" />
         <div className="flex flex-col justify-between gap-4">
           <div className="space-y-2">
             <Skeleton className="size-4 w-1/2 bg-neutral-400/80 dark:bg-neutral-700/80" />
@@ -157,5 +157,5 @@ function PlayerLoader({ className }: { className?: string }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

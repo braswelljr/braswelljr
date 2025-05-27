@@ -1,19 +1,53 @@
-import { ClassValue, clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+import { ClassValue, clsx } from 'clsx';
+import type { Expression, Program } from 'estree';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(...inputs))
+  return twMerge(clsx(...inputs));
 }
 
 export function formatDate(input: string | number): string {
-  const date = new Date(input)
+  const date = new Date(input);
   return date.toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
     year: 'numeric'
-  })
+  });
 }
 
 export function absoluteUrl(path: string) {
-  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`
+  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
+}
+
+export function createElement(name: string, attributes: object[], children?: unknown): object {
+  const element: Record<string, unknown> = {
+    type: 'mdxJsxFlowElement',
+    name,
+    attributes
+  };
+
+  if (children) element.children = children;
+
+  return element;
+}
+
+export function expressionToAttribute(key: string, value: Expression): object {
+  return {
+    type: 'mdxJsxAttribute',
+    name: key,
+    value: {
+      type: 'mdxJsxAttributeValueExpression',
+      data: {
+        estree: {
+          type: 'Program',
+          body: [
+            {
+              type: 'ExpressionStatement',
+              expression: value
+            }
+          ]
+        } as Program
+      }
+    }
+  };
 }

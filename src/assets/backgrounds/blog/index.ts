@@ -35,4 +35,4 @@ export const headerBackground = {
     title: 'iii',
     image: require('~/assets/backgrounds/blog/header/iii.jpg')
   }
-}
+};

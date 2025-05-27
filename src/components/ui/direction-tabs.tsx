@@ -1,42 +1,42 @@
-'use client'
+'use client';
 
-import { ReactNode, useMemo, useState } from 'react'
-import { AnimatePresence, motion, MotionConfig } from 'motion/react'
-import { cn } from 'lib/utils'
-import useMeasure from 'react-use-measure'
+import { ReactNode, useMemo, useState } from 'react';
+import { AnimatePresence, motion, MotionConfig } from 'motion/react';
+import { cn } from 'lib/utils';
+import useMeasure from 'react-use-measure';
 
 type Tab = {
-  id: number
-  label: string
-  content: ReactNode
-}
+  id: number;
+  label: string;
+  content: ReactNode;
+};
 
 interface OgImageSectionProps {
-  tabs: Tab[]
-  className?: string
-  rounded?: string
-  onChange?: () => void
+  tabs: Tab[];
+  className?: string;
+  rounded?: string;
+  onChange?: () => void;
 }
 
 function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgImageSectionProps) {
-  const [activeTab, setActiveTab] = useState(0)
-  const [direction, setDirection] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
-  const [ref, bounds] = useMeasure()
+  const [activeTab, setActiveTab] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [ref, bounds] = useMeasure();
 
   const content = useMemo(() => {
-    const activeTabContent = tabs.find(tab => tab.id === activeTab)?.content
-    return activeTabContent || null
-  }, [activeTab, tabs])
+    const activeTabContent = tabs.find(tab => tab.id === activeTab)?.content;
+    return activeTabContent || null;
+  }, [activeTab, tabs]);
 
   const handleTabClick = (newTabId: number) => {
     if (newTabId !== activeTab && !isAnimating) {
-      const newDirection = newTabId > activeTab ? 1 : -1
-      setDirection(newDirection)
-      setActiveTab(newTabId)
-      onChange?.()
+      const newDirection = newTabId > activeTab ? 1 : -1;
+      setDirection(newDirection);
+      setActiveTab(newTabId);
+      onChange?.();
     }
-  }
+  };
 
   const variants = {
     initial: (direction: number) => ({
@@ -54,7 +54,7 @@ function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgImageSecti
       opacity: 0,
       filter: 'blur(4px)'
     })
-  }
+  };
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -70,7 +70,7 @@ function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgImageSecti
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
             className={cn(
-              'relative flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-neutral-200 transition focus-visible:outline-none focus-visible:outline-1 focus-visible:ring-1 sm:text-sm',
+              'relative flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-neutral-200 transition focus-visible:ring-1 focus-visible:outline-1 focus-visible:outline-none sm:text-sm',
               activeTab === tab.id ? 'text-white' : 'text-neutral-200/80 hover:text-neutral-300/60',
               rounded
             )}
@@ -114,6 +114,6 @@ function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgImageSecti
         </motion.div>
       </MotionConfig>
     </div>
-  )
+  );
 }
-export { DirectionAwareTabs }
+export { DirectionAwareTabs };

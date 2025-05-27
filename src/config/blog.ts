@@ -1,9 +1,9 @@
-import { MainNavItem, SidebarNavItem } from 'types/nav'
+import { MainNavItem, SidebarNavItem } from 'types/nav';
 
 interface BlogConfig {
-  socials: MainNavItem[]
-  mainNav: MainNavItem[]
-  sidebarNav: SidebarNavItem[]
+  socials: MainNavItem[];
+  mainNav: MainNavItem[];
+  sidebarNav: SidebarNavItem[];
 }
 
 export const blogConfig: BlogConfig = {
@@ -35,4 +35,4 @@ export const blogConfig: BlogConfig = {
   ],
   sidebarNav: [],
   mainNav: []
-}
+};

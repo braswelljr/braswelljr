@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 /**
  * useCtrlorCmd - A hook to check if the user is pressing ctrl or cmd + key
@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react'
  * }, [someState])
  */
 export default function useCtrlorCmd(key: string, callback: (isCtrlOrCmd: boolean) => void): boolean {
-  const [isCtrlOrCmd, setIsCtrlOrCmd] = useState(false)
+  const [isCtrlOrCmd, setIsCtrlOrCmd] = useState(false);
 
   useEffect(() => {
     // downHandler to set isCtrlOrCmd to true when the user presses the key combination
@@ -22,22 +22,22 @@ export default function useCtrlorCmd(key: string, callback: (isCtrlOrCmd: boolea
       // If the user is pressing ctrl or cmd + key
       if (e.key === key && (e.ctrlKey || e.metaKey)) {
         // set isCtrlOrCmd to true
-        setIsCtrlOrCmd(true)
+        setIsCtrlOrCmd(true);
         // run the callback function and pass isCtrlOrCmd as an argument to be used in the callback
-        callback(isCtrlOrCmd)
+        callback(isCtrlOrCmd);
       }
 
-      return
+      return;
     }
 
     // Add event listeners
-    window.addEventListener('keydown', downHandler)
+    window.addEventListener('keydown', downHandler);
 
     return () => {
       // Remove event listeners on cleanup
-      window.removeEventListener('keydown', downHandler)
-    }
-  }, [callback, isCtrlOrCmd, key])
+      window.removeEventListener('keydown', downHandler);
+    };
+  }, [callback, isCtrlOrCmd, key]);
 
-  return isCtrlOrCmd
+  return isCtrlOrCmd;
 }

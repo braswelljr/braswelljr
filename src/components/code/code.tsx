@@ -1,16 +1,16 @@
-import { Fragment, ReactNode } from 'react'
+import { Fragment, ReactNode } from 'react';
 
 export function Token({
   token,
   tokenIndex,
   children
 }: {
-  token: string
-  parentTypes?: string[]
-  tokenIndex?: number
-  children: ReactNode
+  token: string;
+  parentTypes?: string[];
+  tokenIndex?: number;
+  children: ReactNode;
 }) {
-  return <span className={`token ${tokenIndex ? token[tokenIndex] : token[0]}`}>{children}</span>
+  return <span className={`token ${tokenIndex ? token[tokenIndex] : token[0]}`}>{children}</span>;
 }
 
 export function Code({
@@ -20,26 +20,26 @@ export function Code({
   tokenProps = {},
   tokenComponent: TokenComponent = Token
 }: {
-  tokens: string[] | string
-  parentTypes?: string[]
-  transformTokens?: (token: string, tokens: string[], i: number) => string | string[]
-  tokenProps?: Record<string, unknown>
+  tokens: string[] | string;
+  parentTypes?: string[];
+  transformTokens?: (token: string, tokens: string[], i: number) => string | string[];
+  tokenProps?: Record<string, unknown>;
   tokenComponent?: React.ComponentType<{
-    token: string
-    tokens: string[]
-    parentTypes: string[]
-    tokenIndex?: number
-    children: ReactNode
-  }>
+    token: string;
+    tokens: string[];
+    parentTypes: string[];
+    tokenIndex?: number;
+    children: ReactNode;
+  }>;
 }) {
-  const tokensArr = Array.isArray(tokens) ? tokens : [tokens]
+  const tokensArr = Array.isArray(tokens) ? tokens : [tokens];
 
   return (
     <Fragment>
       {tokensArr.map((token, i) => {
-        const t = transformTokens(token, tokensArr, i)
+        const t = transformTokens(token, tokensArr, i);
 
-        if (typeof t === 'string') return t
+        if (typeof t === 'string') return t;
 
         if (t[0] === parentTypes[parentTypes.length - 1]) {
           return (
@@ -51,7 +51,7 @@ export function Code({
               tokenProps={tokenProps}
               transformTokens={transformTokens}
             />
-          )
+          );
         }
 
         return (
@@ -71,8 +71,8 @@ export function Code({
               transformTokens={transformTokens}
             />
           </TokenComponent>
-        )
+        );
       })}
     </Fragment>
-  )
+  );
 }

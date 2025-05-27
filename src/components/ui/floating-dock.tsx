@@ -4,8 +4,8 @@
  * Mobile navbar is better positioned at bottom right.
  **/
 
-import { useRef, useState } from 'react'
-import Link from 'next/link'
+import { useRef, useState } from 'react';
+import Link from 'next/link';
 import {
   AnimatePresence,
   motion,
@@ -14,10 +14,10 @@ import {
   useMotionValue,
   useSpring,
   useTransform
-} from 'motion/react'
-import { cn } from 'lib/utils'
+} from 'motion/react';
+import { cn } from 'lib/utils';
 
-export type IconT = { title: string; icon: React.ReactNode; href: string }
+export type IconT = { title: string; icon: React.ReactNode; href: string };
 
 export default function FloatingDock({
   items,
@@ -25,18 +25,18 @@ export default function FloatingDock({
   springConfig,
   classNames
 }: {
-  items: Array<IconT>
-  className?: string
-  classNames?: IconClassNames
-  springConfig?: SpringOptions
+  items: Array<IconT>;
+  className?: string;
+  classNames?: IconClassNames;
+  springConfig?: SpringOptions;
 }) {
-  const mouseX = useMotionValue(Infinity)
+  const mouseX = useMotionValue(Infinity);
   return (
     <motion.div
       onMouseMove={e => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        'mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-gray-50 px-4 pb-3 dark:bg-neutral-900 md:flex',
+        'mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-gray-50 px-4 pb-3 md:flex dark:bg-neutral-900',
         className
       )}
     >
@@ -44,24 +44,24 @@ export default function FloatingDock({
         <IconContainer mouseX={mouseX} key={item.title} {...item} classNames={classNames} springConfig={springConfig} />
       ))}
     </motion.div>
-  )
+  );
 }
 
 type IconClassNames = {
-  base?: string
-  container?: string
-  icon?: string
-  title?: string
-}
+  base?: string;
+  container?: string;
+  icon?: string;
+  title?: string;
+};
 
 type IconContainerProps = {
-  mouseX: MotionValue
-  title: string
-  icon: React.ReactNode
-  href: string
-  classNames?: IconClassNames
-  springConfig?: SpringOptions
-}
+  mouseX: MotionValue;
+  title: string;
+  icon: React.ReactNode;
+  href: string;
+  classNames?: IconClassNames;
+  springConfig?: SpringOptions;
+};
 
 function IconContainer({
   mouseX,
@@ -75,27 +75,27 @@ function IconContainer({
     damping: 12
   }
 }: IconContainerProps) {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null);
 
   const distance = useTransform(mouseX, val => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 }
+    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
 
-    return val - bounds.x - bounds.width / 2
-  })
+    return val - bounds.x - bounds.width / 2;
+  });
 
-  const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40])
-  const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40])
+  const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
 
-  const widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20])
-  const heightTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20])
+  const widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
+  const heightTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
 
-  const width = useSpring(widthTransform, springConfig)
-  const height = useSpring(heightTransform, springConfig)
+  const width = useSpring(widthTransform, springConfig);
+  const height = useSpring(heightTransform, springConfig);
 
-  const widthIcon = useSpring(widthTransformIcon, springConfig)
-  const heightIcon = useSpring(heightTransformIcon, springConfig)
+  const widthIcon = useSpring(widthTransformIcon, springConfig);
+  const heightIcon = useSpring(heightTransformIcon, springConfig);
 
-  const [hovered, setHovered] = useState(false)
+  const [hovered, setHovered] = useState(false);
 
   return (
     <Link href={href} className={cn(classNames?.base)}>
@@ -117,7 +117,7 @@ function IconContainer({
               animate={{ opacity: 1, y: 0, x: '-50%' }}
               exit={{ opacity: 0, y: 2, x: '-50%' }}
               className={cn(
-                'absolute -top-8 left-1/2 w-fit -translate-x-1/2 whitespace-pre rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs text-neutral-700 dark:border-neutral-900 dark:bg-neutral-800 dark:text-white',
+                'absolute -top-8 left-1/2 w-fit -translate-x-1/2 rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs whitespace-pre text-neutral-700 dark:border-neutral-900 dark:bg-neutral-800 dark:text-white',
                 classNames?.title
               )}
             >
@@ -133,5 +133,5 @@ function IconContainer({
         </motion.div>
       </motion.div>
     </Link>
-  )
+  );
 }

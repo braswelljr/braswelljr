@@ -2,11 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,73 +10,36 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "contentlayer/generated": [
-        "./.contentlayer/generated"
-      ],
-      "content": [
-        "./content"
-      ],
-      "lib": [
-        "./lib"
-      ],
-      "~": [
-        "./src",
-        "./"
-      ],
-      "~~": [
-        "./src",
-        "./"
-      ],
-      "~/*": [
-        "./src/*",
-        "./"
-      ],
-      "~~/*": [
-        "./src/*",
-        "./"
-      ],
-      "@": [
-        "./src",
-        "./"
-      ],
-      "@@": [
-        "./src",
-        "./"
-      ],
-      "@/*": [
-        "./src/*",
-        "./"
-      ],
-      "@@/*": [
-        "./src/*",
-        "./"
-      ],
-      "react": [ "./node_modules/@types/react" ]
+      "content/generated": ["./.contentlayer/generated", "./.content-collections/generated"],
+      "lib": ["./lib"],
+      "~": ["./src", "./"],
+      "~~": ["./src", "./"],
+      "~/*": ["./src/*", "./"],
+      "~~/*": ["./src/*", "./"],
+      "@": ["./src", "./"],
+      "@@": ["./src", "./"],
+      "@/*": ["./src/*", "./"],
+      "@@/*": ["./src/*", "./"],
+      "react": ["./node_modules/@types/react"]
     },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "plugins": [{ "name": "next" }]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".contentlayer/generated"
+    ".contentlayer/generated",
+    ".content-collections/generated",
+    "next.config.js"
   ],
-  "exclude": [
-    "node_modules"
-  ],
-  "files": [
-    "types.d.ts"
-  ]
+  "exclude": ["node_modules"],
+  "files": ["types.d.ts"]
 }

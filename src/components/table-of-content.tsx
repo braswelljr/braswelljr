@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { Fragment, useEffect, useMemo, useState } from 'react'
-import Link from 'next/link'
-import { HiOutlineExternalLink } from 'react-icons/hi'
-import { useStore } from '~/store/store'
-import { BlogLinksAndResources } from 'contentlayer/generated'
-import { TableOfContents } from 'lib/toc'
-import { cn } from 'lib/utils'
-import useMounted from '~/hooks/useMounted'
-import { Sheet, SheetContent } from '~/components/ui/sheet'
-import { ScrollToTopWithBlog } from './scroll-top'
+import { Fragment, useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
+import { HiOutlineExternalLink } from 'react-icons/hi';
+import { useStore } from '~/store/store';
+import { BlogResources } from 'contentlayer/generated';
+import { TableOfContents as TableOfContentsType } from 'lib/toc';
+import { cn } from 'lib/utils';
+import useMounted from '~/hooks/useMounted';
+import { Sheet, SheetContent } from '~/components/ui/sheet';
+import { ScrollToTopWithBlog } from './scroll-top';
 
 interface TocProps {
-  toc: TableOfContents
-  resources?: BlogLinksAndResources[]
-  className?: string
+  toc: TableOfContentsType;
+  resources?: BlogResources[];
+  className?: string;
 }
 
-export function BlogTableOfContents({ toc, className, resources }: TocProps) {
-  const { toggle, onToggle } = useStore(s => s)
+export function TableOfContents({ toc, className, resources }: TocProps) {
+  const { toggle, onToggle } = useStore(s => s);
 
   return (
     <Fragment>
@@ -31,11 +31,11 @@ export function BlogTableOfContents({ toc, className, resources }: TocProps) {
         <Content toc={toc} resources={resources} className={className} />
       </aside>
     </Fragment>
-  )
+  );
 }
 
 function Content({ toc, className, resources }: TocProps) {
-  const mounted = useMounted()
+  const mounted = useMounted();
 
   const itemIds = useMemo(() => {
     if (toc && toc.items) {
@@ -43,35 +43,35 @@ function Content({ toc, className, resources }: TocProps) {
         .flatMap(item => [item.url, item?.items?.map(item => item.url)])
         .flat()
         .filter(Boolean)
-        .map(id => id?.split('#')[1])
+        .map(id => id?.split('#')[1]);
     }
 
-    return []
-  }, [toc])
-  const activeHeading = useActiveItem(itemIds as string[])
+    return [];
+  }, [toc]);
+  const activeHeading = useActiveItem(itemIds as string[]);
 
   if (!toc?.items || !mounted) {
-    return null
+    return null;
   }
   return (
     <div
       className={cn(
-        'space-y-2 text-xs md:sticky md:top-16 md:-mt-10 md:max-h-[calc(var(--vh)-4rem)] md:overflow-y-auto md:pr-2 md:pt-16 xl:text-sm',
+        'space-y-2 text-xs md:sticky md:top-16 md:-mt-10 md:max-h-[calc(var(--vh)-4rem)] md:overflow-y-auto md:pt-16 md:pr-2 xl:text-sm',
         className
       )}
     >
       {/* Table of content */}
       <div className="text-sm font-medium uppercase">On This Page</div>
-      <div className="mb-4 inline-flex flex-col space-y-2 child:w-auto">
+      <div className="child:w-auto mb-4 inline-flex flex-col space-y-2">
         {/* blogs */}
         <Link
           href="/blog"
-          className="group/link relative inline-flex items-center space-x-2 pb-1.5 uppercase text-[#ff2600] dark:text-[#ff8d22]"
+          className="group/link relative inline-flex items-center space-x-2 pb-1.5 text-[#ff2600] uppercase dark:text-[#ff8d22]"
         >
           <HiOutlineExternalLink className="h-3.5 w-auto" />
           <span>Back to blog</span>
           <span
-            className="absolute -left-2 bottom-0 right-2 h-0.5 w-0 bg-current transition-width group-hover/link:w-full"
+            className="transition-width absolute right-2 bottom-0 -left-2 h-0.5 w-0 bg-current group-hover/link:w-full"
             aria-hidden="true"
           />
         </Link>
@@ -95,46 +95,46 @@ function Content({ toc, className, resources }: TocProps) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 function useActiveItem(itemIds: string[], options?: IntersectionObserverInit) {
-  const [activeId, setActiveId] = useState<string | undefined>(undefined)
+  const [activeId, setActiveId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) setActiveId(entry.target.id || '')
-        })
+          if (entry.isIntersecting) setActiveId(entry.target.id || '');
+        });
       },
       { rootMargin: `0% 0% -80% 0%`, ...options }
-    )
+    );
 
     itemIds?.forEach(id => {
-      const element = document.getElementById(id)
-      if (element) observer.observe(element)
-    })
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
 
     return () => {
       itemIds?.forEach(id => {
-        const element = document.getElementById(id)
-        if (element) observer.unobserve(element)
-      })
-    }
-  }, [itemIds])
+        const element = document.getElementById(id);
+        if (element) observer.unobserve(element);
+      });
+    };
+  }, [itemIds]);
 
-  return activeId
+  return activeId;
 }
 
 interface TreeProps {
-  tree: TableOfContents
-  level?: number
-  activeItem?: string
+  tree: TableOfContentsType;
+  level?: number;
+  activeItem?: string;
 }
 
 function Tree({ tree, level = 1, activeItem }: TreeProps) {
-  const { onToggle } = useStore(state => state)
+  const { onToggle } = useStore(state => state);
 
   return (
     <div>
@@ -157,10 +157,10 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
                 </a>
                 {item.items?.length ? <Tree tree={item} level={level + 1} activeItem={activeItem} /> : null}
               </li>
-            )
+            );
           })}
         </ul>
       ) : null}
     </div>
-  )
+  );
 }

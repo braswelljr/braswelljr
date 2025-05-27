@@ -1,10 +1,6 @@
+/** @type {import('postcss-load-config').Config} */
 module.exports = {
   plugins: {
-    'postcss-import': {},
-    'postcss-focus-visible': {},
-    'tailwindcss/nesting': {},
-    tailwindcss: {},
-    autoprefixer: {},
-    ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
+    '@tailwindcss/postcss': {}
   }
-}
+};

@@ -9,15 +9,15 @@
  * const paginate = new Paginate(1, 10, 100, data)
  */
 export default class Pagination {
-  page: number
-  limit: number
-  total: number
-  data: unknown
+  page: number;
+  limit: number;
+  total: number;
+  data: unknown;
   constructor(page: number, limit: number, total: number, data: unknown) {
-    this.page = page
-    this.limit = limit
-    this.total = total
-    this.data = data
+    this.page = page;
+    this.limit = limit;
+    this.total = total;
+    this.data = data;
   }
 
   /**
@@ -33,7 +33,7 @@ export default class Pagination {
       limit: this.limit,
       total: this.total,
       data: this.data
-    }
+    };
   }
 
   /**
@@ -42,7 +42,7 @@ export default class Pagination {
    * @returns Paginate
    */
   public setOffset(offset: number) {
-    this.page = offset
-    return this
+    this.page = offset;
+    return this;
   }
 }

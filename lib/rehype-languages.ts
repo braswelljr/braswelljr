@@ -1,4 +1,4 @@
-export const languages = [
+export const REHYPE_LANGS = [
   'language-tsx',
   'language-jsx',
   'language-html',
@@ -36,4 +36,43 @@ export const languages = [
   'language-objectivec',
   'language-swift',
   'language-scala'
-]
+];
+export const languages = [
+  'tsx',
+  'jsx',
+  'html',
+  'markup',
+  'css',
+  'scss',
+  'less',
+  'js',
+  'javascript',
+  'ts',
+  'typescript',
+  'shell',
+  'bash',
+  'sh',
+  'zsh',
+  'markdown',
+  'md',
+  'json',
+  'yaml',
+  'yml',
+  'graphql',
+  'diff',
+  'text',
+  'flow',
+  'go',
+  'rust',
+  'ruby',
+  'php',
+  'python',
+  'java',
+  'c',
+  'cpp',
+  'c#',
+  'csharp',
+  'objectivec',
+  'swift',
+  'scala'
+];

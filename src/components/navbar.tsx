@@ -1,20 +1,20 @@
-'use client'
+'use client';
 
-import { useEffect, useRef, useState } from 'react'
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { FaSpotify } from 'react-icons/fa6'
-import { HiCode, HiHome, HiOutlineMenuAlt2 } from 'react-icons/hi'
-import { IoIosPerson } from 'react-icons/io'
-import { MdArticle } from 'react-icons/md'
-import { TbCommand } from 'react-icons/tb'
-import { motion } from 'motion/react'
-import { useStore } from '~/store/store'
-import { cn } from 'lib/utils'
-import Search from '~/components/search'
+import { useEffect, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { FaSpotify } from 'react-icons/fa6';
+import { HiCode, HiHome, HiOutlineMenuAlt2 } from 'react-icons/hi';
+import { IoIosPerson } from 'react-icons/io';
+import { MdArticle } from 'react-icons/md';
+import { TbCommand } from 'react-icons/tb';
+import { motion } from 'motion/react';
+import { useStore } from '~/store/store';
+import { cn } from 'lib/utils';
+import Search from '~/components/search';
 
-const ThemeSwitch = dynamic(() => import('~/components/theme-switch'), { ssr: false })
+const ThemeSwitch = dynamic(() => import('~/components/theme-switch'), { ssr: false });
 
 export const nav = [
   {
@@ -42,42 +42,42 @@ export const nav = [
     path: '/blog',
     icon: MdArticle
   }
-]
+];
 
 export default function Navbar({ className }: { className?: string }) {
-  const [tab, setTab] = useState(nav[0].path)
-  const [open, onOpenChange] = useState(false)
-  const searchButtonRef = useRef<HTMLButtonElement>(null)
-  const pathname = usePathname()
-  const { toggle, onToggle } = useStore(s => s)
+  const [tab, setTab] = useState(nav[0].path);
+  const [open, onOpenChange] = useState(false);
+  const searchButtonRef = useRef<HTMLButtonElement | null>(null);
+  const pathname = usePathname();
+  const { toggle, onToggle } = useStore(s => s);
 
   useEffect(() => {
-    const routerTab = pathname.split('/')[1] ? pathname.split('/')[1] : '/'
+    const routerTab = pathname.split('/')[1] ? pathname.split('/')[1] : '/';
     if (routerTab) {
       nav.forEach(({ path: href }) => {
-        const hrefTab = href.split('/')[1] ? href.split('/')[1] : '/'
+        const hrefTab = href.split('/')[1] ? href.split('/')[1] : '/';
         if (hrefTab === routerTab) {
-          setTab(href)
+          setTab(href);
         }
-      })
+      });
     }
-  }, [pathname])
+  }, [pathname]);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === '/' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        onOpenChange(open => !open)
+        e.preventDefault();
+        onOpenChange(open => !open);
       }
-    }
-    document.addEventListener('keydown', down)
-    return () => document.removeEventListener('keydown', down)
-  }, [])
+    };
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
+  }, []);
 
   return (
     <nav
       className={cn(
-        'fixed inset-x-0 top-0 z-[4] flex items-center justify-between overflow-hidden bg-inherit px-4 py-2 shadow backdrop-blur-[2px] max-lg:flex-wrap',
+        'fixed inset-x-0 top-0 z-4 flex items-center justify-between overflow-hidden bg-inherit px-4 py-2 font-bold shadow backdrop-blur-[2px] max-lg:flex-wrap',
         className
       )}
     >
@@ -86,7 +86,7 @@ export default function Navbar({ className }: { className?: string }) {
         <button
           type="button"
           className={cn(
-            'flex size-7 items-center justify-center rounded-sm bg-neutral-900 text-white focus:outline-none dark:bg-neutral-500 md:hidden'
+            'flex size-7 items-center justify-center rounded-sm bg-neutral-900 text-white focus:outline-none md:hidden dark:bg-neutral-500'
           )}
           onClick={() => onToggle(!toggle)}
         >
@@ -98,7 +98,7 @@ export default function Navbar({ className }: { className?: string }) {
         id="search-button"
         className={cn(
           'flex h-7 items-center rounded-sm bg-neutral-900 text-white focus:outline-none dark:bg-neutral-500',
-          pathname.startsWith('/blog/') ? 'w-2/5 xsm:w-1/2 md:w-7 md:justify-center' : 'w-7 justify-center'
+          pathname.startsWith('/blog/') ? 'xsm:w-1/2 w-2/5 md:w-7 md:justify-center' : 'w-7 justify-center'
         )}
         aria-label="Search"
         onClick={() => onOpenChange(!open)}
@@ -112,7 +112,7 @@ export default function Navbar({ className }: { className?: string }) {
       <Search open={open} setOpen={onOpenChange} searchButtonRef={searchButtonRef} />
 
       {/* menu items */}
-      <div className="flex w-full items-center justify-center space-x-4 whitespace-nowrap max-lg:order-2 max-lg:mt-4 max-lg:grow max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto max-xsm:text-sm">
+      <div className="max-xsm:text-sm flex w-full items-center justify-center space-x-4 font-semibold whitespace-nowrap max-lg:order-2 max-lg:mt-4 max-lg:grow max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto">
         {nav.map((item, idx) => (
           <Link key={idx} href={item.path} className={cn('relative pb-2')}>
             {tab === item.path && (
@@ -132,5 +132,5 @@ export default function Navbar({ className }: { className?: string }) {
 
       <ThemeSwitch className="max-lg:order-1" />
     </nav>
-  )
+  );
 }

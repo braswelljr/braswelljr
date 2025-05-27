@@ -1,23 +1,23 @@
-'use client'
+'use client';
 
-import { useId, useState } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
-import { cn } from 'lib/utils'
+import { useId, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { cn } from 'lib/utils';
 
 interface TabProps {
-  title: string
-  content: string
+  title: string;
+  content: string;
 }
 
 export default function Tab({ contains, className }: { contains: TabProps[]; className?: string }) {
-  const [tab, setTab] = useState(contains[0])
-  const animationId = useId()
+  const [tab, setTab] = useState(contains[0]);
+  const animationId = useId();
 
   return (
     <div className={cn('my-5', className)}>
       <div className="space-y-2">
         {/* menu items */}
-        <div className="flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 dark:border-[0.5px] max-xsm:text-sm">
+        <div className="max-xsm:text-sm flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 dark:border-[0.5px]">
           {contains.map((item, idx) => (
             <button key={idx} className={cn('relative')} onClick={() => setTab(item)}>
               <AnimatePresence>
@@ -67,5 +67,5 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
         </div>
       </div>
     </div>
-  )
+  );
 }

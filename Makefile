@@ -26,6 +26,13 @@ else
 	STYLELINT := npx stylelint
 endif
 
+# List of files and directories to be removed
+WEB_TEMP_FILES = .next/ .turbo/ dist/ public/sw.js public/sw.js.map \
+            public/workbox-*.js public/workbox-*.js.map yarn-error.log \
+            .swc/ .eslintcache .prettiercache .contentlayercache \
+            .contentlayercache.lock .contentlayer .content-collections \
+            .stylelintignorecache .stylelintignorecache.lock .stylelintcache
+
 
 .PHONY: dev
 dev: # clean previous build files
@@ -46,10 +53,10 @@ format:
 
 .PHONY: clean
 clean:
-	rm -rf .next/ dist/ public/sw.js public/sw.js.map public/workbox-*.js public/workbox-*.js.map yarn-error.log .swc/ .eslintcache .prettiercache .contentlayercache .contentlayercache.lock .contentlayer
+	rm -rf $(WEB_TEMP_FILES)
 
-.PHONY: verbose-clean
-verbose-clean:
+.PHONY: trashout
+trashout:
 	@make clean
 	rm -rf node_modules/
 

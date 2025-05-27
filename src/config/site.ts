@@ -1,11 +1,11 @@
 interface SiteConfig {
-  name: string
-  url: string
-  description: string
+  name: string;
+  url: string;
+  description: string;
   links: {
-    twitter: string
-    github: string
-  }
+    twitter: string;
+    github: string;
+  };
 }
 
 export const siteConfig: SiteConfig = {
@@ -17,4 +17,4 @@ export const siteConfig: SiteConfig = {
     twitter: 'https://twitter.com/braswell_jnr',
     github: 'https://github.com/braswelljr/braswelljr'
   }
-}
+};

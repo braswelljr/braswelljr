@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const StarsBackground = () => {
   return (
@@ -8,7 +8,7 @@ const StarsBackground = () => {
       <div className="stars-three" />
       <div className="stars-four" />
     </>
-  )
-}
+  );
+};
 
-export default StarsBackground
+export default StarsBackground;

@@ -1,6 +1,6 @@
-import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
-import { Repo, State } from '~/store/types'
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
+import { Repo, State } from '~/store/types';
 
 export const useStore = create<State>()(
   devtools(set => ({
@@ -10,4 +10,4 @@ export const useStore = create<State>()(
     toggle: false,
     onToggle: (params: boolean) => set({ toggle: params })
   }))
-)
+);

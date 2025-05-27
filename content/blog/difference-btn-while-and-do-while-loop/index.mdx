@@ -7,7 +7,7 @@ tags:
   - PROGRAMMING
   - ALGORITHM
 date: 2023-11-02 21:13:00
-linksAndResources:
+resources:
   - title: While loop
     url: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/while
   - title: Do-While loop
@@ -20,7 +20,7 @@ Loops are essential constructs in programming, allowing developers to execute a 
 
 The while loop is a pre-test loop, meaning it evaluates the condition before executing the loop's body. If the condition is false initially, the loop body will never execute. The syntax for a while loop is as follows:
 
-```typescript title="while-loop.ts"
+```ts title="while-loop.ts"
 while (condition) {
   // loop body
 }
@@ -30,12 +30,12 @@ while (condition) {
 
 The following example demonstrates a while loop that prints to the console the numbers from 1 to 5 using a counter variable:
 
-```typescript title="while-loop.ts"
-let i: number = 1
+```ts title="while-loop.ts"
+let i: number = 1;
 
 while (i <= 5) {
-  console.log(i)
-  i++
+  console.log(i);
+  i++;
 }
 ```
 
@@ -43,23 +43,23 @@ while (i <= 5) {
 
 The do-while loop is a post-test loop, meaning it evaluates the condition after executing the loop's body. This guarantees that the loop body will execute at least once, even if the condition is false initially. The syntax for a do-while loop is as follows:
 
-```typescript title="do-while-loop.ts"
+```ts title="do-while-loop.ts"
 do {
   // loop body
-} while (condition)
+} while (condition);
 ```
 
 ### Example
 
 The following example demonstrates a do-while loop that prints to the console the numbers from 1 to 5 using a counter variable:
 
-```typescript title="do-while-loop.ts"
-let i: number = 1
+```ts title="do-while-loop.ts"
+let i: number = 1;
 
 do {
-  console.log(i)
-  i++
-} while (i <= 5)
+  console.log(i);
+  i++;
+} while (i <= 5);
 ```
 
 ## Key Differences

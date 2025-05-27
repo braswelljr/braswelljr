@@ -1,20 +1,20 @@
-import { NextResponse } from 'next/server'
-import { CurrentlyPlayingI, SpotifyTrack } from 'types/spotify'
-import { ErrorCause } from 'types/types'
-import { getAccessToken } from '~/config/spotify'
+import { NextResponse } from 'next/server';
+import { CurrentlyPlayingI, SpotifyTrack } from 'types/spotify';
+import { ErrorCause } from 'types/types';
+import { getAccessToken } from '~/config/spotify';
 
 export async function GET(): Promise<Response> {
   try {
-    const token = await getAccessToken()
+    const token = await getAccessToken();
     const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       next: { revalidate: 0 }
-    })
+    });
 
-    if (!response.ok) throw new Error(response.statusText, { cause: { response } })
+    if (!response.ok) throw new Error(response.statusText, { cause: { response } });
 
-    const data = (await response.json()) as CurrentlyPlayingI
+    const data = (await response.json()) as CurrentlyPlayingI;
 
     const track = {
       name: data.item?.name,
@@ -32,24 +32,24 @@ export async function GET(): Promise<Response> {
         href: data?.item?.album?.external_urls?.spotify,
         album_type: data?.item?.album?.album_type
       }
-    } satisfies SpotifyTrack
+    } satisfies SpotifyTrack;
 
     return NextResponse.json(
       { message: response?.statusText || 'gocha', data: track },
       { status: response?.status || 200 }
-    )
+    );
   } catch (error) {
-    let err: ErrorCause
+    let err: ErrorCause;
 
     if (error instanceof Error) {
-      err = error as ErrorCause
+      err = error as ErrorCause;
     } else {
-      err = new Error('Unknown error', { cause: { error } }) as ErrorCause
+      err = new Error('Unknown error', { cause: { error } }) as ErrorCause;
     }
 
     return NextResponse.json(
       { message: err.cause?.response?.statusText || 'Something happened', data: null },
       { status: err.cause?.response?.status ?? 500 }
-    )
+    );
   }
 }

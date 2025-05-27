@@ -1,4 +1,4 @@
-import { cn } from 'lib/utils'
+import { cn } from 'lib/utils';
 
 export default function BubblesBackground({ className }: { className?: string }) {
   return (
@@ -54,5 +54,5 @@ export default function BubblesBackground({ className }: { className?: string })
       <div className="bubble" />
       <div className="bubble" />
     </div>
-  )
+  );
 }

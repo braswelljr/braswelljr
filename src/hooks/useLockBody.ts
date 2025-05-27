@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react'
+import { useLayoutEffect } from 'react';
 
 /**
  * useLockBody hook - Locks the body scroll
@@ -6,8 +6,8 @@ import { useLayoutEffect } from 'react'
  */
 export default function useLockBody(): void {
   useLayoutEffect((): (() => void) => {
-    const originalStyle: string = window.getComputedStyle(document.body).overflow
-    document.body.style.overflow = 'hidden'
-    return () => (document.body.style.overflow = originalStyle)
-  }, [])
+    const originalStyle: string = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = 'hidden';
+    return () => (document.body.style.overflow = originalStyle);
+  }, []);
 }

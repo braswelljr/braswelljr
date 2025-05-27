@@ -1,6 +1,6 @@
-import { FaFigma, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa'
-import { FaXTwitter } from 'react-icons/fa6'
-import { Career } from 'types/types'
+import { FaFigma, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
+import { Career } from 'types/types';
 
 export const socials = [
   { name: 'LinkedIn', url: 'https://www.linkedin.com/in/braswell-kenneth-870827192/', icon: FaLinkedin },
@@ -8,9 +8,9 @@ export const socials = [
   { name: 'Instagram', url: 'https://www.instagram.com/braswell_jr/', icon: FaInstagram },
   { name: 'X', url: 'https://x.com/braswell_jnr', icon: FaXTwitter },
   { name: 'Figma', url: 'https://www.figma.com/@braswelljr', icon: FaFigma }
-]
+];
 
-export const education = []
+export const education = [];
 
 /**
  * career - List of careers
@@ -18,65 +18,71 @@ export const education = []
 export const career: Array<Career> = [
   {
     role: 'Software Engineer',
-    type: '(Remote / Freelancing)',
+    type: '(Contract)',
+    company: 'SonicAI, US',
+    companyLink: '#',
+    date: 'Nov 2024 - Jan 2025',
+    description: [
+      'Built and deployed the SonicAI website.',
+      'Collaborated with the UI/UX team to implement design enhancements.',
+      'Integrated RESTful APIs to deliver core features.'
+    ]
+  },
+  {
+    role: 'Software Engineer',
+    type: '(Contract)',
     company: 'Infinanze Technologies, US',
     companyLink: '#',
-    date: 'July 1, 2023 - Present',
+    date: 'Jul 2023 - Nov 2024',
     description: [
-      'Implement frontend web applications and websites.',
-      'Suggest and plan solutions with the UI/UX team.',
-      'Suggest and Plan solutions for software projects.',
-      'Collaborate with the backend team to integrate APIs to make functional frontend applications.'
-    ]
-  },
-  {
-    role: 'Software Engineer',
-    type: '(Remote / Freelancing)',
-    company: 'Morlan Technologies, Ghana',
-    companyLink: 'https://morlan.tech',
-    date: 'April, 2023 - August, 2024',
-    description: [
-      'Plan solutions for software projects.',
-      'Design and implement backend APIs for web and mobile applications.',
-      'Implement frontend web applications.'
-    ]
-  },
-  {
-    role: 'Software Engineer',
-    type: '(National Service / Seasonal)',
-    company: 'Solar Taxi, Accra - Ghana',
-    companyLink: 'https://solartaxi.co',
-    date: 'November 1, 2022 - October 31, 2023',
-    description: [
-      'Plan solutions for software projects.',
-      'Design and implement backend APIs for web and mobile applications.',
-      'Collaborate with team members to improve existing systems by refactoring old legacy code.',
-      'Implement frontend web applications.'
-    ]
-  },
-  {
-    role: 'Software Engineer',
-    type: '(Internship)',
-    company: 'The Hive, Kumasi - Ghana',
-    companyLink: 'https://kumasi-hive.com',
-    date: 'April 20, 2021 - November 12, 2021',
-    description: [
-      "Build and design software systems to satisfy users' needs.",
-      'Design User Interfaces to be implemented into mobile for the frontend and mobile application teams.',
-      'Collaborated with team members to implement the Hive Institute platform.'
+      'Built and maintained frontend applications.',
+      'Collaborated across design and backend teams.',
+      'Simplified enterprise systems with user-friendly interfaces.'
     ]
   },
   {
     role: 'Software Engineer',
     type: '(Freelancing)',
+    company: 'Morlan Technologies, Ghana',
+    companyLink: 'https://morlan.tech',
+    date: 'Apr 2022 - Aug 2024',
+    description: [
+      'Designed backend APIs and developed frontend and mobile apps.',
+      'Contributed to the Carbazza Project.',
+      'Built cloud and edge functions using Firebase and Supabase.'
+    ]
+  },
+  {
+    role: 'Software Engineer',
+    type: '(National Service)',
+    company: 'Solar Taxi, Accra, Ghana',
+    companyLink: 'https://solartaxi.co',
+    date: 'Nov 2022 - Sep 2023',
+    description: ['Built backend APIs and refactored legacy code.', 'Developed frontend features for the Wote Project.']
+  },
+  {
+    role: 'Software Engineer',
+    type: '(Intern)',
+    company: 'The Hive, Kumasi, Ghana',
+    companyLink: 'https://kumasi-hive.com',
+    date: 'Apr 2021 - Nov 2021',
+    description: [
+      'Designed UIs for mobile/web and assisted on the Hive Institute platform.',
+      'Shadowed senior engineers and expanded skill set.'
+    ]
+  },
+  {
+    role: 'Software Developer',
+    type: '(Freelance)',
     company: 'Freelancing',
     companyLink: '#',
-    date: 'Sep 14, 2018 - Present',
+    date: 'Sep 2018 - Present',
     description: [
-      'Build websites and web applications for institutions and startups with the sole responsibility of ensuring clients are satisfied and requirements are met.'
+      'Built websites and applications for startups and institutions.',
+      'Handled full project lifecycle from requirements to delivery.'
     ]
   }
-]
+];
 
 export const OTHER_PROJECTS = [
   {
@@ -104,4 +110,4 @@ export const OTHER_PROJECTS = [
     url: '',
     description: 'Express Delivery and More'
   }
-]
+];

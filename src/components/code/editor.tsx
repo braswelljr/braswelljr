@@ -1,22 +1,22 @@
-import { CSSProperties, forwardRef, ReactNode, useMemo, useState } from 'react'
-import { cn } from 'lib/utils'
-import type { EditorCodeWindowI, EditorTabI, EditorTabItemI } from 'types/editor'
-import { Code } from '~/components/code/code'
+import { CSSProperties, forwardRef, ReactNode, useMemo, useState } from 'react';
+import { cn } from 'lib/utils';
+import type { EditorCodeWindowI, EditorTabI, EditorTabItemI } from 'types/editor';
+import { Code } from '~/components/code/code';
 
 export const EditorTabItem = forwardRef<
   HTMLDivElement,
   EditorTabItemI & {
-    active?: boolean
-    children?: ReactNode
+    active?: boolean;
+    children?: ReactNode;
   }
 >(({ name, saved, open = true, active = false, children, className }, ref) => {
-  const [hover, setHover] = useState(false)
+  const [hover, setHover] = useState(false);
 
   return (
     <div
       ref={ref}
       className={cn(
-        'flex flex-none items-center border-y border-b-sky-300 border-t-transparent px-4 py-1 text-sky-300',
+        'flex flex-none items-center border-y border-t-transparent border-b-sky-300 px-4 py-1 text-sky-300',
         active && 'bg-neutral-900/10',
         hover && 'bg-neutral-900/5',
         open ? 'font-medium' : 'italic',
@@ -35,9 +35,9 @@ export const EditorTabItem = forwardRef<
       )}
       {children}
     </div>
-  )
-})
-EditorTabItem.displayName = 'EditorTabItem'
+  );
+});
+EditorTabItem.displayName = 'EditorTabItem';
 
 export const EditorTab = forwardRef<HTMLDivElement, EditorTabI>(
   (
@@ -46,7 +46,7 @@ export const EditorTab = forwardRef<HTMLDivElement, EditorTabI>(
   ) => {
     return (
       <Component className={cn('flex text-xs text-neutral-400')}>
-        <div className="flex flex-none items-center border-y border-b-sky-300 border-t-transparent px-4 py-1 text-sky-300">
+        <div className="flex flex-none items-center border-y border-t-transparent border-b-sky-300 px-4 py-1 text-sky-300">
           {primary.name}
           {showTabMarkers &&
             (primary.saved ? (
@@ -77,19 +77,19 @@ export const EditorTab = forwardRef<HTMLDivElement, EditorTabI>(
           {children && <div className="flex flex-auto items-center justify-end space-x-4 px-4">{children}</div>}
         </div>
       </Component>
-    )
+    );
   }
-)
-EditorTab.displayName = 'EditorTab'
+);
+EditorTab.displayName = 'EditorTab';
 
 export const EditorCodeWrapper = forwardRef<HTMLDivElement, { children?: ReactNode }>(({ children }, ref) => {
   return (
     <div ref={ref} className="flex flex-auto overflow-hidden bg-neutral-900/5 dark:bg-neutral-800/50">
       {children}
     </div>
-  )
-})
-EditorCodeWrapper.displayName = 'EditorCodeWrapper'
+  );
+});
+EditorCodeWrapper.displayName = 'EditorCodeWrapper';
 
 export const EditorCodeWindow = forwardRef<HTMLDivElement, EditorCodeWindowI>(({ children, className }, ref) => {
   return (
@@ -99,23 +99,23 @@ export const EditorCodeWindow = forwardRef<HTMLDivElement, EditorCodeWindowI>(({
     >
       {children}
     </div>
-  )
-})
-EditorCodeWindow.displayName = 'EditorCodeWindow'
+  );
+});
+EditorCodeWindow.displayName = 'EditorCodeWindow';
 
 export function EditorCode({
   children,
   className,
   border = true
 }: {
-  children?: ReactNode
-  className?: string
-  border?: boolean
+  children?: ReactNode;
+  className?: string;
+  border?: boolean;
 }) {
   return (
     <div
       className={cn(
-        'relative flex h-[31.625rem] max-h-[60vh] overflow-hidden bg-neutral-800 shadow-xl dark:bg-neutral-900/70 dark:ring-1 dark:ring-inset dark:ring-white/10 dark:backdrop-blur sm:max-h-none sm:rounded-xl lg:h-[34.6875rem] xl:h-[31.625rem]',
+        'relative flex h-[31.625rem] max-h-[60vh] overflow-hidden bg-neutral-800 shadow-xl sm:max-h-none sm:rounded-xl lg:h-[34.6875rem] xl:h-[31.625rem] dark:bg-neutral-900/70 dark:ring-1 dark:ring-white/10 dark:backdrop-blur dark:ring-inset',
         className
       )}
     >
@@ -130,34 +130,34 @@ export function EditorCode({
         <div className="relative flex min-h-0 flex-auto flex-col">{children}</div>
       </div>
     </div>
-  )
+  );
 }
 
 EditorCode.Code = forwardRef<
   HTMLDivElement,
   {
-    tokens: string[]
-    initialLineNumber?: number
-    className?: string
-    style?: CSSProperties
+    tokens: string[];
+    initialLineNumber?: number;
+    className?: string;
+    style?: CSSProperties;
   }
 >(({ tokens, initialLineNumber = 1, ...props }, ref) => {
   const lineNumbers = useMemo(() => {
-    const t = tokens.flat(Infinity)
-    let line = initialLineNumber + 1
-    let str = `${initialLineNumber}\n`
+    const t = tokens.flat(Infinity);
+    let line = initialLineNumber + 1;
+    let str = `${initialLineNumber}\n`;
     for (let i = 0; i < t.length; i++) {
       if (typeof t[i] === 'string') {
-        const newLineChars = t[i].match(/\n/g)
+        const newLineChars = t[i].match(/\n/g);
         if (newLineChars !== null) {
           for (let j = 0; j < newLineChars.length; j++) {
-            str += `${line++}\n`
+            str += `${line++}\n`;
           }
         }
       }
     }
-    return str
-  }, [initialLineNumber, tokens])
+    return str;
+  }, [initialLineNumber, tokens]);
 
   return (
     <div className="flex min-h-0 w-full flex-auto overflow-auto">
@@ -165,7 +165,7 @@ EditorCode.Code = forwardRef<
         <pre className="flex min-h-full text-sm leading-6">
           <div
             aria-hidden="true"
-            className="hidden flex-none select-none py-4 pr-4 text-right text-slate-600 md:block"
+            className="hidden flex-none py-4 pr-4 text-right text-slate-600 select-none md:block"
             style={{ width: 50 }}
           >
             {lineNumbers}
@@ -176,6 +176,6 @@ EditorCode.Code = forwardRef<
         </pre>
       </div>
     </div>
-  )
-})
-EditorCode.Code.displayName = 'EditorCode'
+  );
+});
+EditorCode.Code.displayName = 'EditorCode';

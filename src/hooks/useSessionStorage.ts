@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 /**
  * useSessionStorage hook to get session data
@@ -15,43 +15,43 @@ export default function useSessionStorage<T>(
     keepOnWindowClosed: false
   }
 ): [sessionValue: T, setSessionValue: Dispatch<SetStateAction<T>>] {
-  const [sessionValue, setSessionValue] = useState<T>(options.initialValue as T)
+  const [sessionValue, setSessionValue] = useState<T>(options.initialValue as T);
 
   useEffect(() => {
     // get type of storage
-    const storage = options.keepOnWindowClosed ? window.localStorage : window.sessionStorage
+    const storage = options.keepOnWindowClosed ? window.localStorage : window.sessionStorage;
     // get value from storage
-    const value = storage.getItem(sessionKey)
+    const value = storage.getItem(sessionKey);
     // set initial value if value not found
-    setSessionValue(value ? JSON.parse(value) : options.initialValue)
-  }, [options.keepOnWindowClosed, sessionKey, options.initialValue])
+    setSessionValue(value ? JSON.parse(value) : options.initialValue);
+  }, [options.keepOnWindowClosed, sessionKey, options.initialValue]);
 
   useEffect(() => {
     // get type of storage
-    const storage = options.keepOnWindowClosed ? window.localStorage : window.sessionStorage
+    const storage = options.keepOnWindowClosed ? window.localStorage : window.sessionStorage;
 
     // set value in storage
-    if (sessionValue !== options.initialValue) storage.setItem(sessionKey, JSON.stringify(sessionValue))
-  }, [sessionValue, sessionKey, options.keepOnWindowClosed, options.initialValue])
+    if (sessionValue !== options.initialValue) storage.setItem(sessionKey, JSON.stringify(sessionValue));
+  }, [sessionValue, sessionKey, options.keepOnWindowClosed, options.initialValue]);
 
   useEffect(() => {
     // sync state with storage events
     function syncState(event: StorageEvent) {
       // get type of storage
-      const storage = options.keepOnWindowClosed ? window.localStorage : window.sessionStorage
+      const storage = options.keepOnWindowClosed ? window.localStorage : window.sessionStorage;
       // get value from storage
-      const storageValue = storage.getItem(sessionKey)
+      const storageValue = storage.getItem(sessionKey);
       // if event is for the provided key
       if (event.key === sessionKey) {
         // set value
-        setSessionValue(storageValue ? JSON.parse(storageValue) : options.initialValue)
+        setSessionValue(storageValue ? JSON.parse(storageValue) : options.initialValue);
       }
     }
 
-    window.addEventListener('storage', syncState)
+    window.addEventListener('storage', syncState);
     // cleanup function to remove storage event listener
-    return () => window.removeEventListener('storage', syncState)
-  }, [options.initialValue, options.keepOnWindowClosed, sessionKey])
+    return () => window.removeEventListener('storage', syncState);
+  }, [options.initialValue, options.keepOnWindowClosed, sessionKey]);
 
-  return [sessionValue, setSessionValue]
+  return [sessionValue, setSessionValue];
 }

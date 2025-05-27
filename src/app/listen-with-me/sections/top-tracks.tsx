@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { Fragment } from 'react'
-import Link from 'next/link'
-import { MdRefresh } from 'react-icons/md'
-import { useQuery } from '@tanstack/react-query'
-import { cn } from 'lib/utils'
-import { SpotifyTrack } from 'types/spotify'
-import { AnimatedBackground } from '~/components/ui/animated-background'
-import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
-import Skeleton from '~/components/ui/skeleton'
+import { Fragment } from 'react';
+import Link from 'next/link';
+import { MdRefresh } from 'react-icons/md';
+import { useQuery } from '@tanstack/react-query';
+import { cn } from 'lib/utils';
+import { SpotifyTrack } from 'types/spotify';
+import { AnimatedBackground } from '~/components/ui/animated-background';
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import Skeleton from '~/components/ui/skeleton';
 
 export function TopTracks({ className }: { className?: string }) {
   const { data, refetch, isFetching } = useQuery<{
-    message: string
-    data: Array<SpotifyTrack>
+    message: string;
+    data: Array<SpotifyTrack>;
   }>({
     queryKey: ['top-tracks'],
     queryFn: () => fetch(`/api/spotify/top-tracks?limit=6`, { method: 'GET', mode: 'cors' }).then(res => res.json()),
     retry: true
-  })
+  });
 
   return (
     <section className={cn('', className)}>
@@ -43,7 +43,7 @@ export function TopTracks({ className }: { className?: string }) {
         )}
       </div>
     </section>
-  )
+  );
 }
 
 export function TracksLoader({ className, items = 6 }: { className?: string; items?: number }) {
@@ -65,7 +65,7 @@ export function TracksLoader({ className, items = 6 }: { className?: string; ite
           </div>
         ))}
     </div>
-  )
+  );
 }
 
 export function Tracks({ className, data }: { className?: string; data: Array<SpotifyTrack> }) {
@@ -93,19 +93,20 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
               </Avatar>
               <div className="space-y-2">
                 <h4 className="line-clamp-2 text-sm sm:text-base">{track?.name}</h4>
-                <p className="line-clamp-2 text-xsm sm:text-sm">
+                <p className="text-xsm line-clamp-2 sm:text-sm">
                   {track?.artists?.map((a, i) => (
                     <Fragment key={i}>
-                      {i !== 0 && ','}
-                      <Link
+                      {i !== 0 && ', '}
+                      <span
                         key={a?.id}
-                        href={a?.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={cn('text-orange-500 underline', i === 0 && 'font-semibold')}
+                        onClick={e => {
+                          e.stopPropagation(); // Prevent triggering the parent link
+                          window.open(a?.href, '_blank', 'noopener noreferrer');
+                        }}
+                        className={cn('cursor-pointer text-orange-500 underline', i === 0 && 'font-semibold')}
                       >
                         {a?.name}
-                      </Link>
+                      </span>
                     </Fragment>
                   ))}
                 </p>
@@ -115,5 +116,5 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
         ))}
       </AnimatedBackground>
     </div>
-  )
+  );
 }

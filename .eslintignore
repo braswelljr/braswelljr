@@ -1,9 +1,0 @@
-# dependencies
-/node_modules/*
-
-# next compiled
-/.next/
-
-# Ignore artifacts:
-build
-coverage

@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import Head from 'next/head'
-import { usePathname } from 'next/navigation'
+import Head from 'next/head';
+import { usePathname } from 'next/navigation';
 
 export default function Title({ suffix, children }: { suffix?: string; children?: string | JSX.Element }) {
-  const pathname = usePathname()
-  const title = children + (suffix ? ` - ${suffix}` : '')
+  const pathname = usePathname();
+  const title = children + (suffix ? ` - ${suffix}` : '');
 
   return (
     <Head>
@@ -21,5 +21,5 @@ export default function Title({ suffix, children }: { suffix?: string; children?
       <meta key="twitter:title" name="twitter:title" content={title} />
       <meta key="og:title" property="og:title" content={title} />
     </Head>
-  )
+  );
 }

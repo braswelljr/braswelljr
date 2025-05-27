@@ -1,28 +1,28 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { motion } from 'motion/react'
-import { cn } from 'lib/utils'
-import { socials } from '~/config/data'
-import { useDevice } from '~/hooks/useDevice'
-import useInterval from '~/hooks/useInterval'
-import FloatingDock from '~/components/ui/floating-dock'
+import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion } from 'motion/react';
+import { cn } from 'lib/utils';
+import { socials } from '~/config/data';
+import { useDevice } from '~/hooks/useDevice';
+import useInterval from '~/hooks/useInterval';
+import FloatingDock from '~/components/ui/floating-dock';
 
 export default function Page() {
-  const [r, setR] = useState<number>(0)
-  const roles: string[] = ['Software Engineer', 'Web Designer', 'UX / UI Designer']
-  const device = useDevice()
+  const [r, setR] = useState<number>(0);
+  const roles: string[] = ['Software Engineer', 'Web Designer', 'UX / UI Designer'];
+  const device = useDevice();
 
   useInterval(() => {
     if (roles.length > 0) {
-      let newIdx = r + 1
-      if (newIdx >= roles.length) newIdx = 0
+      let newIdx = r + 1;
+      if (newIdx >= roles.length) newIdx = 0;
 
-      setR(newIdx)
+      setR(newIdx);
     }
-  }, 5000)
+  }, 5000);
 
   return (
     <main className={cn('grid h-dvh place-content-center')}>
@@ -47,7 +47,7 @@ export default function Page() {
                 <motion.div
                   key={id}
                   className={cn(
-                    'bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-3 text-center text-xl font-black uppercase text-transparent dark:to-[#ff7056] xxs:text-2xl xsm:text-3xl sm:text-4xl md:text-5xl'
+                    'xxs:text-2xl xsm:text-3xl bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-3 text-center text-xl font-black text-transparent uppercase sm:text-4xl md:text-5xl dark:to-[#ff7056]'
                   )}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -68,7 +68,7 @@ export default function Page() {
                 }}
               />
             ) : (
-              <div className="mx-auto flex items-center justify-center space-x-3 xs:space-x-6">
+              <div className="xs:space-x-6 mx-auto flex items-center justify-center space-x-3">
                 {socials.map(item => (
                   <Link key={item.name} href={item.url} target="_blank" rel="noopener noreferrer">
                     <item.icon className="h-6 w-auto md:h-9" />
@@ -80,5 +80,5 @@ export default function Page() {
         </div>
       </section>
     </main>
-  )
+  );
 }

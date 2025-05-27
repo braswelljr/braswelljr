@@ -4,5 +4,5 @@
  * @returns - Returns true if the value is falsy, otherwise false.
  */
 export default function isFalsy<T>(value: T): boolean {
-  return !value
+  return !value;
 }

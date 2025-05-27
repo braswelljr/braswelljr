@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { HiExternalLink } from 'react-icons/hi'
-import { MdRefresh } from 'react-icons/md'
-import type { Page, Playlist, TrackItem } from '@spotify/web-api-ts-sdk'
-import { useQuery } from '@tanstack/react-query'
-import { cn } from 'lib/utils'
-import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
-import { Card, CardContent, CardDescription, CardFooter, CardTitle } from '~/components/ui/card'
-import Skeleton from '~/components/ui/skeleton'
+import { useState } from 'react';
+import Link from 'next/link';
+import { HiExternalLink } from 'react-icons/hi';
+import { MdRefresh } from 'react-icons/md';
+import type { Page, Playlist, TrackItem } from '@spotify/web-api-ts-sdk';
+import { useQuery } from '@tanstack/react-query';
+import { cn } from 'lib/utils';
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import { Card, CardContent, CardDescription, CardFooter, CardTitle } from '~/components/ui/card';
+import Skeleton from '~/components/ui/skeleton';
 
 type Paginate = {
-  total: number
-  offset: number
-  previous: number | null
-  next: number | null
-}
+  total: number;
+  offset: number;
+  previous: number | null;
+  next: number | null;
+};
 
 export function Playlist({ className }: { className?: string }) {
   const [pagination, _setPagination] = useState<Paginate>({
@@ -24,10 +24,10 @@ export function Playlist({ className }: { className?: string }) {
     offset: 0,
     previous: null,
     next: null
-  })
+  });
   const { data, refetch, isFetching } = useQuery<{
-    message: string
-    data: Page<Playlist<TrackItem>>
+    message: string;
+    data: Page<Playlist<TrackItem>>;
   }>({
     queryKey: ['playlists'],
     queryFn: () =>
@@ -36,7 +36,7 @@ export function Playlist({ className }: { className?: string }) {
         mode: 'cors'
       }).then(res => res.json()),
     retry: true
-  })
+  });
 
   return (
     <section className={cn('', className)}>
@@ -61,7 +61,7 @@ export function Playlist({ className }: { className?: string }) {
         )}
       </div>
     </section>
-  )
+  );
 }
 
 export function PlaylistError({ className }: { className?: string }) {
@@ -88,7 +88,7 @@ export function PlaylistError({ className }: { className?: string }) {
           </Card>
         ))}
     </div>
-  )
+  );
 }
 
 export function PlaylistData({ className, data }: { className?: string; data: Page<Playlist<TrackItem>> }) {
@@ -107,15 +107,16 @@ export function PlaylistData({ className, data }: { className?: string; data: Pa
                 </Avatar>
               </CardContent>
               <CardFooter className="flex-col items-start gap-2 p-4 pt-0">
-                <Link
-                  href={playlist.external_urls?.spotify}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <span
                   className="group flex items-center justify-center gap-2 hover:text-[#ff8d22]"
+                  onClick={e => {
+                    e.stopPropagation(); // Prevent triggering the parent link
+                    window.open(playlist.external_urls?.spotify, '_blank', 'noopener noreferrer');
+                  }}
                 >
                   <HiExternalLink className="size-6" />
                   <CardTitle className="line-clamp-1 w-full text-lg">{playlist.name}</CardTitle>
-                </Link>
+                </span>
                 <div className="flex w-full items-center gap-2">
                   <CardDescription className="line-clamp-1">{playlist.owner?.display_name}</CardDescription>
                 </div>
@@ -125,5 +126,5 @@ export function PlaylistData({ className, data }: { className?: string; data: Pa
         </Link>
       ))}
     </div>
-  )
+  );
 }

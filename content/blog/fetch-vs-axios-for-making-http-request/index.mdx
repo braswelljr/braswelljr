@@ -8,7 +8,7 @@ tags:
   - Communication
 date: 2023-06-21 11:08:00
 published: false
-linksAndResources:
+resources:
   - title: Fetch API
     url: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
   - title: Axios HTTP
@@ -22,7 +22,7 @@ The Fetch API provides a JavaScript interface for accessing and manipulating par
 ### Syntax
 
 ```ts language="ts" title="fetch.ts"
-fetch(input, init)
+fetch(input, init);
 ```
 
 ### Parameters
@@ -51,8 +51,8 @@ Using the `{JSON} Placeholder` API, we can fetch data from the API and handle er
 
 ```ts language="ts" title="try-catch-method.ts"
 type ErrorCause = Error & {
-  cause?: { error: Error; response: Response }
-}
+  cause?: { error: Error; response: Response };
+};
 
 try {
   // Fetch data from the API
@@ -63,39 +63,39 @@ try {
       Authorization: `Bearer ${token}`, // Add token to the header if needed for authentication and authorization
       'Content-Type': 'application/json' // Add content type if needed
     }
-  })
+  });
 
   // Check if the response is ok and throw an error to the catch block if not
-  if (!response.ok) throw new Error('Something went wrong', { cause: { response } })
+  if (!response.ok) throw new Error('Something went wrong', { cause: { response } });
 
   // perform some action with the response
   // make toast notification
 
   // Parse the response to JSON
-  const data = await response.json()
+  const data = await response.json();
 
   // do something with the data
 } catch (error) {
-  let err: ErrorCause
+  let err: ErrorCause;
 
-  if (error instanceof Error) err = error as ErrorCause
-  else err = new Error('Error fetching todo', { cause: { error } }) as ErrorCause
+  if (error instanceof Error) err = error as ErrorCause;
+  else err = new Error('Error fetching todo', { cause: { error } }) as ErrorCause;
 
   // since the error was thrown from the try block with the response object, we can access the response object from the error object
   // Handle errors based on the status code
   switch (err.cause?.response?.status) {
     case 400: // bad request - invalid data
       // perform some action
-      break
+      break;
 
     case 401: // unauthorized - invalid token
       // perform some action
-      break
+      break;
 
     // others
     default:
       // perform some action
-      break
+      break;
   }
 }
 ```
@@ -116,25 +116,25 @@ fetch('https://jsonplaceholder.typicode.com/todos/1', {
 })
   .then(response => {
     // Check if the response is ok and throw an error to the catch block if not
-    if (!response.ok) throw new Error('Something went wrong', { cause: { response } })
+    if (!response.ok) throw new Error('Something went wrong', { cause: { response } });
 
     // perform some action with the response
     // make toast notification
 
     // Parse the response to JSON
-    return response.json()
+    return response.json();
   })
   .then(data => {
     // do something with the data
   })
   .catch(error => {
-    let err: ErrorCause
+    let err: ErrorCause;
 
-    if (error instanceof Error) err = error as ErrorCause
-    else err = new Error('Error fetching todo', { cause: { error } }) as ErrorCause
+    if (error instanceof Error) err = error as ErrorCause;
+    else err = new Error('Error fetching todo', { cause: { error } }) as ErrorCause;
 
     // handle
-  })
+  });
 ```
 
 ## Axios
@@ -144,5 +144,5 @@ Axios is a promise-based HTTP client for the browser and Node.js. It has a conve
 ### Syntax
 
 ```ts language="ts" title="axios.ts"
-axios(url, config)
+axios(url, config);
 ```

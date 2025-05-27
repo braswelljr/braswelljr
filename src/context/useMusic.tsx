@@ -1,21 +1,21 @@
-'use client'
+'use client';
 
-import { createContext, useContext, useMemo } from 'react'
-import { Page, SimplifiedPlaylist, UserProfile } from '@spotify/web-api-ts-sdk'
+import { createContext, useContext, useMemo } from 'react';
+import { Page, SimplifiedPlaylist, UserProfile } from '@spotify/web-api-ts-sdk';
 
 type MusicProps = {
-  profile: UserProfile | null
-  playlists: Page<SimplifiedPlaylist> | null
-}
+  profile: UserProfile | null;
+  playlists: Page<SimplifiedPlaylist> | null;
+};
 
 export const MusicContext = createContext<MusicProps>({
   profile: null,
   playlists: null
-})
+});
 
 type MusicProviderProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 export function MusicProvider({ children }: MusicProviderProps) {
   const memoizedValue = useMemo<MusicProps>(
@@ -24,16 +24,16 @@ export function MusicProvider({ children }: MusicProviderProps) {
       playlists: null
     }),
     []
-  )
-  return <MusicContext.Provider value={memoizedValue}>{children}</MusicContext.Provider>
+  );
+  return <MusicContext.Provider value={memoizedValue}>{children}</MusicContext.Provider>;
 }
 
 export function useMusic() {
-  const context = useContext(MusicContext)
+  const context = useContext(MusicContext);
 
   if (!context) {
-    throw new Error('useMusic must be used within a <MusicProvider />')
+    throw new Error('useMusic must be used within a <MusicProvider />');
   }
 
-  return context
+  return context;
 }

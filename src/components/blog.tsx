@@ -1,9 +1,9 @@
-import { cn } from 'lib/utils'
-import { Separator } from '~/components/ui/separator'
+import { cn } from 'lib/utils';
+import { Separator } from '~/components/ui/separator';
 
 interface BlogPageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  heading: string
-  text?: string
+  heading: string;
+  text?: string;
 }
 
 export function BlogPageHeader({ heading, text, className, children, ...props }: BlogPageHeaderProps) {
@@ -16,5 +16,5 @@ export function BlogPageHeader({ heading, text, className, children, ...props }:
       {children}
       <Separator className="my-4 md:my-6" />
     </>
-  )
+  );
 }

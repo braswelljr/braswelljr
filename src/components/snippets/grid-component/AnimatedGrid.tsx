@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Image from 'next/image'
-import { HiX } from 'react-icons/hi'
-import { AnimatePresence, motion } from 'motion/react'
+import { useState } from 'react';
+import Image from 'next/image';
+import { HiX } from 'react-icons/hi';
+import { AnimatePresence, motion } from 'motion/react';
 
 interface ProductI {
-  id: string
-  name: string
-  price: number
+  id: string;
+  name: string;
+  price: number;
   image: {
-    url: string
-  }
-  type: string
-  weight: number
-  description: string
-  createdAt: string
-  updatedAt: string
+    url: string;
+  };
+  type: string;
+  weight: number;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const products: ProductI[] = [
@@ -46,17 +46,17 @@ const products: ProductI[] = [
     createdAt: '2023-04-30T18:55:30.687Z',
     updatedAt: '2023-04-30T18:55:30.687Z'
   }
-]
+];
 
 export default function AnimatedGridComponent() {
-  const [selectedProduct, setSelectedProduct] = useState<ProductI | null>(null)
+  const [selectedProduct, setSelectedProduct] = useState<ProductI | null>(null);
 
   return (
     <main className="relative min-h-[60vh] border border-neutral-800">
       {/* body */}
       <section className="mx-auto max-w-5xl px-2 py-7 max-lg:mx-5 md:px-12 xl:max-w-7xl">
         <div className="">
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8 text-xs xsm:grid-cols-[repeat(auto-fill,minmax(320px,1fr))]">
+          <div className="xsm:grid-cols-[repeat(auto-fill,minmax(320px,1fr))] grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8 text-xs">
             {products.map(product => (
               <motion.div
                 key={product.id}
@@ -94,7 +94,7 @@ export default function AnimatedGridComponent() {
                   onClick={() => setSelectedProduct(null)}
                 />
                 <motion.div
-                  className="relative z-10 grid w-2/3 grid-cols-1 items-stretch rounded-md bg-white text-xs dark:bg-neutral-800 max-lg:h-[45vh] max-sm:max-w-3xl sm:w-auto lg:grid-cols-[2fr,3fr]"
+                  className="relative z-10 grid w-2/3 grid-cols-1 items-stretch rounded-md bg-white text-xs max-lg:h-[45vh] max-sm:max-w-3xl sm:w-auto lg:grid-cols-[2fr,3fr] dark:bg-neutral-800"
                   layoutId={selectedProduct.id}
                 >
                   <div className="relative min-h-[20vh] overflow-hidden bg-neutral-900 lg:min-h-[30vh]">
@@ -115,7 +115,7 @@ export default function AnimatedGridComponent() {
                   <div className="relative px-3 py-4 pr-4">
                     <button
                       type="button"
-                      className="absolute right-4 rounded-lg bg-neutral-300 p-2 dark:bg-neutral-700 max-md:bottom-4 md:top-4"
+                      className="absolute right-4 rounded-lg bg-neutral-300 p-2 max-md:bottom-4 md:top-4 dark:bg-neutral-700"
                       onClick={() => setSelectedProduct(null)}
                     >
                       <HiX className="h-4 w-auto text-neutral-900 dark:text-neutral-200" />
@@ -145,5 +145,5 @@ export default function AnimatedGridComponent() {
         </div>
       </section>
     </main>
-  )
+  );
 }

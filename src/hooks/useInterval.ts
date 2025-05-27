@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react';
 
 /**
  * useInterval hook - sets reference to the previous value and returns a given value within a particular duration.
@@ -7,12 +7,12 @@ import { useEffect, useRef } from 'react'
  * @returns {void}
  */
 export default function useInterval(callback: () => unknown, delay = 1000): void {
-  const savedCallback = useRef<() => unknown>()
+  const savedCallback = useRef<() => unknown>();
 
   // Remember the latest callback.
   useEffect(() => {
-    savedCallback.current = callback
-  }, [callback])
+    savedCallback.current = callback;
+  }, [callback]);
 
   // Set up the interval.
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function useInterval(callback: () => unknown, delay = 1000): void
           ? savedCallback.current()
           : savedCallback.current,
       delay
-    )
-    return () => window.clearInterval(id)
-  }, [delay])
+    );
+    return () => window.clearInterval(id);
+  }, [delay]);
 }

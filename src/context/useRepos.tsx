@@ -1,64 +1,64 @@
-'use client'
+'use client';
 
-import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
-import useSWR from 'swr'
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
+import useSWR from 'swr';
 
 export interface Project {
-  name: string
-  description: string
+  name: string;
+  description: string;
 }
 
 export interface PinnedProject {
-  name: string
-  description: string
-  url: string
-  homepageUrl: string
-  createdAt: string
-  updatedAt: string
+  name: string;
+  description: string;
+  url: string;
+  homepageUrl: string;
+  createdAt: string;
+  updatedAt: string;
   languages: {
     nodes: {
-      name: string
-      color: string
-      percent: number
-    }[]
-  }
+      name: string;
+      color: string;
+      percent: number;
+    }[];
+  };
   primaryLanguage: {
-    name: string
-    color: string
-  }
+    name: string;
+    color: string;
+  };
   forks: {
-    totalCount: number
-  }
+    totalCount: number;
+  };
   stargazers: {
-    totalCount: number
-  }
+    totalCount: number;
+  };
   watchers: {
-    totalCount: number
-  }
+    totalCount: number;
+  };
 }
 
 export interface GithubProject {
-  id: number
-  name: string
-  description: string
-  html_url: string
-  url: string
-  languages_url: string
-  language: string
-  forks_count: number
-  stargazers_count: number
-  topics: string[]
+  id: number;
+  name: string;
+  description: string;
+  html_url: string;
+  url: string;
+  languages_url: string;
+  language: string;
+  forks_count: number;
+  stargazers_count: number;
+  topics: string[];
 }
 
 export interface XInterface {
-  allProjects: GithubProject[]
-  setProjects: (projects: GithubProject[]) => void
-  pinnedProjects: PinnedProject[]
-  setPinnedProjects: (pinnedProjects: PinnedProject[]) => void
-  projectsLoader: boolean
-  setProjectsLoader: (projectsLoader: boolean) => void
-  pinnedProjectsLoader: boolean
-  setPinnedProjectsLoader: (pinnedProjectsLoader: boolean) => void
+  allProjects: GithubProject[];
+  setProjects: (projects: GithubProject[]) => void;
+  pinnedProjects: PinnedProject[];
+  setPinnedProjects: (pinnedProjects: PinnedProject[]) => void;
+  projectsLoader: boolean;
+  setProjectsLoader: (projectsLoader: boolean) => void;
+  pinnedProjectsLoader: boolean;
+  setPinnedProjectsLoader: (pinnedProjectsLoader: boolean) => void;
 }
 
 export const RepoContext = createContext<XInterface>({
@@ -70,20 +70,20 @@ export const RepoContext = createContext<XInterface>({
   setProjectsLoader: () => {},
   pinnedProjectsLoader: false,
   setPinnedProjectsLoader: () => {}
-})
+});
 
 export function RepoProvider({ children }: { children?: ReactNode }): JSX.Element {
-  const [projects, setProjects] = useState<GithubProject[]>([])
-  const [projectsLoader, setProjectsLoader] = useState<boolean>(false)
-  const [pinnedProjects, setPinnedProjects] = useState<PinnedProject[]>([])
-  const [pinnedProjectsLoader, setPinnedProjectsLoader] = useState<boolean>(false)
+  const [projects, setProjects] = useState<GithubProject[]>([]);
+  const [projectsLoader, setProjectsLoader] = useState<boolean>(false);
+  const [pinnedProjects, setPinnedProjects] = useState<PinnedProject[]>([]);
+  const [pinnedProjectsLoader, setPinnedProjectsLoader] = useState<boolean>(false);
 
   // fetch projects from github api
   const { data: project_data, error: project_error } = useSWR<GithubProject[]>(
     `https://api.github.com/users/braswelljr/repos`,
     (url: URL) => fetch(url).then(res => res.json()),
     { shouldRetryOnError: true }
-  )
+  );
 
   // fetch pinned projects from github api
   const { data: pinned_projects_data, error: pinned_projects_error } = useSWR(
@@ -135,25 +135,25 @@ export function RepoProvider({ children }: { children?: ReactNode }): JSX.Elemen
         })
       }).then(res => res.json()),
     { shouldRetryOnError: true }
-  )
+  );
 
   // set loading state
   useEffect(() => {
-    if (!project_data && !project_error) setProjectsLoader(true)
-    else setProjectsLoader(false)
-  }, [project_data, project_error])
+    if (!project_data && !project_error) setProjectsLoader(true);
+    else setProjectsLoader(false);
+  }, [project_data, project_error]);
 
   // set projects
   useEffect(() => {
-    if (project_data && project_data.length > 0) setProjects(project_data)
-  }, [project_data])
+    if (project_data && project_data.length > 0) setProjects(project_data);
+  }, [project_data]);
 
   useEffect(() => {
     // set loading state
-    if (!pinned_projects_data && !pinned_projects_error) setPinnedProjectsLoader(true)
-    else setPinnedProjectsLoader(false)
+    if (!pinned_projects_data && !pinned_projects_error) setPinnedProjectsLoader(true);
+    else setPinnedProjectsLoader(false);
     // set pinned projects
-  }, [pinned_projects_data, pinned_projects_error])
+  }, [pinned_projects_data, pinned_projects_error]);
 
   // set pinned projects
   useEffect(() => {
@@ -163,11 +163,11 @@ export function RepoProvider({ children }: { children?: ReactNode }): JSX.Elemen
       pinned_projects_data.data.user.pinnedItems.nodes &&
       pinned_projects_data.data.user.pinnedItems.nodes.length > 0
     ) {
-      setPinnedProjects(pinned_projects_data.data.user.pinnedItems.nodes)
+      setPinnedProjects(pinned_projects_data.data.user.pinnedItems.nodes);
     } else if (pinned_projects_data && pinned_projects_data.errors) {
-      console.log(pinned_projects_data.errors[0])
+      console.log(pinned_projects_data.errors[0]);
     }
-  }, [pinned_projects_data])
+  }, [pinned_projects_data]);
 
   const memoizedValue = useMemo(
     () => ({
@@ -181,11 +181,11 @@ export function RepoProvider({ children }: { children?: ReactNode }): JSX.Elemen
       setPinnedProjectsLoader
     }),
     [projects, pinnedProjects, projectsLoader, pinnedProjectsLoader]
-  )
+  );
 
-  return <RepoContext.Provider value={memoizedValue}>{children}</RepoContext.Provider>
+  return <RepoContext.Provider value={memoizedValue}>{children}</RepoContext.Provider>;
 }
 
 export default function useRepos() {
-  return useContext(RepoContext)
+  return useContext(RepoContext);
 }

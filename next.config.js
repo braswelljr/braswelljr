@@ -1,13 +1,9 @@
-const { createContentlayerPlugin } = require('next-contentlayer')
+const { withContentCollections } = require('@content-collections/next');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  async redirects() {
-    return []
-  }
-}
+  serverExternalPackages: ['oxc-transform']
+};
 
-const withContentlayer = createContentlayerPlugin({})
-
-module.exports = withContentlayer(nextConfig)
+module.exports = withContentCollections(nextConfig);

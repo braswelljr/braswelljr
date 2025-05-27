@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 /**
  * useLocalStorage hook to get localStorage data
@@ -12,31 +12,31 @@ export default function useLocalStorage<T>(
   initialValue = null
 ): [localStorageValue: T, setlocalStorageValue: (value: T) => void] {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [localStorageValue, setLocalStorageValue] = useState<T | null>(initialValue)
+  const [localStorageValue, setLocalStorageValue] = useState<T | null>(initialValue);
 
   useEffect(() => {
     // get value from storage
-    const value = localStorage.getItem(localStorageKey)
+    const value = localStorage.getItem(localStorageKey);
     // set initial value if value not found
-    setLocalStorageValue(value ? JSON.parse(value) : initialValue)
-  }, [localStorageKey, initialValue])
+    setLocalStorageValue(value ? JSON.parse(value) : initialValue);
+  }, [localStorageKey, initialValue]);
 
   useEffect(() => {
     // set value in storage if value is not initial value
-    if (localStorageValue !== initialValue) localStorage.setItem(localStorageKey, JSON.stringify(localStorageValue))
-  }, [localStorageValue, localStorageKey, initialValue])
+    if (localStorageValue !== initialValue) localStorage.setItem(localStorageKey, JSON.stringify(localStorageValue));
+  }, [localStorageValue, localStorageKey, initialValue]);
 
   useEffect(() => {
     const syncState = (event: StorageEvent) => {
-      const storageValue = localStorage.getItem(localStorageKey)
+      const storageValue = localStorage.getItem(localStorageKey);
       if (event.key === localStorageKey) {
-        setLocalStorageValue(storageValue ? JSON.parse(storageValue) : initialValue)
+        setLocalStorageValue(storageValue ? JSON.parse(storageValue) : initialValue);
       }
-    }
-    window.addEventListener('storage', syncState)
+    };
+    window.addEventListener('storage', syncState);
     // cleanup function to remove storage event listener
-    return () => window.removeEventListener('storage', syncState)
-  }, [initialValue, localStorageKey])
+    return () => window.removeEventListener('storage', syncState);
+  }, [initialValue, localStorageKey]);
 
-  return [localStorageValue as T, setLocalStorageValue]
+  return [localStorageValue as T, setLocalStorageValue];
 }

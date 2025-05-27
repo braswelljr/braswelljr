@@ -1,16 +1,16 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { cn } from 'lib/utils'
-import { SidebarNavItem } from 'types/nav'
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { cn } from 'lib/utils';
+import { SidebarNavItem } from 'types/nav';
 
 export interface BlogSidebarNavProps {
-  items: SidebarNavItem[]
+  items: SidebarNavItem[];
 }
 
 export function BlogSidebarNav({ items }: BlogSidebarNavProps) {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return items.length ? (
     <div className="w-full">
@@ -21,12 +21,12 @@ export function BlogSidebarNav({ items }: BlogSidebarNavProps) {
         </div>
       ))}
     </div>
-  ) : null
+  ) : null;
 }
 
 interface BlogSidebarNavItemsProps {
-  items: SidebarNavItem[]
-  pathname: string | null
+  items: SidebarNavItem[];
+  pathname: string | null;
 }
 
 export function BlogSidebarNavItems({ items, pathname }: BlogSidebarNavItemsProps) {
@@ -62,5 +62,5 @@ export function BlogSidebarNavItems({ items, pathname }: BlogSidebarNavItemsProp
         )
       )}
     </div>
-  ) : null
+  ) : null;
 }

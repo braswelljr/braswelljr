@@ -14,4 +14,4 @@ export const variants = {
     opacity: 0,
     filter: 'blur(4px)'
   })
-}
+};

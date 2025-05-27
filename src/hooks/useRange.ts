@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo } from 'react';
 
 /**
  * useRange - Maps a number from one range to another
@@ -11,11 +11,11 @@ import { useMemo } from 'react'
  */
 export default function useRange(num: number, inMin: number, inMax: number, outMin: number, outMax: number): number {
   const mappedValue = useMemo(() => {
-    const newValue = ((num - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin
-    const largest = Math.max(outMin, outMax)
-    const smallest = Math.min(outMin, outMax)
-    return Math.min(Math.max(newValue, smallest), largest)
-  }, [inMax, inMin, num, outMax, outMin])
+    const newValue = ((num - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+    const largest = Math.max(outMin, outMax);
+    const smallest = Math.min(outMin, outMax);
+    return Math.min(Math.max(newValue, smallest), largest);
+  }, [inMax, inMin, num, outMax, outMin]);
 
-  return mappedValue
+  return mappedValue;
 }
