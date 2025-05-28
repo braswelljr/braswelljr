@@ -7,16 +7,68 @@ tags:
 date: 2024-05-16
 ---
 
-## HTTP.
+The **HyperText Transfer Protocol (HTTP)** is the foundation of data communication on the web. It defines how messages are formatted and transmitted, and how web servers and browsers should respond to various commands.
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, exercitationem laboriosam ea, dolore eaque tempore molestias quia fugiat explicabo perferendis eligendi ex vero voluptatibus? Minus, earum rem rerum deserunt perferendis dolore quaerat laudantium ad consequuntur asperiores quae odit soluta sit cum repudiandae quibusdam. Impedit sequi neque fuga sit accusamus laboriosam.
+---
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum atque sint iste unde eaque neque quibusdam facere illo. Quasi magni culpa porro expedita aut soluta perferendis itaque accusantium ratione suscipit ipsam amet, debitis nobis molestias possimus corrupti beatae error temporibus.
+## HTTP/1.1
 
-### Lorem ipsum dolor sit amet consectetur adipisicing elit.
+**Released**: 1997
+**Key Features**:
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum atque sint iste unde eaque neque quibusdam facere illo. Quasi magni culpa porro expedita aut soluta perferendis itaque accusantium ratione suscipit ipsam amet, debitis nobis molestias possimus corrupti beatae error temporibus.
+- Text-based protocol
+- One TCP connection per request
+- Head-of-line blocking
+- Supports caching, persistent connections (keep-alive), and chunked transfer
 
-```bash
-ls -la
+### Example Request
+
+```http
+GET /index.html HTTP/1.1
+Host: example.com
 ```
+
+## HTTP/2
+
+**Released**: 2015
+Built On: TCP
+Key Improvements:
+
+- Binary framing layer
+- Multiplexing (multiple requests in a single TCP connection)
+- Header compression (HPACK)
+- Server push (proactively sending resources)
+
+### Benefits Over HTTP/1.1
+
+- Reduced latency.
+- Better use of a single TCP connection.
+- Fewer round trips.
+
+## HTTP/3
+
+**Released**: 2022
+Built On: QUIC (UDP-based)
+Key Features:
+
+- Fully multiplexed using QUIC streams.
+- Connection migration (better for mobile).
+- TLS 1.3 integrated by default.
+- Eliminates head-of-line blocking at the transport layer.
+
+### Why It Matters
+
+HTTP/3 addresses long-standing issues from TCP-based protocols. It's designed to be faster and more reliable—especially on unreliable or mobile networks.
+
+| Feature              | HTTP/1.1 | HTTP/2 | HTTP/3      |
+| -------------------- | -------- | ------ | ----------- |
+| Protocol Layer       | TCP      | TCP    | QUIC (UDP)  |
+| Multiplexing         | ❌       | ✔️     | ✔️          |
+| Header Compression   | ❌       | HPACK  | QPACK       |
+| Server Push          | ❌       | ✔️     | ✔️(limited) |
+| Connection Migration | ❌       | ❌     | ✔️(limited) |
+
+<Callout type="info">
+  HTTP/3 is already supported by major platforms like Google, Facebook, and Cloudflare. It's becoming the new default
+  for high-performance web communication.
+</Callout>

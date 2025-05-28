@@ -87,78 +87,9 @@ export const tabs = [
 
 A new file `Tab.tsx` will be created in the `components` folder. This component will take the tab data as props and render the tab title and content.
 
-```tsx ts2js title="Tab.tsx"
-'use client';
-
-import { useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import { cn } from 'lib/utils';
-
-interface TabProps {
-  title: string;
-  content: string;
-}
-
-export default function Tab({ contains, className }: { contains: TabProps[]; className?: string }) {
-  const [tab, setTab] = useState(contains[0]);
-
-  return (
-    <div className={cn('my-5', className)}>
-      <div className="space-y-2">
-        {/* menu items */}
-        <div className="max-xsm:text-sm flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 dark:border-[0.5px]">
-          {contains.map((item, idx) => (
-            <button key={idx} className={cn('relative')} onClick={() => setTab(item)}>
-              <AnimatePresence>
-                {tab.title === item.title && (
-                  <motion.div
-                    layoutId="tab-example-pointer"
-                    className={cn(
-                      'absolute inset-0 bottom-0 h-full w-full bg-orange-300/50 backdrop-blur',
-                      idx === 0 && 'rounded-l-sm',
-                      idx === contains.length - 1 && 'rounded-r-sm'
-                    )}
-                  />
-                )}
-              </AnimatePresence>
-              <div className={cn('relative z-[1] flex items-center space-x-2 px-3 py-1 font-light uppercase')}>
-                {/* <item.icon className="h-4 w-auto" /> */}
-                <span>{item.title}</span>
-              </div>
-            </button>
-          ))}
-        </div>
-        {/* content */}
-        <div className="border border-orange-300 px-4 py-5 dark:border-[0.5px]">
-          {/* <code className="h-[30vh] w-full overflow-y-auto">{tab.content}</code> */}
-          {contains.map(
-            (item, idx) =>
-              item.content === tab.content && (
-                <AnimatePresence key={idx}>
-                  <motion.div
-                    initial={{ y: 50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 50, opacity: 0 }}
-                    transition={{
-                      type: 'spring',
-                      duration: 1,
-                      delay: 0.25,
-                      stiffness: 260,
-                      damping: 20
-                    }}
-                    className="h-[30vh] w-full overflow-y-auto"
-                  >
-                    {item.content}
-                  </motion.div>
-                </AnimatePresence>
-              )
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-```
+<include cwd meta='title="components/animated-tab.tsx"'>
+  ./src/components/snippets/tabs/animated-tab.tsx
+</include>
 
 ### Using the Tab component
 
@@ -166,7 +97,7 @@ We will import the `Tab.tsx` component into your component or page example `app/
 
 ```tsx ts2js title="app/page.tsx"
 import { tabs } from '~/data';
-import Tab from '~/components/Tab';
+import Tab from '~/components/animated-tab';
 
 export default function Home() {
   return (

@@ -1,5 +1,5 @@
-import AnimatedGridComponent from '~/components/snippets/grid-component/AnimatedGrid';
-import AnimatedTab from '~/components/snippets/tabs/AnimatedTab';
+import AnimatedGridComponent from '~/components/snippets/grid-component/animated-grid';
+import AnimatedTab from '~/components/snippets/tabs/animated-tab';
 
 export const snippets = {
   AnimatedTab,

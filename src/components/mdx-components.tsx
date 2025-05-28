@@ -102,20 +102,20 @@ const components = {
     <img className={cn('rounded-md border border-neutral-200', className)} alt={alt} {...props} />
   ),
   hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
-    <hr className="my-4 border-neutral-200 md:my-8 dark:border-neutral-800" {...props} />
+    <hr className="my-4 border-neutral-200 md:my-8 dark:border-neutral-600" {...props} />
   ),
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-    <div className="my-6 w-full overflow-y-auto">
-      <table className={cn('w-full', className)} {...props} />
+    <div className="my-6 w-full overflow-auto">
+      <table className={cn('w-full rounded-2xl', className)} {...props} />
     </div>
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
-    <tr className={cn('m-0 border-t border-neutral-300 p-0 even:bg-neutral-100', className)} {...props} />
+    <tr className={cn('m-0 border-t border-neutral-500/50 p-0', className)} {...props} />
   ),
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
       className={cn(
-        'border border-neutral-200 px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right',
+        'border border-neutral-500/50 px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right',
         className
       )}
       {...props}
@@ -124,7 +124,7 @@ const components = {
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td
       className={cn(
-        'border border-neutral-200 px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right',
+        'border border-neutral-500/50 px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right',
         className
       )}
       {...props}

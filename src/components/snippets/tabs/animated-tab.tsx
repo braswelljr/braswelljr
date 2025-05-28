@@ -39,9 +39,7 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
             </button>
           ))}
         </div>
-        {/* content */}
         <div className="border border-orange-300 px-4 py-5 dark:border-[0.5px]">
-          {/* <code className="h-[30vh] w-full overflow-y-auto">{tab.content}</code> */}
           {contains.map(
             (item, idx) =>
               item.content === tab.content && (
