@@ -1,4 +1,4 @@
-import { type Activity } from 'rsc-activity-calendar';
+import { type Activity } from 'react-github-calendar';
 
 export type Primitive = string | number | boolean | bigint | symbol | undefined | null;
 
