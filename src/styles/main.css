@@ -199,7 +199,30 @@
   --max-width-12xl: 120rem;
 
   --color-primary: #e63819;
+  --color-primary-50: #fff3f1;
+  --color-primary-100: #ffe5e0;
+  --color-primary-200: #ffcfc7;
+  --color-primary-300: #ffaea0;
+  --color-primary-400: #ff8069;
+  --color-primary-500: #f9573a;
+  --color-primary-600: #e63819;
+  --color-primary-700: #c22d13;
+  --color-primary-800: #a02914;
+  --color-primary-900: #852817;
+  --color-primary-950: #481107;
   --color-secondary: #ff8d22;
+  --color-secondary-50: #fff8ed;
+  --color-secondary-100: #fff0d4;
+  --color-secondary-200: #ffdda8;
+  --color-secondary-300: #ffc570;
+  --color-secondary-400: #ffa037;
+  --color-secondary-500: #ff8d22;
+  --color-secondary-600: #f06706;
+  --color-secondary-700: #c74d07;
+  --color-secondary-800: #9e3d0e;
+  --color-secondary-900: #7f340f;
+  --color-secondary-950: #451805;
+
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);

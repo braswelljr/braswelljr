@@ -20,7 +20,7 @@ const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
-        'mt-2 scroll-m-20 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-[#ff7056]',
+        'from-secondary to-primary mt-2 scroll-m-20 bg-gradient-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-[#ff7056]',
         className
       )}
       {...props}
@@ -31,7 +31,7 @@ const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        'mt-16 scroll-m-20 border-b border-b-neutral-200 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-2 text-3xl font-semibold tracking-tight text-transparent first:mt-0 dark:border-b-neutral-800 dark:to-[#ff7056]',
+        'from-secondary to-primary mt-16 scroll-m-20 border-b border-b-neutral-200 bg-gradient-to-l bg-clip-text pb-2 text-3xl font-semibold tracking-tight text-transparent first:mt-0 dark:border-b-neutral-800 dark:to-[#ff7056]',
         className
       )}
       {...props}
@@ -42,7 +42,7 @@ const components = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        'mt-12 scroll-m-20 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
+        'from-secondary to-primary mt-12 scroll-m-20 bg-gradient-to-l bg-clip-text text-2xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
         className
       )}
       {...props}
@@ -53,7 +53,7 @@ const components = {
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        'mt-8 scroll-m-20 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
+        'from-secondary to-primary mt-8 scroll-m-20 bg-gradient-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
         className
       )}
       {...props}
@@ -64,7 +64,7 @@ const components = {
   h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h5
       className={cn(
-        'mt-8 scroll-m-20 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-lg font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
+        'from-secondary to-primary mt-8 scroll-m-20 bg-gradient-to-l bg-clip-text text-lg font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
         className
       )}
       {...props}
@@ -75,7 +75,7 @@ const components = {
   h6: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h6
       className={cn(
-        'mt-8 scroll-m-20 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-base font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
+        'from-secondary to-primary mt-8 scroll-m-20 bg-gradient-to-l bg-clip-text text-base font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
         className
       )}
       {...props}
@@ -145,7 +145,7 @@ const components = {
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
       className={cn(
-        'font-cascadia relative rounded bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text px-[0.3rem] py-[0.2rem]',
+        'font-cascadia from-secondary to-primary relative rounded bg-gradient-to-l bg-clip-text px-[0.3rem] py-[0.2rem]',
         className
       )}
       {...props}
