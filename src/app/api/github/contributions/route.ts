@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { endOfWeek, subDays, subYears } from 'date-fns';
-import type { Activity } from 'rsc-activity-calendar';
+import type { Activity } from 'react-github-calendar';
 import { ErrorCause, GitHubProperties } from 'types/types';
 
 export const maxDuration = 60;

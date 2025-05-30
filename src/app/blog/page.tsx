@@ -28,9 +28,9 @@ export default function Page() {
         </h1>
         {/* Body */}
         <div className="relative sm:ml-[calc(2rem+1px)] md:ml-[calc(3.5rem+1px)] lg:ml-[max(calc(14.5rem+1px),calc(100%-48rem))]">
-          <div className="absolute top-3 right-full bottom-0 mr-7 hidden w-px bg-orange-300 sm:block md:mr-[3.25rem]" />
+          <div className="absolute top-3 right-full -bottom-10 mr-7 hidden w-px bg-orange-300 sm:block md:mr-[3.25rem]" />
           <div className="space-y-16">
-            {blogs.map(({ title, description, date, tags, slug, published }, i) => (
+            {blogs.map(({ title, description, date, tags, slug, published, readingTime }, i) => (
               <article key={i} className="group relative">
                 <div className="absolute -inset-x-4 -inset-y-2.5 md:-inset-x-6 md:-inset-y-4" />
                 {/* group-hover:bg-neutral-50/70 dark:group-hover:bg-neutral-800/50 */}
@@ -69,11 +69,9 @@ export default function Page() {
                       )}
                     </div>
                   )}
-                  {/* header */}
                   <h3 className="pt-6 font-semibold tracking-tight text-neutral-900 uppercase lg:pt-2 dark:text-neutral-200">
                     {title}
                   </h3>
-                  {/* description */}
                   <div className="mt-2 mb-4 line-clamp-2 text-sm text-neutral-700 dark:text-neutral-400">
                     {description}
                   </div>
@@ -90,6 +88,7 @@ export default function Page() {
                       ))}
                     </div>
                   )}
+                  <div className="text-sm text-neutral-700 dark:text-neutral-400">{readingTime}</div>
 
                   <dl className="absolute top-0 left-0 lg:right-full lg:left-auto lg:mr-[calc(6.5rem+1px)]">
                     <dt className="sr-only">Date</dt>
@@ -98,7 +97,6 @@ export default function Page() {
                     </dd>
                   </dl>
                 </div>
-                {/* Link */}
                 <Link
                   href={slug}
                   className="link-underline relative mt-5 inline-flex items-center justify-start space-x-2 pb-1.5 text-sm font-medium text-[#ff2600] uppercase hover:[background-size:95%_3px] dark:text-[#ff7056]"

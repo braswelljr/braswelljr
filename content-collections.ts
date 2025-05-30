@@ -2,6 +2,7 @@ import { defineCollection, defineConfig } from '@content-collections/core';
 import { compileMDX } from '@content-collections/mdx';
 import { rehypeCode, remarkGfm, type RehypeCodeOptions } from 'fumadocs-core/mdx-plugins';
 import { remarkInclude } from 'fumadocs-mdx/config';
+import readingTime from 'reading-time';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
 import { codeImport } from 'remark-code-import';
@@ -112,6 +113,7 @@ const blogs = defineCollection({
       body,
       slug,
       params,
+      readingTime: readingTime(document.content).text,
       _id: document._meta.filePath
     };
   }

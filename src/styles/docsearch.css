@@ -161,6 +161,12 @@
   display: none;
 }
 
+.DocSearch-Hits,
+.DocSearch-Hit[id^='docsearch-favoriteSearches-item-'],
+.DocSearch-Hit--favoriting {
+  @apply bg-neutral-100 dark:bg-neutral-900;
+}
+
 .DocSearch-Hit-source {
   margin: 0 1.5rem 1rem;
 
@@ -180,7 +186,7 @@
 }
 
 .DocSearch-Hit-Container {
-  @apply relative flex items-center !gap-4 text-sm;
+  @apply relative flex items-center !gap-4 bg-neutral-100 text-sm dark:bg-neutral-900/40;
 }
 
 .DocSearch-Hit[aria-selected='true'] [title='Remove this search from favorites']::after {
@@ -313,11 +319,11 @@
 }
 
 .DocSearch-Hit--Result {
-  @apply rounded-lg bg-neutral-50 dark:bg-neutral-700/30;
+  @apply rounded-lg bg-neutral-50 dark:bg-neutral-800;
 }
 
 .DocSearch-Hit[aria-selected='true'] .DocSearch-Hit--Result {
-  @apply bg-neutral-500 dark:bg-neutral-600;
+  @apply bg-neutral-400 dark:bg-neutral-700;
 }
 
 .DocSearch-Hit--FirstChild::before {

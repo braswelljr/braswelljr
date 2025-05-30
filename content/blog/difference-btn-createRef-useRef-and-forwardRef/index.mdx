@@ -15,6 +15,173 @@ resources:
     url: https://react.dev/reference/react/useRef
   - title: createRef
     url: https://react.dev/reference/react/createRef
+published: true
 ---
 
 Refs are in react are used to create references to certain values and nodes in the react DOM.
+
+Refs in React provide a way to access DOM nodes or React elements created in the render method. While they might seem similar at first glance, `createRef`, `useRef`, and `forwardRef` serve distinct purposes and are used in different scenarios.
+
+## Comparison Table
+
+| Feature         | `createRef`                       | `useRef`                                              | `forwardRef`                                             |
+| --------------- | --------------------------------- | ----------------------------------------------------- | -------------------------------------------------------- |
+| **Type**        | Function (for class components)   | Hook (for functional components)                      | HOC (Higher-Order Component)                             |
+| **Purpose**     | Create a ref for class components | Create a mutable ref object for functional components | Pass a ref from a parent to a child functional component |
+| **Persistence** | New ref on every render           | Persists across renders                               | Parent's ref is attached to a child's DOM node           |
+| **Usage**       | `this.myRef = createRef();`       | `const myRef = useRef(initialValue);`                 | `const MyComponent = forwardRef((props, ref) => ...)`    |
+| **Mutating**    | `this.myRef.current`              | `myRef.current`                                       | `ref` is passed and attached to a DOM node               |
+| **When to Use** | Legacy class components           | Functional components and stable references           | Parent needs direct access to child DOM node             |
+
+## createRef (Functional Equivalent with useRef)
+
+Although `createRef` is traditionally used in class components, its functional counterpart is `useRef`, which serves the same purpose in functional components.
+
+### Example: using `useRef` for DOM access
+
+```tsx id="tab-language" ts2js
+import React, { useRef } from 'react';
+
+export function CreateRefFunctionalExample() {
+  const myInputRef = useRef<HTMLInputElement>(null);
+
+  const focusInput = () => {
+    if (myInputRef.current) {
+      myInputRef.current.focus();
+    }
+  };
+
+  return (
+    <div>
+      <h3>`createRef` Equivalent with `useRef` (Functional)</h3>
+      <input type="text" ref={myInputRef} />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+```
+
+## useRef
+
+useRef is a Hook that returns a mutable ref object persisting across renders. It's the go-to ref tool for functional components.
+
+### Example 1: Accessing a DOM Element
+
+```tsx id="tab-language" ts2js
+import React, { useRef } from 'react';
+
+export function ComponentWithRef() {
+  const myInputRef = useRef<HTMLInputElement>(null);
+
+  const focusInput = () => {
+    if (myInputRef.current) {
+      myInputRef.current.focus();
+    }
+  };
+
+  return (
+    <div>
+      <h3>`useRef` (Accessing DOM Element)</h3>
+      <input type="text" ref={myInputRef} />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+```
+
+### Example 2: Storing Mutable Value
+
+```tsx id="tab-language" ts2js
+import React, { useRef } from 'react';
+
+export function CounterWithoutRerender() {
+  const countRef = useRef<number>(0);
+
+  const increment = () => {
+    countRef.current++;
+    console.log('Count (from ref):', countRef.current);
+  };
+
+  return (
+    <div>
+      <h3>`useRef` (Storing Mutable Value)</h3>
+      <p>Count (from ref - check console): {countRef.current}</p>
+      <button onClick={increment}>Increment Count</button>
+      <p className="text-sm text-gray-500">
+        (Note: The displayed count above won't update until a re-render is triggered by something else.)
+      </p>
+    </div>
+  );
+}
+```
+
+## forwardRef
+
+forwardRef is a Higher-Order Component that allows a parent component to pass a ref down to a child, which can attach it to a DOM node.
+
+<Callout>💡 Without forwardRef, passing a ref to a functional component will result in an error.</Callout>
+
+### Example: using forwardRef on components
+
+```tsx id="tab-language" ts2js title="button.tsx"
+import { forwardRef } from 'react';
+
+interface MyButtonProps {
+  className?: string;
+}
+
+const MyButton = forwardRef<HTMLButtonElement, MyButtonProps>(({ children, className }, ref) => {
+  return (
+    <button
+      ref={ref}
+      className={`rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 ${className}`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+});
+MyButton.displayName = 'Button';
+
+export { MyButton };
+```
+
+Using the button Component
+
+```tsx id="tab-language" ts2js title="App.tsx"
+import React, { useRef } from 'react';
+import MyButton from './button';
+
+export default function AppWithForwardRef() {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const handleFocusButtonClick = () => {
+    if (buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  };
+
+  return (
+    <div>
+      <h3>`forwardRef` Example</h3>
+      <MyButton ref={buttonRef} onClick={() => console.log('Button clicked!')}>
+        Click Me
+      </MyButton>
+      <button
+        onClick={handleFocusButtonClick}
+        className="ml-4 rounded-md bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+      >
+        Focus the MyButton
+      </button>
+    </div>
+  );
+}
+```
+
+## Conclusion
+
+| `USE THIS`                                          | `WHEN`                                                                       |
+| --------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `createRef` (via `useRef` in functional components) | For accessing DOM or component refs in functional components.                |
+| `useRef`                                            | For mutable values or DOM references that persist across renders.            |
+| `forwardRef`                                        | When a parent needs access to a DOM element in a child functional component. |

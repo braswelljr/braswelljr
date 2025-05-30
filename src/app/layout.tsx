@@ -61,7 +61,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <head />
       <body
         className={cn(
-          'min-h-dvh bg-white font-sans text-neutral-900 antialiased dark:bg-neutral-900 dark:text-white',
+          'min-h-dvh scroll-smooth bg-white font-sans text-neutral-900 antialiased dark:bg-neutral-900 dark:text-white',
           Satoshi.className,
           Inter.variable,
           JetbrainsMono.variable,

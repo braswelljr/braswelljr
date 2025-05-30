@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { MDXContent } from '@content-collections/mdx/react';
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+import { Callout } from 'fumadocs-ui/components/callout';
 import { Card } from 'fumadocs-ui/components/card';
 import { CodeBlock, Pre } from 'fumadocs-ui/components/codeblock';
 import * as FilesComponents from 'fumadocs-ui/components/files';
@@ -14,7 +15,6 @@ import type { MDXComponents } from 'mdx/types';
 import { snippets } from '~/components/snippets';
 import { ComponentExample } from './component-example';
 import { Mermaid } from './mermaid';
-import { Callout } from './ui/callout';
 
 const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
@@ -24,25 +24,31 @@ const components = {
         className
       )}
       {...props}
-    />
+    >
+      <span className="text-sm">#</span> {props.children}
+    </h1>
   ),
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        'mt-4 scroll-m-20 border-b border-b-neutral-200 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-2 text-3xl font-semibold tracking-tight text-transparent first:mt-0 dark:border-b-neutral-800 dark:to-[#ff7056]',
+        'mt-16 scroll-m-20 border-b border-b-neutral-200 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-2 text-3xl font-semibold tracking-tight text-transparent first:mt-0 dark:border-b-neutral-800 dark:to-[#ff7056]',
         className
       )}
       {...props}
-    />
+    >
+      <span className="text-sm">##</span> {props.children}
+    </h2>
   ),
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        'mt-8 scroll-m-20 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
+        'mt-12 scroll-m-20 bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
         className
       )}
       {...props}
-    />
+    >
+      <span className="text-sm">###</span> {props.children}
+    </h3>
   ),
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
@@ -51,7 +57,9 @@ const components = {
         className
       )}
       {...props}
-    />
+    >
+      <span className="text-sm">####</span> {props.children}
+    </h4>
   ),
   h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h5
@@ -60,7 +68,9 @@ const components = {
         className
       )}
       {...props}
-    />
+    >
+      <span className="text-sm">#####</span> {props.children}
+    </h5>
   ),
   h6: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h6
@@ -69,7 +79,9 @@ const components = {
         className
       )}
       {...props}
-    />
+    >
+      <span className="text-sm">######</span> {props.children}
+    </h6>
   ),
   a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
     <a
@@ -131,7 +143,13 @@ const components = {
     />
   ),
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <code className={cn('font-cascadia relative rounded px-[0.3rem] py-[0.2rem] text-sm', className)} {...props} />
+    <code
+      className={cn(
+        'font-cascadia relative rounded bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text px-[0.3rem] py-[0.2rem]',
+        className
+      )}
+      {...props}
+    />
   ),
   pre: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
     return (

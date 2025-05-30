@@ -85,7 +85,11 @@ export default async function Page({ params }: PageProps) {
             )}
             {blog?.body && <Mdx code={blog?.body} className="pt-8" />}
           </div>
-          <div className="">
+          <div className="mt-10">
+            <div className="space-y-2">
+              <p>Published on {new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(blog.date)}</p>
+              <p>{blog.readingTime}</p>
+            </div>
             <Separator className="my-4 md:my-6" />
             <BlogPaginate blogs={allBlogs} activeBlog={blog} />
           </div>
