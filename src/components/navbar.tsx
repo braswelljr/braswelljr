@@ -33,7 +33,7 @@ export const nav = [
     icon: FaSpotify
   },
   {
-    name: 'Projects / Technical Skills',
+    name: 'Projects/Technical Skills',
     path: '/projects',
     icon: HiCode
   },
@@ -125,7 +125,7 @@ export default function Navbar({ className }: { className?: string }) {
                 )}
               />
             )}
-            <span className={cn('flex items-center space-x-2 font-light uppercase')}>{item.name}</span>
+            <span className={cn('flex items-center space-x-2 uppercase')}>{item.name}</span>
           </Link>
         ))}
       </div>
