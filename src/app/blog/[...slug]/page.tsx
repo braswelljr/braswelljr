@@ -1,8 +1,11 @@
 import { type Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { FaGithub } from 'react-icons/fa6';
 import { MdOutlineWorkspacePremium } from 'react-icons/md';
 import { allBlogs } from 'content/generated';
 import { subDays } from 'date-fns';
+import { Callout } from 'fumadocs-ui/components/callout';
 import { createMetadata } from 'lib/metadata';
 import { getTableOfContents } from 'lib/toc';
 import { cn } from 'lib/utils';
@@ -85,11 +88,26 @@ export default async function Page({ params }: PageProps) {
             )}
             {blog?.body && <Mdx code={blog?.body} className="pt-8" />}
           </div>
-          <div className="mt-10">
+          <div className="mt-10 space-y-10">
             <div className="space-y-2">
               <p>Published on {new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(blog.date)}</p>
               <p>{blog.readingTime}</p>
             </div>
+            <Callout type="warn" title="Found an Issue!">
+              <p className="">
+                Find an issue with this post? Think you could clarify, update or add something? All my posts are
+                available to edit on Github. Any fix, little or small, is appreciated!
+              </p>
+              <Link
+                href={`https://github.com/braswelljr/braswelljr/blob/main/content/blog/${blog.params}/index.mdx`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline mt-4 inline-flex w-auto items-center gap-2 pb-1 text-base"
+              >
+                <FaGithub className="size-4" />
+                Edit on GitHub
+              </Link>
+            </Callout>
             <Separator className="my-4 md:my-6" />
             <BlogPaginate blogs={allBlogs} activeBlog={blog} />
           </div>

@@ -7,6 +7,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
 import { codeImport } from 'remark-code-import';
 import { visit } from 'unist-util-visit';
+import { z } from 'zod';
 import { rehypeComponent } from './lib/rehype-component';
 import { remarkInstall } from './lib/remark-install';
 import { remarkTypeScriptToJavaScript } from './lib/remark-ts2js';
@@ -15,7 +16,7 @@ const blogs = defineCollection({
   name: 'blogs',
   directory: 'content/blog',
   include: '**/*.md(x)?',
-  schema: z => ({
+  schema: z.object({
     title: z.string().describe('The title of the post'),
     date: z.coerce.date().describe('The date of the post'),
     description: z.string().describe('The description of the post'),
