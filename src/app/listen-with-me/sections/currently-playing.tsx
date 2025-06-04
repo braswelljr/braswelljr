@@ -39,7 +39,7 @@ export default function CurrentlyPlaying({ className }: { className?: string }) 
     <div className={cn('space-y-8', className)}>
       <section className="w-full rounded-xl bg-neutral-300/80 p-2 dark:bg-neutral-800/80">
         <nav className="flex items-center justify-between px-2">
-          <h2 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text font-semibold tracking-tight text-transparent uppercase dark:to-[#ff7056]">
+          <h2 className="from-secondary to-primary bg-gradient-to-l bg-clip-text font-semibold tracking-tight text-transparent uppercase dark:to-[#ff7056]">
             {data?.data
               ? 'Curently Playing'
               : cd?.data && Array.isArray(cd?.data) && cd?.data?.length
@@ -68,7 +68,7 @@ export default function CurrentlyPlaying({ className }: { className?: string }) 
 
       <section className={cn('', className)}>
         <nav className="flex items-center justify-between">
-          <h2 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]">
+          <h2 className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]">
             Recently Played
           </h2>
           <button

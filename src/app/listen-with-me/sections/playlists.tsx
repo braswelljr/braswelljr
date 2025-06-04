@@ -41,7 +41,7 @@ export function Playlist({ className }: { className?: string }) {
   return (
     <section className={cn('', className)}>
       <nav className="flex items-center justify-between">
-        <h2 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]">
+        <h2 className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]">
           Playlist
         </h2>
         <button
@@ -108,7 +108,7 @@ export function PlaylistData({ className, data }: { className?: string; data: Pa
               </CardContent>
               <CardFooter className="flex-col items-start gap-2 p-4 pt-0">
                 <span
-                  className="group flex items-center justify-center gap-2 hover:text-[#ff8d22]"
+                  className="group hover:text-secondary flex items-center justify-center gap-2"
                   onClick={e => {
                     e.stopPropagation(); // Prevent triggering the parent link
                     window.open(playlist.external_urls?.spotify, '_blank', 'noopener noreferrer');

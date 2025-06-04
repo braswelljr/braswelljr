@@ -23,7 +23,7 @@ export function TopTracks({ className }: { className?: string }) {
   return (
     <section className={cn('', className)}>
       <nav className="flex items-center justify-between">
-        <h2 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]">
+        <h2 className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]">
           Top Tracks
         </h2>
         <button

@@ -2,7 +2,7 @@
 
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { HiOutlineExternalLink } from 'react-icons/hi';
+import { HiArrowLeft } from 'react-icons/hi';
 import { useStore } from '~/store/store';
 import { TableOfContents as TableOfContentsType } from 'lib/toc';
 import { cn } from 'lib/utils';
@@ -70,12 +70,12 @@ function Content({ toc, className, resources }: TocProps) {
         {/* blogs */}
         <Link
           href="/blog"
-          className="group/link relative inline-flex items-center space-x-2 pb-1.5 text-[#ff2600] uppercase dark:text-[#ff8d22]"
+          className="group/link dark:text-secondary text-primary relative inline-flex items-center space-x-2 pb-1.5 uppercase"
         >
-          <HiOutlineExternalLink className="h-3.5 w-auto" />
+          <HiArrowLeft className="h-3 w-auto" />
           <span>Back to blog</span>
           <span
-            className="transition-width absolute right-2 bottom-0 -left-2 h-0.5 w-0 bg-current group-hover/link:w-full"
+            className="absolute right-2 bottom-0 -left-2 h-0.5 w-0 bg-current transition-[width] group-hover/link:w-full"
             aria-hidden="true"
           />
         </Link>
@@ -90,7 +90,7 @@ function Content({ toc, className, resources }: TocProps) {
             {resources.map((resource, i) => (
               <li
                 key={i}
-                className="text-sm font-medium text-neutral-600 hover:text-[#ff2600] hover:underline dark:text-neutral-400 dark:hover:text-[#ff8d22]"
+                className="dark:hover:text-secondary hover:text-primary text-sm font-medium text-neutral-600 hover:underline dark:text-neutral-400"
               >
                 <Link href={resource.url}>{resource.title}</Link>
               </li>

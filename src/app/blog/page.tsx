@@ -23,7 +23,7 @@ export default function Page() {
     <div className="px-4 py-10 max-lg:pt-28">
       <div className="mx-auto max-w-4xl px-4 text-gray-800 *:space-y-6 sm:mt-14 sm:*:space-y-10 dark:text-neutral-100">
         {/* Header */}
-        <h1 className="bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-[#ff7056]">
+        <h1 className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-[#ff7056]">
           Blog
         </h1>
         {/* Body */}
@@ -99,7 +99,7 @@ export default function Page() {
                 </div>
                 <Link
                   href={slug}
-                  className="link-underline relative mt-5 inline-flex items-center justify-start space-x-2 pb-1.5 text-sm font-medium text-[#ff2600] uppercase hover:[background-size:95%_3px] dark:text-[#ff7056]"
+                  className="link-underline text-primary relative mt-5 inline-flex items-center justify-start space-x-2 pb-1.5 text-sm font-medium uppercase hover:[background-size:95%_3px] dark:text-[#ff7056]"
                 >
                   <span className="">
                     Read more<span className="sr-only">, {title}</span>

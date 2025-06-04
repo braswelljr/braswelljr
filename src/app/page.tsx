@@ -39,7 +39,7 @@ export default function Page() {
         </div>
         <div className="space-y-8 md:space-y-12">
           <div className="text-center text-lg font-extralight sm:text-xl md:text-2xl">
-            <div className="">I am</div> <div className="">Braswell Kenneth Azu Jr.</div>
+            <div className="">I am</div> <div className="font-cascadia font-bold">Braswell Kenneth Azu Jr.</div>
           </div>
           {roles.map(
             (role, id) =>
@@ -47,7 +47,7 @@ export default function Page() {
                 <motion.div
                   key={id}
                   className={cn(
-                    'xxs:text-2xl xsm:text-3xl bg-gradient-to-l from-[#ff8d22] to-[#ff2600] bg-clip-text pb-3 text-center font-sans text-xl font-black text-transparent uppercase sm:text-4xl md:text-5xl dark:to-[#ff7056]'
+                    'xxs:text-2xl xsm:text-3xl to-primary bg-gradient-to-l from-[#ff8d22] bg-clip-text pb-3 text-center font-sans text-xl font-black text-transparent uppercase sm:text-4xl md:text-5xl dark:to-[#ff7056]'
                   )}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -62,9 +62,15 @@ export default function Page() {
             {device === 'desktop' ? (
               <FloatingDock
                 className="mx-auto justify-center rounded-md bg-white/40 backdrop-blur dark:bg-neutral-900/40"
-                items={socials.map(s => ({ title: s.name, icon: <s.icon className="size-9" />, href: s.url }))}
+                items={socials.map(s => ({
+                  title: s.name,
+                  icon: <s.icon className="size-9" />,
+                  href: s.url,
+                  target: '_blank',
+                  rel: 'noopener noreferrer'
+                }))}
                 classNames={{
-                  container: 'data-[motion-hover=true]:bg-gradient-to-l from-[#ff8d22] to-[#ff2600] backdrop-blur-md'
+                  container: 'data-[motion-hover=true]:bg-gradient-to-l from-secondary to-primary backdrop-blur-md'
                 }}
               />
             ) : (
@@ -76,6 +82,20 @@ export default function Page() {
                 ))}
               </div>
             )}
+          </div>
+
+          <div className="text-center">
+            Reach out at{' '}
+            <Link
+              href="mailto:{braswellkenneth7@gmail.com}"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline font-cascadia pb-1 font-bold"
+            >
+              <span className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-transparent">
+                braswellkenneth7@gmail.com
+              </span>
+            </Link>
           </div>
         </div>
       </section>

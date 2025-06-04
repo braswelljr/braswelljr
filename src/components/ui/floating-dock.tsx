@@ -1,11 +1,12 @@
+'use client';
+
 /**
  * Note: Use position fixed according to your needs
  * Desktop navbar is better positioned at the bottom
  * Mobile navbar is better positioned at bottom right.
  **/
-
 import { useRef, useState } from 'react';
-import Link from 'next/link';
+import Link, { type LinkProps } from 'next/link';
 import {
   AnimatePresence,
   motion,
@@ -17,7 +18,7 @@ import {
 } from 'motion/react';
 import { cn } from 'lib/utils';
 
-export type IconT = { title: string; icon: React.ReactNode; href: string };
+export type IconT = LinkProps & { title: string; icon: React.ReactNode };
 
 export default function FloatingDock({
   items,
@@ -40,9 +41,17 @@ export default function FloatingDock({
         className
       )}
     >
-      {items.map(item => (
-        <IconContainer mouseX={mouseX} key={item.title} {...item} classNames={classNames} springConfig={springConfig} />
-      ))}
+      {items.map(item => {
+        return (
+          <IconContainer
+            mouseX={mouseX}
+            key={item.title}
+            {...item}
+            classNames={classNames}
+            springConfig={springConfig}
+          />
+        );
+      })}
     </motion.div>
   );
 }
@@ -54,11 +63,10 @@ type IconClassNames = {
   title?: string;
 };
 
-type IconContainerProps = {
+type IconContainerProps = LinkProps & {
   mouseX: MotionValue;
   title: string;
   icon: React.ReactNode;
-  href: string;
   classNames?: IconClassNames;
   springConfig?: SpringOptions;
 };
@@ -73,7 +81,8 @@ function IconContainer({
     mass: 0.1,
     stiffness: 150,
     damping: 12
-  }
+  },
+  ...props
 }: IconContainerProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -98,7 +107,7 @@ function IconContainer({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <Link href={href} className={cn(classNames?.base)}>
+    <Link href={href} className={cn(classNames?.base)} {...props}>
       <motion.div
         ref={ref}
         style={{ width, height }}

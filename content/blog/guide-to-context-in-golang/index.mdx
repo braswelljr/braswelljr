@@ -15,8 +15,275 @@ resources:
     url: https://pkg.go.dev/context
 ---
 
-Context is a powerful feature in Golang. It allows you to pass data, cancel a process, and more. Learn how to use it in this guide.
-
 ## What is Context?
 
 Context is a package in Golang that allows you to pass data, cancel a process and more. It is a powerful feature that can be used in many different ways and built into the go standard library.
+
+Go's `context` package is one of those fundamental pieces of the language that, once you "get it," unlocks a whole new level of control and robustness in your concurrent applications.
+
+Let's dive in.
+
+## Why Do We Need Context?
+
+In Go, when you launch goroutines, they run independently. If you start a long-running operation in a goroutine (like a database query, an external API call, or a complex computation), how do you tell it to stop if the client disconnects, the request times out, or a parent operation is canceled? Without `context`, this can become a tangled mess of channels and manual signaling.
+
+`context` provides a standardized, idiomatic way to manage these concerns. It allows you to propagate cancellation signals, deadlines, and request-scoped values down the call chain, across goroutine boundaries.
+
+## The `Context` Interface
+
+At its core, `context.Context` is an interface:
+
+```go title="context.go"
+// From the Go standard library:
+type Context interface {
+  Deadline() (deadline time.Time, ok bool)
+  Done() <-chan struct{}
+  Err() error
+  Value(key any) any
+}
+```
+
+- `Deadline()`: Returns the time when the context will be canceled (if a deadline is set).
+- `Done()`: Returns a channel that is closed when the context is canceled or its deadline passes. This is what goroutines listen to for cancellation signals.
+- `Err()`: Returns the error that caused the context to be canceled.
+- `Value(key any)`: Retrieves a value associated with a given key from the context.
+
+## Root Contexts
+
+You'll usually start with one of two "root" contexts:
+
+### `context.Background()`
+
+This is the ultimate ancestor of all contexts. It's a non-nil, empty context that is never canceled. You use it as the base for the top-level operations in your application, like a main function or an incoming HTTP request.
+
+```go title="example/background.go" showLineNumbers>
+package main
+
+import (
+  "context"
+  "fmt"
+  "time"
+)
+
+func main() {
+  ctx := context.Background()
+  fmt.Println("Background Context:", ctx)
+  // You wouldn't typically use Background directly for long-running ops
+  // but as a starting point to derive other contexts.
+  time.Sleep(1 * time.Second)
+}
+```
+
+### `context.TODO()`
+
+Similar to Background(), it's an empty context that's never canceled. However, TODO() is used when you're unsure which context to use, or if the parent context isn't yet available (e.g., in early stages of development or when prototyping). It's a placeholder, a signal that you need to fill in the proper context later.
+
+<Callout type="warning" title="warning">
+  Avoid using `context.TODO()` in production code. It's meant for temporary use and indicates incomplete design.
+</Callout>
+
+## Derived Contexts: Adding Functionality
+
+Most of the time, you'll derive new contexts from an existing one (often Background()). This creates a tree-like hierarchy, where canceling a parent context automatically cancels all its children.
+
+### `context.WithCancel()`
+
+This is your go-to for explicit cancellation. It returns a new context and a CancelFunc. Calling the CancelFunc signals all goroutines listening to that context's Done() channel to stop.
+
+```go title="example/with-cancel.go"
+package main
+
+import (
+  "context"
+  "fmt"
+  "time"
+)
+
+func performTask(ctx context.Context, taskName string) {
+  fmt.Printf("%s: Starting...\n", taskName)
+  select {
+    case <-time.After(3 * time.Second):
+      // Simulate work taking 3 seconds
+      fmt.Printf("%s: Completed!\n", taskName)
+    case <-ctx.Done():
+      // Context was canceled
+      fmt.Printf("%s: Canceled! Reason: %v\n", taskName, ctx.Err())
+  }
+}
+
+func main() {
+  ctx, cancel := context.WithCancel(context.Background())
+  defer cancel() // Always call cancel to release resources
+
+  go performTask(ctx, "Long Running Task")
+
+  // Simulate some other work
+  time.Sleep(1 * time.Second)
+  fmt.Println("Main: Canceling the task after 1 second...")
+  cancel() // Cancel the context
+
+  time.Sleep(2 * time.Second) // Give time for the goroutine to react
+  fmt.Println("Main: Exiting.")
+}
+```
+
+#### Output:
+
+```bash
+Long Running Task: Starting...
+Main: Canceling the task after 1 second...
+Long Running Task: Canceled! Reason: context canceled
+Main: Exiting.
+```
+
+### `context.WithTimeout()`
+
+For operations that must complete within a certain duration, WithTimeout() is invaluable. It returns a new context and a CancelFunc. The context automatically cancels itself after the specified timeout duration.
+
+```go title="example/timeout.go"
+package main
+
+import (
+  "context"
+  "fmt"
+  "time"
+)
+
+func fetchData(ctx context.Context) {
+  fmt.Println("Fetching data: Starting...")
+  select {
+    case <-time.After(2 * time.Second):
+      // Simulate network call taking 2 seconds
+      fmt.Println("Fetching data: Successfully retrieved!")
+    case <-ctx.Done():
+      // Context timed out
+      fmt.Printf("Fetching data: Timed out! Reason: %v\n", ctx.Err())
+  }
+}
+
+func main() {
+  // Set a timeout of 1 second
+  ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+  defer cancel() // Don't forget to call cancel!
+
+  go fetchData(ctx)
+
+  time.Sleep(3 * time.Second) // Give time for goroutine to finish or timeout
+  fmt.Println("Main: Exiting.")
+}
+```
+
+#### Output
+
+```bash
+Fetching data: Starting...
+Fetching data: Timed out! Reason: context deadline exceeded
+Main: Exiting.
+```
+
+### `context.WithDeadline()`
+
+Similar to `context.WithTimeout()`, but instead of a duration, you specify an exact time.Time when the context should be canceled.
+
+```go title="example/deadline.go"
+package main
+
+import (
+  "context"
+  "time"
+)
+
+func main() {
+  // Example usage (conceptual):
+  deadline := time.Now().Add(5 * time.Second)
+  ctx, cancel := context.WithDeadline(context.Background(), deadline)
+  defer cancel()
+  // ... use ctx
+}
+```
+
+### `context.WithValue()`
+
+This allows you to attach request-scoped values to a context. This is useful for passing metadata like a request ID, user ID, or tracing information down the call chain without polluting function signatures.
+
+#### Important Considerations for `context.WithValue`
+
+- Keys should be custom types: Use `type myKey` string or an unexported struct type as a key to avoid collisions with
+  other packages.
+- Values should be immutable: Contexts are designed for read-only values.
+- Not a replacement for arguments: Don't use `context.WithValue` to pass essential function parameters; pass them
+  explicitly.
+- Use sparingly: Overuse can lead to less explicit dependencies.
+
+```go title="example/with-value.go"
+package main
+
+import (
+  "context"
+  "fmt"
+  "time"
+)
+
+// Define a custom type for the key to avoid collisions
+type RequestIDKey string
+
+func processRequest(ctx context.Context) {
+  requestID := ctx.Value(RequestIDKey("requestID"))
+  if requestID != nil {
+    fmt.Printf("Processing request with ID: %s\n", requestID)
+  } else {
+    fmt.Println("Processing request (no ID found)")
+  }
+
+  select {
+    case <-time.After(1 * time.Second):
+      fmt.Println("Request processed successfully.")
+    case <-ctx.Done():
+      fmt.Printf("Request processing canceled. Reason: %v\n", ctx.Err())
+  }
+}
+
+func main() {
+  // Create a context with a request ID
+  ctx := context.WithValue(context.Background(), RequestIDKey("requestID"), "req-12345")
+
+  // Start processing the request in a goroutine
+  go processRequest(ctx)
+
+  // Simulate main function doing other things
+  time.Sleep(2 * time.Second)
+  fmt.Println("Main: Exiting.")
+}
+```
+
+#### Output
+
+```bash
+Processing request with ID: req-12345
+Request processed successfully.
+Main: Exiting.
+```
+
+## Widely Adopted Practices
+
+1. **_Pass Context as the First Argument_**
+
+Always pass context.Context as the very first argument in your function signatures. This is a widely adopted Go convention:
+
+```go
+func MyFunction(ctx context.Context, arg1 string, arg2 int) error {
+  // ...
+}
+```
+
+2. **_Always defer `cancel()`_**
+
+When you use `context.WithCancel`, `context.WithTimeout`, or `context.WithDeadline`, you receive a CancelFunc. Always defer calling this function to ensure resources associated with the context are released, even if the operation completes or panics.
+
+3. **_Error Handling_**
+
+Use `ctx.Err()` to determine why a context was canceled (e.g., `context.Canceled` or `context.DeadlineExceeded`).
+
+## Conclusion
+
+The context package is a cornerstone of modern Go programming, especially when dealing with concurrency, network services, and long-running operations. By providing a standardized way to manage cancellation, deadlines, and request-scoped values, it helps you write more robust, efficient, and well-behaved Go applications. Master context, and you'll wield a powerful tool for building production-ready Go services.
