@@ -35,8 +35,8 @@ export const career: Array<Career> = [
     companyLink: '#',
     date: 'Jul 2023 - Nov 2024',
     description: [
-      'Built and maintained frontend applications.',
-      'Collaborated across design and backend teams.',
+      'Built and maintained frontend web applications (Web3, Crypto, EMS Software).',
+      'Collaborated with the backend team to plan database schemas and parameters.',
       'Simplified enterprise systems with user-friendly interfaces.'
     ]
   },
@@ -47,8 +47,8 @@ export const career: Array<Career> = [
     companyLink: 'https://morlan.tech',
     date: 'Apr 2022 - Aug 2024',
     description: [
-      'Designed backend APIs and developed frontend and mobile apps.',
-      'Contributed to the Carbazza Project.',
+      'Spearheaded the development of web applications using React and TypeScript.',
+      'Collaborated with mobile developers working with Flutter.',
       'Built cloud and edge functions using Firebase and Supabase.'
     ]
   },
@@ -58,7 +58,10 @@ export const career: Array<Career> = [
     company: 'Solar Taxi, Accra, Ghana',
     companyLink: 'https://solartaxi.co',
     date: 'Nov 2022 - Sep 2023',
-    description: ['Built backend APIs and refactored legacy code.', 'Developed frontend features for the Wote Project.']
+    description: [
+      'Managed and maintained Wote backend APIs using Go.',
+      'Developed enterprise web application features using React and TypeScript.'
+    ]
   },
   {
     role: 'Software Engineer',
@@ -67,8 +70,8 @@ export const career: Array<Career> = [
     companyLink: 'https://kumasi-hive.com',
     date: 'Apr 2021 - Nov 2021',
     description: [
-      'Designed UIs for mobile/web and assisted on the Hive Institute platform.',
-      'Shadowed senior engineers and expanded skill set.'
+      'Designed UIs for mobile/web platforms and contributed to the Hive Institute project.',
+      'Shadowed senior engineers and acquired new technical skills.'
     ]
   },
   {
@@ -76,10 +79,10 @@ export const career: Array<Career> = [
     type: '(Freelance)',
     company: 'Freelancing',
     companyLink: '#',
-    date: 'Sep 2018 - Present',
+    date: 'Jun 2020 - Present',
     description: [
       'Built websites and applications for startups and institutions.',
-      'Handled full project lifecycle from requirements to delivery.'
+      'Handled full project lifecycle from requirements gathering to deployment.'
     ]
   }
 ];
