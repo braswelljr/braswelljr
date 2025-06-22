@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { cn } from 'lib/utils';
 import { socials } from '~/config/data';
 import { useDevice } from '~/hooks/useDevice';
@@ -41,23 +41,25 @@ export default function Page() {
           <div className="text-center text-lg font-extralight sm:text-xl md:text-2xl">
             <div className="">I am</div> <div className="font-cascadia font-bold">Braswell Kenneth Azu Jr.</div>
           </div>
-          {roles.map(
-            (role, id) =>
-              r === id && (
-                <motion.div
-                  key={id}
-                  className={cn(
-                    'xxs:text-2xl xsm:text-3xl to-primary bg-gradient-to-l from-[#ff8d22] bg-clip-text pb-3 text-center font-sans text-xl font-black text-transparent uppercase sm:text-4xl md:text-5xl dark:to-[#ff7056]'
-                  )}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 20, opacity: 0 }}
-                  transition={{ type: 'spring', duration: 1, delay: 0.25, stiffness: 260, damping: 20 }}
-                >
-                  a {role}
-                </motion.div>
-              )
-          )}
+          <AnimatePresence mode="wait">
+            {roles.map(
+              (role, id) =>
+                r === id && (
+                  <motion.div
+                    key={id}
+                    className={cn(
+                      'xxs:text-2xl xsm:text-3xl to-primary bg-gradient-to-l from-[#ff8d22] bg-clip-text pb-3 text-center font-sans text-xl font-black text-transparent uppercase sm:text-4xl md:text-5xl dark:to-[#ff7056]'
+                    )}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 20, opacity: 0 }}
+                    transition={{ type: 'spring', duration: 1, delay: 0.25, stiffness: 260, damping: 20 }}
+                  >
+                    a {role}
+                  </motion.div>
+                )
+            )}
+          </AnimatePresence>
           <div className="mx-auto w-full max-w-sm">
             {device === 'desktop' ? (
               <FloatingDock

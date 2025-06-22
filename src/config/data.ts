@@ -18,6 +18,17 @@ export const education = [];
 export const career: Array<Career> = [
   {
     role: 'Software Engineer',
+    type: '(Fulltime)',
+    company: ' Global Tech Network LLC, US',
+    companyLink: '#',
+    date: 'June 2025 - Current',
+    description: [
+      'Collaborate and implement web animations and applications for clients (React).',
+      'Shadow and collaborate Senior Engineers to implement authentication and security for dashboards (PHP/React/TypeScript).'
+    ]
+  },
+  {
+    role: 'Software Engineer',
     type: '(Contract)',
     company: 'SonicAI, US',
     companyLink: '#',
