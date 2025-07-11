@@ -1,0 +1,29 @@
+---
+title: createPortal (React)
+description: Using the react dom create portal to lift dom elements into the root.
+tags:
+  - react
+  - react-dom
+date: 2025-07-1
+published: true
+---
+
+## Requirements
+
+React's `createPortal` API allows you to render elements outside of their parent component’s DOM hierarchy. This is especially useful when dealing with UI elements like modals, tooltips, dropdowns, and overlays that must break out of the normal rendering flow.
+
+---
+
+## 📦 Requirements
+
+To use `createPortal`, make sure your project meets these requirements:
+
+- React 16 or higher
+- `react-dom` installed
+- An additional DOM node (e.g. a `div#modal-root`) defined in your base HTML
+
+Install React and ReactDOM if you haven't already:
+
+```package-install
+npm install react react-dom
+```
