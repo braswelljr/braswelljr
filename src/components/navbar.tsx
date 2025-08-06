@@ -85,7 +85,7 @@ export default function Navbar({ className }: { className?: string }) {
       )}
     >
       <div className="max-w-40 lg:w-full">
-        {pathname.startsWith('/blog/') ? (
+        {pathname.startsWith('/blog/')&& !lg ? (
           <button
             type="button"
             className={cn(
