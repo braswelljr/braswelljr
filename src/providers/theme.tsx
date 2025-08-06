@@ -25,7 +25,11 @@ export function ThemeProvider({ children }: { children?: ReactNode }) {
   }, [innerHeight, innerWidth]);
 
   return (
-    <Theme enableSystem defaultTheme="light" attribute="class">
+    <Theme
+      enableSystem
+      defaultTheme="light"
+      attribute="class"
+    >
       <div data-mouse-glow />
       {children}
     </Theme>

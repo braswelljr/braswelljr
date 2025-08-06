@@ -21,7 +21,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const page = allBlogs.find(page => page.params === slug?.join('/'));
+  const page = allBlogs.find((page) => page.params === slug?.join('/'));
 
   if (!page) {
     return {};
@@ -35,12 +35,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export async function generateStaticParams() {
-  return allBlogs.map(blog => ({ slug: blog.params.split('/') }));
+  return allBlogs.map((blog) => ({ slug: blog.params.split('/') }));
 }
 
 export default async function Page({ params }: PageProps) {
   const slug = (await params)?.slug?.join('/') || '';
-  const blog = allBlogs.find(blog => blog?.params === slug);
+  const blog = allBlogs.find((blog) => blog?.params === slug);
 
   if (!blog) {
     return notFound();
@@ -49,25 +49,20 @@ export default async function Page({ params }: PageProps) {
   const toc = await getTableOfContents(blog?.content);
 
   return (
-    <main
-      className={cn(
-        'relative pt-32 pb-6 md:pt-16 md:pb-10',
-        toc && 'md:grid md:grid-cols-[1fr_250px] md:gap-6 lg:grid-cols-[1fr_300px]'
-      )}
-    >
+    <main className={cn('relative pb-6 pt-32 md:pb-10 md:pt-16', toc && 'md:grid md:grid-cols-[1fr_250px] md:gap-6 lg:grid-cols-[1fr_300px]')}>
       <div className="mx-auto w-full min-w-0 px-5 md:pt-14 lg:pt-0">
         <div className="flex h-full min-h-[85vh] flex-1 flex-col justify-between">
           <div className="">
             <div className="space-y-2">
               {moment(blog.date).isAfter(subDays(new Date(), 150)) && (
-                <div className="inline-flex h-6 w-auto items-center space-x-1 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium text-neutral-700 uppercase dark:bg-neutral-800 dark:text-orange-400">
+                <div className="inline-flex h-6 w-auto items-center space-x-1 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
                   <MdOutlineWorkspacePremium className="h-3 w-auto" />
                   <span>New</span>
                 </div>
               )}
               <h1
                 className={cn(
-                  'from-secondary to-primary scroll-m-20 bg-gradient-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-[#ff7056]'
+                  'from-secondary to-primary scroll-m-20 bg-gradient-to-l bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent sm:text-3xl md:text-4xl dark:to-[#ff7056]'
                 )}
               >
                 {blog.title}
@@ -86,17 +81,25 @@ export default async function Page({ params }: PageProps) {
                 ))}
               </div>
             )}
-            {blog?.body && <Mdx code={blog?.body} className="pt-8" />}
+            {blog?.body && (
+              <Mdx
+                code={blog?.body}
+                className="pt-8"
+              />
+            )}
           </div>
           <div className="mt-10 space-y-10">
             <div className="space-y-2">
               <p>Published on {new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(blog.date)}</p>
               <p>{blog.readingTime}</p>
             </div>
-            <Callout type="warn" title="Found an Issue!">
+            <Callout
+              type="warn"
+              title="Found an Issue!"
+            >
               <p className="">
-                Find an issue with this post? Think you could clarify, update or add something? All my posts are
-                available to edit on Github. Any fix, little or small, is appreciated!
+                Find an issue with this post? Think you could clarify, update or add something? All my posts are available to edit on Github. Any fix,
+                little or small, is appreciated!
               </p>
               <Link
                 href={`https://github.com/braswelljr/braswelljr/blob/main/content/blog/${blog.params}/index.mdx`}
@@ -109,11 +112,19 @@ export default async function Page({ params }: PageProps) {
               </Link>
             </Callout>
             <Separator className="my-4 md:my-6" />
-            <BlogPaginate blogs={allBlogs} activeBlog={blog} />
+            <BlogPaginate
+              blogs={allBlogs}
+              activeBlog={blog}
+            />
           </div>
         </div>
       </div>
-      {toc && <TableOfContents toc={toc} resources={blog?.resources} />}
+      {toc && (
+        <TableOfContents
+          toc={toc}
+          resources={blog?.resources}
+        />
+      )}
     </main>
   );
 }

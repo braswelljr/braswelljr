@@ -28,13 +28,19 @@ export function BlogPaginate({ blogs, activeBlog }: BlogPaginationProps) {
   return (
     <div className="relative flex flex-row items-center justify-between py-5">
       {pager && pager.prev?.slug && (
-        <Link href={pager.prev.slug} className={cn(buttonVariants({ variant: 'outline' }), 'absolute left-0')}>
+        <Link
+          href={pager.prev.slug}
+          className={cn(buttonVariants({ variant: 'outline' }), 'absolute left-0')}
+        >
           <Icons.chevronLeft className="mr-2 size-4" />
           <span className="max-sm:text-xsm truncate max-lg:max-w-40">{xsm ? 'Previous' : pager.prev.title}</span>
         </Link>
       )}
       {pager && pager.next?.slug && (
-        <Link href={pager.next.slug} className={cn(buttonVariants({ variant: 'outline' }), 'absolute right-0')}>
+        <Link
+          href={pager.next.slug}
+          className={cn(buttonVariants({ variant: 'outline' }), 'absolute right-0')}
+        >
           <span className="max-md:text-xsm truncate max-lg:max-w-40">{xsm ? 'Next' : pager.next.title}</span>
           <Icons.chevronRight className="ml-2 size-4" />
         </Link>
@@ -45,7 +51,7 @@ export function BlogPaginate({ blogs, activeBlog }: BlogPaginationProps) {
 
 export function getPagerForBlog(blogs: Blog[], activeBlog: Blog) {
   const flattenedLinks = [null, ...blogs, null];
-  const activeIndex = flattenedLinks.findIndex(link => activeBlog.slug === link?.slug);
+  const activeIndex = flattenedLinks.findIndex((link) => activeBlog.slug === link?.slug);
   const prev = activeIndex !== 0 ? flattenedLinks[activeIndex - 1] : null;
   const next = activeIndex !== flattenedLinks.length - 1 ? flattenedLinks[activeIndex + 1] : null;
   return {

@@ -55,7 +55,7 @@ export default function Search({
   return (
     <div
       id="search-body"
-      className={cn('fixed inset-0 z-11 size-full bg-neutral-500/80', {
+      className={cn('z-11 fixed inset-0 size-full bg-neutral-500/80', {
         hidden: !open
       })}
     >
@@ -75,7 +75,7 @@ export default function Search({
                 push(itemUrl);
               }
             }}
-            transformItems={items => {
+            transformItems={(items) => {
               return items.map((item, index) => {
                 // We transform the absolute URL into a relative URL to
                 // leverage Next's preloading.
@@ -89,10 +89,7 @@ export default function Search({
                 }
 
                 if (item._highlightResult?.hierarchy?.lvl0?.value) {
-                  item._highlightResult.hierarchy.lvl0.value = item._highlightResult.hierarchy.lvl0.value.replace(
-                    /&amp;/g,
-                    '&'
-                  );
+                  item._highlightResult.hierarchy.lvl0.value = item._highlightResult.hierarchy.lvl0.value.replace(/&amp;/g, '&');
                 }
 
                 return {

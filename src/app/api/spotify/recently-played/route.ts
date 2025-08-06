@@ -10,14 +10,11 @@ export async function GET(req: NextRequest): Promise<Response> {
 
   try {
     const token = await getAccessToken();
-    const response = await fetch(
-      `https://api.spotify.com/v1/me/player/recently-played?limit=${limit}&offset=${offset}`,
-      {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        next: { revalidate: 0 }
-      }
-    );
+    const response = await fetch(`https://api.spotify.com/v1/me/player/recently-played?limit=${limit}&offset=${offset}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      next: { revalidate: 0 }
+    });
 
     if (!response.ok) throw new Error(response.statusText, { cause: { response } });
 
@@ -26,12 +23,12 @@ export async function GET(req: NextRequest): Promise<Response> {
     const tracks =
       data?.items && Array.isArray(data?.items)
         ? Array.from(data?.items).map(
-            track =>
+            (track) =>
               ({
                 name: track?.track?.name,
                 href: track?.track?.external_urls?.spotify,
                 image: track?.track?.album?.images[0]?.url,
-                artists: track?.track?.artists?.map(a => ({
+                artists: track?.track?.artists?.map((a) => ({
                   href: a.external_urls?.spotify,
                   id: a.id,
                   name: a.name,
@@ -47,10 +44,7 @@ export async function GET(req: NextRequest): Promise<Response> {
           )
         : [];
 
-    return NextResponse.json(
-      { message: response?.statusText || 'gocha', data: tracks },
-      { status: response?.status || 200 }
-    );
+    return NextResponse.json({ message: response?.statusText || 'gocha', data: tracks }, { status: response?.status || 200 });
   } catch (error) {
     let err: ErrorCause;
 

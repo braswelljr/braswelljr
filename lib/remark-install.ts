@@ -47,18 +47,17 @@ export function remarkInstall({
   Tabs = 'Tabs',
   persist = false,
   packageManagers = [
-    { command: cmd => convert(cmd, 'npm'), name: 'npm' },
-    { command: cmd => convert(cmd, 'pnpm'), name: 'pnpm' },
-    { command: cmd => convert(cmd, 'yarn'), name: 'yarn' },
-    { command: cmd => convert(cmd, 'bun'), name: 'bun' }
+    { command: (cmd) => convert(cmd, 'npm'), name: 'npm' },
+    { command: (cmd) => convert(cmd, 'pnpm'), name: 'pnpm' },
+    { command: (cmd) => convert(cmd, 'yarn'), name: 'yarn' },
+    { command: (cmd) => convert(cmd, 'bun'), name: 'bun' }
   ]
 }: RemarkInstallOptions = {}): Transformer<Root, Root> {
-  return tree => {
-    visit(tree, 'code', node => {
+  return (tree) => {
+    visit(tree, 'code', (node) => {
       if (node.lang !== 'package-install') return 'skip';
 
-      const value =
-        node.value.startsWith('npm') || node.value.startsWith('npx') ? node.value : `npm install ${node.value}`;
+      const value = node.value.startsWith('npm') || node.value.startsWith('npx') ? node.value : `npm install ${node.value}`;
 
       const insert = createElement(
         Tabs,

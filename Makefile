@@ -55,8 +55,8 @@ format:
 clean:
 	rm -rf $(WEB_TEMP_FILES)
 
-.PHONY: trashout
-trashout:
+.PHONY: cleanup
+cleanup:
 	@make clean
 	rm -rf node_modules/
 

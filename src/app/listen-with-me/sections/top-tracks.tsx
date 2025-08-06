@@ -16,7 +16,7 @@ export function TopTracks({ className }: { className?: string }) {
     data: Array<SpotifyTrack>;
   }>({
     queryKey: ['top-tracks'],
-    queryFn: () => fetch(`/api/spotify/top-tracks?limit=6`, { method: 'GET', mode: 'cors' }).then(res => res.json()),
+    queryFn: () => fetch(`/api/spotify/top-tracks?limit=6`, { method: 'GET', mode: 'cors' }).then((res) => res.json()),
     retry: true
   });
 
@@ -35,13 +35,7 @@ export function TopTracks({ className }: { className?: string }) {
         </button>
       </nav>
 
-      <div className="mt-4">
-        {data?.data && Array.isArray(data?.data) && data?.data?.length ? (
-          <Tracks data={data?.data} />
-        ) : (
-          <TracksLoader />
-        )}
-      </div>
+      <div className="mt-4">{data?.data && Array.isArray(data?.data) && data?.data?.length ? <Tracks data={data?.data} /> : <TracksLoader />}</div>
     </section>
   );
 }
@@ -52,7 +46,10 @@ export function TracksLoader({ className, items = 6 }: { className?: string; ite
       {Array(items || 6)
         .fill('')
         .map((_, i) => (
-          <div key={i} className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-4">
+          <div
+            key={i}
+            className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-4"
+          >
             <div className="">{i + 1}.</div>
             <Skeleton className="mx-auto size-28 overflow-hidden rounded bg-neutral-400/80 dark:bg-neutral-700/80" />
             <div className="space-y-2">
@@ -88,7 +85,10 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
             <div className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-4">
               <div className="">{i + 1}.</div>
               <Avatar className="mx-auto size-28 overflow-hidden rounded">
-                <AvatarImage src={track?.image} alt={track?.name} />
+                <AvatarImage
+                  src={track?.image}
+                  alt={track?.name}
+                />
                 <AvatarFallback className="animate-pulse rounded-xl">{track?.name?.charAt(0)}</AvatarFallback>
               </Avatar>
               <div className="space-y-2">
@@ -99,7 +99,7 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
                       {i !== 0 && ', '}
                       <span
                         key={a?.id}
-                        onClick={e => {
+                        onClick={(e) => {
                           e.stopPropagation(); // Prevent triggering the parent link
                           window.open(a?.href, '_blank', 'noopener noreferrer');
                         }}

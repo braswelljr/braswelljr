@@ -23,20 +23,23 @@ export default function Page() {
     <div className="px-4 py-10 max-lg:pt-28">
       <div className="mx-auto max-w-4xl px-4 text-gray-800 *:space-y-6 sm:mt-14 sm:*:space-y-10 dark:text-neutral-100">
         {/* Header */}
-        <h1 className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-[#ff7056]">
+        <h1 className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent sm:text-3xl md:text-4xl dark:to-[#ff7056]">
           Blog
         </h1>
         {/* Body */}
         <div className="relative sm:ml-[calc(2rem+1px)] md:ml-[calc(3.5rem+1px)] lg:ml-[max(calc(14.5rem+1px),calc(100%-48rem))]">
-          <div className="absolute top-3 right-full -bottom-10 mr-7 hidden w-px bg-orange-300 sm:block md:mr-[3.25rem]" />
+          <div className="absolute -bottom-10 right-full top-3 mr-7 hidden w-px bg-orange-300 sm:block md:mr-[3.25rem]" />
           <div className="space-y-16">
             {blogs.map(({ title, description, date, tags, slug, published, readingTime }, i) => (
-              <article key={i} className="group relative">
+              <article
+                key={i}
+                className="group relative"
+              >
                 <div className="absolute -inset-x-4 -inset-y-2.5 md:-inset-x-6 md:-inset-y-4" />
                 {/* group-hover:bg-neutral-50/70 dark:group-hover:bg-neutral-800/50 */}
                 <svg
                   viewBox="0 0 9 9"
-                  className="absolute top-2 right-full mr-6 hidden size-[calc(0.5rem+1px)] overflow-visible text-orange-300 sm:block md:mr-12"
+                  className="absolute right-full top-2 mr-6 hidden size-[calc(0.5rem+1px)] overflow-visible text-orange-300 sm:block md:mr-12"
                 >
                   <circle
                     cx="4.5"
@@ -52,7 +55,7 @@ export default function Page() {
                     <div className="relative flex flex-wrap gap-2 max-lg:pt-8">
                       {/* check if the date is less than 30 days old */}
                       {moment(date).isAfter(subDays(new Date(), 150)) && (
-                        <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium text-neutral-700 uppercase dark:bg-neutral-800 dark:text-orange-400">
+                        <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
                           <MdOutlineWorkspacePremium className="h-3 w-auto" />
                           <span>New</span>
                         </div>
@@ -60,7 +63,7 @@ export default function Page() {
 
                       {/* published */}
                       {!published && (
-                        <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium text-neutral-700 uppercase dark:bg-neutral-800 dark:text-orange-400">
+                        <div className="inline-flex h-6 w-auto items-center space-x-2 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium uppercase text-neutral-700 dark:bg-neutral-800 dark:text-orange-400">
                           <IoAlbums className="h-3.5 w-auto" />
                           <span className="">
                             Draft / Unpublished<span className="sr-only">, {title}</span>
@@ -69,12 +72,8 @@ export default function Page() {
                       )}
                     </div>
                   )}
-                  <h3 className="pt-6 font-semibold tracking-tight text-neutral-900 uppercase lg:pt-2 dark:text-neutral-200">
-                    {title}
-                  </h3>
-                  <div className="mt-2 mb-4 line-clamp-2 text-sm text-neutral-700 dark:text-neutral-400">
-                    {description}
-                  </div>
+                  <h3 className="pt-6 font-semibold uppercase tracking-tight text-neutral-900 lg:pt-2 dark:text-neutral-200">{title}</h3>
+                  <div className="mb-4 mt-2 line-clamp-2 text-sm text-neutral-700 dark:text-neutral-400">{description}</div>
                   {/* tags */}
                   {tags && (
                     <div className="my-2 mb-4 flex flex-wrap gap-2">
@@ -90,9 +89,9 @@ export default function Page() {
                   )}
                   <div className="text-sm text-neutral-700 dark:text-neutral-400">{readingTime}</div>
 
-                  <dl className="absolute top-0 left-0 lg:right-full lg:left-auto lg:mr-[calc(6.5rem+1px)]">
+                  <dl className="absolute left-0 top-0 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]">
                     <dt className="sr-only">Date</dt>
-                    <dd className={cn('text-sm leading-6 whitespace-nowrap dark:text-orange-400')}>
+                    <dd className={cn('whitespace-nowrap text-sm leading-6 dark:text-orange-400')}>
                       <time dateTime="">{date ? formatDate(date, '{MMMM} {DD}, {YYYY}') : 'unknown'}</time>
                     </dd>
                   </dl>

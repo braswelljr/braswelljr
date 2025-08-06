@@ -18,9 +18,7 @@ export default function useInterval(callback: () => unknown, delay = 1000): void
   useEffect(() => {
     const id = window.setInterval(
       () =>
-        typeof savedCallback.current === 'function' && typeof savedCallback.current !== 'undefined'
-          ? savedCallback.current()
-          : savedCallback.current,
+        typeof savedCallback.current === 'function' && typeof savedCallback.current !== 'undefined' ? savedCallback.current() : savedCallback.current,
       delay
     );
     return () => window.clearInterval(id);

@@ -54,7 +54,10 @@ export function CreateRefFunctionalExample() {
   return (
     <div>
       <h3>`createRef` Equivalent with `useRef` (Functional)</h3>
-      <input type="text" ref={myInputRef} />
+      <input
+        type="text"
+        ref={myInputRef}
+      />
       <button onClick={focusInput}>Focus Input</button>
     </div>
   );
@@ -82,7 +85,10 @@ export function ComponentWithRef() {
   return (
     <div>
       <h3>`useRef` (Accessing DOM Element)</h3>
-      <input type="text" ref={myInputRef} />
+      <input
+        type="text"
+        ref={myInputRef}
+      />
       <button onClick={focusInput}>Focus Input</button>
     </div>
   );
@@ -107,9 +113,7 @@ export function CounterWithoutRerender() {
       <h3>`useRef` (Storing Mutable Value)</h3>
       <p>Count (from ref - check console): {countRef.current}</p>
       <button onClick={increment}>Increment Count</button>
-      <p className="text-sm text-gray-500">
-        (Note: The displayed count above won't update until a re-render is triggered by something else.)
-      </p>
+      <p className="text-sm text-gray-500">(Note: The displayed count above won't update until a re-render is triggered by something else.)</p>
     </div>
   );
 }
@@ -164,7 +168,10 @@ export default function AppWithForwardRef() {
   return (
     <div>
       <h3>`forwardRef` Example</h3>
-      <MyButton ref={buttonRef} onClick={() => console.log('Button clicked!')}>
+      <MyButton
+        ref={buttonRef}
+        onClick={() => console.log('Button clicked!')}
+      >
         Click Me
       </MyButton>
       <button

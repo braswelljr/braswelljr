@@ -34,7 +34,7 @@ export function Playlist({ className }: { className?: string }) {
       fetch(`/api/spotify/playlists?offset=${pagination.offset}`, {
         method: 'GET',
         mode: 'cors'
-      }).then(res => res.json()),
+      }).then((res) => res.json()),
     retry: true
   });
 
@@ -54,11 +54,7 @@ export function Playlist({ className }: { className?: string }) {
       </nav>
 
       <div className="mt-4">
-        {data?.data && Array.isArray(data?.data?.items) && data?.data?.items?.length ? (
-          <PlaylistData data={data?.data} />
-        ) : (
-          <PlaylistError />
-        )}
+        {data?.data && Array.isArray(data?.data?.items) && data?.data?.items?.length ? <PlaylistData data={data?.data} /> : <PlaylistError />}
       </div>
     </section>
   );
@@ -70,12 +66,18 @@ export function PlaylistError({ className }: { className?: string }) {
       {Array(10)
         .fill('')
         .map((_, i) => (
-          <Card key={i} className="grid border-0 bg-neutral-100/60 dark:bg-neutral-800/60">
+          <Card
+            key={i}
+            className="grid border-0 bg-neutral-100/60 dark:bg-neutral-800/60"
+          >
             <CardContent className="grid grid-cols-2 gap-2 p-4">
               {Array(4)
                 .fill('')
                 .map((_, x) => (
-                  <Skeleton key={x} className="h-20 w-full bg-neutral-400/80 dark:bg-neutral-900/80" />
+                  <Skeleton
+                    key={x}
+                    className="h-20 w-full bg-neutral-400/80 dark:bg-neutral-900/80"
+                  />
                 ))}
             </CardContent>
             <CardFooter className="flex-col items-start gap-2 p-4 pt-0">
@@ -95,21 +97,27 @@ export function PlaylistData({ className, data }: { className?: string; data: Pa
   return (
     <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-5', className)}>
       {data?.items?.map((playlist, i) => (
-        <Link key={i} href={`/listen-with-me/playlists/${playlist?.id}`} passHref suppressHydrationWarning>
+        <Link
+          key={i}
+          href={`/listen-with-me/playlists/${playlist?.id}`}
+          passHref
+          suppressHydrationWarning
+        >
           <Card className="playlist-card grid border-0 bg-neutral-100/60 hover:cursor-pointer focus:cursor-pointer dark:bg-neutral-800/60">
             <div className="relative z-[1] rounded-lg bg-neutral-100 dark:bg-neutral-800">
               <CardContent className={cn('p-4')}>
                 <Avatar className="h-[176px] w-full rounded bg-neutral-400/80 dark:bg-neutral-900/80">
-                  <AvatarImage src={playlist?.images?.at(0)?.url} className="aspect-auto size-full object-cover" />
-                  <AvatarFallback className="size-full animate-pulse rounded bg-neutral-900/0">
-                    {playlist?.name?.charAt(0)}
-                  </AvatarFallback>
+                  <AvatarImage
+                    src={playlist?.images?.at(0)?.url}
+                    className="aspect-auto size-full object-cover"
+                  />
+                  <AvatarFallback className="size-full animate-pulse rounded bg-neutral-900/0">{playlist?.name?.charAt(0)}</AvatarFallback>
                 </Avatar>
               </CardContent>
               <CardFooter className="flex-col items-start gap-2 p-4 pt-0">
                 <span
-                  className="group hover:text-secondary flex items-center justify-center gap-2"
-                  onClick={e => {
+                  className="hover:text-secondary group flex items-center justify-center gap-2"
+                  onClick={(e) => {
                     e.stopPropagation(); // Prevent triggering the parent link
                     window.open(playlist.external_urls?.spotify, '_blank', 'noopener noreferrer');
                   }}

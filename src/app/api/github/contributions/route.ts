@@ -25,21 +25,15 @@ export const GET = async (req: NextRequest): Promise<Response> => {
     const data: DataType = await response.json();
 
     const content: GitHubProperties = {
-      data: data.contributions.filter(activity => {
+      data: data.contributions.filter((activity) => {
         const activityDate = new Date(activity.date);
 
         return activityDate <= endOfLastWeek && activityDate >= startDate;
       }),
-      total: data.contributions.reduce(
-        (total, { date, count }) => (new Date(date) >= oneYearAgo ? total + count : total),
-        0
-      )
+      total: data.contributions.reduce((total, { date, count }) => (new Date(date) >= oneYearAgo ? total + count : total), 0)
     };
 
-    return NextResponse.json(
-      { message: 'successfully retrieved github contributions', data: content },
-      { status: 200 }
-    );
+    return NextResponse.json({ message: 'successfully retrieved github contributions', data: content }, { status: 200 });
   } catch (error) {
     let err: ErrorCause;
 

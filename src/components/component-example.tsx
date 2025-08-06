@@ -11,13 +11,7 @@ interface ComponentExampleProps extends React.HTMLAttributes<HTMLDivElement> {
   align?: 'center' | 'start' | 'end';
 }
 
-export function ComponentExample({
-  children,
-  className,
-  extractedClassNames,
-  align = 'center',
-  ...props
-}: ComponentExampleProps) {
+export function ComponentExample({ children, className, extractedClassNames, align = 'center', ...props }: ComponentExampleProps) {
   // const [Example, Code, ...Children] = React.Children.toArray(children) as React.ReactElement[];
   const childrenArray = React.Children.toArray(children);
 
@@ -26,12 +20,7 @@ export function ComponentExample({
   const Children = childrenArray.slice(2) as React.ReactElement[];
 
   const codeString = React.useMemo(() => {
-    if (
-      Code &&
-      typeof Code === 'object' &&
-      Code.props &&
-      typeof (Code.props as any)['data-rehype-pretty-code-fragment'] !== 'undefined'
-    ) {
+    if (Code && typeof Code === 'object' && Code.props && typeof (Code.props as any)['data-rehype-pretty-code-fragment'] !== 'undefined') {
       const codeChildren = React.Children.toArray((Code.props as any).children);
       const Button = codeChildren[1] as React.ReactElement | undefined;
 
@@ -43,20 +32,33 @@ export function ComponentExample({
   }, [Code]);
 
   return (
-    <div className={cn('group relative my-4 flex flex-col space-y-2', className)} {...props}>
-      <Tabs defaultValue="preview" className="mr-auto w-full">
+    <div
+      className={cn('group relative my-4 flex flex-col space-y-2', className)}
+      {...props}
+    >
+      <Tabs
+        defaultValue="preview"
+        className="mr-auto w-full"
+      >
         <div className="flex items-center justify-between">
           <TabsList>
             <TabsTrigger value="preview">Preview</TabsTrigger>
             <TabsTrigger value="code">Code</TabsTrigger>
           </TabsList>
           {extractedClassNames ? (
-            <CopyWithClassNames value={codeString} classNames={extractedClassNames} className="border-none" />
+            <CopyWithClassNames
+              value={codeString}
+              classNames={extractedClassNames}
+              className="border-none"
+            />
           ) : (
             codeString && <CopyButton value={codeString} />
           )}
         </div>
-        <TabsContent value="preview" className="p-0">
+        <TabsContent
+          value="preview"
+          className="p-0"
+        >
           <div
             className={cn('flex min-h-[350px] justify-center p-10', {
               'items-center': align === 'center',
@@ -67,16 +69,13 @@ export function ComponentExample({
             {Example}
           </div>
         </TabsContent>
-        <TabsContent value="code" className="border-none p-0">
+        <TabsContent
+          value="code"
+          className="border-none p-0"
+        >
           <div className="flex flex-col space-y-4">
-            <div className="w-full rounded-md [&_button]:hidden [&_pre]:my-0 [&_pre]:max-h-[350px] [&_pre]:overflow-auto">
-              {Code}
-            </div>
-            {Children && (
-              <div className="rounded-md [&_button]:hidden [&_pre]:my-0 [&_pre]:max-h-[350px] [&_pre]:overflow-auto">
-                {Children}
-              </div>
-            )}
+            <div className="w-full rounded-md [&_button]:hidden [&_pre]:my-0 [&_pre]:max-h-[350px] [&_pre]:overflow-auto">{Code}</div>
+            {Children && <div className="rounded-md [&_button]:hidden [&_pre]:my-0 [&_pre]:max-h-[350px] [&_pre]:overflow-auto">{Children}</div>}
           </div>
         </TabsContent>
       </Tabs>

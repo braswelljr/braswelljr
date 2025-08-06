@@ -47,8 +47,8 @@ export default function ScrollTop({
       className={cn(
         className,
         'flex size-10 translate-y-20 items-center justify-center rounded-sm bg-neutral-900 text-white transition-transform dark:bg-neutral-500 dark:text-white',
-        disableOnRoutes && disableOnRoutes.map(route => route === pathname && 'hidden'),
-        disableOnLayouts && disableOnLayouts.map(layout => pathname.startsWith(layout) && 'hidden')
+        disableOnRoutes && disableOnRoutes.map((route) => route === pathname && 'hidden'),
+        disableOnLayouts && disableOnLayouts.map((layout) => pathname.startsWith(layout) && 'hidden')
       )}
       onClick={() => {
         window.scrollTo({
@@ -78,9 +78,9 @@ export function ScrollToTopWithBlog({
     <button
       className={cn(
         className,
-        'group/link relative inline-flex items-center space-x-2 pb-1.5 pl-0.5 text-neutral-600 uppercase dark:text-neutral-400',
-        disableOnRoutes && disableOnRoutes.map(route => route === pathname && 'hidden'),
-        disableOnLayouts && disableOnLayouts.map(layout => pathname.startsWith(layout) && 'hidden'),
+        'group/link relative inline-flex items-center space-x-2 pb-1.5 pl-0.5 uppercase text-neutral-600 dark:text-neutral-400',
+        disableOnRoutes && disableOnRoutes.map((route) => route === pathname && 'hidden'),
+        disableOnLayouts && disableOnLayouts.map((layout) => pathname.startsWith(layout) && 'hidden'),
         top < 100 && 'hidden'
       )}
       onClick={() => {

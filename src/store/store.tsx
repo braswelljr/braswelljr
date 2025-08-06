@@ -3,7 +3,7 @@ import { devtools } from 'zustand/middleware';
 import { Repo, State } from '~/store/types';
 
 export const useStore = create<State>()(
-  devtools(set => ({
+  devtools((set) => ({
     name: 'braswelljr',
     repositories: [],
     setRepositories: (params: Repo[]) => set({ repositories: params }),

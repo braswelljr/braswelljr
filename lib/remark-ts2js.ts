@@ -47,7 +47,7 @@ export function remarkTypeScriptToJavaScript({
   return async (tree, file) => {
     const oxc = await import('oxc-transform');
 
-    visit(tree, 'code', node => {
+    visit(tree, 'code', (node) => {
       if (node.lang !== 'ts' && node.lang !== 'tsx') return;
       if (!disableTrigger && !node.meta?.includes('ts2js')) return;
 
@@ -75,7 +75,7 @@ export function remarkTypeScriptToJavaScript({
             : []),
           expressionToAttribute('items', {
             type: 'ArrayExpression',
-            elements: ['TypeScript', 'JavaScript'].map(name => ({
+            elements: ['TypeScript', 'JavaScript'].map((name) => ({
               type: 'Literal',
               value: name
             }))

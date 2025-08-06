@@ -20,7 +20,7 @@ export async function GET(): Promise<Response> {
       name: data.item?.name,
       href: data?.item?.external_urls?.spotify,
       image: data?.item?.album?.images[0]?.url,
-      artists: data?.item?.artists?.map(a => ({
+      artists: data?.item?.artists?.map((a) => ({
         href: a.external_urls?.spotify,
         id: a.id,
         name: a.name,
@@ -34,10 +34,7 @@ export async function GET(): Promise<Response> {
       }
     } satisfies SpotifyTrack;
 
-    return NextResponse.json(
-      { message: response?.statusText || 'gocha', data: track },
-      { status: response?.status || 200 }
-    );
+    return NextResponse.json({ message: response?.statusText || 'gocha', data: track }, { status: response?.status || 200 });
   } catch (error) {
     let err: ErrorCause;
 

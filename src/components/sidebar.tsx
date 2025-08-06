@@ -15,9 +15,17 @@ export function BlogSidebarNav({ items }: BlogSidebarNavProps) {
   return items.length ? (
     <div className="w-full">
       {items.map((item, index) => (
-        <div key={index} className={cn('pb-6')}>
+        <div
+          key={index}
+          className={cn('pb-6')}
+        >
           <h4 className="mb-1 rounded-md px-2 py-1 text-sm font-semibold">{item.title}</h4>
-          {item?.items?.length && <BlogSidebarNavItems items={item.items} pathname={pathname} />}
+          {item?.items?.length && (
+            <BlogSidebarNavItems
+              items={item.items}
+              pathname={pathname}
+            />
+          )}
         </div>
       ))}
     </div>

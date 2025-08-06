@@ -1,20 +1,20 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import dynamic from 'next/dynamic';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaSpotify } from 'react-icons/fa6';
 import { HiCode, HiHome, HiOutlineMenuAlt2 } from 'react-icons/hi';
 import { IoIosPerson } from 'react-icons/io';
 import { MdArticle } from 'react-icons/md';
-import { TbCommand } from 'react-icons/tb';
-import { motion } from 'motion/react';
 import { useStore } from '~/store/store';
 import { cn } from 'lib/utils';
+import { useMedia } from 'react-use';
+import { useIsMac } from '~/hooks/use-is-mac';
 import Search from '~/components/search';
-
-const ThemeSwitch = dynamic(() => import('~/components/theme-switch'), { ssr: false });
+import ThemeSwitch from '~/components/shared/theme-switcher';
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import { SegmentedControl, SegmentedControlList, SegmentedControlTrigger } from '~/components/ui/segmented-control';
 
 export const nav = [
   {
@@ -49,7 +49,9 @@ export default function Navbar({ className }: { className?: string }) {
   const [open, onOpenChange] = useState(false);
   const searchButtonRef = useRef<HTMLButtonElement | null>(null);
   const pathname = usePathname();
-  const { toggle, onToggle } = useStore(s => s);
+  const { toggle, onToggle } = useStore((s) => s);
+  const lg = useMedia('(width >= 1024px', false);
+  const isMac = useIsMac();
 
   useEffect(() => {
     const routerTab = pathname.split('/')[1] ? pathname.split('/')[1] : '/';
@@ -65,9 +67,10 @@ export default function Navbar({ className }: { className?: string }) {
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === '/' && (e.metaKey || e.ctrlKey)) {
+      if (e.key === '/') {
+        //(e.key === 'k' && (e.metaKey || e.ctrlKey)) ||
         e.preventDefault();
-        onOpenChange(open => !open);
+        onOpenChange((open) => !open);
       }
     };
     document.addEventListener('keydown', down);
@@ -77,60 +80,109 @@ export default function Navbar({ className }: { className?: string }) {
   return (
     <nav
       className={cn(
-        'fixed inset-x-0 top-0 z-4 flex items-center justify-between overflow-hidden bg-inherit px-4 py-2 font-bold shadow backdrop-blur-[2px] max-lg:flex-wrap',
+        'z-4 fixed inset-x-0 top-0 flex items-center justify-between px-4 py-2 font-bold shadow backdrop-blur max-lg:flex-wrap',
         className
       )}
     >
-      {/* blog page menu */}
-      {pathname.startsWith('/blog/') && (
-        <button
-          type="button"
-          className={cn(
-            'flex size-7 items-center justify-center rounded-sm bg-neutral-900 text-white focus:outline-none md:hidden dark:bg-neutral-500'
-          )}
-          onClick={() => onToggle(!toggle)}
-        >
-          <HiOutlineMenuAlt2 className="h-4 w-auto" />
-        </button>
-      )}
-      {/* Search Button */}
-      <button
-        id="search-button"
-        className={cn(
-          'flex h-7 items-center rounded-sm bg-neutral-900 text-white focus:outline-none dark:bg-neutral-500',
-          pathname.startsWith('/blog/') ? 'xsm:w-1/2 w-2/5 md:w-7 md:justify-center' : 'w-7 justify-center'
-        )}
-        aria-label="Search"
-        onClick={() => onOpenChange(!open)}
-      >
-        <TbCommand className={cn('h-4 w-auto', pathname.startsWith('/blog/') ? 'hidden md:inline' : 'inline')} />
-        {pathname.startsWith('/blog/') && (
-          <span className={cn('ml-3 text-xs font-normal uppercase md:hidden')}>Search ...</span>
-        )}
-      </button>
-
-      <Search open={open} setOpen={onOpenChange} searchButtonRef={searchButtonRef} />
-
-      {/* menu items */}
-      <div className="max-xsm:text-sm flex w-full items-center justify-center space-x-4 font-semibold whitespace-nowrap max-lg:order-2 max-lg:mt-4 max-lg:grow max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto">
-        {nav.map((item, idx) => (
-          <Link key={idx} href={item.path} className={cn('relative pb-2')}>
-            {tab === item.path && (
-              <motion.span
-                layoutId="menu-bubble"
-                className={cn(
-                  'absolute inset-x-0 bottom-0 h-1 bg-neutral-900 dark:bg-white',
-                  idx === 0 && 'rounded-l-sm',
-                  idx === nav.length - 1 && 'rounded-r-sm'
-                )}
-              />
+      <div className="max-w-40 lg:w-full">
+        {pathname.startsWith('/blog/') ? (
+          <button
+            type="button"
+            className={cn(
+              'flex size-8 items-center justify-center rounded-sm bg-neutral-900 text-white focus:outline-none md:hidden dark:bg-neutral-500'
             )}
-            <span className={cn('flex items-center space-x-2 uppercase')}>{item.name}</span>
-          </Link>
-        ))}
+            onClick={() => onToggle(!toggle)}
+          >
+            <HiOutlineMenuAlt2 className="size-4" />
+          </button>
+        ) : (
+          <Avatar className="size-8 rounded-none">
+            <AvatarImage
+              src="/icons/b.png"
+              alt="B"
+              className="hidden dark:block"
+            />
+            <AvatarImage
+              src="/icons/black-b.png"
+              alt="B"
+              className="dark:hidden"
+            />
+            <AvatarFallback>B</AvatarFallback>
+          </Avatar>
+        )}
       </div>
 
-      <ThemeSwitch className="max-lg:order-1" />
+      <SegmentedControl
+        value={tab}
+        className="flex shrink-0 items-center justify-center gap-4 max-lg:order-last max-lg:mt-4 max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto"
+      >
+        <SegmentedControlList
+          className="max-xsm:text-sm flex w-full items-center gap-4 whitespace-nowrap font-semibold lg:justify-center"
+          classNames={{ indicator: 'bottom-0 h-2 !rounded-t-xl !top-auto bg-primary rounded-none dark:bg-secondary' }}
+        >
+          {nav.map((item, idx) => (
+            <SegmentedControlTrigger
+              key={idx}
+              value={item.path}
+              asChild
+            >
+              <Link
+                href={item.path}
+                className=""
+              >
+                {item.name}
+              </Link>
+            </SegmentedControlTrigger>
+          ))}
+        </SegmentedControlList>
+      </SegmentedControl>
+
+      <Layout
+        isViewport={lg}
+        className="flex items-center gap-2"
+      >
+        <button
+          id="search-button"
+          className="max-w-2/3 lg:max-w-3xs flex h-8 w-full items-center justify-between gap-4 rounded-sm border border-neutral-300 px-3 text-sm focus:outline-none dark:border-neutral-700"
+          aria-label="Search"
+          onClick={() => onOpenChange(!open)}
+        >
+          <span>Search ...</span>
+          <span className="flex items-center gap-0.5">
+            <kbd className="hidden rounded border px-1 py-0.5 font-sans text-xs">{isMac ? '⌘' : 'Ctrl'} K</kbd>
+            <kbd className="w-4 rounded border px-1 py-0.5 font-sans text-xs">/</kbd>
+          </span>
+        </button>
+
+        <ThemeSwitch className="" />
+      </Layout>
+
+      <Search
+        open={open}
+        setOpen={onOpenChange}
+        searchButtonRef={searchButtonRef}
+      />
     </nav>
+  );
+}
+
+type LayoutType = React.HTMLProps<HTMLDivElement> & {
+  className?: string;
+  isViewport?: boolean;
+  as?: keyof React.JSX.IntrinsicElements;
+};
+
+function Layout({ children, className, isViewport, ...props }: LayoutType) {
+  if (!isViewport) {
+    return <Fragment>{children}</Fragment>;
+  }
+
+  return (
+    <div
+      {...props}
+      className={cn('', className)}
+    >
+      {children}
+    </div>
   );
 }

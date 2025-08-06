@@ -1,12 +1,6 @@
 import { NextResponse } from 'next/server';
 import { ErrorCause } from 'types/types';
-import {
-  AUTH_TOKEN_ENDPOINT,
-  SPOTIFY_CLIENT_ID,
-  SPOTIFY_CLIENT_SECRET,
-  SPOTIFY_COOKIE_STORE,
-  SPOTIFY_REFRESH_TOKEN
-} from '~/config/spotify';
+import { AUTH_TOKEN_ENDPOINT, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_COOKIE_STORE, SPOTIFY_REFRESH_TOKEN } from '~/config/spotify';
 
 type DataI = {
   access_token: string;

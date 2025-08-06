@@ -9,14 +9,13 @@ export default function About() {
         <div className="md:leading-relaxed">
           <p className="">
             Hey, I am{' '}
-            <span className="from-secondary to-primary bg-gradient-to-l bg-clip-text px-3 text-transparent uppercase dark:to-[#ff7056]">
+            <span className="from-secondary to-primary bg-gradient-to-l bg-clip-text px-3 uppercase text-transparent dark:to-[#ff7056]">
               Braswell Kenneth Azu Junior
             </span>
             . I started as a Software Engineer back in 2018 working on freelance projects and open-source projects.
           </p>
           <p>
-            I have had multiple experiences with firms and individuals with which I would say benefited me and my
-            experence. I completed{' '}
+            I have had multiple experiences with firms and individuals with which I would say benefited me and my experence. I completed{' '}
             <a
               href="https://umat.edu.gh"
               target="_blank"
@@ -28,11 +27,7 @@ export default function About() {
               </span>
               <span className="transition-width from-secondary to-primary absolute inset-x-0 bottom-0 h-[0.2rem] w-0 bg-gradient-to-l group-hover/solar-link:w-full dark:to-[#ff7056]" />
             </a>{' '}
-            in{' '}
-            <span className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-transparent dark:to-[#ff7056]">
-              October 2022
-            </span>
-            .
+            in <span className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-transparent dark:to-[#ff7056]">October 2022</span>.
           </p>
         </div>
         {/* Resume */}
@@ -40,7 +35,7 @@ export default function About() {
           {/* buttons */}
           <p>
             <a
-              className="inline-flex items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-3 py-1.5 text-neutral-100 capitalize transition-transform backdrop:backdrop-blur hover:translate-y-0.5 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+              className="inline-flex items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-3 py-1.5 capitalize text-neutral-100 transition-transform backdrop:backdrop-blur hover:translate-y-0.5 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
               download
               href="/documents/Braswell-Kenneth-Azu-Junior-Resume.pdf"
               target="_blank"
@@ -59,7 +54,10 @@ export default function About() {
             <h2 className="text-2xl font-bold uppercase">Career</h2>
             <div className="divide-y divide-neutral-500/50">
               {career.map((job, index) => (
-                <div key={index} className="space-y-3 py-5">
+                <div
+                  key={index}
+                  className="space-y-3 py-5"
+                >
                   <h1 className="font-cascadia text-xl">
                     {job.role} {job.type}
                   </h1>
@@ -70,7 +68,10 @@ export default function About() {
                   </h2>
                   <ul className="list-item text-neutral-600 dark:text-neutral-400">
                     {job.description.map((desc, index) => (
-                      <li key={index} className="ml-4 list-disc">
+                      <li
+                        key={index}
+                        className="ml-4 list-disc"
+                      >
                         {desc}
                       </li>
                     ))}

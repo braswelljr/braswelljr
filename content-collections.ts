@@ -25,9 +25,9 @@ const blogs = defineCollection({
     featured: z.boolean().default(false).optional(),
     cover: z
       .any()
-      .refine(file => file?.size <= 5000000, `Max image size is 5MB.`)
+      .refine((file) => file?.size <= 5000000, `Max image size is 5MB.`)
       .refine(
-        file => ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file?.type as string),
+        (file) => ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file?.type as string),
         'Only .jpg, .jpeg, .png and .webp formats are supported.'
       )
       .optional(),
@@ -43,13 +43,7 @@ const blogs = defineCollection({
   }),
   transform: async (document, ctx) => {
     const body = await compileMDX(ctx, document, {
-      remarkPlugins: [
-        remarkGfm,
-        codeImport,
-        [remarkInstall, { persist: { id: 'package-manager' } }],
-        remarkTypeScriptToJavaScript,
-        remarkInclude
-      ],
+      remarkPlugins: [remarkGfm, codeImport, [remarkInstall, { persist: { id: 'package-manager' } }], remarkTypeScriptToJavaScript, remarkInclude],
       rehypePlugins: [
         rehypeSlug,
         rehypeComponent,
@@ -62,8 +56,8 @@ const blogs = defineCollection({
             }
           } as RehypeCodeOptions
         ],
-        () => tree => {
-          visit(tree, node => {
+        () => (tree) => {
+          visit(tree, (node) => {
             if (node?.type === 'element' && node?.tagName === 'pre') {
               const [codeEl] = node.children;
               if (codeEl.tagName !== 'code') {

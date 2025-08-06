@@ -7,7 +7,7 @@ const textTypes = ['text', 'emphasis', 'strong', 'inlineCode'];
 
 function flattenNode(node: UnistNode) {
   const p: (string | undefined)[] = [];
-  visit(node, node => {
+  visit(node, (node) => {
     if (!textTypes.includes(node.type)) return;
     p.push(node.value);
   });
@@ -26,7 +26,7 @@ function getItems(node: UnistNode, current: Item): Item | undefined {
   }
 
   if (node.type === 'paragraph') {
-    visit(node, item => {
+    visit(node, (item) => {
       if (item.type === 'link') {
         current.url = item?.url || '';
         current.title = flattenNode(node);
@@ -41,7 +41,7 @@ function getItems(node: UnistNode, current: Item): Item | undefined {
   }
 
   if (node.type === 'list' && node.children) {
-    current.items = node.children.map(i => getItems(i, {} as Item)).filter(Boolean) as Item[];
+    current.items = node.children.map((i) => getItems(i, {} as Item)).filter(Boolean) as Item[];
 
     return current;
   } else if (node.type === 'listItem' && node.children) {

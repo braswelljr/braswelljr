@@ -66,7 +66,7 @@ const SegmentedControlTrigger = React.forwardRef<
       className={cn(
         // base
         'peer',
-        'relative z-10 h-8 rounded-md px-1 text-sm whitespace-nowrap outline-none',
+        'relative z-10 h-8 whitespace-nowrap rounded-md px-1 text-sm outline-none',
         'flex items-center justify-center gap-1.5',
         'transition duration-300 ease-out',
         // focus
@@ -85,7 +85,12 @@ const SegmentedControlContent = React.forwardRef<
   React.ComponentRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
 >(({ ...rest }, forwardedRef) => {
-  return <TabsPrimitive.Content ref={forwardedRef} {...rest} />;
+  return (
+    <TabsPrimitive.Content
+      ref={forwardedRef}
+      {...rest}
+    />
+  );
 });
 SegmentedControlContent.displayName = 'SegmentedControlContent';
 

@@ -78,7 +78,10 @@ func main() {
 
 Similar to Background(), it's an empty context that's never canceled. However, TODO() is used when you're unsure which context to use, or if the parent context isn't yet available (e.g., in early stages of development or when prototyping). It's a placeholder, a signal that you need to fill in the proper context later.
 
-<Callout type="warning" title="warning">
+<Callout
+  type="warning"
+  title="warning"
+>
   Avoid using `context.TODO()` in production code. It's meant for temporary use and indicates incomplete design.
 </Callout>
 

@@ -23,66 +23,36 @@ export default function Projects() {
   // projects
   const limitProjects = viewMoreProjects ? allProjects.length : lg ? 6 : 4;
   // remove pinned projects from all projects
-  const filteredProjects = allProjects.filter(
-    project => !pinnedProjects.find(pinnedProject => pinnedProject.name === project.name)
-  );
+  const filteredProjects = allProjects.filter((project) => !pinnedProjects.find((pinnedProject) => pinnedProject.name === project.name));
   const ALL_PROJECTS = Array.isArray(filteredProjects) ? filteredProjects.slice(0, limitProjects) : [];
 
   return (
     <div className="py-10 max-lg:pt-28">
       <div className="mx-auto max-w-4xl space-y-8 px-4 text-gray-800 sm:mt-14 sm:space-y-10 dark:text-neutral-100">
-        <h1 className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-[#ff7056]">
+        <h1 className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent sm:text-3xl md:text-4xl dark:to-[#ff7056]">
           Work, Hobby and Open Source
         </h1>
         {/* Write up */}
         <div className="space-y-6 text-neutral-600 dark:text-neutral-400">
           <p className="">
             I&rsquo;m obsessed with building things that are useful and fun to use. I am an{' '}
-            <span className="from-secondary to-primary bg-gradient-to-l bg-clip-text px-3 text-transparent uppercase dark:to-[#ff7056]">
+            <span className="from-secondary to-primary bg-gradient-to-l bg-clip-text px-3 uppercase text-transparent dark:to-[#ff7056]">
               enthusiast
             </span>{' '}
-            and I love to contribute to open source. I am also a hobbyist and I love to build things that are fun to
-            use.
+            and I love to contribute to open source. I am also a hobbyist and I love to build things that are fun to use.
           </p>
           <p>
             {' '}
-            I prefer to work with{' '}
-            <span className="bg-gradient-to-l from-[#2273ff] to-[#00e5ff] bg-clip-text text-transparent uppercase">
+            I prefer to work with <span className="bg-gradient-to-l from-[#2273ff] to-[#00e5ff] bg-clip-text uppercase text-transparent">
               React
-            </span>
-            ,{' '}
-            <span className="bg-gradient-to-l from-[#3b80ff] to-[#3b80ff] bg-clip-text text-transparent uppercase">
-              Next.js
-            </span>
-            ,{' '}
-            <span className="bg-gradient-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text text-transparent uppercase">
-              Golang
-            </span>
-            ,{' '}
-            <span className="bg-gradient-to-l from-[#236e00] to-[#00bf06] bg-clip-text text-transparent uppercase">
-              Node.js
-            </span>
-            ,{' '}
-            <span className="bg-gradient-to-l from-[#00b731] to-[#008f02] bg-clip-text text-transparent uppercase">
-              MongoDB
-            </span>
-            ,{' '}
-            <span className="bg-gradient-to-l from-[#f2ff00] to-[#ffc70d] bg-clip-text text-transparent uppercase">
-              Firebase
-            </span>
-            ,{' '}
-            <span className="bg-gradient-to-l from-[#00b731] to-[#008f02] bg-clip-text text-transparent uppercase">
-              Supabase
-            </span>
-            ,{' '}
-            <span className="bg-gradient-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text text-transparent uppercase">
-              PostgreSQL
-            </span>
-            , and{' '}
-            <span className="bg-gradient-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text text-transparent uppercase">
-              GraphQL
-            </span>
-            .
+            </span>, <span className="bg-gradient-to-l from-[#3b80ff] to-[#3b80ff] bg-clip-text uppercase text-transparent">Next.js</span>,{' '}
+            <span className="bg-gradient-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text uppercase text-transparent">Golang</span>,{' '}
+            <span className="bg-gradient-to-l from-[#236e00] to-[#00bf06] bg-clip-text uppercase text-transparent">Node.js</span>,{' '}
+            <span className="bg-gradient-to-l from-[#00b731] to-[#008f02] bg-clip-text uppercase text-transparent">MongoDB</span>,{' '}
+            <span className="bg-gradient-to-l from-[#f2ff00] to-[#ffc70d] bg-clip-text uppercase text-transparent">Firebase</span>,{' '}
+            <span className="bg-gradient-to-l from-[#00b731] to-[#008f02] bg-clip-text uppercase text-transparent">Supabase</span>,{' '}
+            <span className="bg-gradient-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text uppercase text-transparent">PostgreSQL</span>, and{' '}
+            <span className="bg-gradient-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text uppercase text-transparent">GraphQL</span>.
           </p>
         </div>
         <GitHubContributionGraph className="" />
@@ -90,7 +60,7 @@ export default function Projects() {
         <div className="space-y-6">
           {/* header */}
           <div className="flex items-end justify-between">
-            <h2 className="text-2xl leading-tight font-bold tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
+            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
               Starred Projects
             </h2>
             <span className="text-lg">({pinnedProjects.length})</span>
@@ -102,7 +72,10 @@ export default function Projects() {
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {PINNED_PROJECTS.map((project, i) => {
                     return (
-                      <div key={i} className="rounded bg-zinc-900/20 shadow-sm backdrop-blur">
+                      <div
+                        key={i}
+                        className="rounded bg-zinc-900/20 shadow-sm backdrop-blur"
+                      >
                         {/* main */}
                         <div className="divide-y divide-zinc-500/25 *:p-2.5">
                           {/* header */}
@@ -147,7 +120,7 @@ export default function Projects() {
                             href={isFalsy(project.homepageUrl) ? project.url : project.homepageUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                            className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                           >
                             <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
                             <span>Visit</span>
@@ -160,7 +133,7 @@ export default function Projects() {
                 <div className="mt-4 flex justify-end">
                   <button
                     onClick={() => setViewMorePins(!viewMorePins)}
-                    className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                   >
                     <TfiLayoutListThumb className="h-5 w-auto group-hover:scale-95" />
                     <span>{viewMoreProjects ? 'View Less' : 'View More'}</span>
@@ -178,7 +151,7 @@ export default function Projects() {
         <div className="space-y-6">
           {/* header */}
           <div className="flex items-end justify-between">
-            <h2 className="text-2xl leading-tight font-bold tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
+            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
               All Projects{' '}
             </h2>
             <span className="text-lg">({filteredProjects.length})</span>
@@ -199,9 +172,7 @@ export default function Projects() {
                           {/* header */}
                           <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
                             {/* title */}
-                            <h2 className="text-lg leading-tight font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-                              {project.name}
-                            </h2>
+                            <h2 className="text-lg font-bold leading-tight tracking-tight text-neutral-900 dark:text-neutral-100">{project.name}</h2>
                             {/* stats */}
                             <div className="space-x-3 text-sm *:flex *:items-center *:space-x-1">
                               {/* stars */}
@@ -219,9 +190,7 @@ export default function Projects() {
                           </div>
                           <div className="min-h-16 text-sm font-thin">
                             <p className="line-clamp-2">
-                              {isFalsy(project.description)
-                                ? 'Lorem ipsum dolor sit amet consectetur.'
-                                : project.description}
+                              {isFalsy(project.description) ? 'Lorem ipsum dolor sit amet consectetur.' : project.description}
                             </p>
                           </div>
                         </div>
@@ -243,7 +212,7 @@ export default function Projects() {
                             href={isFalsy(project.html_url) ? project.url : project.html_url}
                             target="_blank"
                             rel="noopener noreferer noreferrer"
-                            className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                            className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                           >
                             <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
                             <span>Visit</span>
@@ -256,7 +225,7 @@ export default function Projects() {
                 <div className="mt-4 flex justify-end">
                   <button
                     onClick={() => setViewMoreProjects(!viewMoreProjects)}
-                    className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                   >
                     <TfiLayoutListThumb className="h-5 w-auto group-hover:scale-95" />
                     <span>{viewMoreProjects ? 'View Less' : 'View More'}</span>
@@ -274,7 +243,7 @@ export default function Projects() {
         <div className="space-y-6">
           {/* Header */}
           <div className="flex items-end justify-between">
-            <h2 className="text-2xl leading-tight font-bold tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
+            <h2 className="text-2xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
               Other Projects
             </h2>
             <span className="text-lg">({OTHER_PROJECTS.length})</span>
@@ -283,7 +252,10 @@ export default function Projects() {
           <div className="grid gap-6 sm:grid-cols-2">
             {OTHER_PROJECTS.map((project, i) => {
               return (
-                <div key={i} className="border border-neutral-700/30 backdrop-blur dark:odd:bg-zinc-900/50">
+                <div
+                  key={i}
+                  className="border border-neutral-700/30 backdrop-blur dark:odd:bg-zinc-900/50"
+                >
                   <iframe
                     src={project.homepageUrl ? project.homepageUrl : project.url}
                     title={project.name}
@@ -292,7 +264,7 @@ export default function Projects() {
                   <div className="space-y-2 px-2 py-3 sm:px-4">
                     <div className="space-y-2">
                       {/* header */}
-                      <h2 className="from-secondary to-primary flex items-center space-x-2 bg-gradient-to-l bg-clip-text text-sm text-transparent uppercase dark:to-[#ff7056]">
+                      <h2 className="from-secondary to-primary flex items-center space-x-2 bg-gradient-to-l bg-clip-text text-sm uppercase text-transparent dark:to-[#ff7056]">
                         {project.name}
                       </h2>
                       <p className="line-clamp-2">{project.description}</p>
@@ -304,7 +276,7 @@ export default function Projects() {
                         href={project.homepageUrl ? project.homepageUrl : project.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase transition-transform backdrop:backdrop-blur hover:scale-105 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                        className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs uppercase text-neutral-100 transition-transform backdrop:backdrop-blur hover:scale-105 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                       >
                         <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
                         <span>Visit</span>

@@ -25,7 +25,7 @@ type DataI = {
 export function AuthProvider({ children }: AuthProviderProps) {
   const { data, error, refetch } = useQuery<{ message: string; data: DataI }>({
     queryKey: ['token'],
-    queryFn: () => fetch(`/api/spotify/access-token`, { method: 'GET', mode: 'cors' }).then(r => r.json()),
+    queryFn: () => fetch(`/api/spotify/access-token`, { method: 'GET', mode: 'cors' }).then((r) => r.json()),
     staleTime: 3600,
     retry: true
   });

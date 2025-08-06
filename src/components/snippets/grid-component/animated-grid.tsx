@@ -57,7 +57,7 @@ export default function AnimatedGridComponent() {
       <section className="mx-auto max-w-5xl px-2 py-7 max-lg:mx-5 md:px-12 xl:max-w-7xl">
         <div className="">
           <div className="xsm:grid-cols-[repeat(auto-fill,minmax(320px,1fr))] grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8 text-xs">
-            {products.map(product => (
+            {products.map((product) => (
               <motion.div
                 key={product.id}
                 layoutId={product.id}
@@ -131,9 +131,7 @@ export default function AnimatedGridComponent() {
                       {/* type */}
                       <div className="">
                         <div className="flex items-center justify-between">
-                          <span className="bg-neutral-300 px-2 py-1 font-bold uppercase dark:bg-neutral-700">
-                            {selectedProduct.type}
-                          </span>
+                          <span className="bg-neutral-300 px-2 py-1 font-bold uppercase dark:bg-neutral-700">{selectedProduct.type}</span>
                         </div>
                       </div>
                     </div>

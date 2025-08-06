@@ -25,7 +25,7 @@ function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgImageSecti
   const [ref, bounds] = useMeasure();
 
   const content = useMemo(() => {
-    const activeTabContent = tabs.find(tab => tab.id === activeTab)?.content;
+    const activeTabContent = tabs.find((tab) => tab.id === activeTab)?.content;
     return activeTabContent || null;
   }, [activeTab, tabs]);
 
@@ -65,12 +65,12 @@ function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgImageSecti
           rounded
         )}
       >
-        {tabs.map(tab => (
+        {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
             className={cn(
-              'relative flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-neutral-200 transition focus-visible:ring-1 focus-visible:outline-1 focus-visible:outline-none sm:text-sm',
+              'relative flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-neutral-200 transition focus-visible:outline-none focus-visible:outline-1 focus-visible:ring-1 sm:text-sm',
               activeTab === tab.id ? 'text-white' : 'text-neutral-200/80 hover:text-neutral-300/60',
               rounded
             )}
@@ -95,8 +95,15 @@ function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgImageSecti
           initial={false}
           animate={{ height: bounds.height }}
         >
-          <div className="p-1" ref={ref}>
-            <AnimatePresence custom={direction} mode="popLayout" onExitComplete={() => setIsAnimating(false)}>
+          <div
+            className="p-1"
+            ref={ref}
+          >
+            <AnimatePresence
+              custom={direction}
+              mode="popLayout"
+              onExitComplete={() => setIsAnimating(false)}
+            >
               <motion.div
                 key={activeTab}
                 variants={variants}

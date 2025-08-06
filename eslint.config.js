@@ -1,43 +1,33 @@
 const { FlatCompat } = require('@eslint/eslintrc');
 const js = require('@eslint/js');
-const typescriptEslint = require('@typescript-eslint/eslint-plugin');
-const typescriptParser = require('@typescript-eslint/parser');
+const prettier = require('eslint-config-prettier');
+const pluginPrettier = require('eslint-plugin-prettier');
+const react = require('eslint-plugin-react');
+const reactHooks = require('eslint-plugin-react-hooks');
 const globals = require('globals');
-const pluginReactHooks = require('eslint-plugin-react-hooks');
+const typescript = require('typescript-eslint');
 const pluginMdx = require('eslint-plugin-mdx');
 
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all
+  baseDirectory: __dirname
 });
 
 /** @type {import('eslint').Linter.Config[]} */
-const config = [
-  ...compat.extends(
-    'next/core-web-vitals',
-    'next/typescript',
-    'eslint:recommended',
-    'plugin:react/recommended',
-    // 'plugin:mdx/recommended',
-    'plugin:prettier/recommended'
-  ),
+module.exports = typescript.config(
+  js.configs.recommended,
+  typescript.configs.recommended,
+  ...compat.extends('next/core-web-vitals'),
   {
-    files: ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '**/*.mjs', '**/*.mts', '**/*.mdx', '**/*.md'],
-    plugins: {
-      '@typescript-eslint': typescriptEslint,
-      'react-hooks': pluginReactHooks,
-      mdx: pluginMdx
-    },
+    ...react.configs.flat.recommended,
+    ...react.configs.flat['jsx-runtime'],
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.node,
-        ...globals.commonjs
+        ...globals.commonjs,
+        ...globals.node
       },
       ecmaVersion: 'latest',
       sourceType: 'module',
-      parser: typescriptParser,
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -45,41 +35,10 @@ const config = [
         }
       }
     },
-
-    settings: {
-      react: {
-        version: 'detect'
-      },
-      tailwindcss: {
-        rootDir: [__dirname],
-        callees: ['cn', 'classnames', 'classNames', 'clsx', 'ctl', 'cva', 'tv']
-      },
-      'mdx/code-blocks': true
-    },
-
     rules: {
       'react/react-in-jsx-scope': 'off',
-      'react/jsx-props-no-spreading': 'off',
-      'react-hooks/exhaustive-deps': 'off',
       'react/prop-types': 'off',
-      'prettier/prettier': [
-        'warn',
-        {},
-        {
-          usePrettierrc: true,
-          ignoreFiles: ['**/node_modules/**', '**/dist/**', '**/public/**/workbox-*.{js,js.map}']
-        }
-      ],
-
-      '@next/next/no-img-element': 'off',
-      '@next/next/no-html-link-for-pages': 'off',
-      '@typescript-eslint/no-empty-function': 'off',
-      '@typescript-eslint/no-console': 'off',
-
-      // js rules
-      'no-undef': 'off',
-      'no-unused-vars': 'off',
-
+      'react/no-unescaped-entities': 'off',
       // ts overrides
       '@typescript-eslint/no-unused-vars': [
         'warn',
@@ -94,16 +53,40 @@ const config = [
         }
       ],
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-require-imports': 'off'
+      '@typescript-eslint/no-require-imports': 'off',
 
-      // mdx
-      // 'mdx/code-blocks': 'warn'
-
-      // 'tailwindcss/no-custom-classname': 'off',
-      // 'tailwindcss/classnames-order': 'off',
+      '@next/next/no-img-element': 'off',
+      '@next/next/no-html-link-for-pages': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-console': 'off'
+    },
+    settings: {
+      react: {
+        version: 'detect'
+      },
+      tailwindcss: {
+        callees: ['cn', 'cn', 'cn', 'clsx', 'ctl', 'cva', 'tv']
+      }
     }
   },
-  { ignores: ['node_modules/*', '.next/', '.turbo/', '.out/', '**/build', '**/coverage', '**/*.go'] }
-];
-
-module.exports = config;
+  {
+    files: ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '**/*.mjs', '**/*.mts', '**/*.mdx', '**/*.md'],
+    plugins: {
+      'react-hooks': reactHooks,
+      mdx: pluginMdx,
+      prettier: pluginPrettier
+    },
+    rules: {
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'off',
+      'prettier/prettier': 'warn'
+    },
+    settings: {
+      'mdx/code-blocks': true
+    }
+  },
+  {
+    ignores: ['node_modules/*', '.next/', '.turbo/', '.out/', '**/build', '**/coverage']
+  },
+  prettier
+);

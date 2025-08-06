@@ -81,7 +81,7 @@ export function RepoProvider({ children }: { children?: ReactNode }): React.JSX.
   // fetch projects from github api
   const { data: project_data, error: project_error } = useSWR<GithubProject[]>(
     `https://api.github.com/users/braswelljr/repos`,
-    (url: URL) => fetch(url).then(res => res.json()),
+    (url: URL) => fetch(url).then((res) => res.json()),
     { shouldRetryOnError: true }
   );
 
@@ -133,7 +133,7 @@ export function RepoProvider({ children }: { children?: ReactNode }): React.JSX.
             }
           }`
         })
-      }).then(res => res.json()),
+      }).then((res) => res.json()),
     { shouldRetryOnError: true }
   );
 

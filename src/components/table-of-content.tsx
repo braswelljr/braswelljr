@@ -22,17 +22,28 @@ interface TocProps {
 }
 
 export function TableOfContents({ toc, className, resources }: TocProps) {
-  const { toggle, onToggle } = useStore(s => s);
+  const { toggle, onToggle } = useStore((s) => s);
 
   return (
     <Fragment>
-      <Sheet open={toggle} onOpenChange={onToggle}>
+      <Sheet
+        open={toggle}
+        onOpenChange={onToggle}
+      >
         <SheetContent side="left">
-          <Content toc={toc} resources={resources} className={className} />
+          <Content
+            toc={toc}
+            resources={resources}
+            className={className}
+          />
         </SheetContent>
       </Sheet>
       <aside className="max-md:hidden">
-        <Content toc={toc} resources={resources} className={className} />
+        <Content
+          toc={toc}
+          resources={resources}
+          className={className}
+        />
       </aside>
     </Fragment>
   );
@@ -44,10 +55,10 @@ function Content({ toc, className, resources }: TocProps) {
   const itemIds = useMemo(() => {
     if (toc && toc.items) {
       return toc.items
-        .flatMap(item => [item.url, item?.items?.map(item => item.url)])
+        .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
         .flat()
         .filter(Boolean)
-        .map(id => id?.split('#')[1]);
+        .map((id) => id?.split('#')[1]);
     }
 
     return [];
@@ -60,7 +71,7 @@ function Content({ toc, className, resources }: TocProps) {
   return (
     <div
       className={cn(
-        'space-y-2 text-xs md:sticky md:top-16 md:-mt-10 md:max-h-[calc(var(--vh)-4rem)] md:overflow-y-auto md:pt-16 md:pr-2 xl:text-sm',
+        'space-y-2 text-xs md:sticky md:top-16 md:-mt-10 md:max-h-[calc(var(--vh)-4rem)] md:overflow-y-auto md:pr-2 md:pt-16 xl:text-sm',
         className
       )}
     >
@@ -75,14 +86,17 @@ function Content({ toc, className, resources }: TocProps) {
           <HiArrowLeft className="h-3 w-auto" />
           <span>Back to blog</span>
           <span
-            className="absolute right-2 bottom-0 -left-2 h-0.5 w-0 bg-current transition-[width] group-hover/link:w-full"
+            className="absolute -left-2 bottom-0 right-2 h-0.5 w-0 bg-current transition-[width] group-hover/link:w-full"
             aria-hidden="true"
           />
         </Link>
         {/* scroll to top */}
         <ScrollToTopWithBlog />
       </div>
-      <Tree tree={toc} activeItem={activeHeading} />
+      <Tree
+        tree={toc}
+        activeItem={activeHeading}
+      />
       {resources?.length && (
         <div className="mt-5">
           <h3 className="text-sm font-medium uppercase">Links and Resources</h3>
@@ -107,21 +121,21 @@ function useActiveItem(itemIds: string[], options?: IntersectionObserverInit) {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
+      (entries) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) setActiveId(entry.target.id || '');
         });
       },
       { rootMargin: `0% 0% -80% 0%`, ...options }
     );
 
-    itemIds?.forEach(id => {
+    itemIds?.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
     });
 
     return () => {
-      itemIds?.forEach(id => {
+      itemIds?.forEach((id) => {
         const element = document.getElementById(id);
         if (element) observer.unobserve(element);
       });
@@ -138,7 +152,7 @@ interface TreeProps {
 }
 
 function Tree({ tree, level = 1, activeItem }: TreeProps) {
-  const { onToggle } = useStore(state => state);
+  const { onToggle } = useStore((state) => state);
 
   return (
     <div>
@@ -146,7 +160,10 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
         <ul className={cn('m-0 list-none', { 'pl-2': level !== 1 })}>
           {tree.items.map((item, index) => {
             return (
-              <li key={index} className={cn('mt-0 pt-2')}>
+              <li
+                key={index}
+                className={cn('mt-0 pt-2')}
+              >
                 <a
                   href={item.url}
                   className={cn(
@@ -159,7 +176,13 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
                 >
                   {item.title}
                 </a>
-                {item.items?.length ? <Tree tree={item} level={level + 1} activeItem={activeItem} /> : null}
+                {item.items?.length ? (
+                  <Tree
+                    tree={item}
+                    level={level + 1}
+                    activeItem={activeItem}
+                  />
+                ) : null}
               </li>
             );
           })}

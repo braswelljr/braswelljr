@@ -69,10 +69,7 @@ export const career: Array<Career> = [
     company: 'Solar Taxi, Accra, Ghana',
     companyLink: 'https://solartaxi.co',
     date: 'Nov 2022 - Sep 2023',
-    description: [
-      'Managed and maintained Wote backend APIs using Go.',
-      'Developed enterprise web application features using React and TypeScript.'
-    ]
+    description: ['Managed and maintained Wote backend APIs using Go.', 'Developed enterprise web application features using React and TypeScript.']
   },
   {
     role: 'Software Engineer',
@@ -105,6 +102,12 @@ export const OTHER_PROJECTS = [
     url: '',
     description:
       'Carbazza is a comprehensive online platform for car enthusiasts, providing a wide range of services and resources to help them make informed decisions about purchasing, maintaining, and upgrading their vehicles.'
+  },
+  {
+    name: 'Colored',
+    homepageUrl: 'https://colored.vercel.app',
+    url: 'https://github.com/braswelljr/colored',
+    description: 'Experience a world of personalized design with an array of handpicked colors at your disposal.'
   },
   {
     name: 'OZ Moview',

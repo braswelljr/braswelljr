@@ -67,9 +67,7 @@ export function DecryptedText({
       }
     };
 
-    const availableChars = useOriginalCharsOnly
-      ? Array.from(new Set(text.split(''))).filter(char => char !== ' ')
-      : characters.split('');
+    const availableChars = useOriginalCharsOnly ? Array.from(new Set(text.split(''))).filter((char) => char !== ' ') : characters.split('');
 
     const shuffleText = (originalText: string, currentRevealed: Set<number>): string => {
       if (useOriginalCharsOnly) {
@@ -80,7 +78,7 @@ export function DecryptedText({
           isRevealed: currentRevealed.has(i)
         }));
 
-        const nonSpaceChars = positions.filter(p => !p.isSpace && !p.isRevealed).map(p => p.char);
+        const nonSpaceChars = positions.filter((p) => !p.isSpace && !p.isRevealed).map((p) => p.char);
 
         for (let i = nonSpaceChars.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
@@ -89,7 +87,7 @@ export function DecryptedText({
 
         let charIndex = 0;
         return positions
-          .map(p => {
+          .map((p) => {
             if (p.isSpace) return ' ';
             if (p.isRevealed) return originalText[p.index];
             return nonSpaceChars[charIndex++];
@@ -110,7 +108,7 @@ export function DecryptedText({
     if (isHovering) {
       setIsScrambling(true);
       interval = setInterval(() => {
-        setRevealedIndices(prevRevealed => {
+        setRevealedIndices((prevRevealed) => {
           if (sequential) {
             if (prevRevealed.size < text.length) {
               const nextIndex = getNextIndex(prevRevealed);
@@ -150,7 +148,7 @@ export function DecryptedText({
     if (animateOn !== 'view') return;
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting && !hasAnimated) {
           setIsHovering(true);
           setHasAnimated(true);
@@ -197,7 +195,10 @@ export function DecryptedText({
           const isRevealedOrDone = revealedIndices.has(index) || !isScrambling || !isHovering;
 
           return (
-            <span key={index} className={isRevealedOrDone ? className : encryptedClassName}>
+            <span
+              key={index}
+              className={isRevealedOrDone ? className : encryptedClassName}
+            >
               {char}
             </span>
           );

@@ -20,7 +20,7 @@ const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
-        'from-secondary to-primary mt-2 scroll-m-20 bg-gradient-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-[#ff7056]',
+        'from-secondary to-primary mt-2 scroll-m-20 bg-gradient-to-l bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent sm:text-3xl md:text-4xl dark:to-[#ff7056]',
         className
       )}
       {...props}
@@ -90,39 +90,61 @@ const components = {
     />
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p className={cn('leading-7 [&:not(:first-child)]:mt-6', className)} {...props} />
+    <p
+      className={cn('leading-7 [&:not(:first-child)]:mt-6', className)}
+      {...props}
+    />
   ),
   ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul className={cn('my-6 ml-6 list-disc', className)} {...props} />
+    <ul
+      className={cn('my-6 ml-6 list-disc', className)}
+      {...props}
+    />
   ),
   ol: ({ className, ...props }: React.HTMLAttributes<HTMLOListElement>) => (
-    <ol className={cn('my-6 ml-6 list-decimal', className)} {...props} />
+    <ol
+      className={cn('my-6 ml-6 list-decimal', className)}
+      {...props}
+    />
   ),
   li: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <li className={cn('mt-2', className)} {...props} />
+    <li
+      className={cn('mt-2', className)}
+      {...props}
+    />
   ),
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <blockquote
-      className={cn(
-        'mt-6 border-l-2 border-neutral-300 pl-6 text-neutral-800 italic [&>*]:text-neutral-600',
-        className
-      )}
+      className={cn('mt-6 border-l-2 border-neutral-300 pl-6 italic text-neutral-800 [&>*]:text-neutral-600', className)}
       {...props}
     />
   ),
   img: ({ className, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
-    <img className={cn('rounded-md border border-neutral-200', className)} alt={alt} {...props} />
+    <img
+      className={cn('rounded-md border border-neutral-200', className)}
+      alt={alt}
+      {...props}
+    />
   ),
   hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
-    <hr className="my-4 border-neutral-200 md:my-8 dark:border-neutral-600" {...props} />
+    <hr
+      className="my-4 border-neutral-200 md:my-8 dark:border-neutral-600"
+      {...props}
+    />
   ),
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
     <div className="my-6 w-full overflow-auto">
-      <table className={cn('w-full rounded-2xl', className)} {...props} />
+      <table
+        className={cn('w-full rounded-2xl', className)}
+        {...props}
+      />
     </div>
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
-    <tr className={cn('m-0 border-t border-neutral-500/50 p-0', className)} {...props} />
+    <tr
+      className={cn('m-0 border-t border-neutral-500/50 p-0', className)}
+      {...props}
+    />
   ),
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
@@ -135,25 +157,22 @@ const components = {
   ),
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td
-      className={cn(
-        'border border-neutral-500/50 px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right',
-        className
-      )}
+      className={cn('border border-neutral-500/50 px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right', className)}
       {...props}
     />
   ),
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
-      className={cn(
-        'font-cascadia from-secondary to-primary relative rounded bg-gradient-to-l bg-clip-text px-[0.3rem] py-[0.2rem]',
-        className
-      )}
+      className={cn('font-cascadia from-secondary to-primary relative rounded bg-gradient-to-l bg-clip-text px-[0.3rem] py-[0.2rem]', className)}
       {...props}
     />
   ),
   pre: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
     return (
-      <CodeBlock className={cn('font-cascadia prose', className)} {...props}>
+      <CodeBlock
+        className={cn('font-cascadia prose', className)}
+        {...props}
+      >
         <Pre>{props.children}</Pre>
       </CodeBlock>
     );
@@ -164,7 +183,12 @@ const components = {
   Card,
   ComponentExample,
   CodeBlock,
-  Steps: ({ ...props }) => <div className="[&>h3]:step mb-12 ml-4 border-l pl-8 [counter-reset:step]" {...props} />,
+  Steps: ({ ...props }) => (
+    <div
+      className="[&>h3]:step mb-12 ml-4 border-l pl-8 [counter-reset:step]"
+      {...props}
+    />
+  ),
   ...snippets
 };
 
@@ -188,7 +212,10 @@ export function Mdx({ code, className }: MdxProps) {
   const comps = getMDXComponents(components);
   return (
     <div className={cn('mdx', className)}>
-      <MDXContent code={code} components={comps} />
+      <MDXContent
+        code={code}
+        components={comps}
+      />
     </div>
   );
 }
