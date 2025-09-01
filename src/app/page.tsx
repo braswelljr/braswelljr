@@ -27,16 +27,14 @@ export default function Page() {
   return (
     <main className={cn('grid h-dvh place-content-center')}>
       <section className="space-y-4">
-        <div className="md:pt-8">
-          <Image
-            src={'/images/man-in-hoodie.png'}
-            alt={'boy in hoodie'}
-            loading="eager"
-            height={200}
-            width={75}
-            style={{ marginRight: 'auto', marginLeft: 'auto' }}
-          />
-        </div>
+        <Image
+          src="/images/braswelljr.png"
+          alt="braswelljr"
+          loading="eager"
+          height={350}
+          width={120}
+          className="mx-auto md:pt-8"
+        />
         <div className="space-y-8 md:space-y-12">
           <div className="text-center text-lg font-extralight sm:text-xl md:text-2xl">
             <div className="">I am</div> <div className="font-cascadia font-bold">Braswell Kenneth Azu Jr.</div>
@@ -71,9 +69,7 @@ export default function Page() {
                   target: '_blank',
                   rel: 'noopener noreferrer'
                 }))}
-                classNames={{
-                  container: 'data-[motion-hover=true]:bg-gradient-to-l from-secondary to-primary backdrop-blur-md'
-                }}
+                classNames={{ container: 'data-[motion-hover=true]:bg-gradient-to-l from-secondary to-primary backdrop-blur-md' }}
               />
             ) : (
               <div className="xs:space-x-6 mx-auto flex items-center justify-center space-x-3">
