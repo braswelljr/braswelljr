@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useId, useState } from 'react';
 import type { Dispatch, RefObject, SetStateAction } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -17,7 +17,9 @@ export default function Search({
   setOpen?: Dispatch<SetStateAction<boolean>>;
   searchButtonRef: RefObject<HTMLButtonElement | null>;
 }) {
+  const searchId = useId();
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
+  const [isAskAiActive, onAskAiToggle] = useState<boolean>(true);
   const { push } = useRouter();
 
   const onOpen = useCallback(() => setOpen?.(true), [setOpen]);
@@ -49,12 +51,18 @@ export default function Search({
     onOpen,
     onClose,
     onInput,
-    searchButtonRef: searchButtonRef
+    searchButtonRef: searchButtonRef,
+    isAskAiActive,
+    onAskAiToggle,
+    keyboardShortcuts: {
+      '/': true,
+      'Ctrl/Cmd+K': false
+    }
   });
 
   return (
     <div
-      id="search-body"
+      id={searchId}
       className={cn('z-11 fixed inset-0 size-full bg-neutral-500/80', {
         hidden: !open
       })}
@@ -68,7 +76,7 @@ export default function Search({
             onClose={onClose}
             appId="QKSUPW3S6U"
             apiKey="c7fe5c895331a45ebd59889d32de1165"
-            indexName="braswelljr"
+            indices={['braswelljr']}
             navigator={{
               navigate({ itemUrl }) {
                 setOpen?.(false);
@@ -106,6 +114,7 @@ export default function Search({
             hitComponent={({ hit, children }) => {
               return <Link href={hit.url}>{children}</Link>;
             }}
+            onAskAiToggle={onAskAiToggle}
           />,
           document.body
         )}

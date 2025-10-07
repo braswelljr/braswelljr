@@ -85,8 +85,6 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20",
-    "@commitlint/config-conventional": "^20",
     "@content-collections/cli": "^0.1.7",
     "@content-collections/core": "^0.11.1",
     "@content-collections/mdx": "^0.2.2",

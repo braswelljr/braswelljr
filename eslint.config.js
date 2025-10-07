@@ -3,7 +3,7 @@ const js = require('@eslint/js');
 const prettier = require('eslint-config-prettier');
 const pluginPrettier = require('eslint-plugin-prettier');
 const react = require('eslint-plugin-react');
-const reactHooks = require('eslint-plugin-react-hooks');
+// const reactHooks = require('eslint-plugin-react-hooks');
 const globals = require('globals');
 const typescript = require('typescript-eslint');
 const pluginMdx = require('eslint-plugin-mdx');
@@ -72,14 +72,19 @@ module.exports = typescript.config(
   {
     files: ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '**/*.mjs', '**/*.mts', '**/*.mdx', '**/*.md'],
     plugins: {
-      'react-hooks': reactHooks,
-      mdx: pluginMdx,
+      // 'react-hooks': reactHooks,
       prettier: pluginPrettier
     },
     rules: {
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'off',
       'prettier/prettier': 'warn'
+    }
+  },
+  {
+    files: ['**/*.mdx', '**/*.md'],
+    plugins: {
+      mdx: pluginMdx
     },
     settings: {
       'mdx/code-blocks': true

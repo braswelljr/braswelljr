@@ -5,9 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'motion/react';
 import { cn } from 'lib/utils';
+import { useInterval } from 'react-use';
 import { socials } from '~/config/data';
 import { useDevice } from '~/hooks/useDevice';
-import useInterval from '~/hooks/useInterval';
 import FloatingDock from '~/components/ui/floating-dock';
 
 export default function Page() {
@@ -26,14 +26,14 @@ export default function Page() {
 
   return (
     <main className={cn('minh-h-dvh flex items-center justify-center')}>
-      <section className="space-y-4">
+      <section className="space-y-4 pb-10 pt-40">
         <Image
           src="/images/braswelljr.png"
           alt="braswelljr"
           loading="eager"
           height={350}
           width={120}
-          className="mx-auto pt-40"
+          className="mx-auto"
         />
         <div className="space-y-8 md:space-y-12">
           <div className="text-center text-lg font-extralight sm:text-xl md:text-2xl">

@@ -13,7 +13,6 @@ import {
   Image,
   Laptop,
   Loader2,
-  LucideProps,
   Moon,
   MoreVertical,
   Pizza,
@@ -21,10 +20,11 @@ import {
   Settings,
   SunMedium,
   Trash,
-  Twitter,
   User,
   X,
-  type IconNode as LucideIcon
+  XIcon,
+  type IconNode as LucideIcon,
+  type LucideProps
 } from 'lucide-react';
 
 export type Icon = LucideIcon;
@@ -64,7 +64,7 @@ export const Icons = {
   arrowRight: ArrowRight,
   help: HelpCircle,
   pizza: Pizza,
-  twitter: Twitter,
+  x: XIcon,
   check: Check,
   copy: Copy,
   copyDone: ClipboardCheck,

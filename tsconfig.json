@@ -15,18 +15,12 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",
     "paths": {
       "content/generated": ["./.contentlayer/generated", "./.content-collections/generated"],
-      "lib": ["./lib"],
-      "~": ["./src", "./"],
-      "~~": ["./src", "./"],
-      "~/*": ["./src/*", "./"],
-      "~~/*": ["./src/*", "./"],
-      "@": ["./src", "./"],
-      "@@": ["./src", "./"],
-      "@/*": ["./src/*", "./"],
-      "@@/*": ["./src/*", "./"],
+      "lib/*": ["./lib/*"],
+      "types/*": ["./types/*"],
+      "~/*": ["./src/*"],
+      "@/*": ["./src/*"],
       "react": ["./node_modules/@types/react"]
     },
     "plugins": [{ "name": "next" }]
@@ -41,5 +35,5 @@
     "next.config.js"
   ],
   "exclude": ["node_modules"],
-  "files": ["types.d.ts"]
+  "files": ["./types.d.ts"]
 }
