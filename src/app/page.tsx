@@ -25,7 +25,7 @@ export default function Page() {
   }, 5000);
 
   return (
-    <main className={cn('grid h-dvh place-content-center')}>
+    <main className={cn('minh-h-dvh flex items-center justify-center')}>
       <section className="space-y-4">
         <Image
           src="/images/braswelljr.png"
@@ -33,7 +33,7 @@ export default function Page() {
           loading="eager"
           height={350}
           width={120}
-          className="mx-auto md:pt-8"
+          className="mx-auto pt-40"
         />
         <div className="space-y-8 md:space-y-12">
           <div className="text-center text-lg font-extralight sm:text-xl md:text-2xl">

@@ -7,7 +7,7 @@
 }
 
 .DocSearch-Container {
-  @apply fixed top-0 left-0 z-200 flex h-screen w-screen cursor-auto flex-col bg-black/20 backdrop-blur-sm md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50;
+  @apply z-200 fixed left-0 top-0 flex h-screen w-screen cursor-auto flex-col bg-black/20 backdrop-blur-sm md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50;
 }
 
 .DocSearch-LoadingIndicator svg {
@@ -36,7 +36,7 @@
 .DocSearch-SearchBar {
   z-index: 1;
   padding: 0 1rem;
-  @apply relative z-1 flex flex-none items-center border-b border-neutral-500/40 dark:border-neutral-400/50;
+  @apply z-1 relative flex flex-none items-center border-b border-neutral-500/40 dark:border-neutral-400/50;
 }
 
 .DocSearch-Form {
@@ -158,7 +158,7 @@
 .DocSearch-Hit-source {
   margin: 0 1.5rem 1rem;
 
-  @apply text-primary dark:text-secondary pt-10 font-mono leading-6 font-semibold uppercase;
+  @apply text-primary dark:text-secondary pt-10 font-mono font-semibold uppercase leading-6;
 }
 
 .DocSearch-Hits:first-child .DocSearch-Hit-source {
@@ -200,7 +200,7 @@
 }
 
 .DocSearch-Hit-path {
-  @apply text-primary dark:text-secondary self-start rounded-full bg-[#e6381923] px-4 py-0.5 text-xs leading-6 font-semibold dark:bg-neutral-200/10;
+  @apply text-primary dark:text-secondary self-start rounded-full bg-[#e6381923] px-4 py-0.5 text-xs font-semibold leading-6 dark:bg-neutral-200/10;
 }
 
 .DocSearch-Hit[aria-selected='true'] .DocSearch-Hit--Parent .DocSearch-Hit-icon {
@@ -333,7 +333,7 @@
 }
 
 .DocSearch-NoResults {
-  @apply px-4 pt-10 pb-8;
+  @apply px-4 pb-8 pt-10;
 }
 
 .DocSearch-NoResults .DocSearch-Title {
@@ -341,7 +341,7 @@
 }
 
 .DocSearch-NoResults-Prefill-List .DocSearch-Help {
-  @apply dark:text-secondary mb-3 text-sm leading-6 font-semibold text-[#e0543b];
+  @apply dark:text-secondary mb-3 text-sm font-semibold leading-6 text-[#e0543b];
 }
 
 .DocSearch-NoResults-Prefill-List ul {
@@ -439,4 +439,8 @@
 }
 .DocSearch-Logo svg * {
   @apply fill-primary dark:fill-secondary ml-3;
+}
+
+.DocSearch-Actions {
+  @apply flex flex-row items-center justify-between;
 }
