@@ -15,11 +15,11 @@ type BlogResources = {
   url: string;
 };
 
-interface TocProps {
+type TocProps = {
   toc: TableOfContentsType;
   resources?: BlogResources[];
   className?: string;
-}
+};
 
 export function TableOfContents({ toc, className, resources }: TocProps) {
   const { toggle, onToggle } = useStore((s) => s);
@@ -71,7 +71,7 @@ function Content({ toc, className, resources }: TocProps) {
   return (
     <div
       className={cn(
-        'space-y-2 text-xs md:sticky md:top-16 md:-mt-10 md:max-h-[calc(var(--vh)-4rem)] md:overflow-y-auto md:pr-2 md:pt-16 xl:text-sm',
+        'space-y-2 text-xs md:sticky md:top-16 md:-mt-10 md:max-h-[calc(var(--vh)-4rem)] md:overflow-y-auto md:pt-16 md:pr-2 xl:text-sm',
         className
       )}
     >
@@ -81,12 +81,12 @@ function Content({ toc, className, resources }: TocProps) {
         {/* blogs */}
         <Link
           href="/blog"
-          className="group/link dark:text-secondary text-primary relative inline-flex items-center space-x-2 pb-1.5 uppercase"
+          className="group/link relative inline-flex items-center space-x-2 pb-1.5 text-primary uppercase dark:text-secondary"
         >
           <HiArrowLeft className="h-3 w-auto" />
           <span>Back to blog</span>
           <span
-            className="absolute -left-2 bottom-0 right-2 h-0.5 w-0 bg-current transition-[width] group-hover/link:w-full"
+            className="absolute right-2 bottom-0 -left-2 h-0.5 w-0 bg-current transition-[width] group-hover/link:w-full"
             aria-hidden="true"
           />
         </Link>
@@ -104,7 +104,7 @@ function Content({ toc, className, resources }: TocProps) {
             {resources.map((resource, i) => (
               <li
                 key={i}
-                className="dark:hover:text-secondary hover:text-primary text-sm font-medium text-neutral-600 hover:underline dark:text-neutral-400"
+                className="text-sm font-medium text-neutral-600 hover:text-primary hover:underline dark:text-neutral-400 dark:hover:text-secondary"
               >
                 <Link href={resource.url}>{resource.title}</Link>
               </li>

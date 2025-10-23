@@ -5,9 +5,9 @@ import { usePathname } from 'next/navigation';
 import { cn } from 'lib/utils';
 import { SidebarNavItem } from 'types/nav';
 
-export interface BlogSidebarNavProps {
+export type BlogSidebarNavProps = {
   items: SidebarNavItem[];
-}
+};
 
 export function BlogSidebarNav({ items }: BlogSidebarNavProps) {
   const pathname = usePathname();

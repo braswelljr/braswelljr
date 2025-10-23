@@ -33,7 +33,7 @@ export function BlogPaginate({ blogs, activeBlog }: BlogPaginationProps) {
           className={cn(buttonVariants({ variant: 'outline' }), 'absolute left-0')}
         >
           <Icons.chevronLeft className="mr-2 size-4" />
-          <span className="max-sm:text-xsm truncate max-lg:max-w-40">{xsm ? 'Previous' : pager.prev.title}</span>
+          <span className="truncate max-lg:max-w-40 max-sm:text-xsm">{xsm ? 'Previous' : pager.prev.title}</span>
         </Link>
       )}
       {pager && pager.next?.slug && (
@@ -41,7 +41,7 @@ export function BlogPaginate({ blogs, activeBlog }: BlogPaginationProps) {
           href={pager.next.slug}
           className={cn(buttonVariants({ variant: 'outline' }), 'absolute right-0')}
         >
-          <span className="max-md:text-xsm truncate max-lg:max-w-40">{xsm ? 'Next' : pager.next.title}</span>
+          <span className="truncate max-lg:max-w-40 max-md:text-xsm">{xsm ? 'Next' : pager.next.title}</span>
           <Icons.chevronRight className="ml-2 size-4" />
         </Link>
       )}

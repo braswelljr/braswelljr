@@ -113,13 +113,6 @@ export default function Search({
               return <Link href={hit.url}>{children}</Link>;
             }}
             onAskAiToggle={onAskAiToggle}
-            // translations={{
-            //   // footer: {
-            //   //   navigateText: 'navigate',
-            //   //   navigateUpKeyAriaLabel: 'Arrow up',
-            //   //   navigateDownKeyAriaLabel: 'Arrow down'
-            //   // }
-            // }}
           />,
           document.body
         )}

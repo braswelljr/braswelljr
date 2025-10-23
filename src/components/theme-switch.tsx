@@ -40,7 +40,7 @@ export default function ThemeSwitch({
               )}
             />
           )}
-          <div className={cn('relative z-[1]', key === theme && 'text-white', classNames?.block)}>{icon}</div>
+          <div className={cn('relative z-1', key === theme && 'text-white', classNames?.block)}>{icon}</div>
         </li>
       ))}
     </ul>
