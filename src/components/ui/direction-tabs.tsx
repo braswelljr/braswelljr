@@ -18,7 +18,7 @@ interface OgImageSectionProps {
   onChange?: () => void;
 }
 
-function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgImageSectionProps) {
+export function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgImageSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -70,7 +70,7 @@ function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgImageSecti
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
             className={cn(
-              'relative flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-neutral-200 transition focus-visible:outline-none focus-visible:outline-1 focus-visible:ring-1 sm:text-sm',
+              'relative flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-neutral-200 transition focus-visible:ring-1 focus-visible:outline-1 focus-visible:outline-none sm:text-sm',
               activeTab === tab.id ? 'text-white' : 'text-neutral-200/80 hover:text-neutral-300/60',
               rounded
             )}
@@ -123,4 +123,3 @@ function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgImageSecti
     </div>
   );
 }
-export { DirectionAwareTabs };

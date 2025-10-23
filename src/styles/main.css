@@ -340,7 +340,7 @@
 }
 
 @utility container {
-  @apply mx-auto px-8 2xl:w-[1400px];
+  @apply mx-auto px-8 2xl:w-fd-container;
 }
 
 .scrollbars-hidden {
@@ -374,7 +374,7 @@
 }
 
 .playlist-card {
-  @apply relative overflow-hidden p-0.5 duration-500 [perspective-origin:bottom] [perspective:50px] hover:-skew-x-3 focus:-skew-x-3;
+  @apply relative overflow-hidden p-0.5 duration-500 perspective-[50px] perspective-origin-bottom hover:-skew-x-3 focus:-skew-x-3;
 
   &:hover::before,
   &:focus::before {

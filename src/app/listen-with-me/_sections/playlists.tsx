@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { cn } from 'lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardFooter, CardTitle } from '~/components/ui/card';
-import Skeleton from '~/components/ui/skeleton';
+import { Skeleton } from '~/components/ui/skeleton';
 
 type Paginate = {
   total: number;
@@ -41,7 +41,7 @@ export function Playlist({ className }: { className?: string }) {
   return (
     <section className={cn('', className)}>
       <nav className="flex items-center justify-between">
-        <h2 className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]">
+        <h2 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary">
           Playlist
         </h2>
         <button
@@ -104,7 +104,7 @@ export function PlaylistData({ className, data }: { className?: string; data: Pa
           suppressHydrationWarning
         >
           <Card className="playlist-card grid border-0 bg-neutral-100/60 hover:cursor-pointer focus:cursor-pointer dark:bg-neutral-800/60">
-            <div className="relative z-[1] rounded-lg bg-neutral-100 dark:bg-neutral-800">
+            <div className="relative z-1 rounded-lg bg-neutral-100 dark:bg-neutral-800">
               <CardContent className={cn('p-4')}>
                 <Avatar className="h-[176px] w-full rounded bg-neutral-400/80 dark:bg-neutral-900/80">
                   <AvatarImage
@@ -116,7 +116,7 @@ export function PlaylistData({ className, data }: { className?: string; data: Pa
               </CardContent>
               <CardFooter className="flex-col items-start gap-2 p-4 pt-0">
                 <span
-                  className="hover:text-secondary group flex items-center justify-center gap-2"
+                  className="group flex items-center justify-center gap-2 hover:text-secondary"
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent triggering the parent link
                     window.open(playlist.external_urls?.spotify, '_blank', 'noopener noreferrer');

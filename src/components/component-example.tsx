@@ -5,11 +5,11 @@ import { cn } from 'lib/utils';
 import { CopyButton, CopyWithClassNames } from '~/components/copy-button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 
-interface ComponentExampleProps extends React.HTMLAttributes<HTMLDivElement> {
+type ComponentExampleProps = React.HTMLAttributes<HTMLDivElement> & {
   extractClassname?: boolean;
   extractedClassNames?: string;
   align?: 'center' | 'start' | 'end';
-}
+};
 
 export function ComponentExample({ children, className, extractedClassNames, align = 'center', ...props }: ComponentExampleProps) {
   // const [Example, Code, ...Children] = React.Children.toArray(children) as React.ReactElement[];

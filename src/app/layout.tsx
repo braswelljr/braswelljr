@@ -84,11 +84,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
                 />
               </div>
-              <Navbar className="fixed inset-x-0 top-0 z-[4] bg-white/90 dark:bg-neutral-800/90" />
-              <div className="relative inset-0 z-[1] min-h-dvh w-full">
+              <Navbar className="fixed inset-x-0 top-0 z-4 bg-white/90 dark:bg-neutral-800/90" />
+              <div className="relative inset-0 z-1 min-h-dvh w-full">
                 {children}
                 <ScrollTop
-                  className="fixed bottom-5 right-5 z-10"
+                  className="fixed right-5 bottom-5 z-10"
                   disableOnLayouts={['/blog/']}
                 />
               </div>

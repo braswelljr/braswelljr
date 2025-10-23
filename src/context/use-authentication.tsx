@@ -3,15 +3,15 @@
 import { createContext, useContext, useEffect, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-type AuthProps = {
+type AuthenticationProps = {
   token?: string;
 };
 
-export const AuthContext = createContext<AuthProps>({
+export const AuthenticationContext = createContext<AuthenticationProps>({
   token: undefined
 });
 
-type AuthProviderProps = {
+type AuthenticationProviderProps = {
   children: React.ReactNode;
 };
 
@@ -22,7 +22,7 @@ type DataI = {
   expires_in: number;
 };
 
-export function AuthProvider({ children }: AuthProviderProps) {
+export function AuthenticationProvider({ children }: AuthenticationProviderProps) {
   const { data, error, refetch } = useQuery<{ message: string; data: DataI }>({
     queryKey: ['token'],
     queryFn: () => fetch(`/api/spotify/access-token`, { method: 'GET', mode: 'cors' }).then((r) => r.json()),
@@ -37,21 +37,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [error]);
 
   // Memoize context value only if the access_token exists
-  const memoizedValue = useMemo<AuthProps>(
+  const memoizedValue = useMemo<AuthenticationProps>(
     () => ({
       token: data?.data?.access_token
     }),
     [data?.data?.access_token]
   );
 
-  return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;
+  return <AuthenticationContext.Provider value={memoizedValue}>{children}</AuthenticationContext.Provider>;
 }
 
-export function useAuth() {
-  const context = useContext(AuthContext);
+export function useAuthentication() {
+  const context = useContext(AuthenticationContext);
 
   if (!context) {
-    throw new Error('useAuth must be used within a <AuthProvider />');
+    throw new Error('useAuthentication must be used within a <AuthenticationProvider />');
   }
 
   return context;

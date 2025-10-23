@@ -4,7 +4,7 @@ description: Using the react dom create portal to lift dom elements into the roo
 tags:
   - react
   - react-dom
-date: 2025-07-1
+date: 2025-10-23
 published: true
 ---
 
@@ -27,3 +27,143 @@ Install React and ReactDOM if you haven't already:
 ```package-install
 npm install react react-dom
 ```
+
+Install type in-case of typescript.
+
+```package-install
+npm install -D @types/react @types/react-dom
+```
+
+## 🏠 HTML Setup
+
+First, add a portal target to your HTML:
+
+```html title="index.html"
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Portal targets -->
+    <div id="modal-root"></div>
+    <div id="tooltip-root"></div>
+  </body>
+</html>
+```
+
+## 🎯 Basic Portal Example
+
+```tsx tab="modal.tsx"
+import * as React from 'react'
+import { createPortal } from 'react-dom';
+
+type ModalProps = {
+  children: React.ReactNode;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function Modal({ children, isOpen, onClose }: ModalProps) {
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
+
+  if (!isOpen) return null;
+
+  const modalRoot = document.getElementById('modal-root');
+  if (!modalRoot) {
+    console.error('Modal root element not found');
+    return null;
+  }
+
+  return createPortal(
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000
+      }}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        style={{
+          background: 'white',
+          padding: '20px',
+          borderRadius: '8px',
+          maxWidth: '500px',
+          width: '90%'
+        }}
+        onClick={(e: React.MouseEvent) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          style={{
+            float: 'right',
+            background: 'none',
+            border: 'none',
+            fontSize: '1.5rem',
+            cursor: 'pointer'
+          }}
+        >
+          ×
+        </button>
+        {children}
+      </div>
+    </div>,
+    modalRoot
+  );
+}
+```
+
+```tsx tab="App.tsx"
+import { useState } from 'react';
+import { Modal } from './modal.tsx'
+
+export default function App () {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <button onClick={() => setIsOpen(true)}>
+        Open Modal
+      </button>
+
+      <div style={{ overflow: 'hidden', height: '200px', border: '1px solid #ccc' }}>
+        This container has overflow hidden, but the modal escapes it!
+      </div>
+
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <h2>Modal Title</h2>
+        <p>This modal renders outside the main React root!</p>
+      </Modal>
+    </div>
+  );
+}
+```
+
+## 📝 Key Takeaways
+
+- Type Safety: Use TypeScript interfaces to define clear prop contracts
+- Error Handling: Always check if portal target exists and handle gracefully
+- Performance: Conditionally render portals to avoid unnecessary DOM operations
+- Accessibility: Add proper ARIA attributes for modals and dialogs
+- Event Bubbling: Remember events bubble through React tree, not DOM tree
+- Cleanup: Properly cleanup event listeners and portal nodes
+
+Portals are powerful tools that help you create professional, accessible UI components that break out of container constraints while maintaining React's component architecture and TypeScript's type safety.

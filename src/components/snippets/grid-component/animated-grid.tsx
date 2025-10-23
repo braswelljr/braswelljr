@@ -56,7 +56,7 @@ export default function AnimatedGridComponent() {
       {/* body */}
       <section className="mx-auto max-w-5xl px-2 py-7 max-lg:mx-5 md:px-12 xl:max-w-7xl">
         <div className="">
-          <div className="xsm:grid-cols-[repeat(auto-fill,minmax(320px,1fr))] grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8 text-xs">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8 text-xs xsm:grid-cols-[repeat(auto-fill,minmax(320px,1fr))]">
             {products.map((product) => (
               <motion.div
                 key={product.id}

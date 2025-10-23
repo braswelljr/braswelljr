@@ -26,7 +26,7 @@ export default function Page() {
 
   return (
     <main className={cn('minh-h-dvh flex items-center justify-center')}>
-      <section className="space-y-4 pb-10 pt-40">
+      <section className="space-y-4 pt-40 pb-10">
         <Image
           src="/images/braswelljr.png"
           alt="braswelljr"
@@ -46,7 +46,7 @@ export default function Page() {
                   <motion.div
                     key={id}
                     className={cn(
-                      'xxs:text-2xl xsm:text-3xl to-primary bg-gradient-to-l from-[#ff8d22] bg-clip-text pb-3 text-center font-sans text-xl font-black uppercase text-transparent sm:text-4xl md:text-5xl dark:to-[#ff7056]'
+                      'bg-linear-to-l from-[#ff8d22] to-primary bg-clip-text pb-3 text-center font-sans text-xl font-black text-transparent uppercase xxs:text-2xl xsm:text-3xl sm:text-4xl md:text-5xl dark:to-primary'
                     )}
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -69,10 +69,10 @@ export default function Page() {
                   target: '_blank',
                   rel: 'noopener noreferrer'
                 }))}
-                classNames={{ container: 'data-[motion-hover=true]:bg-gradient-to-l from-secondary to-primary backdrop-blur-md' }}
+                classNames={{ container: 'data-[motion-hover=true]:bg-linear-to-l from-secondary to-primary backdrop-blur-md' }}
               />
             ) : (
-              <div className="xs:space-x-6 mx-auto flex items-center justify-center space-x-3">
+              <div className="mx-auto flex items-center justify-center space-x-3 xs:space-x-6">
                 {socials.map((item) => (
                   <Link
                     key={item.name}
@@ -93,9 +93,9 @@ export default function Page() {
               href="mailto:{braswellkenneth7@gmail.com}"
               target="_blank"
               rel="noopener noreferrer"
-              className="link-underline font-cascadia pb-1 font-bold"
+              className="link-underline pb-1 font-cascadia font-bold"
             >
-              <span className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-transparent">braswellkenneth7@gmail.com</span>
+              <span className="bg-linear-to-l from-secondary to-primary bg-clip-text text-transparent">braswellkenneth7@gmail.com</span>
             </Link>
           </div>
         </div>

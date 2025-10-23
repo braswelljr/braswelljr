@@ -9,7 +9,7 @@ export default function About() {
         <div className="md:leading-relaxed">
           <p className="">
             Hey, I am{' '}
-            <span className="from-secondary to-primary bg-gradient-to-l bg-clip-text px-3 uppercase text-transparent dark:to-[#ff7056]">
+            <span className="bg-linear-to-l from-secondary to-primary bg-clip-text px-3 text-transparent uppercase dark:to-primary">
               Braswell Kenneth Azu Junior
             </span>
             . I started as a Software Engineer back in 2018 working on freelance projects and open-source projects.
@@ -22,12 +22,12 @@ export default function About() {
               rel="noopener noreferrer"
               className="group/solar-link relative pb-1"
             >
-              <span className="from-secondary to-primary relative bg-gradient-to-l bg-clip-text text-transparent dark:to-[#ff7056]">
+              <span className="relative bg-linear-to-l from-secondary to-primary bg-clip-text text-transparent dark:to-primary">
                 The University of Mines and Technology
               </span>
-              <span className="transition-width from-secondary to-primary absolute inset-x-0 bottom-0 h-[0.2rem] w-0 bg-gradient-to-l group-hover/solar-link:w-full dark:to-[#ff7056]" />
+              <span className="transition-width absolute inset-x-0 bottom-0 h-[0.2rem] w-0 bg-linear-to-l from-secondary to-primary group-hover/solar-link:w-full dark:to-primary" />
             </a>{' '}
-            in <span className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-transparent dark:to-[#ff7056]">October 2022</span>.
+            in <span className="bg-linear-to-l from-secondary to-primary bg-clip-text text-transparent dark:to-primary">October 2022</span>.
           </p>
         </div>
         {/* Resume */}
@@ -35,7 +35,7 @@ export default function About() {
           {/* buttons */}
           <p>
             <a
-              className="inline-flex items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-3 py-1.5 capitalize text-neutral-100 transition-transform backdrop:backdrop-blur hover:translate-y-0.5 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+              className="inline-flex items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-3 py-1.5 text-neutral-100 capitalize transition-transform backdrop:backdrop-blur hover:translate-y-0.5 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
               download
               href="/documents/Braswell-Kenneth-Azu-Junior-Resume.pdf"
               target="_blank"

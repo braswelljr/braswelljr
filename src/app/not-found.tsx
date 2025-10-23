@@ -1,4 +1,4 @@
-const Custom404 = () => {
+export default function Custom404() {
   return (
     <section className={'fixed inset-0 grid h-screen place-content-center px-4 text-center'}>
       <div className="">
@@ -11,6 +11,4 @@ const Custom404 = () => {
       </div>
     </section>
   );
-};
-
-export default Custom404;
+}

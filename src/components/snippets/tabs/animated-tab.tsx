@@ -16,8 +16,7 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
   return (
     <div className={cn('my-5', className)}>
       <div className="space-y-2">
-        {/* menu items */}
-        <div className="max-xsm:text-sm flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 dark:border-[0.5px]">
+        <div className="flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 max-xsm:text-sm dark:border-[0.5px]">
           {contains.map((item, idx) => (
             <button
               key={idx}
@@ -36,7 +35,7 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
                   />
                 )}
               </AnimatePresence>
-              <div className={cn('relative z-[1] flex items-center space-x-2 px-3 py-1 font-light uppercase')}>
+              <div className={cn('relative z-1 flex items-center space-x-2 px-3 py-1 font-light uppercase')}>
                 {/* <item.icon className="h-4 w-auto" /> */}
                 <span>{item.title}</span>
               </div>

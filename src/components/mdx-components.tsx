@@ -20,7 +20,7 @@ const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
-        'from-secondary to-primary mt-2 scroll-m-20 bg-gradient-to-l bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent sm:text-3xl md:text-4xl dark:to-[#ff7056]',
+        'mt-2 scroll-m-20 bg-linear-to-l from-secondary to-primary bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-primary',
         className
       )}
       {...props}
@@ -31,7 +31,7 @@ const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        'from-secondary to-primary mt-16 scroll-m-20 border-b border-b-neutral-200 bg-gradient-to-l bg-clip-text pb-2 text-3xl font-semibold tracking-tight text-transparent first:mt-0 dark:border-b-neutral-800 dark:to-[#ff7056]',
+        'mt-16 scroll-m-20 border-b border-b-neutral-200 bg-linear-to-l from-secondary to-primary bg-clip-text pb-2 text-3xl font-semibold tracking-tight text-transparent first:mt-0 dark:border-b-neutral-800 dark:to-primary',
         className
       )}
       {...props}
@@ -42,7 +42,7 @@ const components = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        'from-secondary to-primary mt-12 scroll-m-20 bg-gradient-to-l bg-clip-text text-2xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
+        'mt-12 scroll-m-20 bg-linear-to-l from-secondary to-primary bg-clip-text text-2xl font-semibold tracking-tight text-transparent dark:to-primary',
         className
       )}
       {...props}
@@ -53,7 +53,7 @@ const components = {
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        'from-secondary to-primary mt-8 scroll-m-20 bg-gradient-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
+        'mt-8 scroll-m-20 bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary',
         className
       )}
       {...props}
@@ -64,7 +64,7 @@ const components = {
   h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h5
       className={cn(
-        'from-secondary to-primary mt-8 scroll-m-20 bg-gradient-to-l bg-clip-text text-lg font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
+        'mt-8 scroll-m-20 bg-linear-to-l from-secondary to-primary bg-clip-text text-lg font-semibold tracking-tight text-transparent dark:to-primary',
         className
       )}
       {...props}
@@ -75,7 +75,7 @@ const components = {
   h6: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h6
       className={cn(
-        'from-secondary to-primary mt-8 scroll-m-20 bg-gradient-to-l bg-clip-text text-base font-semibold tracking-tight text-transparent dark:to-[#ff7056]',
+        'mt-8 scroll-m-20 bg-linear-to-l from-secondary to-primary bg-clip-text text-base font-semibold tracking-tight text-transparent dark:to-primary',
         className
       )}
       {...props}
@@ -91,7 +91,7 @@ const components = {
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p
-      className={cn('leading-7 [&:not(:first-child)]:mt-6', className)}
+      className={cn('leading-7 not-first:mt-6', className)}
       {...props}
     />
   ),
@@ -115,7 +115,7 @@ const components = {
   ),
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <blockquote
-      className={cn('mt-6 border-l-2 border-neutral-300 pl-6 italic text-neutral-800 [&>*]:text-neutral-600', className)}
+      className={cn('mt-6 border-l-2 border-neutral-300 pl-6 text-neutral-800 italic *:text-neutral-600', className)}
       {...props}
     />
   ),
@@ -148,29 +148,26 @@ const components = {
   ),
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
-      className={cn(
-        'border border-neutral-500/50 px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right',
-        className
-      )}
+      className={cn('border border-neutral-500/50 px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right', className)}
       {...props}
     />
   ),
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td
-      className={cn('border border-neutral-500/50 px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right', className)}
+      className={cn('border border-neutral-500/50 px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right', className)}
       {...props}
     />
   ),
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
-      className={cn('font-cascadia from-secondary to-primary relative rounded bg-gradient-to-l bg-clip-text px-[0.3rem] py-[0.2rem]', className)}
+      className={cn('relative rounded bg-linear-to-l from-secondary to-primary bg-clip-text px-[0.3rem] py-[0.2rem] font-cascadia', className)}
       {...props}
     />
   ),
   pre: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
     return (
       <CodeBlock
-        className={cn('font-cascadia prose', className)}
+        className={cn('prose font-cascadia', className)}
         {...props}
       >
         <Pre>{props.children}</Pre>

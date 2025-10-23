@@ -8,7 +8,7 @@ import { cn } from 'lib/utils';
 import { SpotifyTrack } from 'types/spotify';
 import { AnimatedBackground } from '~/components/ui/animated-background';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
-import Skeleton from '~/components/ui/skeleton';
+import { Skeleton } from '~/components/ui/skeleton';
 
 export function TopTracks({ className }: { className?: string }) {
   const { data, refetch, isFetching } = useQuery<{
@@ -23,7 +23,7 @@ export function TopTracks({ className }: { className?: string }) {
   return (
     <section className={cn('', className)}>
       <nav className="flex items-center justify-between">
-        <h2 className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]">
+        <h2 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary">
           Top Tracks
         </h2>
         <button
@@ -93,7 +93,7 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
               </Avatar>
               <div className="space-y-2">
                 <h4 className="line-clamp-2 text-sm sm:text-base">{track?.name}</h4>
-                <p className="text-xsm line-clamp-2 sm:text-sm">
+                <p className="line-clamp-2 text-xsm sm:text-sm">
                   {track?.artists?.map((a, i) => (
                     <Fragment key={i}>
                       {i !== 0 && ', '}

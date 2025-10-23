@@ -13,3 +13,7 @@ declare module 'tinytime' {
 
   export default tinytime;
 }
+
+declare module '*.css';
+declare module '*.scss';
+declare module '*.sass';

@@ -1,5 +1,5 @@
-import CurrentlyPlaying from './sections/currently-playing';
-import { TopTracks } from './sections/top-tracks';
+import { CurrentlyPlaying } from './_sections/currently-playing';
+import { TopTracks } from './_sections/top-tracks';
 
 export default function Page() {
   return (
@@ -7,7 +7,7 @@ export default function Page() {
       <div className="mx-auto max-w-4xl px-4 text-gray-800 sm:mt-14 dark:text-neutral-100">
         {/* Header */}
         <nav className="flex items-start justify-between">
-          <h1 className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-2xl font-bold uppercase leading-tight tracking-tight text-transparent sm:text-3xl md:text-4xl dark:to-[#ff7056]">
+          <h1 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-primary">
             Listen With Me
           </h1>
         </nav>

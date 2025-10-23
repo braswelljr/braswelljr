@@ -40,7 +40,7 @@
     "^[./]"
   ],
   "tailwindFunctions": ["cn", "cn", "cn", "clsx", "ctl", "cva", "tv"],
-  "tailwindStylesheet": "src/css/main.css",
+  "tailwindStylesheet": "src/styles/main.css",
   "overrides": [
     {
       "files": "Makefile",

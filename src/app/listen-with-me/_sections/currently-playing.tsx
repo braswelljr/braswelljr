@@ -7,10 +7,10 @@ import { useQuery } from '@tanstack/react-query';
 import { cn } from 'lib/utils';
 import { SpotifyTrack } from 'types/spotify';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
-import Skeleton from '~/components/ui/skeleton';
+import { Skeleton } from '~/components/ui/skeleton';
 import { Tracks, TracksLoader } from './top-tracks';
 
-export default function CurrentlyPlaying({ className }: { className?: string }) {
+export function CurrentlyPlaying({ className }: { className?: string }) {
   const { data, refetch, isFetching } = useQuery<{
     message: string;
     data: SpotifyTrack;
@@ -39,7 +39,7 @@ export default function CurrentlyPlaying({ className }: { className?: string }) 
     <div className={cn('space-y-8', className)}>
       <section className="w-full rounded-xl bg-neutral-300/80 p-2 dark:bg-neutral-800/80">
         <nav className="flex items-center justify-between px-2">
-          <h2 className="from-secondary to-primary bg-gradient-to-l bg-clip-text font-semibold uppercase tracking-tight text-transparent dark:to-[#ff7056]">
+          <h2 className="bg-linear-to-l from-secondary to-primary bg-clip-text font-semibold tracking-tight text-transparent uppercase dark:to-primary">
             {data?.data ? 'Curently Playing' : cd?.data && Array.isArray(cd?.data) && cd?.data?.length ? 'Last Played' : 'Curently Playing'}
           </h2>
           <button
@@ -64,7 +64,7 @@ export default function CurrentlyPlaying({ className }: { className?: string }) 
 
       <section className={cn('', className)}>
         <nav className="flex items-center justify-between">
-          <h2 className="from-secondary to-primary bg-gradient-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-[#ff7056]">
+          <h2 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary">
             Recently Played
           </h2>
           <button
@@ -86,8 +86,8 @@ export default function CurrentlyPlaying({ className }: { className?: string }) 
 
 function Player({ className, data }: { className?: string; data: SpotifyTrack }) {
   return (
-    <div className={cn('xsm:grid-cols-[auto_1fr] grid gap-6 px-2 py-4', className)}>
-      <Avatar className="max-xsm:w-full mx-auto size-40 overflow-hidden rounded-xl">
+    <div className={cn('grid gap-6 px-2 py-4 xsm:grid-cols-[auto_1fr]', className)}>
+      <Avatar className="mx-auto size-40 overflow-hidden rounded-xl max-xsm:w-full">
         <AvatarImage
           src={data?.image}
           alt={data?.name}
@@ -123,7 +123,7 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
             href={data?.album?.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn('text-sm uppercase text-orange-500 hover:underline focus:underline')}
+            className={cn('text-sm text-orange-500 uppercase hover:underline focus:underline')}
           >
             {data?.album?.name}
           </Link>
@@ -136,8 +136,8 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
 function PlayerLoader({ className }: { className?: string }) {
   return (
     <div className={cn('', className)}>
-      <div className={cn('xsm:grid-cols-[auto_1fr] grid gap-6 px-2 py-4', className)}>
-        <Skeleton className="max-xsm:w-full size-40 rounded-xl bg-neutral-400/80 dark:bg-neutral-700/80" />
+      <div className={cn('grid gap-6 px-2 py-4 xsm:grid-cols-[auto_1fr]', className)}>
+        <Skeleton className="size-40 rounded-xl bg-neutral-400/80 max-xsm:w-full dark:bg-neutral-700/80" />
         <div className="flex flex-col justify-between gap-4">
           <div className="space-y-2">
             <Skeleton className="size-4 w-1/2 bg-neutral-400/80 dark:bg-neutral-700/80" />

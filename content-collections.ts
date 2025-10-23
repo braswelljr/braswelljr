@@ -1,11 +1,12 @@
 import { defineCollection, defineConfig } from '@content-collections/core';
 import { compileMDX } from '@content-collections/mdx';
-import { rehypeCode, remarkGfm, type RehypeCodeOptions } from 'fumadocs-core/mdx-plugins';
+import { rehypeCode, remarkCodeTab, remarkGfm, type RehypeCodeOptions } from 'fumadocs-core/mdx-plugins';
 import { remarkInclude } from 'fumadocs-mdx/config';
 import readingTime from 'reading-time';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
 import { codeImport } from 'remark-code-import';
+import remarkDirective from 'remark-directive';
 import { visit } from 'unist-util-visit';
 import { z } from 'zod';
 import { rehypeComponent } from './lib/rehype-component';
@@ -43,7 +44,15 @@ const blogs = defineCollection({
   }),
   transform: async (document, ctx) => {
     const body = await compileMDX(ctx, document, {
-      remarkPlugins: [remarkGfm, codeImport, [remarkInstall, { persist: { id: 'package-manager' } }], remarkTypeScriptToJavaScript, remarkInclude],
+      remarkPlugins: [
+        remarkGfm,
+        codeImport,
+        [remarkInstall, { persist: { id: 'package-manager' } }],
+        remarkTypeScriptToJavaScript,
+        remarkInclude,
+        [remarkCodeTab, { parseMdx: true }],
+        remarkDirective
+      ],
       rehypePlugins: [
         rehypeSlug,
         rehypeComponent,

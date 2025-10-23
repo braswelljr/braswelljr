@@ -1,5 +1,3 @@
-// AlignUI SegmentedControl v0.0.0
-
 'use client';
 
 import * as React from 'react';
@@ -66,7 +64,7 @@ const SegmentedControlTrigger = React.forwardRef<
       className={cn(
         // base
         'peer',
-        'relative z-10 h-8 whitespace-nowrap rounded-md px-1 text-sm outline-none',
+        'relative z-10 h-8 rounded-md px-1 text-sm whitespace-nowrap outline-none',
         'flex items-center justify-center gap-1.5',
         'transition duration-300 ease-out',
         // focus

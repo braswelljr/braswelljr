@@ -14,6 +14,7 @@ import { useIsMac } from '~/hooks/use-is-mac';
 import Search from '~/components/search';
 import ThemeSwitch from '~/components/shared/theme-switcher';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import { Kbd } from '~/components/ui/kbd';
 import { SegmentedControl, SegmentedControlList, SegmentedControlTrigger } from '~/components/ui/segmented-control';
 
 export const nav = [
@@ -80,7 +81,7 @@ export default function Navbar({ className }: { className?: string }) {
   return (
     <nav
       className={cn(
-        'z-4 fixed inset-x-0 top-0 flex items-center justify-between px-4 py-2 font-bold shadow backdrop-blur max-lg:flex-wrap',
+        'fixed inset-x-0 top-0 z-4 flex items-center justify-between px-4 py-2 font-bold shadow backdrop-blur max-lg:flex-wrap',
         className
       )}
     >
@@ -117,8 +118,8 @@ export default function Navbar({ className }: { className?: string }) {
         className="flex shrink-0 items-center justify-center gap-4 max-lg:order-last max-lg:mt-4 max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto"
       >
         <SegmentedControlList
-          className="max-xsm:text-sm flex w-full items-center gap-4 whitespace-nowrap font-semibold lg:justify-center"
-          classNames={{ indicator: 'bottom-0 h-2 !rounded-t-xl !top-auto bg-primary rounded-none dark:bg-secondary' }}
+          className="flex w-full items-center gap-4 font-semibold whitespace-nowrap max-xsm:text-sm lg:justify-center"
+          classNames={{ indicator: 'bottom-0 h-2 rounded-t-xl! top-auto! bg-primary rounded-none dark:bg-secondary' }}
         >
           {nav.map((item, idx) => (
             <SegmentedControlTrigger
@@ -143,14 +144,14 @@ export default function Navbar({ className }: { className?: string }) {
       >
         <button
           id="search-button"
-          className="max-w-2/3 lg:max-w-3xs flex h-8 w-full items-center justify-between gap-4 rounded-sm border border-neutral-300 px-3 text-sm focus:outline-none dark:border-neutral-700"
+          className="flex h-8 w-full max-w-2/3 items-center justify-between gap-4 rounded-sm border border-neutral-300 px-3 text-sm focus:outline-none lg:max-w-3xs dark:border-neutral-700"
           aria-label="Search"
           onClick={() => onOpenChange(!open)}
         >
           <span>Search ...</span>
           <span className="flex items-center gap-0.5">
-            <kbd className="hidden rounded border px-1 py-0.5 font-sans text-xs">{isMac ? '⌘' : 'Ctrl'} K</kbd>
-            <kbd className="w-4 rounded border px-1 py-0.5 font-sans text-xs">/</kbd>
+            <Kbd className="hidden rounded border px-1 py-0.5 font-sans text-xs">{isMac ? '⌘' : 'Ctrl'} K</Kbd>
+            <Kbd className="rounded border px-1 py-0.5 font-sans text-xs">/</Kbd>
           </span>
         </button>
 

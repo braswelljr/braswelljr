@@ -3,11 +3,11 @@
 }
 
 .DocSearch--active {
-  @apply !overflow-hidden;
+  @apply overflow-hidden!;
 }
 
 .DocSearch-Container {
-  @apply z-200 fixed left-0 top-0 flex h-screen w-screen cursor-auto flex-col bg-black/20 backdrop-blur-sm md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50;
+  @apply fixed top-0 left-0 z-200 flex h-screen w-screen cursor-auto flex-col bg-black/20 backdrop-blur-sm md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50;
 }
 
 .DocSearch-LoadingIndicator svg {
@@ -36,7 +36,7 @@
 .DocSearch-SearchBar {
   z-index: 1;
   padding: 0 1rem;
-  @apply z-1 relative flex flex-none items-center border-b border-neutral-500/40 dark:border-neutral-400/50;
+  @apply relative z-1 flex flex-none items-center border-b border-neutral-500/40 dark:border-neutral-400/50;
 }
 
 .DocSearch-Form {
@@ -83,7 +83,7 @@
 }
 
 .DocSearch-Hit--Result {
-  @apply !border-b-0;
+  @apply border-b-0!;
 }
 
 .DocSearch-MagnifierLabel,
@@ -93,7 +93,7 @@
 
 .DocSearch-MagnifierLabel svg,
 .DocSearch-LoadingIndicator svg {
-  @apply text-primary dark:text-secondary size-4 stroke-2;
+  @apply size-4 stroke-2 text-primary dark:text-secondary;
 }
 
 .DocSearch-Container--Stalled .DocSearch-MagnifierLabel,
@@ -134,7 +134,7 @@
 
   .DocSearch-Clear,
   .DocSearch-Close {
-    @apply text-primary dark:text-secondary border-primary dark:border-secondary h-6 min-w-8 rounded border px-1.5 py-1 shadow-sm;
+    @apply h-6 min-w-8 rounded border border-primary px-1.5 py-1 text-primary shadow-sm dark:border-secondary dark:text-secondary;
   }
 
   .DocSearch-Clear {
@@ -166,7 +166,7 @@
 .DocSearch-Hit-source {
   margin: 0 1.5rem 1rem;
 
-  @apply text-primary dark:text-secondary pt-10 font-mono font-semibold uppercase leading-6;
+  @apply pt-10 font-mono leading-6 font-semibold text-primary uppercase dark:text-secondary;
 }
 
 .DocSearch-Hits:first-child .DocSearch-Hit-source {
@@ -178,7 +178,7 @@
 }
 
 .DocSearch-Hit-Container {
-  @apply relative flex items-center !gap-4 text-sm;
+  @apply relative flex items-center gap-4! text-sm;
 }
 
 .DocSearch-Hit-icon {
@@ -208,7 +208,7 @@
 }
 
 .DocSearch-Hit-path {
-  @apply text-primary dark:text-secondary line-clamp-1 self-start rounded-full bg-[#e6381923] px-4 py-0.5 text-xs font-semibold leading-6 dark:bg-neutral-200/10;
+  @apply line-clamp-1 self-start rounded-full bg-[#e6381923] px-4 py-0.5 text-xs leading-6 font-semibold text-primary dark:bg-neutral-200/10 dark:text-secondary;
 }
 
 .DocSearch-Hit[aria-selected='true'] .DocSearch-Hit--Parent .DocSearch-Hit-icon {
@@ -221,7 +221,7 @@
 }
 
 .DocSearch-Hit[aria-selected='true'] .DocSearch-Hit-action svg {
-  @apply text-primary dark:text-secondary h-5 w-5 stroke-current;
+  @apply h-5 w-5 stroke-current text-primary dark:text-secondary;
 }
 
 .DocSearch-Hit-title {
@@ -254,7 +254,7 @@
 }
 
 .DocSearch-Hit--Result {
-  @apply !px-4 !py-3;
+  @apply px-4! py-3!;
 }
 
 .DocSearch-Hit {
@@ -266,7 +266,7 @@
 }
 
 .DocSearch-Hit--Result {
-  @apply !border-t-0;
+  @apply border-t-0!;
 }
 
 .DocSearch-Hit + .DocSearch-Hit .DocSearch-Hit--Result {
@@ -282,16 +282,16 @@
 }
 
 .DocSearch-Hit--FirstChild::before {
-  @apply !top-0;
+  @apply top-0!;
 }
 
 .DocSearch-Hit--LastChild::before {
-  @apply !bottom-0;
+  @apply bottom-0!;
 }
 
 .DocSearch-Hits mark {
   background: none;
-  @apply dark:text-secondary text-primary border-primary dark:border-secondary border-b-2 font-semibold;
+  @apply border-b-2 border-primary font-semibold text-primary dark:border-secondary dark:text-secondary;
 }
 
 .DocSearch-Hit-path mark {
@@ -303,15 +303,11 @@
 }
 
 .DocSearch-Footer {
-  @apply flex flex-none justify-end border-t border-neutral-500/40 px-6 py-4 dark:border-neutral-400/50;
-}
-
-.DocSearch-Commands {
-  @apply hidden;
+  @apply flex justify-between border-t border-neutral-500/40 px-6 py-4 dark:border-neutral-400/50;
 }
 
 .DocSearch-Logo a {
-  @apply text-primary dark:text-secondary flex items-center text-xs font-medium;
+  @apply flex items-center text-sm font-medium text-primary dark:text-secondary;
 }
 
 .DocSearch-Logo svg {
@@ -341,7 +337,7 @@
 }
 
 .DocSearch-NoResults {
-  @apply px-4 pb-8 pt-10;
+  @apply px-4 pt-10 pb-8;
 }
 
 .DocSearch-NoResults .DocSearch-Title {
@@ -349,7 +345,7 @@
 }
 
 .DocSearch-NoResults-Prefill-List .DocSearch-Help {
-  @apply dark:text-secondary mb-3 text-sm font-semibold leading-6 text-[#e0543b];
+  @apply mb-3 text-sm leading-6 font-semibold text-[#e0543b] dark:text-secondary;
 }
 
 .DocSearch-NoResults-Prefill-List ul {
@@ -357,7 +353,7 @@
 }
 
 .DocSearch-NoResults-Prefill-List button {
-  @apply block w-full text-left text-sm leading-6 text-neutral-700 dark:text-neutral-400 dark:hover:bg-white/[0.02] dark:hover:text-neutral-200;
+  @apply block w-full text-left text-sm leading-6 text-neutral-700 dark:text-neutral-400 dark:hover:bg-white/2 dark:hover:text-neutral-200;
   padding: 0.5rem 0.75rem;
   /* chevron right icon */
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m11 9 3 3-3 3' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -427,7 +423,7 @@
 }
 
 .DocSearch-Hit-action + .DocSearch-Hit-action {
-  @apply border-primary-200 dark:border-primary-200/5 ml-3 border-l pl-3;
+  @apply ml-3 border-l border-primary-200 pl-3 dark:border-primary-200/5;
 }
 
 .DocSearch-VisuallyHiddenForAccessibility {
@@ -435,11 +431,11 @@
 }
 
 .DocSearch-Logo a {
-  @apply text-primary dark:text-secondary flex items-center text-xs font-medium;
+  @apply flex items-center text-xs font-medium text-primary dark:text-secondary;
 }
 
 .DocSearch-Label {
-  @apply text-primary dark:text-secondary;
+  @apply text-sm text-primary dark:text-secondary;
 }
 
 .DocSearch-Logo svg {
@@ -447,5 +443,26 @@
 }
 
 .DocSearch-Logo svg * {
-  @apply fill-primary dark:fill-secondary ml-3;
+  @apply ml-3 fill-primary dark:fill-secondary;
+}
+
+.DocSearch-Commands {
+  @apply flex gap-4;
+}
+
+.DocSearch-Commands li {
+  @apply inline-flex items-center gap-1;
+
+  .DocSearch-Commands-Key,
+  .DocSearch-Escape-Key span {
+    @apply rounded bg-primary-400/50 px-2 py-1 font-sans text-xs font-semibold dark:bg-neutral-950 dark:text-secondary;
+
+    svg {
+      @apply size-3;
+    }
+
+    svg g {
+      @apply stroke-2!;
+    }
+  }
 }

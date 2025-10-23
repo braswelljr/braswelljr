@@ -63,9 +63,7 @@ export default function Search({
   return (
     <div
       id={searchId}
-      className={cn('z-11 fixed inset-0 size-full bg-neutral-500/80', {
-        hidden: !open
-      })}
+      className={cn('fixed inset-0 z-11 size-full bg-neutral-500/80', !open && 'hidden')}
     >
       {open &&
         createPortal(
@@ -115,6 +113,13 @@ export default function Search({
               return <Link href={hit.url}>{children}</Link>;
             }}
             onAskAiToggle={onAskAiToggle}
+            // translations={{
+            //   // footer: {
+            //   //   navigateText: 'navigate',
+            //   //   navigateUpKeyAriaLabel: 'Arrow up',
+            //   //   navigateDownKeyAriaLabel: 'Arrow down'
+            //   // }
+            // }}
           />,
           document.body
         )}
