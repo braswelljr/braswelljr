@@ -1,4 +1,4 @@
-interface SiteConfig {
+type SiteConfig = {
   name: string;
   url: string;
   description: string;
@@ -6,7 +6,7 @@ interface SiteConfig {
     twitter: string;
     github: string;
   };
-}
+};
 
 export const siteConfig: SiteConfig = {
   name: 'braswelljr/braswelljr',

@@ -1,17 +1,17 @@
 import { defineCollection, defineConfig } from '@content-collections/core';
 import { compileMDX } from '@content-collections/mdx';
-import { rehypeCode, remarkCodeTab, remarkGfm, type RehypeCodeOptions } from 'fumadocs-core/mdx-plugins';
+import { rehypeCode, remarkAdmonition, remarkCodeTab, remarkGfm, remarkMdxFiles, remarkNpm, type RehypeCodeOptions } from 'fumadocs-core/mdx-plugins';
+import { remarkTypeScriptToJavaScript } from 'fumadocs-docgen/remark-ts2js';
 import { remarkInclude } from 'fumadocs-mdx/config';
 import readingTime from 'reading-time';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypePreLanguage from 'rehype-pre-language';
 import rehypeSlug from 'rehype-slug';
 import { codeImport } from 'remark-code-import';
 import remarkDirective from 'remark-directive';
 import { visit } from 'unist-util-visit';
 import { z } from 'zod';
 import { rehypeComponent } from './lib/rehype-component';
-import { remarkInstall } from './lib/remark-install';
-import { remarkTypeScriptToJavaScript } from './lib/remark-ts2js';
 
 const blogs = defineCollection({
   name: 'blogs',
@@ -47,22 +47,28 @@ const blogs = defineCollection({
       remarkPlugins: [
         remarkGfm,
         codeImport,
-        [remarkInstall, { persist: { id: 'package-manager' } }],
-        remarkTypeScriptToJavaScript,
+        [remarkNpm, { persist: { id: 'package-manager' } }],
+        [remarkTypeScriptToJavaScript, { persist: { id: 'ts2js' } }],
         remarkInclude,
+        remarkMdxFiles,
+        remarkAdmonition,
         [remarkCodeTab, { parseMdx: true }],
         remarkDirective
       ],
       rehypePlugins: [
         rehypeSlug,
         rehypeComponent,
+        [rehypePreLanguage, 'data-language'],
         [
           rehypeCode,
           {
             themes: {
               light: 'github-light-default',
               dark: 'github-dark-default'
-            }
+            },
+            tab: true,
+            inline: 'tailing-curly-colon',
+            icon: {}
           } as RehypeCodeOptions
         ],
         () => (tree) => {

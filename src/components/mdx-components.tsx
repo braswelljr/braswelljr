@@ -5,7 +5,7 @@ import { MDXContent } from '@content-collections/mdx/react';
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 import { Callout } from 'fumadocs-ui/components/callout';
 import { Card } from 'fumadocs-ui/components/card';
-import { CodeBlock, Pre } from 'fumadocs-ui/components/codeblock';
+import * as CodeBlock from 'fumadocs-ui/components/codeblock';
 import * as FilesComponents from 'fumadocs-ui/components/files';
 import * as TabsComponents from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
@@ -13,7 +13,20 @@ import { cn } from 'lib/utils';
 import * as icons from 'lucide-react';
 import type { MDXComponents } from 'mdx/types';
 import { snippets } from '~/components/snippets';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue
+} from '~/components/ui/select';
 import { ComponentExample } from './component-example';
+import { Icons } from './icons';
 import { Mermaid } from './mermaid';
 
 const components = {
@@ -166,12 +179,20 @@ const components = {
   ),
   pre: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
     return (
-      <CodeBlock
+      <CodeBlock.CodeBlock
         className={cn('prose font-cascadia', className)}
         {...props}
+        Actions={(p) => (
+          <div
+            data-codeblock-actions
+            className={cn('flex items-center gap-1', p.className)}
+          >
+            {p.children}
+          </div>
+        )}
       >
-        <Pre>{props.children}</Pre>
-      </CodeBlock>
+        <CodeBlock.Pre>{props.children}</CodeBlock.Pre>
+      </CodeBlock.CodeBlock>
     );
   },
   Image,
@@ -179,19 +200,35 @@ const components = {
   Callout,
   Card,
   ComponentExample,
-  CodeBlock,
   Steps: ({ ...props }) => (
     <div
-      className="[&>h3]:step mb-12 ml-4 border-l pl-8 [counter-reset:step]"
+      className="[&>h3]:step fd-steps mb-12 ml-4 border-l pl-8 [counter-reset:step]"
       {...props}
     />
   ),
+  // ...CodeBlock,
+  // select
+  Select,
+  SelectGroup,
+  SelectValue,
+  SelectTrigger,
+  SelectContent,
+  SelectLabel,
+  SelectItem,
+  SelectSeparator,
+  SelectScrollUpButton,
+  SelectScrollDownButton,
+  //segmented control
+  // SegmentedControl,
+  // SegmentedControlContent,
+  // SegmentedControlList,
+  // SegmentedControlTrigger,
   ...snippets
 };
 
 export function getMDXComponents(comps?: MDXComponents): MDXComponents {
   return {
-    ...(icons as unknown as MDXComponents),
+    ...({ ...Icons, ...icons } as unknown as MDXComponents),
     ...defaultMdxComponents,
     ...TabsComponents,
     ...FilesComponents,

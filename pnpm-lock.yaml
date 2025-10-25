@@ -35,6 +35,9 @@ importers:
       '@radix-ui/react-scroll-area':
         specifier: ^1.2.10
         version: 1.2.10(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-select':
+        specifier: ^2.2.6
+        version: 2.2.6(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-separator':
         specifier: ^1.1.7
         version: 1.1.7(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -60,8 +63,8 @@ importers:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
       canvas-confetti:
-        specifier: ^1.9.3
-        version: 1.9.3
+        specifier: ^1.9.4
+        version: 1.9.4
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -81,14 +84,17 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
       fumadocs-core:
-        specifier: ^16.0.1
-        version: 16.0.1(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.546.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^16.0.2
+        version: 16.0.2(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.548.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      fumadocs-docgen:
+        specifier: ^3.0.3
+        version: 3.0.3(fumadocs-core@16.0.2(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.548.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
       fumadocs-mdx:
         specifier: ^13.0.0
-        version: 13.0.0(fumadocs-core@16.0.1(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.546.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
+        version: 13.0.0(fumadocs-core@16.0.2(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.548.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       fumadocs-ui:
-        specifier: ^16.0.1
-        version: 16.0.1(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.546.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.16)
+        specifier: ^16.0.2
+        version: 16.0.2(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.548.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.16)
       ky:
         specifier: ^1.13.0
         version: 1.13.0
@@ -96,8 +102,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.546.0
-        version: 0.546.0(react@19.1.0)
+        specifier: ^0.548.0
+        version: 0.548.0(react@19.1.0)
       match-sorter:
         specifier: ^8.1.0
         version: 8.1.0
@@ -170,6 +176,9 @@ importers:
       rehype-autolink-headings:
         specifier: ^7.1.0
         version: 7.1.0
+      rehype-pre-language:
+        specifier: ^1.1.5
+        version: 1.1.5(unified@11.0.5)
       rehype-pretty-code:
         specifier: ^0.14.1
         version: 0.14.1(shiki@3.13.0)
@@ -292,8 +301,8 @@ importers:
         specifier: ^7.37.5
         version: 7.37.5(eslint@9.27.0(jiti@2.6.1))
       eslint-plugin-react-hooks:
-        specifier: ^7.0.0
-        version: 7.0.0(eslint@9.27.0(jiti@2.6.1))
+        specifier: ^7.0.1
+        version: 7.0.1(eslint@9.27.0(jiti@2.6.1))
       globals:
         specifier: ^16.4.0
         version: 16.4.0
@@ -1965,6 +1974,19 @@ packages:
       '@types/react-dom':
         optional: true
 
+  '@radix-ui/react-select@2.2.6':
+    resolution: {integrity: sha512-I30RydO+bnn2PQztvo25tswPH+wFBjehVGtmagkU78yMdwTwVf12wnAOF+AeP8S2N8xD+5UPbGhkUfPyvT+mwQ==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
   '@radix-ui/react-separator@1.1.7':
     resolution: {integrity: sha512-0HEb8R9E8A+jZjvmFCy/J4xhbXy3TV+9XSnGJ3KvTtjlIUy/YQ/p6UYZvi7YbeoeXdyU9+Y3scizK6hkY37baA==}
     peerDependencies:
@@ -2862,8 +2884,8 @@ packages:
   caniuse-lite@1.0.30001731:
     resolution: {integrity: sha512-lDdp2/wrOmTRWuoB5DpfNkC0rJDU8DqRa6nYL6HK6sytw70QMopt/NIc/9SM7ylItlBWfACXk0tEn37UWM/+mg==}
 
-  canvas-confetti@1.9.3:
-    resolution: {integrity: sha512-rFfTURMvmVEX1gyXFgn5QMn81bYk70qa0HLzcIOSVEyl57n6o9ItHeBtUSWdvKAPY0xlvBHno4/v3QPrT83q9g==}
+  canvas-confetti@1.9.4:
+    resolution: {integrity: sha512-yxQbJkAVrFXWNbTUjPqjF7G+g6pDotOUHGbkZq2NELZUMDpiJ85rIEazVb8GTaAptNW2miJAXbs1BtioA251Pw==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -3530,8 +3552,8 @@ packages:
       eslint-config-prettier:
         optional: true
 
-  eslint-plugin-react-hooks@7.0.0:
-    resolution: {integrity: sha512-fNXaOwvKwq2+pXiRpXc825Vd63+KM4DLL40Rtlycb8m7fYpp6efrTp1sa6ZbP/Ap58K2bEKFXRmhURE+CJAQWw==}
+  eslint-plugin-react-hooks@7.0.1:
+    resolution: {integrity: sha512-O0d0m04evaNzEPoSW+59Mezf8Qt0InfgGIBJnpC0h3NH/WjUAR7BIKUfysC6todmtiZ/A0oUVS8Gce0WhBrHsA==}
     engines: {node: '>=18'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -3607,9 +3629,6 @@ packages:
 
   estree-util-to-js@2.0.0:
     resolution: {integrity: sha512-WDF+xj5rRWmD5tj6bIqRi6CkLIXbbNQUcxQHzGysQzvHmdYG2G7p/Tf0J0gpxGgkeMZNTIjT/AoSvC9Xehcgdg==}
-
-  estree-util-value-to-estree@3.4.0:
-    resolution: {integrity: sha512-Zlp+gxis+gCfK12d3Srl2PdX2ybsEA8ZYy6vQGVQTNNYLEGRQQ56XB64bjemN8kxIKXP1nC9ip4Z+ILy9LGzvQ==}
 
   estree-util-value-to-estree@3.4.1:
     resolution: {integrity: sha512-E4fEc8KLhDXnbyDa5XrbdT9PbgSMt0AGZPFUsGFok8N2Q7DTO+F6xAFJjIdw71EkidRg186I1mQCKzZ1ZbEsCw==}
@@ -3741,8 +3760,8 @@ packages:
       react-dom:
         optional: true
 
-  fumadocs-core@16.0.1:
-    resolution: {integrity: sha512-j4cnpgNwG+Ep0ytm2msrrMc4ex5yowYpo3U2MBLbmTvJjSNzoKwJNMxgGHx103DaTEJAyvSWDmTnUIY0UC2zyA==}
+  fumadocs-core@16.0.2:
+    resolution: {integrity: sha512-mUvdQQTKHDUL4a4KM+vRCj/Ge/UCbp3yr3yiPoO0aK9wMqYJpF/czCyLpdvF+i4WO8oXnjYvQObKkKaceoCWWg==}
     peerDependencies:
       '@mixedbread/sdk': ^0.19.0
       '@orama/core': 1.x.x
@@ -3779,6 +3798,11 @@ packages:
       waku:
         optional: true
 
+  fumadocs-docgen@3.0.3:
+    resolution: {integrity: sha512-FrGhl2qfGEE5w3iijgaRTVHWQpMOFkS83CF4NciZPhh8taXerkJXuCZdmkwkxtksi+HUdni3QDoV5z3SaTBnZw==}
+    peerDependencies:
+      fumadocs-core: ^15.7.2 || ^16.0.0
+
   fumadocs-mdx@13.0.0:
     resolution: {integrity: sha512-QBDJiaQXBwHNylrWrb+juKfoU871pdxM42QGrNWpTxXg6FfoyEhAmxFqqO2+cGXU71GWk2GfybKp9MdJ0slQ7A==}
     hasBin: true
@@ -3798,8 +3822,8 @@ packages:
       vite:
         optional: true
 
-  fumadocs-ui@16.0.1:
-    resolution: {integrity: sha512-Obr0uqUxti9XLkq/9pPylH9cUodw3z0t8yXoiw4diJ273N5Z/i0RcGXsgKIDbKERgCZoKe2d+3MR5UIUML6cRw==}
+  fumadocs-ui@16.0.2:
+    resolution: {integrity: sha512-GaLU2XDJCc7Od/5EyfnFxTjLkObwPGgCo+jqGZXbYhFNb+yuq6rL+7DYnHvWIwzNEmfp3Try3TgutbZB8C66kQ==}
     peerDependencies:
       '@types/react': '*'
       next: 16.x.x
@@ -4448,8 +4472,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@0.546.0:
-    resolution: {integrity: sha512-Z94u6fKT43lKeYHiVyvyR8fT7pwCzDu7RyMPpTvh054+xahSgj4HFQ+NmflvzdXsoAjYGdCguGaFKYuvq0ThCQ==}
+  lucide-react@0.548.0:
+    resolution: {integrity: sha512-63b16z63jM9yc1MwxajHeuu0FRZFsDtljtDjYm26Kd86UQ5HQzu9ksEtoUUw4RBuewodw/tGFmvipePvRsKeDA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -5409,6 +5433,11 @@ packages:
 
   rehype-parse@9.0.1:
     resolution: {integrity: sha512-ksCzCD0Fgfh7trPDxr2rSylbwq9iYDkSn8TCDmEJ49ljEUBxDVCzCHv7QNzZOfODanX4+bWQ4WZqLCRWYLfhag==}
+
+  rehype-pre-language@1.1.5:
+    resolution: {integrity: sha512-nspHTVIAZHSEiWpofxw00UMXgmLdRnJmunKO846Rt8eiBqJBA8nfVtyjnMf54gJNzz9PJ2O5Qfmd5icjQly/Lw==}
+    peerDependencies:
+      unified: ^11
 
   rehype-pretty-code@0.14.1:
     resolution: {integrity: sha512-IpG4OL0iYlbx78muVldsK86hdfNoht0z63AP7sekQNW2QOTmjxB7RbTO+rhIYNGRljgHxgVZoPwUl6bIC9SbjA==}
@@ -7833,6 +7862,35 @@ snapshots:
       '@types/react': 19.1.5
       '@types/react-dom': 19.1.5(@types/react@19.1.5)
 
+  '@radix-ui/react-select@2.2.6(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@radix-ui/number': 1.1.1
+      '@radix-ui/primitive': 1.1.3
+      '@radix-ui/react-collection': 1.1.7(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-compose-refs': 1.1.2(@types/react@19.1.5)(react@19.1.0)
+      '@radix-ui/react-context': 1.1.2(@types/react@19.1.5)(react@19.1.0)
+      '@radix-ui/react-direction': 1.1.1(@types/react@19.1.5)(react@19.1.0)
+      '@radix-ui/react-dismissable-layer': 1.1.11(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-focus-guards': 1.1.3(@types/react@19.1.5)(react@19.1.0)
+      '@radix-ui/react-focus-scope': 1.1.7(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-id': 1.1.1(@types/react@19.1.5)(react@19.1.0)
+      '@radix-ui/react-popper': 1.2.8(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-portal': 1.1.9(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-primitive': 2.1.3(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-slot': 1.2.3(@types/react@19.1.5)(react@19.1.0)
+      '@radix-ui/react-use-callback-ref': 1.1.1(@types/react@19.1.5)(react@19.1.0)
+      '@radix-ui/react-use-controllable-state': 1.2.2(@types/react@19.1.5)(react@19.1.0)
+      '@radix-ui/react-use-layout-effect': 1.1.1(@types/react@19.1.5)(react@19.1.0)
+      '@radix-ui/react-use-previous': 1.1.1(@types/react@19.1.5)(react@19.1.0)
+      '@radix-ui/react-visually-hidden': 1.2.3(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      aria-hidden: 1.2.6
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      react-remove-scroll: 2.7.1(@types/react@19.1.5)(react@19.1.0)
+    optionalDependencies:
+      '@types/react': 19.1.5
+      '@types/react-dom': 19.1.5(@types/react@19.1.5)
+
   '@radix-ui/react-separator@1.1.7(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-primitive': 2.1.3(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -8819,7 +8877,7 @@ snapshots:
 
   caniuse-lite@1.0.30001731: {}
 
-  canvas-confetti@1.9.3: {}
+  canvas-confetti@1.9.4: {}
 
   ccount@2.0.1: {}
 
@@ -9624,7 +9682,7 @@ snapshots:
       eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.39.0(eslint@9.27.0(jiti@2.6.1))(typescript@5.9.2))(eslint-import-resolver-typescript@3.10.1)(eslint@9.27.0(jiti@2.6.1))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.27.0(jiti@2.6.1))
       eslint-plugin-react: 7.37.5(eslint@9.27.0(jiti@2.6.1))
-      eslint-plugin-react-hooks: 7.0.0(eslint@9.27.0(jiti@2.6.1))
+      eslint-plugin-react-hooks: 7.0.1(eslint@9.27.0(jiti@2.6.1))
       globals: 16.4.0
       typescript-eslint: 8.46.2(eslint@9.27.0(jiti@2.6.1))(typescript@5.9.2)
     optionalDependencies:
@@ -9768,7 +9826,7 @@ snapshots:
     optionalDependencies:
       eslint-config-prettier: 10.1.8(eslint@9.27.0(jiti@2.6.1))
 
-  eslint-plugin-react-hooks@7.0.0(eslint@9.27.0(jiti@2.6.1)):
+  eslint-plugin-react-hooks@7.0.1(eslint@9.27.0(jiti@2.6.1)):
     dependencies:
       '@babel/core': 7.28.4
       '@babel/parser': 7.28.4
@@ -9902,10 +9960,6 @@ snapshots:
       astring: 1.9.0
       source-map: 0.7.4
 
-  estree-util-value-to-estree@3.4.0:
-    dependencies:
-      '@types/estree': 1.0.7
-
   estree-util-value-to-estree@3.4.1:
     dependencies:
       '@types/estree': 1.0.7
@@ -10022,7 +10076,7 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  fumadocs-core@16.0.1(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.546.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  fumadocs-core@16.0.2(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.548.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@formatjs/intl-localematcher': 0.6.2
       '@orama/orama': 3.1.16
@@ -10044,21 +10098,31 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.5
       algoliasearch: 5.39.0
-      lucide-react: 0.546.0(react@19.1.0)
+      lucide-react: 0.548.0(react@19.1.0)
       next: 16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-mdx@13.0.0(fumadocs-core@16.0.1(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.546.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0):
+  fumadocs-docgen@3.0.3(fumadocs-core@16.0.2(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.548.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)):
+    dependencies:
+      estree-util-to-js: 2.0.0
+      estree-util-value-to-estree: 3.4.1
+      fumadocs-core: 16.0.2(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.548.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      npm-to-yarn: 3.0.1
+      oxc-transform: 0.95.0
+      unist-util-visit: 5.0.0
+      zod: 4.1.12
+
+  fumadocs-mdx@13.0.0(fumadocs-core@16.0.2(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.548.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0):
     dependencies:
       '@mdx-js/mdx': 3.1.1
       '@standard-schema/spec': 1.0.0
       chokidar: 4.0.3
       esbuild: 0.25.11
       estree-util-value-to-estree: 3.4.1
-      fumadocs-core: 16.0.1(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.546.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      fumadocs-core: 16.0.2(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.548.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       js-yaml: 4.1.0
       lru-cache: 11.2.2
       mdast-util-to-markdown: 2.1.2
@@ -10077,7 +10141,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-ui@16.0.1(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.546.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.16):
+  fumadocs-ui@16.0.2(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.548.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.16):
     dependencies:
       '@radix-ui/react-accordion': 1.2.12(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-collapsible': 1.1.12(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -10090,7 +10154,7 @@ snapshots:
       '@radix-ui/react-slot': 1.2.3(@types/react@19.1.5)(react@19.1.0)
       '@radix-ui/react-tabs': 1.1.13(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       class-variance-authority: 0.7.1
-      fumadocs-core: 16.0.1(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.546.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      fumadocs-core: 16.0.2(@types/react@19.1.5)(algoliasearch@5.39.0)(lucide-react@0.548.0(react@19.1.0))(next@16.0.0(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       lodash.merge: 4.6.2
       next-themes: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       postcss-selector-parser: 7.1.0
@@ -10766,7 +10830,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@0.546.0(react@19.1.0):
+  lucide-react@0.548.0(react@19.1.0):
     dependencies:
       react: 19.1.0
 
@@ -12049,6 +12113,12 @@ snapshots:
       hast-util-from-html: 2.0.3
       unified: 11.0.5
 
+  rehype-pre-language@1.1.5(unified@11.0.5):
+    dependencies:
+      '@types/hast': 3.0.4
+      unified: 11.0.5
+      unist-util-visit: 5.0.0
+
   rehype-pretty-code@0.14.1(shiki@3.13.0):
     dependencies:
       '@types/hast': 3.0.4
@@ -12127,7 +12197,7 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
       estree-util-is-identifier-name: 3.0.0
-      estree-util-value-to-estree: 3.4.0
+      estree-util-value-to-estree: 3.4.1
       toml: 3.0.0
       unified: 11.0.5
       yaml: 2.8.0

@@ -118,8 +118,10 @@ export default function Navbar({ className }: { className?: string }) {
         className="flex shrink-0 items-center justify-center gap-4 max-lg:order-last max-lg:mt-4 max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto"
       >
         <SegmentedControlList
-          className="flex w-full items-center gap-4 font-semibold whitespace-nowrap max-xsm:text-sm lg:justify-center"
-          classNames={{ indicator: 'bottom-0 h-2 rounded-t-xl! top-auto! bg-primary rounded-none dark:bg-secondary' }}
+          // orientation="vertical"
+          orientation="horizontal"
+          className="gap-4 font-semibold whitespace-nowrap max-xsm:text-sm"
+          classNames={{ indicator: 'h-2! bottom-0! inset-x-0! inset-auto bg-primary rounded-none rounded-t-xl! dark:bg-secondary' }}
         >
           {nav.map((item, idx) => (
             <SegmentedControlTrigger
@@ -144,18 +146,20 @@ export default function Navbar({ className }: { className?: string }) {
       >
         <button
           id="search-button"
-          className="flex h-8 w-full max-w-2/3 items-center justify-between gap-4 rounded-sm border border-neutral-300 px-3 text-sm focus:outline-none lg:max-w-3xs dark:border-neutral-700"
+          className="flex h-8 w-full max-w-2/3 items-center justify-between gap-4 rounded-sm border border-primary-300 px-3 text-sm focus:outline-none lg:max-w-3xs dark:border-secondary-300 dark:text-secondary-300"
           aria-label="Search"
           onClick={() => onOpenChange(!open)}
         >
           <span>Search ...</span>
           <span className="flex items-center gap-0.5">
             <Kbd className="hidden rounded border px-1 py-0.5 font-sans text-xs">{isMac ? '⌘' : 'Ctrl'} K</Kbd>
-            <Kbd className="rounded border px-1 py-0.5 font-sans text-xs">/</Kbd>
+            <Kbd className="rounded border border-primary-300 px-1 py-0.5 font-sans text-xs text-primary dark:border-secondary-300 dark:text-secondary-300">
+              /
+            </Kbd>
           </span>
         </button>
 
-        <ThemeSwitch className="" />
+        <ThemeSwitch className="dark:bg-neutral-800" />
       </Layout>
 
       <Search

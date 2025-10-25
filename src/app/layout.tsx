@@ -88,7 +88,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="relative inset-0 z-1 min-h-dvh w-full">
                 {children}
                 <ScrollTop
-                  className="fixed right-5 bottom-5 z-10"
+                  className="fixed right-5 bottom-5 z-10 bg-primary! dark:bg-secondary! dark:text-neutral-950!"
                   disableOnLayouts={['/blog/']}
                 />
               </div>

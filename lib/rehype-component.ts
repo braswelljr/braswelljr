@@ -43,7 +43,6 @@ export function rehypeComponent() {
         const extractClassname = getNodeAttributeByName(node, 'extractClassname');
         if (extractClassname && typeof extractClassname.value !== 'undefined' && extractClassname.value !== 'false') {
           // Extract className from string
-          // TODO: Use @swc/core and a visitor to extract this.
           // For now, a simple regex should do.
           const values = source.match(/className="(.*)"/);
           const className = values ? values[1] : '';
@@ -113,11 +112,11 @@ export function rehypeComponent() {
   };
 }
 
-function getNodeAttributeByName(node: UnistNode, name: string) {
+export function getNodeAttributeByName(node: UnistNode, name: string) {
   return node.attributes?.find((attribute) => attribute.name === name);
 }
 
-function getComponentSourceFileContent(node: UnistNode) {
+export function getComponentSourceFileContent(node: UnistNode) {
   const src = getNodeAttributeByName(node, 'src')?.value as string;
 
   if (!src) {

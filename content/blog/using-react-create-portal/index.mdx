@@ -10,7 +10,7 @@ published: true
 
 ## Requirements
 
-React's `createPortal` API allows you to render elements outside of their parent component’s DOM hierarchy. This is especially useful when dealing with UI elements like modals, tooltips, dropdowns, and overlays that must break out of the normal rendering flow.
+React's `createPortal` API allows you to render elements outside of their parent component's DOM hierarchy. This is especially useful when dealing with UI elements like modals, tooltips, dropdowns, and overlays that must break out of the normal rendering flow.
 
 ---
 
@@ -55,7 +55,7 @@ First, add a portal target to your HTML:
 
 ## 🎯 Basic Portal Example
 
-```tsx tab="modal.tsx"
+```tsx title="modal.tsx" ts2js
 import * as React from 'react'
 import { createPortal } from 'react-dom';
 
@@ -85,30 +85,13 @@ export function Modal({ children, isOpen, onClose }: ModalProps) {
 
   return createPortal(
     <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1000
-      }}
+      style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
     >
       <div
-        style={{
-          background: 'white',
-          padding: '20px',
-          borderRadius: '8px',
-          maxWidth: '500px',
-          width: '90%'
-        }}
+        style={{ background: 'white', padding: '20px', borderRadius: '8px', maxWidth: '500px', width: '90%' }}
         onClick={(e: React.MouseEvent) => e.stopPropagation()}
       >
         <button
@@ -121,7 +104,7 @@ export function Modal({ children, isOpen, onClose }: ModalProps) {
             cursor: 'pointer'
           }}
         >
-          ×
+          x
         </button>
         {children}
       </div>
@@ -131,7 +114,7 @@ export function Modal({ children, isOpen, onClose }: ModalProps) {
 }
 ```
 
-```tsx tab="App.tsx"
+```tsx title="App.tsx" ts2js
 import { useState } from 'react';
 import { Modal } from './modal.tsx'
 

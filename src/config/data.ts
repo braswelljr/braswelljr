@@ -1,6 +1,6 @@
 import { FaFigma, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { Career } from 'types/types';
+import { Career, Education } from 'types/types';
 
 export const socials = [
   { name: 'LinkedIn', url: 'https://www.linkedin.com/in/braswell-kenneth-870827192/', icon: FaLinkedin },
@@ -10,7 +10,18 @@ export const socials = [
   { name: 'Figma', url: 'https://www.figma.com/@braswelljr', icon: FaFigma }
 ];
 
-export const education = [];
+export const education: Array<Education> = [
+  {
+    name: 'B.Sc Computer Science and Engineering',
+    degree: 'Bachelor of Science',
+    date: {
+      from: new Date(2018, 8, 1), // September 2018 (typical start for Ghanaian universities)
+      to: new Date(2022, 10, 1) // October 2022 (graduation month)
+    },
+    school: 'University of Mines and Technology, Ghana',
+    description: []
+  }
+];
 
 /**
  * career - List of careers
@@ -18,65 +29,99 @@ export const education = [];
 export const career: Array<Career> = [
   {
     role: 'Software Engineer',
-    type: '(Fulltime)',
-    company: ' Global Tech Network LLC, US',
-    companyLink: '#',
-    date: 'June 2025 - Current',
+    type: 'Contract',
+    company: 'Global Tech Network LLC',
+    companyLink: 'https://www.gtnllc.com',
+    date: {
+      from: new Date(2025, 5, 1), // June 2025 (month is 0-indexed)
+      to: new Date(2025, 6, 1) // July 2025
+    },
     description: [
-      'Collaborate and implement web animations and applications for clients (React).',
-      'Shadow and collaborate Senior Engineers to implement authentication and security for dashboards (PHP/React/TypeScript).'
+      'Implemented web components and animations for the MSPX projects (React)',
+      'Shadow and collaborate with colleague Engineers to integrate backend APIs for Client Evaluation (PHP/React/TypeScript)'
     ]
   },
   {
     role: 'Software Engineer',
-    type: '(Contract)',
-    company: 'SonicAI, US',
-    companyLink: '#',
-    date: 'Nov 2024 - Jan 2025',
+    type: 'Contract',
+    company: 'SonicAI',
+    companyLink: '',
+    date: {
+      from: new Date(2024, 10, 1), // November 2024
+      to: new Date(2025, 0, 1) // January 2025
+    },
     description: [
-      'Built and deployed the SonicAI website.',
-      'Collaborated with the UI/UX team to implement design enhancements.',
-      'Integrated RESTful APIs to deliver core features.'
+      'Built and deployed the SonicAI website',
+      'Collaborated with the UI/UX team to implement design enhancements',
+      'Integrated RESTful APIs to deliver core features'
     ]
   },
   {
     role: 'Software Engineer',
-    type: '(Contract)',
-    company: 'Infinanze Technologies, US',
-    companyLink: '#',
-    date: 'Jul 2023 - Nov 2024',
+    type: 'Contract',
+    company: 'Infinanze Technologies',
+    companyLink: 'https://www.infinanze.com/',
+    date: {
+      from: new Date(2023, 6, 1), // July 2023
+      to: new Date(2024, 10, 1) // November 2024
+    },
     description: [
-      'Built and maintained frontend web applications (Web3, Crypto, EMS Software).',
-      'Collaborated with the backend team to plan database schemas and parameters.',
-      'Simplified enterprise systems with user-friendly interfaces.'
+      'Developed and maintained frontend applications in Web3, Crypto, and EMS, while collaborating with backend teams on database design and integration',
+      'Enhanced enterprise systems (Levr, Noolag) by delivering user-friendly interfaces that simplified complex workflows'
+    ]
+  },
+  {
+    role: 'Frontend Software Developer',
+    type: 'Part-Time',
+    company: 'Benchfive LLC',
+    companyLink: 'https://benchfive.org',
+    date: {
+      from: new Date(2024, 2, 1), // March 2024
+      to: new Date(2025, 5, 1) // June 2025
+    },
+    description: [
+      'Spearheaded and collaborated on the development of web applications (Benchfive, Workspace Global, Consolidated Logistics) driving scalable and efficient solutions (React, TypeScript)'
     ]
   },
   {
     role: 'Software Engineer',
-    type: '(Freelancing)',
-    company: 'Morlan Technologies, Ghana',
+    type: 'Freelancing',
+    company: 'Morlan Technologies',
     companyLink: 'https://morlan.tech',
-    date: 'Apr 2022 - Aug 2024',
+    date: {
+      from: new Date(2022, 3, 1), // April 2022
+      to: new Date(2024, 7, 1) // August 2024
+    },
     description: [
-      'Spearheaded the development of web applications using React and TypeScript.',
-      'Collaborated with mobile developers working with Flutter.',
-      'Built cloud and edge functions using Firebase and Supabase.'
+      'Spearheaded the development of the web applications (React, TypeScript)',
+      'Shadowed and collaborated with mobile developers building applications (Flutter)',
+      'Built and maintained cloud and edge functions using Firebase and Supabase (Typescript)',
+      'Implemented a monorepo React template to cut setup time and standardized code quality, accelerating project onboarding'
     ]
   },
   {
     role: 'Software Engineer',
-    type: '(National Service)',
-    company: 'Solar Taxi, Accra, Ghana',
+    type: 'National Service',
+    company: 'Solar Taxi',
     companyLink: 'https://solartaxi.co',
-    date: 'Nov 2022 - Sep 2023',
-    description: ['Managed and maintained Wote backend APIs using Go.', 'Developed enterprise web application features using React and TypeScript.']
+    date: {
+      from: new Date(2022, 7, 1), // August 2022
+      to: new Date(2023, 8, 1) // September 2023
+    },
+    description: [
+      'Shadowed and took charge of the Wote backend APIs as the sole developer (Go)',
+      'Developed the enterprise web application for enterprises (React, TypeScript)'
+    ]
   },
   {
     role: 'Software Engineer',
-    type: '(Intern)',
+    type: 'Intern',
     company: 'The Hive, Kumasi, Ghana',
     companyLink: 'https://kumasi-hive.com',
-    date: 'Apr 2021 - Nov 2021',
+    date: {
+      from: new Date(2021, 4, 1),
+      to: new Date(2021, 11, 1)
+    }, //'Apr 2021 - Nov 2021',
     description: [
       'Designed UIs for mobile/web platforms and contributed to the Hive Institute project.',
       'Shadowed senior engineers and acquired new technical skills.'
@@ -84,10 +129,13 @@ export const career: Array<Career> = [
   },
   {
     role: 'Software Developer',
-    type: '(Freelance)',
+    type: 'Freelance',
     company: 'Freelancing',
     companyLink: '#',
-    date: 'Jun 2020 - Present',
+    date: {
+      from: new Date(2020, 6, 1),
+      to: new Date()
+    }, //'Jun 2020 - Present',
     description: [
       'Built websites and applications for startups and institutions.',
       'Handled full project lifecycle from requirements gathering to deployment.'

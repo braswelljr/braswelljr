@@ -18,6 +18,7 @@ const twitterHandle = '@braswell_jnr';
 
 export const createMetadata = ({ title, description, ogText, image, ...properties }: MetadataGenerator): Metadata => {
   const parsedTitle = `${title} | ${applicationName}`;
+  const ogImage = image ?? `/og?title=${encodeURIComponent(ogText ?? '')}`;
 
   const defaultMetadata: Metadata = {
     title: parsedTitle,
@@ -25,25 +26,31 @@ export const createMetadata = ({ title, description, ogText, image, ...propertie
     applicationName,
     authors: [author],
     creator: author.name,
-    formatDetection: { telephone: false },
-    appleWebApp: { capable: true, statusBarStyle: 'default', title: parsedTitle },
-    openGraph: {
-      title: parsedTitle,
-      description,
-      type: 'website',
-      siteName: applicationName,
-      locale: 'en_US',
-      images: [{ url: image ?? `/og?title=${encodeURIComponent(ogText ?? '')}`, width: 1200, height: 630 }]
-    },
     publisher,
-    twitter: {
-      title: parsedTitle,
-      description,
-      creatorId: twitterHandle,
-      card: 'summary_large_image',
-      creator: twitterHandle,
-      images: [{ url: image ?? `/og?title=${encodeURIComponent(ogText ?? '')}`, width: 1200, height: 630 }]
-    }
+    formatDetection: { telephone: false },
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: 'default',
+      title: parsedTitle
+    },
+    ...(process.env.NODE_ENV === 'development' && {
+      openGraph: {
+        title: parsedTitle,
+        description,
+        type: 'website',
+        siteName: applicationName,
+        locale: 'en_US',
+        images: [{ url: ogImage, width: 1200, height: 630 }]
+      },
+      twitter: {
+        title: parsedTitle,
+        description,
+        creatorId: twitterHandle,
+        card: 'summary_large_image',
+        creator: twitterHandle,
+        images: [{ url: ogImage, width: 1200, height: 630 }]
+      }
+    })
   };
 
   const metadata: Metadata = merge(defaultMetadata, properties);

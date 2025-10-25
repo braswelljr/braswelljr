@@ -7,14 +7,20 @@ export type Career = {
   type: string;
   company: string;
   companyLink: string;
-  date: string;
+  date: {
+    from: Date;
+    to?: Date;
+  };
   description: string[];
 };
 
 export type Education = {
   name: string;
   degree: string;
-  date: Date;
+  date: {
+    from: Date;
+    to?: Date;
+  };
   school: string;
   description: string[];
 };

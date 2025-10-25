@@ -1,21 +1,21 @@
-// AlignUI useTabObserver v0.0.0
+'use client';
 
-import * as React from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-interface TabObserverOptions {
+type TabObserverOptions = {
   onActiveTabChange?: (index: number, element: HTMLElement) => void;
-}
+};
 
 export function useTabObserver({ onActiveTabChange }: TabObserverOptions = {}) {
-  const [mounted, setMounted] = React.useState(false);
-  const listRef = React.useRef<HTMLDivElement>(null);
-  const onActiveTabChangeRef = React.useRef(onActiveTabChange);
+  const [mounted, setMounted] = useState(false);
+  const listRef = useRef<HTMLDivElement>(null);
+  const onActiveTabChangeRef = useRef(onActiveTabChange);
 
-  React.useEffect(() => {
+  useEffect(() => {
     onActiveTabChangeRef.current = onActiveTabChange;
   }, [onActiveTabChange]);
 
-  const handleUpdate = React.useCallback(() => {
+  const handleUpdate = useCallback(() => {
     if (listRef.current) {
       const tabs = listRef.current.querySelectorAll('[role="tab"]');
       tabs.forEach((el, i) => {
@@ -26,7 +26,7 @@ export function useTabObserver({ onActiveTabChange }: TabObserverOptions = {}) {
     }
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
 
     const resizeObserver = new ResizeObserver(handleUpdate);

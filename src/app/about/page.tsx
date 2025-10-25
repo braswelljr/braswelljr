@@ -1,5 +1,9 @@
+import Link from 'next/link';
 import { MdOutlineFileDownload } from 'react-icons/md';
-import { career } from '~/config/data';
+import { format } from 'date-fns';
+import { cn } from 'lib/utils';
+import { career, education } from '~/config/data';
+import { Item, ItemContent, ItemTitle } from '~/components/ui/item';
 
 export default function About() {
   return (
@@ -7,78 +11,116 @@ export default function About() {
       <div className="mx-auto max-w-4xl px-4 text-gray-800 *:space-y-6 sm:mt-14 sm:*:space-y-10 dark:text-neutral-100">
         {/* About */}
         <div className="md:leading-relaxed">
-          <p className="">
-            Hey, I am{' '}
-            <span className="bg-linear-to-l from-secondary to-primary bg-clip-text px-3 text-transparent uppercase dark:to-primary">
-              Braswell Kenneth Azu Junior
-            </span>
-            . I started as a Software Engineer back in 2018 working on freelance projects and open-source projects.
-          </p>
-          <p>
-            I have had multiple experiences with firms and individuals with which I would say benefited me and my experence. I completed{' '}
-            <a
-              href="https://umat.edu.gh"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/solar-link relative pb-1"
-            >
-              <span className="relative bg-linear-to-l from-secondary to-primary bg-clip-text text-transparent dark:to-primary">
-                The University of Mines and Technology
-              </span>
-              <span className="transition-width absolute inset-x-0 bottom-0 h-[0.2rem] w-0 bg-linear-to-l from-secondary to-primary group-hover/solar-link:w-full dark:to-primary" />
-            </a>{' '}
-            in <span className="bg-linear-to-l from-secondary to-primary bg-clip-text text-transparent dark:to-primary">October 2022</span>.
-          </p>
+          Hey, I am <span className="text-primary uppercase dark:text-secondary">Braswell Kenneth Azu Junior</span>, a Software Engineer with
+          experience in building scalable, user-centric web and mobile applications. Adept at collaborating with cross-functional teams to design
+          intuitive user interfaces, architect efficient APIs, and implement cloud-native solutions. Passionate about frontend animation, developer
+          experience, and creating seamless digital products.
         </div>
-        {/* Resume */}
+
         <div className="mt-10">
-          {/* buttons */}
-          <p>
-            <a
-              className="inline-flex items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-3 py-1.5 text-neutral-100 capitalize transition-transform backdrop:backdrop-blur hover:translate-y-0.5 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-              download
-              href="/documents/Braswell-Kenneth-Azu-Junior-Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MdOutlineFileDownload className="h-6 w-auto" />
-              <span>
-                Downlaod<span className="max-xxs:hidden"> Resume</span>
-              </span>
-            </a>
-          </p>
+          <Link
+            href="/documents/Braswell-Kenneth-Azu-Junior-Resume.pdf"
+            className={cn(
+              'inline-flex items-center justify-center space-x-2 rounded-sm px-3 py-1.5 pr-4',
+              'bg-primary dark:bg-secondary',
+              'text-sm font-bold text-white capitalize dark:text-neutral-950',
+              'transition-transform hocus:translate-y-0.5'
+            )}
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <MdOutlineFileDownload className="size-4" /> Downlaod Resume
+          </Link>
         </div>
         {/* Career */}
         <div className="mt-10">
-          <div className="">
-            <h2 className="text-2xl font-bold uppercase">Career</h2>
-            <div className="divide-y divide-neutral-500/50">
-              {career.map((job, index) => (
-                <div
-                  key={index}
-                  className="space-y-3 py-5"
-                >
-                  <h1 className="font-cascadia text-xl">
-                    {job.role} {job.type}
-                  </h1>
-                  <h2 className="space-x-4">
-                    <span className="">{job.company}</span>
-                    <span className=""> | </span>
-                    <span className="text-neutral-800 dark:text-neutral-400">{job.date}</span>
+          <h2 className="text-2xl font-bold uppercase">Career</h2>
+          <div className="space-y-3">
+            {career.map((job, index) => (
+              <Item
+                key={`career-list-key-${index}`}
+                // size="sm"
+                className={cn(
+                  'flex-col items-start justify-start backdrop-blur',
+                  'bg-[radial-gradient(circle_at_top_left,var(--color-primary)_0%,var(--color-neutral-100)_3%)]',
+                  'dark:bg-[radial-gradient(circle_at_top_left,var(--color-secondary)_0%,var(--color-neutral-900)_3%)]',
+                  'border-primary-300/40 dark:border-secondary-300/10'
+                )}
+              >
+                <ItemTitle className="inline-flex font-cascadia text-xl">
+                  <span>
+                    {job.role} - <span>({job.type})</span>
+                  </span>
+                </ItemTitle>
+                <ItemContent className="pl-2">
+                  <h2 className="space-x-2 text-base text-primary dark:text-secondary">
+                    <span className="font-cascadia text-lg font-bold">{job.company}</span>
+                    <span className="">|</span>
+                    <span className="text-primary-400 dark:text-secondary-400">
+                      {format(job.date?.from, 'MMM yyyy')} -{' '}
+                      {job.date?.to && job.date?.to instanceof Date ? format(job.date?.to, 'MMM yyyy') : 'Current'}
+                    </span>
                   </h2>
-                  <ul className="list-item text-neutral-600 dark:text-neutral-400">
-                    {job.description.map((desc, index) => (
-                      <li
-                        key={index}
-                        className="ml-4 list-disc"
-                      >
-                        {desc}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
+                  {job.description?.length > 0 && (
+                    <ul className="list-item pb-2 text-neutral-600 dark:text-neutral-400">
+                      {job.description.map((desc, index) => (
+                        <li
+                          key={index}
+                          className="ml-4 list-disc"
+                        >
+                          {desc}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </ItemContent>
+              </Item>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-10">
+          <h2 className="text-2xl font-bold uppercase">Education</h2>
+          <div className="space-y-2">
+            {education.map((institute, index) => (
+              <Item
+                key={`eductation-list-key-${index}`}
+                // size="sm"
+                className={cn(
+                  'flex-col items-start justify-start backdrop-blur',
+                  'bg-[radial-gradient(circle_at_top_left,var(--color-primary)_0%,var(--color-neutral-100)_3%)]',
+                  'dark:bg-[radial-gradient(circle_at_top_left,var(--color-secondary)_0%,var(--color-neutral-900)_3%)]',
+                  'border-primary-300/40 dark:border-secondary-300/10'
+                )}
+              >
+                <ItemTitle className="inline-flex font-cascadia text-xl">
+                  <span>{institute.name}</span>
+                </ItemTitle>
+                <ItemContent className="pl-2">
+                  <h2 className="space-x-2 text-base text-primary dark:text-secondary">
+                    <span className="font-cascadia text-lg font-bold">{institute.degree}</span>
+                    <span className="">|</span>
+                    <span className="text-neutral-800 dark:text-neutral-400">
+                      {format(institute.date?.from, 'MMM yyyy')} -{' '}
+                      {institute.date?.to && institute.date?.to instanceof Date ? format(institute.date?.to, 'MMM yyyy') : 'Current'}
+                    </span>
+                  </h2>
+                  {institute.description?.length > 0 && (
+                    <ul className="list-item pb-2 text-neutral-600 dark:text-neutral-400">
+                      {institute.description.map((desc, index) => (
+                        <li
+                          key={index}
+                          className="ml-4 list-disc"
+                        >
+                          {desc}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </ItemContent>
+              </Item>
+            ))}
           </div>
         </div>
       </div>
