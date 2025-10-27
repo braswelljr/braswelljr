@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 import LocalFont from 'next/font/local';
 import Image from 'next/image';
 import { cn } from 'lib/utils';
@@ -30,29 +30,16 @@ export const metadata: Metadata = {
   manifest: `/manifest.json`
 };
 
-const Satoshi = LocalFont({
-  src: './_fonts/Satoshi-Variable.woff2',
-  variable: '--font-satoshi'
-});
-const Inter = LocalFont({
-  src: './_fonts/Inter[slnt,wght].ttf',
-  variable: '--font-inter'
-});
+const Satoshi = LocalFont({ src: './_fonts/Satoshi-Variable.woff2', variable: '--font-satoshi' });
+const Inter = LocalFont({ src: './_fonts/Inter[slnt,wght].ttf', variable: '--font-inter' });
+const AbyssinicaSIL = LocalFont({ src: './_fonts/AbyssinicaSIL-Regular.ttf', variable: '--font-abyssinca' });
+const Cascadia = LocalFont({ src: './_fonts/Cascadia.ttf', variable: '--font-cascadia' });
 const JetbrainsMono = LocalFont({
   src: [
     { path: './_fonts/jetbrainsmono.ttf', style: 'normal' },
     { path: './_fonts/jetbrainsmono-italic.ttf', style: 'italic' }
   ],
   variable: '--font-mono'
-});
-
-const abyssinicaSIL = LocalFont({
-  src: './_fonts/AbyssinicaSIL-Regular.ttf',
-  variable: '--font-abyssinca'
-});
-const Cascadia = LocalFont({
-  src: './_fonts/Cascadia.ttf',
-  variable: '--font-cascadia'
 });
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -68,7 +55,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           Satoshi.className,
           Inter.variable,
           JetbrainsMono.variable,
-          abyssinicaSIL.variable,
+          AbyssinicaSIL.variable,
           Cascadia.variable
         )}
       >
