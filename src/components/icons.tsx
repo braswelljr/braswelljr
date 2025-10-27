@@ -1,6 +1,3 @@
-import { BiLogoGoLang } from 'react-icons/bi';
-import { FaJava, FaRust } from 'react-icons/fa6';
-import { RiTailwindCssFill } from 'react-icons/ri';
 import {
   AlertTriangle,
   ArrowRight,
@@ -29,6 +26,9 @@ import {
   type IconNode as LucideIcon,
   type LucideProps
 } from 'lucide-react';
+import { BiLogoGoLang } from 'react-icons/bi';
+import { FaJava, FaRust } from 'react-icons/fa6';
+import { RiTailwindCssFill } from 'react-icons/ri';
 
 export type Icon = LucideIcon;
 

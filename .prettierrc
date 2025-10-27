@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/prettierrc",
   "endOfLine": "auto",
   "trailingComma": "none",
   "semi": true,
@@ -16,31 +17,23 @@
   "importOrder": [
     "^react(/.*)?$",
     "^next(/.*)?$",
-    "^next-themes(/.*)?$",
-    "^clsx(/.*)?$",
-    "^react-icons(/.*)?$",
-    "^react-hook-form(/.*)?$",
-    "^firebase(/.*)?$",
-    "^motion/react(/.*)?$",
-    "^@headlessui(/.*)?$",
-    "^@radix-ui(/.*)?$",
-    "^match-sorter(/.*)?$",
-    "^zustand(/.*)?$",
     "<THIRD_PARTY_MODULES>",
-    "^types$",
-    "^~local/(.*)$",
-    "^([~@]{1,2})/config/(.*)$",
-    "^([~@]{1,2})/lib(/.*)?$",
-    "^([~@]{1,2})/hooks(/.*)?$",
-    "^([~@]{1,2})/components(/.*)?$",
-    "^([~@]{1,2})/context(/.*)?$",
-    "^([~@]{1,2})/utils(/.*)?$",
-    "^([~@]{1,2})/types(/.*)?$",
-    "^([~@]{1,2})/styles(/.*)?$",
-    "^[./]"
+
+    "^lib(/.*)?$",
+    "^types(/.*)?$",
+    "^schema(/.*)?$",
+
+    "^content/generated(/.*)?$",
+
+    "^([~@])(?!react)(/.*)?$",
+
+    "^[./](?!.*\\.css$)",
+
+    "^([~@])/.*\\.css$",
+    "^[./].*\\.css$",
+    "^[.]"
   ],
-  "tailwindFunctions": ["cn", "cn", "cn", "clsx", "ctl", "cva", "tv"],
-  "tailwindStylesheet": "src/styles/main.css",
+  "tailwindFunctions": ["cn", "classnames", "classNames", "clsx", "ctl", "cva", "tv"],
   "overrides": [
     {
       "files": "Makefile",

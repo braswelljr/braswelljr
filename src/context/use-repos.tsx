@@ -187,9 +187,9 @@ export function RepoProvider({ children }: { children?: ReactNode }): React.JSX.
 }
 
 export default function useRepos() {
-  const context = useContext(RepoContext)
+  const context = useContext(RepoContext);
 
- if (!context) {
+  if (!context) {
     throw new Error('useRepos must be used within a <ReposProvider />');
   }
 

@@ -1,8 +1,8 @@
 'use client';
 
+import { motion } from 'motion/react';
 import { useTheme } from 'next-themes';
 import { HiDesktopComputer, HiMoon, HiSun } from 'react-icons/hi';
-import { motion } from 'motion/react';
 import { cn } from 'lib/utils';
 
 export default function ThemeSwitch({

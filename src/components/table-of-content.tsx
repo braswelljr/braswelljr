@@ -3,11 +3,11 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { HiArrowLeft } from 'react-icons/hi';
-import { useStore } from '~/store/store';
 import { TableOfContents as TableOfContentsType } from 'lib/toc';
 import { cn } from 'lib/utils';
-import useMounted from '~/hooks/useMounted';
 import { Sheet, SheetContent } from '~/components/ui/sheet';
+import useMounted from '~/hooks/useMounted';
+import { useStore } from '~/store/store';
 import { ScrollToTopWithBlog } from './scroll-top';
 
 type BlogResources = {
@@ -81,7 +81,7 @@ function Content({ toc, className, resources }: TocProps) {
         {/* blogs */}
         <Link
           href="/blog"
-          className="group/link relative inline-flex items-center space-x-2 pb-1.5 text-primary uppercase dark:text-secondary"
+          className="group/link text-primary dark:text-secondary relative inline-flex items-center space-x-2 pb-1.5 uppercase"
         >
           <HiArrowLeft className="h-3 w-auto" />
           <span>Back to blog</span>
@@ -104,7 +104,7 @@ function Content({ toc, className, resources }: TocProps) {
             {resources.map((resource, i) => (
               <li
                 key={i}
-                className="text-sm font-medium text-neutral-600 hover:text-primary hover:underline dark:text-neutral-400 dark:hover:text-secondary"
+                className="hover:text-primary dark:hover:text-secondary text-sm font-medium text-neutral-600 hover:underline dark:text-neutral-400"
               >
                 <Link href={resource.url}>{resource.title}</Link>
               </li>

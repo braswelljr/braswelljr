@@ -3,8 +3,8 @@
 import { forwardRef, useState } from 'react';
 import { Slottable } from '@radix-ui/react-slot';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
-import { cn } from 'lib/utils';
 import mergeRefs from 'merge-refs';
+import { cn } from 'lib/utils';
 import { useTabObserver } from '~/hooks/use-tab-observer';
 
 const SegmentedControl = TabsPrimitive.Root;

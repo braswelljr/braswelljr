@@ -5,8 +5,8 @@ import type { Dispatch, RefObject, SetStateAction } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { DocSearchModal, useDocSearchKeyboardEvents } from '@docsearch/react';
-import { cn } from 'lib/utils';
 import { createPortal } from 'react-dom';
+import { cn } from 'lib/utils';
 
 export default function Search({
   open,

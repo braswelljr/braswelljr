@@ -1,10 +1,10 @@
 import Link from 'next/link';
+import { isAfter, subDays } from 'date-fns';
 import { HiChevronRight } from 'react-icons/hi';
 import { IoAlbums } from 'react-icons/io5';
 import { MdOutlineWorkspacePremium } from 'react-icons/md';
-import { allBlogs } from 'content/generated';
-import { isAfter, subDays } from 'date-fns';
 import { cn } from 'lib/utils';
+import { allBlogs } from 'content/generated';
 import { formatDate } from '~/utils/formatDate';
 
 export default function Page() {
@@ -22,10 +22,10 @@ export default function Page() {
     <div className="px-4 py-10 max-lg:pt-28">
       <div className="mx-auto max-w-4xl px-4 text-gray-800 *:space-y-6 sm:mt-14 sm:*:space-y-10 dark:text-neutral-100">
         {/* Header */}
-        <h1 className="text-2xl leading-tight font-bold tracking-tight text-primary uppercase sm:text-3xl md:text-4xl dark:text-secondary">Blog</h1>
+        <h1 className="text-primary dark:text-secondary text-2xl leading-tight font-bold tracking-tight uppercase sm:text-3xl md:text-4xl">Blog</h1>
         {/* Body */}
         <div className="relative ml-4 pt-5 sm:ml-[calc(2rem+1px)] md:ml-[calc(3.5rem+1px)] lg:ml-[max(calc(15.5rem+1px),calc(100%-48rem))]">
-          <div className={cn('absolute top-3 right-full -bottom-10 w-px bg-primary dark:bg-secondary', 'mr-7 ml-5 md:mr-13')} />
+          <div className={cn('bg-primary dark:bg-secondary absolute top-3 right-full -bottom-10 w-px', 'mr-7 ml-5 md:mr-13')} />
           <div className="space-y-16">
             {blogs.map(({ title, description, date, tags, slug, published, readingTime }, i) => {
               const after = isAfter(date, subDays(new Date(), 150));
@@ -39,7 +39,7 @@ export default function Page() {
                   <svg
                     viewBox="0 0 9 9"
                     className={cn(
-                      'absolute top-2 right-full size-[calc(0.5rem+1px)] overflow-visible text-primary dark:text-secondary',
+                      'text-primary dark:text-secondary absolute top-2 right-full size-[calc(0.5rem+1px)] overflow-visible',
 
                       'mr-6 ml-5 md:mr-12'
                     )}
@@ -57,14 +57,14 @@ export default function Page() {
                     {(after || !published) && (
                       <div className="relative flex flex-wrap gap-2 pt-8 lg:pt-0 lg:pb-3">
                         {after && (
-                          <div className="inline-flex h-6 w-auto items-center gap-1 rounded-sm bg-primary-300 px-1.5 py-1 pr-2 text-xsm font-bold text-neutral-950 uppercase dark:bg-secondary">
+                          <div className="bg-primary-300 text-xsm dark:bg-secondary inline-flex h-6 w-auto items-center gap-1 rounded-sm px-1.5 py-1 pr-2 font-bold text-neutral-950 uppercase">
                             <MdOutlineWorkspacePremium className="size-3.5" />
                             New
                           </div>
                         )}
 
                         {!published && (
-                          <div className="inline-flex h-6 w-auto items-center gap-1 rounded-sm bg-secondary-300 px-2.5 py-0.5 text-xs font-medium text-neutral-950 uppercase dark:bg-stone-950 dark:text-secondary">
+                          <div className="bg-secondary-300 dark:text-secondary inline-flex h-6 w-auto items-center gap-1 rounded-sm px-2.5 py-0.5 text-xs font-medium text-neutral-950 uppercase dark:bg-stone-950">
                             <IoAlbums className="size-3.5" />
                             <span className="">
                               Draft / Unpublished<span className="sr-only">, {title}</span>
@@ -88,7 +88,7 @@ export default function Page() {
                         {tags.map((tag, i) => (
                           <span
                             key={i}
-                            className="inline-flex items-center rounded-sm bg-primary-200 px-2 py-1 text-xsm font-medium text-neutral-950 dark:bg-secondary"
+                            className="bg-primary-200 text-xsm dark:bg-secondary inline-flex items-center rounded-sm px-2 py-1 font-medium text-neutral-950"
                           >
                             {tag}
                           </span>
@@ -99,14 +99,14 @@ export default function Page() {
 
                     <dl className="absolute top-0 left-0 lg:right-full lg:left-auto lg:mr-[calc(6.5rem+1px)]">
                       <dt className="sr-only">Date</dt>
-                      <dd className={cn('leading-6 font-bold whitespace-nowrap text-primary dark:text-orange-400')}>
+                      <dd className={cn('text-primary leading-6 font-bold whitespace-nowrap dark:text-orange-400')}>
                         <time dateTime="">{date ? formatDate(date, '{MMMM} {DD}, {YYYY}') : 'unknown'}</time>
                       </dd>
                     </dl>
                   </div>
                   <Link
                     href={slug}
-                    className="link-underline group/link relative mt-5 inline-flex items-center justify-start gap-1 pb-1 pl-1.5 text-sm font-semibold text-primary uppercase hover:bg-size-[95%_3px] dark:text-secondary"
+                    className="link-underline group/link text-primary dark:text-secondary relative mt-5 inline-flex items-center justify-start gap-1 pb-1 pl-1.5 text-sm font-semibold uppercase hover:bg-size-[95%_3px]"
                   >
                     <span className="">
                       Read more<span className="sr-only">, {title}</span>

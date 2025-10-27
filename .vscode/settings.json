@@ -5,22 +5,13 @@
     }
   ],
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.fixAll.prettier": "explicit",
-    "source.fixAll.markdownlint": "explicit"
+    "source.fixAll.eslint": "always",
+    "source.fixAll.prettier": "always",
+    "source.fixAll.markdownlint": "always"
   },
   "editor.formatOnSave": true,
   "eslint.options": {},
-  "eslint.validate": [
-    "javascript",
-    "mdx",
-    "markdown",
-    "typescript",
-    "html",
-    "vue",
-    "javascriptreact",
-    "typescriptreact"
-  ],
+  "eslint.validate": ["javascript", "mdx", "markdown", "typescript", "html", "vue", "javascriptreact", "typescriptreact"],
   "emmet.includeLanguages": {
     "javascript": "javascriptreact",
     "typescript": "typescriptreact"

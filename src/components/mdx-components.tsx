@@ -9,9 +9,9 @@ import * as CodeBlock from 'fumadocs-ui/components/codeblock';
 import * as FilesComponents from 'fumadocs-ui/components/files';
 import * as TabsComponents from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
-import { cn } from 'lib/utils';
 import * as icons from 'lucide-react';
 import type { MDXComponents } from 'mdx/types';
+import { cn } from 'lib/utils';
 import { snippets } from '~/components/snippets';
 import {
   Select,
@@ -33,7 +33,7 @@ const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
-        'mt-2 scroll-m-20 bg-linear-to-l from-secondary to-primary bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-primary',
+        'from-secondary to-primary dark:to-primary mt-2 scroll-m-20 bg-linear-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl',
         className
       )}
       {...props}
@@ -44,7 +44,7 @@ const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        'mt-16 scroll-m-20 border-b border-b-neutral-200 bg-linear-to-l from-secondary to-primary bg-clip-text pb-2 text-3xl font-semibold tracking-tight text-transparent first:mt-0 dark:border-b-neutral-800 dark:to-primary',
+        'from-secondary to-primary dark:to-primary mt-16 scroll-m-20 border-b border-b-neutral-200 bg-linear-to-l bg-clip-text pb-2 text-3xl font-semibold tracking-tight text-transparent first:mt-0 dark:border-b-neutral-800',
         className
       )}
       {...props}
@@ -55,7 +55,7 @@ const components = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        'mt-12 scroll-m-20 bg-linear-to-l from-secondary to-primary bg-clip-text text-2xl font-semibold tracking-tight text-transparent dark:to-primary',
+        'from-secondary to-primary dark:to-primary mt-12 scroll-m-20 bg-linear-to-l bg-clip-text text-2xl font-semibold tracking-tight text-transparent',
         className
       )}
       {...props}
@@ -66,7 +66,7 @@ const components = {
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        'mt-8 scroll-m-20 bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary',
+        'from-secondary to-primary dark:to-primary mt-8 scroll-m-20 bg-linear-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent',
         className
       )}
       {...props}
@@ -77,7 +77,7 @@ const components = {
   h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h5
       className={cn(
-        'mt-8 scroll-m-20 bg-linear-to-l from-secondary to-primary bg-clip-text text-lg font-semibold tracking-tight text-transparent dark:to-primary',
+        'from-secondary to-primary dark:to-primary mt-8 scroll-m-20 bg-linear-to-l bg-clip-text text-lg font-semibold tracking-tight text-transparent',
         className
       )}
       {...props}
@@ -88,7 +88,7 @@ const components = {
   h6: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h6
       className={cn(
-        'mt-8 scroll-m-20 bg-linear-to-l from-secondary to-primary bg-clip-text text-base font-semibold tracking-tight text-transparent dark:to-primary',
+        'from-secondary to-primary dark:to-primary mt-8 scroll-m-20 bg-linear-to-l bg-clip-text text-base font-semibold tracking-tight text-transparent',
         className
       )}
       {...props}
@@ -173,7 +173,7 @@ const components = {
   ),
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
-      className={cn('relative rounded bg-linear-to-l from-secondary to-primary bg-clip-text px-[0.3rem] py-[0.2rem] font-cascadia', className)}
+      className={cn('from-secondary to-primary font-cascadia relative rounded bg-linear-to-l bg-clip-text px-[0.3rem] py-[0.2rem]', className)}
       {...props}
     />
   ),

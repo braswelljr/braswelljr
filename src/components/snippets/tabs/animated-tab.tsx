@@ -16,7 +16,7 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
   return (
     <div className={cn('my-5', className)}>
       <div className="space-y-2">
-        <div className="flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 max-xsm:text-sm dark:border-[0.5px]">
+        <div className="max-xsm:text-sm flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 dark:border-[0.5px]">
           {contains.map((item, idx) => (
             <button
               key={idx}

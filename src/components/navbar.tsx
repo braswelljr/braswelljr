@@ -7,15 +7,15 @@ import { FaSpotify } from 'react-icons/fa6';
 import { HiCode, HiHome, HiOutlineMenuAlt2 } from 'react-icons/hi';
 import { IoIosPerson } from 'react-icons/io';
 import { MdArticle } from 'react-icons/md';
-import { useStore } from '~/store/store';
-import { cn } from 'lib/utils';
 import { useMedia } from 'react-use';
-import { useIsMac } from '~/hooks/use-is-mac';
+import { cn } from 'lib/utils';
 import Search from '~/components/search';
 import ThemeSwitch from '~/components/shared/theme-switcher';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Kbd } from '~/components/ui/kbd';
 import { SegmentedControl, SegmentedControlList, SegmentedControlTrigger } from '~/components/ui/segmented-control';
+import { useIsMac } from '~/hooks/use-is-mac';
+import { useStore } from '~/store/store';
 
 export const nav = [
   {
@@ -120,7 +120,7 @@ export default function Navbar({ className }: { className?: string }) {
         <SegmentedControlList
           // orientation="vertical"
           orientation="horizontal"
-          className="gap-4 font-semibold whitespace-nowrap max-xsm:text-sm"
+          className="max-xsm:text-sm gap-4 font-semibold whitespace-nowrap"
           classNames={{ indicator: 'h-2! bottom-0! inset-x-0! inset-auto bg-primary rounded-none rounded-t-xl! dark:bg-secondary' }}
         >
           {nav.map((item, idx) => (
@@ -146,14 +146,14 @@ export default function Navbar({ className }: { className?: string }) {
       >
         <button
           id="search-button"
-          className="flex h-8 w-full max-w-2/3 items-center justify-between gap-4 rounded-sm border border-primary-300 px-3 text-sm focus:outline-none lg:max-w-3xs dark:border-secondary-300 dark:text-secondary-300"
+          className="border-primary-300 dark:border-secondary-300 dark:text-secondary-300 flex h-8 w-full max-w-2/3 items-center justify-between gap-4 rounded-sm border px-3 text-sm focus:outline-none lg:max-w-3xs"
           aria-label="Search"
           onClick={() => onOpenChange(!open)}
         >
           <span>Search ...</span>
           <span className="flex items-center gap-0.5">
             <Kbd className="hidden rounded border px-1 py-0.5 font-sans text-xs">{isMac ? '⌘' : 'Ctrl'} K</Kbd>
-            <Kbd className="rounded border border-primary-300 px-1 py-0.5 font-sans text-xs text-primary dark:border-secondary-300 dark:text-secondary-300">
+            <Kbd className="border-primary-300 text-primary dark:border-secondary-300 dark:text-secondary-300 rounded border px-1 py-0.5 font-sans text-xs">
               /
             </Kbd>
           </span>

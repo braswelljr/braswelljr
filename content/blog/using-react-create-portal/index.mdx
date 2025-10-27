@@ -56,14 +56,14 @@ First, add a portal target to your HTML:
 ## 🎯 Basic Portal Example
 
 ```tsx title="modal.tsx" ts2js
-import * as React from 'react'
+import * as React from 'react';
 import { createPortal } from 'react-dom';
 
 type ModalProps = {
   children: React.ReactNode;
   isOpen: boolean;
   onClose: () => void;
-}
+};
 
 export function Modal({ children, isOpen, onClose }: ModalProps) {
   useEffect(() => {
@@ -85,7 +85,15 @@ export function Modal({ children, isOpen, onClose }: ModalProps) {
 
   return createPortal(
     <div
-      style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000
+      }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -116,22 +124,23 @@ export function Modal({ children, isOpen, onClose }: ModalProps) {
 
 ```tsx title="App.tsx" ts2js
 import { useState } from 'react';
-import { Modal } from './modal.tsx'
+import { Modal } from './modal.tsx';
 
-export default function App () {
+export default function App() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <div style={{ padding: '20px' }}>
-      <button onClick={() => setIsOpen(true)}>
-        Open Modal
-      </button>
+      <button onClick={() => setIsOpen(true)}>Open Modal</button>
 
       <div style={{ overflow: 'hidden', height: '200px', border: '1px solid #ccc' }}>
         This container has overflow hidden, but the modal escapes it!
       </div>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      >
         <h2>Modal Title</h2>
         <p>This modal renders outside the main React root!</p>
       </Modal>

@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useTheme } from 'next-themes';
 import { HiOutlineDesktopComputer, HiOutlineMoon, HiOutlineSun } from 'react-icons/hi';
-import { AnimatePresence, motion } from 'motion/react';
 import { cn } from 'lib/utils';
 
 const themes = [

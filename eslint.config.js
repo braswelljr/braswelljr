@@ -7,6 +7,7 @@ const globals = require('globals');
 const tseslint = require('typescript-eslint');
 const nextPlugin = require('@next/eslint-plugin-next');
 const pluginMdx = require('eslint-plugin-mdx');
+const pluginQuery = require('@tanstack/eslint-plugin-query');
 
 /** @type {import('eslint').Linter.Config[]} */
 module.exports = tseslint.config(
@@ -90,15 +91,16 @@ module.exports = tseslint.config(
     files: ['**/*.{js,jsx,ts,tsx,mjs,mts,mdx,md}'],
     plugins: {
       'react-hooks': reactHooks,
-      prettier: pluginPrettier
+      prettier: pluginPrettier,
+      '@tanstack/query': pluginQuery
     },
     rules: {
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'off',
-      'prettier/prettier': 'warn'
+      'prettier/prettier': 'warn',
+      ...pluginQuery.configs.recommended.rules
     }
   },
-
   {
     files: ['**/*.{mdx,md}'],
     plugins: {
@@ -109,7 +111,6 @@ module.exports = tseslint.config(
       'mdx/code-blocks': true
     }
   },
-
   {
     ignores: ['node_modules/*', '.next/', '.turbo/', '.out/', '**/build', '**/coverage']
   },

@@ -2,8 +2,8 @@
 
 import { Fragment } from 'react';
 import Link from 'next/link';
-import { MdRefresh } from 'react-icons/md';
 import { useQuery } from '@tanstack/react-query';
+import { MdRefresh } from 'react-icons/md';
 import { cn } from 'lib/utils';
 import { SpotifyTrack } from 'types/spotify';
 import { AnimatedBackground } from '~/components/ui/animated-background';
@@ -23,7 +23,7 @@ export function TopTracks({ className }: { className?: string }) {
   return (
     <section className={cn('', className)}>
       <nav className="flex items-center justify-between">
-        <h2 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary">
+        <h2 className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent">
           Top Tracks
         </h2>
         <button
@@ -93,7 +93,7 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
               </Avatar>
               <div className="space-y-2">
                 <h4 className="line-clamp-2 text-sm sm:text-base">{track?.name}</h4>
-                <p className="line-clamp-2 text-xsm sm:text-sm">
+                <p className="text-xsm line-clamp-2 sm:text-sm">
                   {track?.artists?.map((a, i) => (
                     <Fragment key={i}>
                       {i !== 0 && ', '}

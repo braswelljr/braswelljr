@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { HiExternalLink } from 'react-icons/hi';
-import { MdRefresh } from 'react-icons/md';
 import type { Page, Playlist, TrackItem } from '@spotify/web-api-ts-sdk';
 import { useQuery } from '@tanstack/react-query';
+import { HiExternalLink } from 'react-icons/hi';
+import { MdRefresh } from 'react-icons/md';
 import { cn } from 'lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardFooter, CardTitle } from '~/components/ui/card';
@@ -41,7 +41,7 @@ export function Playlist({ className }: { className?: string }) {
   return (
     <section className={cn('', className)}>
       <nav className="flex items-center justify-between">
-        <h2 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary">
+        <h2 className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent">
           Playlist
         </h2>
         <button
@@ -116,7 +116,7 @@ export function PlaylistData({ className, data }: { className?: string; data: Pa
               </CardContent>
               <CardFooter className="flex-col items-start gap-2 p-4 pt-0">
                 <span
-                  className="group flex items-center justify-center gap-2 hover:text-secondary"
+                  className="group hover:text-secondary flex items-center justify-center gap-2"
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent triggering the parent link
                     window.open(playlist.external_urls?.spotify, '_blank', 'noopener noreferrer');

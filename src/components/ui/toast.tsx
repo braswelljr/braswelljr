@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, ComponentRef, forwardRef, ReactElement } from 'react';
-import { HiX } from 'react-icons/hi';
 import * as ToastPrimitives from '@radix-ui/react-toast';
 import { cva, VariantProps } from 'class-variance-authority';
+import { HiX } from 'react-icons/hi';
 import { cn } from 'lib/utils';
 
 const ToastProvider = ToastPrimitives.Provider;
@@ -21,7 +21,7 @@ const ToastViewport = forwardRef<ComponentRef<typeof ToastPrimitives.Viewport>, 
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
 const toastVariants = cva(
-  'group pointer-events-auto relative mt-4 flex w-full grow items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all last:mt-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:animate-in data-[state=open]:slide-in-from-top-full data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-(--radix-toast-swipe-end-x) data-[swipe=end]:animate-out data-[swipe=move]:translate-x-(--radix-toast-swipe-move-x) data-[swipe=move]:transition-none sm:last:mt-4 data-[state=open]:sm:slide-in-from-bottom-full dark:border-slate-700',
+  'group data-[state=closed]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:animate-in data-[state=open]:slide-in-from-top-full data-[swipe=end]:animate-out data-[state=open]:sm:slide-in-from-bottom-full pointer-events-auto relative mt-4 flex w-full grow items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all last:mt-0 data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-(--radix-toast-swipe-end-x) data-[swipe=move]:translate-x-(--radix-toast-swipe-move-x) data-[swipe=move]:transition-none sm:last:mt-4 dark:border-slate-700',
   {
     variants: {
       variant: {

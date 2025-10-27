@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { MdOutlineFileDownload } from 'react-icons/md';
 import { format } from 'date-fns';
+import { MdOutlineFileDownload } from 'react-icons/md';
 import { cn } from 'lib/utils';
-import { career, education } from '~/config/data';
 import { Item, ItemContent, ItemTitle } from '~/components/ui/item';
+import { career, education } from '~/config/data';
 
 export default function About() {
   return (
@@ -11,7 +11,7 @@ export default function About() {
       <div className="mx-auto max-w-4xl px-4 text-gray-800 *:space-y-6 sm:mt-14 sm:*:space-y-10 dark:text-neutral-100">
         {/* About */}
         <div className="md:leading-relaxed">
-          Hey, I am <span className="text-primary uppercase dark:text-secondary">Braswell Kenneth Azu Junior</span>, a Software Engineer with
+          Hey, I am <span className="text-primary dark:text-secondary uppercase">Braswell Kenneth Azu Junior</span>, a Software Engineer with
           experience in building scalable, user-centric web and mobile applications. Adept at collaborating with cross-functional teams to design
           intuitive user interfaces, architect efficient APIs, and implement cloud-native solutions. Passionate about frontend animation, developer
           experience, and creating seamless digital products.
@@ -24,7 +24,7 @@ export default function About() {
               'inline-flex items-center justify-center space-x-2 rounded-sm px-3 py-1.5 pr-4',
               'bg-primary dark:bg-secondary',
               'text-sm font-bold text-white capitalize dark:text-neutral-950',
-              'transition-transform hocus:translate-y-0.5'
+              'hocus:translate-y-0.5 transition-transform'
             )}
             download
             target="_blank"
@@ -48,13 +48,13 @@ export default function About() {
                   'border-primary-300/40 dark:border-secondary-300/10'
                 )}
               >
-                <ItemTitle className="inline-flex font-cascadia text-xl">
+                <ItemTitle className="font-cascadia inline-flex text-xl">
                   <span>
                     {job.role} - <span>({job.type})</span>
                   </span>
                 </ItemTitle>
                 <ItemContent className="pl-2">
-                  <h2 className="space-x-2 text-base text-primary dark:text-secondary">
+                  <h2 className="text-primary dark:text-secondary space-x-2 text-base">
                     <span className="font-cascadia text-lg font-bold">{job.company}</span>
                     <span className="">|</span>
                     <span className="text-primary-400 dark:text-secondary-400">
@@ -94,11 +94,11 @@ export default function About() {
                   'border-primary-300/40 dark:border-secondary-300/10'
                 )}
               >
-                <ItemTitle className="inline-flex font-cascadia text-xl">
+                <ItemTitle className="font-cascadia inline-flex text-xl">
                   <span>{institute.name}</span>
                 </ItemTitle>
                 <ItemContent className="pl-2">
-                  <h2 className="space-x-2 text-base text-primary dark:text-secondary">
+                  <h2 className="text-primary dark:text-secondary space-x-2 text-base">
                     <span className="font-cascadia text-lg font-bold">{institute.degree}</span>
                     <span className="">|</span>
                     <span className="text-neutral-800 dark:text-neutral-400">

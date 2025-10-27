@@ -1,15 +1,15 @@
 import { type Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { FaGithub } from 'react-icons/fa6';
-import { MdOutlineWorkspacePremium } from 'react-icons/md';
-import { allBlogs } from 'content/generated';
 import { subDays } from 'date-fns';
 import { Callout } from 'fumadocs-ui/components/callout';
+import moment from 'moment';
+import { FaGithub } from 'react-icons/fa6';
+import { MdOutlineWorkspacePremium } from 'react-icons/md';
 import { createMetadata } from 'lib/metadata';
 import { getTableOfContents } from 'lib/toc';
 import { cn } from 'lib/utils';
-import moment from 'moment';
+import { allBlogs } from 'content/generated';
 import { Mdx } from '~/components/mdx-components';
 import { BlogPaginate } from '~/components/paginate';
 import { TableOfContents } from '~/components/table-of-content';
@@ -62,7 +62,7 @@ export default async function Page({ params }: PageProps) {
               )}
               <h1
                 className={cn(
-                  'scroll-m-20 bg-linear-to-l from-secondary to-primary bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-primary'
+                  'from-secondary to-primary dark:to-primary scroll-m-20 bg-linear-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl'
                 )}
               >
                 {blog.title}

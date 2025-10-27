@@ -1,12 +1,12 @@
-import '~/styles/main.css';
 import { Metadata } from 'next';
 import LocalFont from 'next/font/local';
 import Image from 'next/image';
-import Base from '~/providers/base';
 import { cn } from 'lib/utils';
-import { siteConfig } from '~/config/site';
 import Navbar from '~/components/navbar';
 import ScrollTop from '~/components/scroll-top';
+import { siteConfig } from '~/config/site';
+import Base from '~/providers/base';
+import '~/styles/main.css';
 
 export const metadata: Metadata = {
   title: {
@@ -88,7 +88,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="relative inset-0 z-1 min-h-dvh w-full">
                 {children}
                 <ScrollTop
-                  className="fixed right-5 bottom-5 z-10 bg-primary! dark:bg-secondary! dark:text-neutral-950!"
+                  className="bg-primary! dark:bg-secondary! fixed right-5 bottom-5 z-10 dark:text-neutral-950!"
                   disableOnLayouts={['/blog/']}
                 />
               </div>

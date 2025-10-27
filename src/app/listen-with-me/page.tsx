@@ -7,7 +7,7 @@ export default function Page() {
       <div className="mx-auto max-w-4xl px-4 text-gray-800 sm:mt-14 dark:text-neutral-100">
         {/* Header */}
         <nav className="flex items-start justify-between">
-          <h1 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-primary">
+          <h1 className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl">
             Listen With Me
           </h1>
         </nav>

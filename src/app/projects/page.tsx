@@ -7,8 +7,8 @@ import { BsStar } from 'react-icons/bs';
 import { HiFolderOpen, HiOutlineExternalLink } from 'react-icons/hi';
 import { TfiLayoutListThumb } from 'react-icons/tfi';
 import { OTHER_PROJECTS } from '~/config/data';
-import useMedia from '~/hooks/useMedia';
 import useXStore from '~/context/use-repos';
+import useMedia from '~/hooks/useMedia';
 import { GitHubContributionGraph } from './_components/github-contribution-graph';
 
 export default function Projects() {
@@ -29,14 +29,14 @@ export default function Projects() {
   return (
     <div className="py-10 max-lg:pt-28">
       <div className="mx-auto max-w-4xl space-y-8 px-4 text-gray-800 sm:mt-14 sm:space-y-10 dark:text-neutral-100">
-        <h1 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-primary">
+        <h1 className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl">
           Work, Hobby and Open Source
         </h1>
         {/* Write up */}
         <div className="space-y-6 text-neutral-600 dark:text-neutral-400">
           <p className="">
             I&rsquo;m obsessed with building things that are useful and fun to use. I am an{' '}
-            <span className="bg-linear-to-l from-secondary to-primary bg-clip-text px-3 text-transparent uppercase dark:to-primary">enthusiast</span>{' '}
+            <span className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text px-3 text-transparent uppercase">enthusiast</span>{' '}
             and I love to contribute to open source. I am also a hobbyist and I love to build things that are fun to use.
           </p>
           <p>
@@ -260,7 +260,7 @@ export default function Projects() {
                   <div className="space-y-2 px-2 py-3 sm:px-4">
                     <div className="space-y-2">
                       {/* header */}
-                      <h2 className="flex items-center space-x-2 bg-linear-to-l from-secondary to-primary bg-clip-text text-sm text-transparent uppercase dark:to-primary">
+                      <h2 className="from-secondary to-primary dark:to-primary flex items-center space-x-2 bg-linear-to-l bg-clip-text text-sm text-transparent uppercase">
                         {project.name}
                       </h2>
                       <p className="line-clamp-2">{project.description}</p>
