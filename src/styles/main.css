@@ -2,6 +2,7 @@
 @import 'fumadocs-ui/css/style.css';
 @import 'fumadocs-ui/css/shiki.css';
 @import 'fumadocs-ui/css/shadcn.css';
+@import 'fumadocs-twoslash/twoslash.css';
 
 @import 'tw-animate-css';
 /*! purgecss start ignore */
@@ -340,7 +341,7 @@
 }
 
 @utility container {
-  @apply mx-auto px-8 2xl:w-fd-container;
+  @apply 2xl:w-fd-container mx-auto px-8;
 }
 
 .scrollbars-hidden {

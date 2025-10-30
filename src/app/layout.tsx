@@ -1,6 +1,7 @@
 import { type Metadata } from 'next';
 import LocalFont from 'next/font/local';
 import Image from 'next/image';
+import { Analytics } from '@vercel/analytics/next';
 import { cn } from 'lib/utils';
 import Navbar from '~/components/navbar';
 import ScrollTop from '~/components/scroll-top';
@@ -82,6 +83,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </main>
         </Base>
+        <Analytics />
       </body>
     </html>
   );

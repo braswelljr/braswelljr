@@ -3,6 +3,8 @@ import { compileMDX } from '@content-collections/mdx';
 import { rehypeCode, remarkAdmonition, remarkCodeTab, remarkGfm, remarkMdxFiles, remarkNpm, type RehypeCodeOptions } from 'fumadocs-core/mdx-plugins';
 import { remarkTypeScriptToJavaScript } from 'fumadocs-docgen/remark-ts2js';
 import { remarkInclude } from 'fumadocs-mdx/config';
+// import { transformerTwoslash } from 'fumadocs-twoslash';
+// import { createFileSystemTypesCache } from 'fumadocs-twoslash/cache-fs';
 import readingTime from 'reading-time';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePreLanguage from 'rehype-pre-language';
@@ -67,8 +69,8 @@ const blogs = defineCollection({
               dark: 'github-dark-default'
             },
             tab: true,
-            inline: 'tailing-curly-colon',
-            icon: {}
+            inline: 'tailing-curly-colon'
+            // transformers: [transformerTwoslash({ typesCache: createFileSystemTypesCache() })]
           } as RehypeCodeOptions
         ],
         () => (tree) => {

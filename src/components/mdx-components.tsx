@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { MDXContent } from '@content-collections/mdx/react';
+import * as Twoslash from 'fumadocs-twoslash/ui';
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 import { Callout } from 'fumadocs-ui/components/callout';
 import { Card } from 'fumadocs-ui/components/card';
@@ -232,6 +233,7 @@ export function getMDXComponents(comps?: MDXComponents): MDXComponents {
     ...defaultMdxComponents,
     ...TabsComponents,
     ...FilesComponents,
+    ...Twoslash,
     Accordion,
     Accordions,
     ...comps

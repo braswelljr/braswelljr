@@ -2,7 +2,7 @@
   --base: 200;
   --hue: calc(var(--base) + (var(--xp) * var(--yp)));
 
-  @apply fixed z-[1] h-[120rem] w-[120rem] -translate-x-1/2 -translate-y-1/2 rounded-full;
+  @apply fixed z-1 h-480 w-480 -translate-x-1/2 -translate-y-1/2 rounded-full;
 
   top: calc(var(--y, 1) * 1px);
   left: calc(var(--x, 1) * 1px);
