@@ -23,9 +23,9 @@ export function OtherProjects({ className }: OtherProjectProps) {
           return (
             <Card
               key={i}
-              className="border border-neutral-700/30 py-4 backdrop-blur dark:bg-neutral-900/50"
+              className="justify-between gap-2 border border-neutral-700/30 p-0 py-2 backdrop-blur dark:bg-neutral-900/50"
             >
-              <CardHeader className="">
+              <CardHeader className="px-2">
                 <Avatar className="aspect-video h-full max-h-54 w-full rounded bg-neutral-200 dark:bg-neutral-900">
                   <AvatarImage
                     src={`/api/screenshot?url=${project.homepageUrl}`}
@@ -40,23 +40,25 @@ export function OtherProjects({ className }: OtherProjectProps) {
                   </AvatarFallback>
                 </Avatar>
               </CardHeader>
-              <CardContent className="">
-                <CardTitle className="from-secondary to-primary dark:to-primary flex items-center space-x-2 bg-linear-to-l bg-clip-text text-sm text-transparent uppercase">
-                  {project.name}
-                </CardTitle>
-                <CardDescription className="line-clamp-2">{project.description}</CardDescription>
-              </CardContent>
-              <CardFooter className="">
-                <Link
-                  href={project.homepageUrl ? project.homepageUrl : project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase transition-transform backdrop:backdrop-blur hover:scale-105 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                >
-                  <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
-                  <span>Visit</span>
-                </Link>
-              </CardFooter>
+              <div className="flex min-h-24 flex-1 flex-col justify-between gap-4">
+                <CardContent className="px-2">
+                  <CardTitle className="from-secondary to-primary dark:to-primary flex items-center space-x-2 bg-linear-to-l bg-clip-text text-sm text-transparent uppercase">
+                    {project.name}
+                  </CardTitle>
+                  <CardDescription className="line-clamp-2">{project.description}</CardDescription>
+                </CardContent>
+                <CardFooter className="px-2">
+                  <Link
+                    href={project.homepageUrl ? project.homepageUrl : project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase transition-transform backdrop:backdrop-blur hover:scale-105 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                  >
+                    <HiOutlineExternalLink className="size-5 group-hover:scale-95" />
+                    <span>Visit</span>
+                  </Link>
+                </CardFooter>
+              </div>
             </Card>
           );
         })}

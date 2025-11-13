@@ -103,6 +103,41 @@ const components = {
       {...props}
     />
   ),
+  table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
+    <div className="my-6 w-full overflow-auto rounded bg-transparent backdrop-blur">
+      <table
+        className={cn('w-full', className)}
+        {...props}
+      />
+    </div>
+  ),
+  tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
+    <tr
+      className={cn(
+        'border-primary-200 dark:border-secondary/10 m-0 border-t bg-neutral-100 p-0 backdrop-blur even:bg-neutral-200/70 dark:bg-neutral-900 dark:even:bg-neutral-950',
+        className
+      )}
+      {...props}
+    />
+  ),
+  th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
+    <th
+      className={cn(
+        'bg-primary-200 border-primary-300 dark:border-secondary/10 border px-4 py-2 text-left font-bold backdrop-blur dark:bg-neutral-950 [[align=center]]:text-center [[align=right]]:text-right',
+        className
+      )}
+      {...props}
+    />
+  ),
+  td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
+    <td
+      className={cn(
+        'border-primary-200 dark:border-secondary/10 border px-4 py-2 text-left backdrop-blur dark:bg-neutral-800/50 [[align=center]]:text-center [[align=right]]:text-right',
+        className
+      )}
+      {...props}
+    />
+  ),
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
       className={cn('text-primary dark:text-secondary font-cascadia relative rounded px-[0.3rem] py-[0.2rem] decoration-current!', className)}

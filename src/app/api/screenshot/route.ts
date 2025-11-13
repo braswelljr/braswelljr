@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import puppeteer, { Browser, Page } from 'puppeteer';
+import sharp from 'sharp';
 
 export const dynamic = 'force-dynamic';
 const screenshotCache = new Map<string, Buffer>();
@@ -8,7 +9,7 @@ async function safeGoto(page: Page, url: string, retries = 3) {
   for (let i = 0; i < retries; i++) {
     try {
       await page.goto(url, {
-        waitUntil: 'networkidle2',
+        waitUntil: ['load', 'domcontentloaded', 'networkidle0'],
         timeout: 60000
       });
       return;
@@ -24,21 +25,22 @@ export async function GET(request: Request) {
   const targetUrl = searchParams.get('url');
   if (!targetUrl) return NextResponse.json({ error: 'Missing ?url=' }, { status: 400 });
 
-  const width = Number(searchParams.get('width')) || 1200;
-  const height = Number(searchParams.get('height')) || 630;
+  // 🔧 Defaults (smaller viewport)
+  const width = Number(searchParams.get('width')) || 800;
+  const height = Number(searchParams.get('height')) || 420;
   const fullPage = searchParams.get('fullPage') === 'true';
-  const formatParam = String(searchParams.get('format') || 'png').toLowerCase();
-  const format: 'png' | 'jpeg' = formatParam === 'jpeg' ? 'jpeg' : 'png';
+  const formatParam = String(searchParams.get('format') || 'jpeg').toLowerCase();
+  const format: 'png' | 'jpeg' = formatParam === 'png' ? 'png' : 'jpeg';
+  const quality = format === 'jpeg' ? Number(searchParams.get('quality')) || 70 : undefined;
 
-  const cacheKey = `${targetUrl}|${width}|${height}|${fullPage}|${format}`;
+  const cacheKey = `${targetUrl}|${width}|${height}|${fullPage}|${format}|${quality}`;
   if (screenshotCache.has(cacheKey)) {
     const cached = screenshotCache.get(cacheKey)!;
-
     return new NextResponse(new Uint8Array(cached), {
       status: 200,
       headers: {
         'Content-Type': format === 'png' ? 'image/png' : 'image/jpeg',
-        'Cache-Control': 'public, max-age=60'
+        'Cache-Control': 'public, max-age=120'
       }
     });
   }
@@ -46,10 +48,7 @@ export async function GET(request: Request) {
   let browser: Browser | null = null;
 
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+    browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
 
     const page = await browser.newPage();
     page.setDefaultNavigationTimeout(60000);
@@ -58,24 +57,39 @@ export async function GET(request: Request) {
 
     await safeGoto(page, targetUrl);
 
-    // Auto-scale for very long pages
-    let screenshotBuffer: Buffer;
+    // ⚡ Screenshot capture
+    let screenshotBuffer = (await page.screenshot({
+      type: format,
+      quality,
+      fullPage
+    })) as Buffer;
+
+    // 🧠 Auto-trim extreme fullPage height
     if (fullPage) {
       const bodyHandle = await page.$('body');
-      const boundingBox = bodyHandle ? await bodyHandle.boundingBox() : { width, height };
-      let fullHeight = boundingBox ? Math.ceil(boundingBox.height) : height;
-
-      // Prevent excessively tall screenshots
-      const maxHeight = 3000; // adjust as needed
-      if (fullHeight > maxHeight) fullHeight = maxHeight;
-
-      await page.setViewport({ width, height: fullHeight });
-      screenshotBuffer = (await page.screenshot({ type: format, fullPage: true })) as Buffer;
-    } else {
-      screenshotBuffer = (await page.screenshot({ type: format, fullPage: false })) as Buffer;
+      const boundingBox = bodyHandle ? await bodyHandle.boundingBox() : null;
+      const fullHeight = boundingBox ? Math.ceil(boundingBox.height) : height;
+      const maxHeight = 2000;
+      if (fullHeight > maxHeight) {
+        await page.setViewport({ width, height: maxHeight });
+        screenshotBuffer = (await page.screenshot({
+          type: format,
+          quality,
+          fullPage: true
+        })) as Buffer;
+      }
     }
 
     await browser.close();
+
+    // 🪄 Sharp post-compression
+    try {
+      screenshotBuffer = await sharp(screenshotBuffer)
+        .toFormat(format, { quality: quality || 70, compressionLevel: 9, progressive: true, chromaSubsampling: '4:2:0' })
+        .toBuffer();
+    } catch (err) {
+      console.warn('Sharp compression skipped:', err);
+    }
 
     screenshotCache.set(cacheKey, screenshotBuffer);
 
@@ -85,7 +99,7 @@ export async function GET(request: Request) {
       status: 200,
       headers: {
         'Content-Type': format === 'png' ? 'image/png' : 'image/jpeg',
-        'Cache-Control': 'public, max-age=60'
+        'Cache-Control': 'public, max-age=120'
       }
     });
   } catch (err: any) {

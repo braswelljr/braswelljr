@@ -29,7 +29,7 @@ export default async function Page() {
   );
 
   return (
-    <div className="px-4 py-10 max-lg:pt-28">
+    <div className="px-4 py-10 pt-[calc(var(--fd-nav-height)+10px)]">
       <div className="mx-auto max-w-4xl px-4 text-gray-800 *:space-y-6 sm:mt-14 sm:*:space-y-10 dark:text-neutral-100">
         <h2 className="text-primary dark:text-secondary text-2xl leading-tight font-bold tracking-tight uppercase sm:text-3xl md:text-4xl">Blog</h2>
 

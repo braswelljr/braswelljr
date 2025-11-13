@@ -81,7 +81,7 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
       tableOfContent={{ ...tocOptions, style: 'clerk' }}
       tableOfContentPopover={{ ...tocOptions, style: 'clerk' }}
     >
-      <div className="relative pt-26 pb-6 md:pt-20 md:pb-10">
+      <div className="relative">
         <div className="space-y-4">
           {isAfter(post.date, subDays(new Date(), 150)) && (
             <div className="bg-primary-100 dark:text-primary-400 inline-flex h-8 w-auto items-center gap-1 rounded-sm px-2.5 py-0.5 text-sm font-medium text-neutral-700 uppercase dark:bg-neutral-800">
@@ -111,7 +111,7 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
             })}
           />
 
-          <div className="space-y-2">
+          <div className="space-y-1">
             <p>Published on {new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(post.date)}</p>
             <p>{post.readingTime}</p>
           </div>

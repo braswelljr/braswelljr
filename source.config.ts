@@ -64,7 +64,11 @@ export default defineConfig({
         dark: 'github-dark-default'
       },
       tab: true,
-      transformers: [...(rehypeCodeDefaultOptions.transformers ?? []), transformerTwoslash()]
+      transformers: [
+        ...(rehypeCodeDefaultOptions.transformers ?? []),
+        //  ,transformerTwoslash()
+        transformerTwoslash()
+      ]
     },
     remarkPlugins: [
       remarkGfm,
