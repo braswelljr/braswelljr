@@ -39,7 +39,7 @@ Although `createRef` is traditionally used in class components, its functional c
 
 ### Example: using `useRef` for DOM access
 
-```tsx title="App.ts"
+```tsx title="App.ts" twoslash
 import React, { useRef } from 'react';
 
 export function CreateRefFunctionalExample() {
@@ -70,7 +70,7 @@ useRef is a Hook that returns a mutable ref object persisting across renders. It
 
 ### Example 1: Accessing a DOM Element
 
-```tsx id="tab-language" ts2js
+```tsx ts2js twoslash
 import React, { useRef } from 'react';
 
 export function ComponentWithRef() {
@@ -97,7 +97,7 @@ export function ComponentWithRef() {
 
 ### Example 2: Storing Mutable Value
 
-```tsx id="tab-language" ts2js
+```tsx ts2js
 import React, { useRef } from 'react';
 
 export function CounterWithoutRerender() {
@@ -127,34 +127,34 @@ forwardRef is a Higher-Order Component that allows a parent component to pass a 
 
 ### Example: using forwardRef on components
 
-```tsx id="tab-language" ts2js title="button.tsx"
-import { forwardRef } from 'react';
+```tsx ts2js title="button.tsx"
+import React, { forwardRef } from 'react';
 
-interface MyButtonProps {
+type ButtonProps = {
   className?: string;
-}
+};
 
-const MyButton = forwardRef<HTMLButtonElement, MyButtonProps>(({ children, className }, ref) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ children, className, ...props }, ref) => {
   return (
     <button
       ref={ref}
       className={`rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 ${className}`}
-      onClick={onClick}
+      {...props}
     >
       {children}
     </button>
   );
 });
-MyButton.displayName = 'Button';
+Button.displayName = 'Button';
 
-export { MyButton };
+export { Button };
 ```
 
 Using the button Component
 
 ```tsx id="tab-language" ts2js title="App.tsx"
 import React, { useRef } from 'react';
-import MyButton from './button';
+import { Button } from './button';
 
 export default function AppWithForwardRef() {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -168,12 +168,12 @@ export default function AppWithForwardRef() {
   return (
     <div>
       <h3>`forwardRef` Example</h3>
-      <MyButton
+      <Button
         ref={buttonRef}
         onClick={() => console.log('Button clicked!')}
       >
         Click Me
-      </MyButton>
+      </Button>
       <button
         onClick={handleFocusButtonClick}
         className="ml-4 rounded-md bg-green-500 px-4 py-2 text-white hover:bg-green-600"

@@ -37,6 +37,7 @@ export const REHYPE_LANGS = [
   'language-swift',
   'language-scala'
 ];
+
 export const languages = [
   'tsx',
   'jsx',

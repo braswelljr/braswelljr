@@ -1,33 +1,42 @@
 import Link from 'next/link';
-import { isAfter, subDays } from 'date-fns';
+import { compareAsc, isAfter, subDays } from 'date-fns';
 import { HiChevronRight } from 'react-icons/hi';
 import { IoAlbums } from 'react-icons/io5';
 import { MdOutlineWorkspacePremium } from 'react-icons/md';
+import readingTime from 'reading-time';
+import { blog } from 'lib/source';
 import { cn } from 'lib/utils';
-import { allBlogs } from 'content/generated';
 import { formatDate } from '~/utils/formatDate';
 
-export default function Page() {
-  const blogs = allBlogs.sort((a, b) => {
-    // check if the date is valid (or value is not null/undefined)
-    if (!a.date || !b.date) return 0;
-    // Sort by date descending
-    if (a.date > b.date) return -1;
-    if (a.date < b.date) return 1;
+export default async function Page() {
+  // get all blog pages
+  const pages = blog.getPages();
 
-    return 0;
-  });
+  // sort by date (latest first)
+  const sorted = pages.sort((a, b) => compareAsc(new Date(b.data.date), new Date(a.data.date)));
+
+  const posts = await Promise.all(
+    sorted.map(async (d) => {
+      const text = await d.data.getText('processed');
+      const time = readingTime(text).text;
+
+      return {
+        ...d.data,
+        slug: d.url,
+        readingTime: time
+      };
+    })
+  );
 
   return (
     <div className="px-4 py-10 max-lg:pt-28">
       <div className="mx-auto max-w-4xl px-4 text-gray-800 *:space-y-6 sm:mt-14 sm:*:space-y-10 dark:text-neutral-100">
-        {/* Header */}
-        <h1 className="text-primary dark:text-secondary text-2xl leading-tight font-bold tracking-tight uppercase sm:text-3xl md:text-4xl">Blog</h1>
-        {/* Body */}
+        <h2 className="text-primary dark:text-secondary text-2xl leading-tight font-bold tracking-tight uppercase sm:text-3xl md:text-4xl">Blog</h2>
+
         <div className="relative ml-4 pt-5 sm:ml-[calc(2rem+1px)] md:ml-[calc(3.5rem+1px)] lg:ml-[max(calc(15.5rem+1px),calc(100%-48rem))]">
           <div className={cn('bg-primary dark:bg-secondary absolute top-3 right-full -bottom-10 w-px', 'mr-7 ml-5 md:mr-13')} />
           <div className="space-y-16">
-            {blogs.map(({ title, description, date, tags, slug, published, readingTime }, i) => {
+            {posts.map(({ title, description, date, tags, slug, published, readingTime }, i) => {
               const after = isAfter(date, subDays(new Date(), 150));
 
               return (

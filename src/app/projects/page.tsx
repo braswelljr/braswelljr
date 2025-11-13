@@ -1,15 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { BiGitRepoForked } from 'react-icons/bi';
 import { BsStar } from 'react-icons/bs';
 import { HiFolderOpen, HiOutlineExternalLink } from 'react-icons/hi';
 import { TfiLayoutListThumb } from 'react-icons/tfi';
-import { OTHER_PROJECTS } from '~/config/data';
 import useXStore from '~/context/use-repos';
 import useMedia from '~/hooks/useMedia';
 import { GitHubContributionGraph } from './_components/github-contribution-graph';
+import { OtherProjects } from './_components/other-projects';
 
 export default function Projects() {
   const { pinnedProjects, allProjects } = useXStore();
@@ -28,7 +27,7 @@ export default function Projects() {
 
   return (
     <div className="py-10 max-lg:pt-28">
-      <div className="mx-auto max-w-4xl space-y-8 px-4 text-gray-800 sm:mt-14 sm:space-y-10 dark:text-neutral-100">
+      <div className="mx-auto max-w-[calc(var(--container-4xl)+5px)] space-y-8 px-4 text-gray-800 sm:mt-14 sm:space-y-10 dark:text-neutral-100">
         <h1 className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl">
           Work, Hobby and Open Source
         </h1>
@@ -40,10 +39,8 @@ export default function Projects() {
             and I love to contribute to open source. I am also a hobbyist and I love to build things that are fun to use.
           </p>
           <p>
-            {' '}
-            I prefer to work with <span className="bg-linear-to-l from-[#2273ff] to-[#00e5ff] bg-clip-text text-transparent uppercase">
-              React
-            </span>, <span className="bg-linear-to-l from-[#3b80ff] to-[#3b80ff] bg-clip-text text-transparent uppercase">Next.js</span>,{' '}
+            I prefer to work with <span className="bg-linear-to-l from-[#2273ff] to-[#00e5ff] bg-clip-text text-transparent uppercase">React</span>,{' '}
+            <span className="bg-linear-to-l from-[#3b80ff] to-[#3b80ff] bg-clip-text text-transparent uppercase">Next.js</span>,{' '}
             <span className="bg-linear-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text text-transparent uppercase">Golang</span>,{' '}
             <span className="bg-linear-to-l from-[#236e00] to-[#00bf06] bg-clip-text text-transparent uppercase">Node.js</span>,{' '}
             <span className="bg-linear-to-l from-[#00b731] to-[#008f02] bg-clip-text text-transparent uppercase">MongoDB</span>,{' '}
@@ -165,20 +162,14 @@ export default function Projects() {
                         key={i}
                         className="group rounded bg-zinc-900/20 shadow-sm backdrop-blur transition-transform"
                       >
-                        {/* main */}
                         <div className="divide-y divide-zinc-500/25 *:p-2.5">
-                          {/* header */}
                           <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
-                            {/* title */}
                             <h2 className="text-lg leading-tight font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{project.name}</h2>
-                            {/* stats */}
                             <div className="space-x-3 text-sm *:flex *:items-center *:space-x-1">
-                              {/* stars */}
                               <div>
                                 <BsStar className="h-4 w-auto" />
                                 <span>{project.stargazers_count}</span>
                               </div>
-                              {/* forks */}
                               <div>
                                 <BiGitRepoForked className="h-4 w-auto" />
                                 <span>{project.forks_count}</span>
@@ -190,9 +181,7 @@ export default function Projects() {
                             <p className="line-clamp-2">{project.description ? project.description : 'Lorem ipsum dolor sit amet consectetur.'}</p>
                           </div>
                         </div>
-                        {/* footer */}
                         <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
-                          {/* language */}
                           <span className="space-x-2">
                             {/* <span
                               className="h-3 w-3 rounded-full"
@@ -235,55 +224,8 @@ export default function Projects() {
             )}
           </div>
         </div>
-        {/* Other Projects */}
-        <div className="space-y-6">
-          {/* Header */}
-          <div className="flex items-end justify-between">
-            <h2 className="text-2xl leading-tight font-bold tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
-              Other Projects
-            </h2>
-            <span className="text-lg">({OTHER_PROJECTS.length})</span>
-          </div>
-          {/* projects */}
-          <div className="grid gap-6 sm:grid-cols-2">
-            {OTHER_PROJECTS.map((project, i) => {
-              return (
-                <div
-                  key={i}
-                  className="border border-neutral-700/30 backdrop-blur dark:odd:bg-zinc-900/50"
-                >
-                  <iframe
-                    src={project.homepageUrl ? project.homepageUrl : project.url}
-                    title={project.name}
-                    className="pointer-events-none h-112 w-full"
-                  />
-                  <div className="space-y-2 px-2 py-3 sm:px-4">
-                    <div className="space-y-2">
-                      {/* header */}
-                      <h2 className="from-secondary to-primary dark:to-primary flex items-center space-x-2 bg-linear-to-l bg-clip-text text-sm text-transparent uppercase">
-                        {project.name}
-                      </h2>
-                      <p className="line-clamp-2">{project.description}</p>
-                    </div>
-                    {/* footer */}
-                    <div className="flex items-center">
-                      {/* link */}
-                      <Link
-                        href={project.homepageUrl ? project.homepageUrl : project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase transition-transform backdrop:backdrop-blur hover:scale-105 focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                      >
-                        <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
-                        <span>Visit</span>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+
+        <OtherProjects />
       </div>
     </div>
   );

@@ -9,7 +9,6 @@ export default function About() {
   return (
     <div className="py-10 max-lg:pt-28">
       <div className="mx-auto max-w-4xl px-4 text-gray-800 *:space-y-6 sm:mt-14 sm:*:space-y-10 dark:text-neutral-100">
-        {/* About */}
         <div className="md:leading-relaxed">
           Hey, I am <span className="text-primary dark:text-secondary uppercase">Braswell Kenneth Azu Junior</span>, a Software Engineer with
           experience in building scalable, user-centric web and mobile applications. Adept at collaborating with cross-functional teams to design

@@ -12,9 +12,8 @@ export function GitHubContributionGraph({ className }: { className?: string }) {
         </h2>
       </nav>
 
-      <div className="relative mt-2 rounded-xl bg-neutral-200 p-2 dark:bg-neutral-900">
+      <div className="relative mt-2 rounded-xl bg-neutral-200 p-1 dark:bg-neutral-900">
         <GitHubActivity
-          // data={events}
           username="braswelljr"
           theme={{
             light: ['#fff3ec', '#ffc6a5', '#ff420a', '#cc1602', '#a1130b'],

@@ -47,7 +47,11 @@ const SegmentedControlList = forwardRef<
     <TabsPrimitive.List
       ref={mergeRefs(forwardedRef, listRef)}
       data-orientation={orientation}
-      className={cn('relative isolate flex items-center justify-center gap-1 rounded p-1 *:w-auto', isVertical ? 'flex-col' : 'flex-row', className)}
+      className={cn(
+        'relative isolate flex min-h-max items-center justify-center gap-1 rounded p-2 *:w-auto',
+        isVertical ? 'flex-col' : 'flex-row py-2',
+        className
+      )}
       {...rest}
     >
       <Slottable>{children}</Slottable>
@@ -85,7 +89,7 @@ const SegmentedControlTrigger = forwardRef<
         'peer',
         'relative z-10 h-8 rounded-md px-1 text-sm whitespace-nowrap outline-none',
         'flex items-center justify-center gap-1.5',
-        'transition duration-300 ease-out',
+        'h-max transition duration-300 ease-out',
         // focus
         'focus:outline-none',
         // active

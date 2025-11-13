@@ -1,16 +1,17 @@
 const js = require('@eslint/js');
+const { defineConfig } = require('eslint/config');
 const prettierConfig = require('eslint-config-prettier');
 const pluginPrettier = require('eslint-plugin-prettier');
 const react = require('eslint-plugin-react');
-const reactHooks = require('eslint-plugin-react-hooks');
+const pluginReactHooks = require('eslint-plugin-react-hooks');
 const globals = require('globals');
 const tseslint = require('typescript-eslint');
-const nextPlugin = require('@next/eslint-plugin-next');
+const pluginNext = require('@next/eslint-plugin-next');
 const pluginMdx = require('eslint-plugin-mdx');
 const pluginQuery = require('@tanstack/eslint-plugin-query');
 
 /** @type {import('eslint').Linter.Config[]} */
-module.exports = tseslint.config(
+module.exports = defineConfig(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -31,7 +32,11 @@ module.exports = tseslint.config(
   },
 
   {
+    plugins: {
+      '@typescript-eslint': tseslint.plugin
+    },
     languageOptions: {
+      parser: tseslint.parser,
       globals: {
         ...globals.browser,
         ...globals.commonjs,
@@ -46,7 +51,6 @@ module.exports = tseslint.config(
         }
       }
     },
-    plugins: {},
     rules: {
       '@typescript-eslint/no-unused-vars': [
         'warn',
@@ -70,18 +74,18 @@ module.exports = tseslint.config(
         version: 'detect'
       },
       tailwindcss: {
-        callees: ['cn', 'clsx', 'ctl', 'cva', 'tv']
+        callees: ['classNames', 'className', 'classname', 'cn', 'clsx', 'ctl', 'cva', 'tv']
       }
     }
   },
 
   {
     plugins: {
-      '@next/next': nextPlugin
+      '@next/next': pluginNext
     },
     rules: {
-      ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs['core-web-vitals'].rules,
+      ...pluginNext.configs.recommended.rules,
+      ...pluginNext.configs['core-web-vitals'].rules,
       '@next/next/no-img-element': 'off',
       '@next/next/no-html-link-for-pages': 'off'
     }
@@ -90,7 +94,7 @@ module.exports = tseslint.config(
   {
     files: ['**/*.{js,jsx,ts,tsx,mjs,mts,mdx,md}'],
     plugins: {
-      'react-hooks': reactHooks,
+      'react-hooks': pluginReactHooks,
       prettier: pluginPrettier,
       '@tanstack/query': pluginQuery
     },
@@ -108,7 +112,17 @@ module.exports = tseslint.config(
     },
     processor: pluginMdx.processors?.remark,
     settings: {
-      'mdx/code-blocks': true
+      'mdx/code-blocks': true,
+      'mdx/language-mapper': {}
+    }
+  },
+  {
+    ...pluginMdx.flatCodeBlocks,
+    rules: {
+      ...pluginMdx.flatCodeBlocks.rules
+      // if you want to override some rules for code blocks
+      // 'no-var': 'error',
+      // 'prefer-const': 'error',
     }
   },
   {

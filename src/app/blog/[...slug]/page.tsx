@@ -1,130 +1,159 @@
 import { type Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { subDays } from 'date-fns';
+import { isAfter, subDays } from 'date-fns';
+import { getGithubLastEdit } from 'fumadocs-core/content/github';
 import { Callout } from 'fumadocs-ui/components/callout';
-import moment from 'moment';
+import { createRelativeLink } from 'fumadocs-ui/mdx';
+import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/page';
 import { FaGithub } from 'react-icons/fa6';
+import { HiArrowLeft } from 'react-icons/hi';
 import { MdOutlineWorkspacePremium } from 'react-icons/md';
-import { createMetadata } from 'lib/metadata';
-import { getTableOfContents } from 'lib/toc';
-import { cn } from 'lib/utils';
-import { allBlogs } from 'content/generated';
-import { Mdx } from '~/components/mdx-components';
-import { BlogPaginate } from '~/components/paginate';
-import { TableOfContents } from '~/components/table-of-content';
-import { Separator } from '~/components/ui/separator';
+import readingTime from 'reading-time';
+import { blog, getPageImage } from 'lib/source';
+import { getMDXComponents } from '~/components/mdx-components';
+import { ScrollToTopWithBlog } from '~/components/scroll-top';
 
-interface PageProps {
-  params: Promise<{ slug: string[] }>;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const page = allBlogs.find((page) => page.params === slug?.join('/'));
+export default async function Page(props: PageProps<'/blog/[...slug]'>) {
+  const params = await props.params;
+  const page = blog.getPage(params.slug);
+  if (!page) notFound();
 
   if (!page) {
-    return {};
-  }
-
-  return createMetadata({
-    title: page.title,
-    description: page.description,
-    image: `/og?title=${page.title}&description=${page.description}`
-  });
-}
-
-export async function generateStaticParams() {
-  return allBlogs.map((blog) => ({ slug: blog.params.split('/') }));
-}
-
-export default async function Page({ params }: PageProps) {
-  const slug = (await params)?.slug?.join('/') || '';
-  const blog = allBlogs.find((blog) => blog?.params === slug);
-
-  if (!blog) {
     return notFound();
   }
 
-  const toc = await getTableOfContents(blog?.content);
+  const text = await page.data.getText('processed');
+
+  const post = {
+    ...page.data,
+    path: page.path,
+    slug: page.url,
+    readingTime: readingTime(String(text)).text,
+    params: page.path
+  };
+
+  const MDX = post.body;
+
+  const time = await getGithubLastEdit({
+    owner: 'braswelljr',
+    repo: 'braswelljr',
+    path: `content/blog/${post.path}`
+  });
+
+  const tocOptions = {
+    style: 'clerk',
+    enabled: true,
+    header: (
+      <div className="flex flex-col gap-1">
+        <Link
+          href="/blog"
+          className="link-underline text-primary text-xsm dark:text-secondary relative inline-flex max-w-max items-center gap-1 pb-1.5 uppercase"
+        >
+          <HiArrowLeft className="size-3" />
+          <span>Back to menu</span>
+        </Link>
+        <ScrollToTopWithBlog className="text-primary! text-xsm dark:text-secondary! link-underline max-w-max" />
+      </div>
+    ),
+    footer:
+      Array.isArray(post.resources) && post.resources?.length ? (
+        <div className="mt-5">
+          <h3 className="text-sm font-medium uppercase">Links and Resources</h3>
+          <ol className="mt-2 list-disc space-y-2 pb-4 pl-4">
+            {post.resources.map((resource, i) => (
+              <li
+                key={i}
+                className="hover:text-primary dark:hover:text-secondary text-sm font-medium text-neutral-600 hover:underline dark:text-neutral-400"
+              >
+                <Link href={resource.url}>{resource.title}</Link>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ) : undefined
+  };
 
   return (
-    <main className={cn('relative pt-36 pb-6 md:pt-20 md:pb-10', toc && 'md:grid md:grid-cols-[1fr_250px] md:gap-6 lg:grid-cols-[1fr_300px]')}>
-      <div className="mx-auto w-full min-w-0 px-5 md:pt-14 lg:pt-0">
-        <div className="flex h-full min-h-[85vh] flex-1 flex-col justify-between">
-          <div className="">
-            <div className="space-y-2">
-              {moment(blog.date).isAfter(subDays(new Date(), 150)) && (
-                <div className="inline-flex h-6 w-auto items-center space-x-1 rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium text-neutral-700 uppercase dark:bg-neutral-800 dark:text-orange-400">
-                  <MdOutlineWorkspacePremium className="h-3 w-auto" />
-                  <span>New</span>
-                </div>
-              )}
-              <h1
-                className={cn(
-                  'from-secondary to-primary dark:to-primary scroll-m-20 bg-linear-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl'
-                )}
-              >
-                {blog.title}
-              </h1>
-              {blog.description && <p className="text-lg">{blog.description}</p>}
+    <DocsPage
+      toc={page.data.toc}
+      lastUpdate={time ?? undefined}
+      tableOfContent={{ ...tocOptions, style: 'clerk' }}
+      tableOfContentPopover={{ ...tocOptions, style: 'clerk' }}
+    >
+      <div className="relative pt-26 pb-6 md:pt-20 md:pb-10">
+        <div className="space-y-4">
+          {isAfter(post.date, subDays(new Date(), 150)) && (
+            <div className="bg-primary-100 dark:text-primary-400 inline-flex h-8 w-auto items-center gap-1 rounded-sm px-2.5 py-0.5 text-sm font-medium text-neutral-700 uppercase dark:bg-neutral-800">
+              <MdOutlineWorkspacePremium className="h-3 w-auto" />
+              <span>New</span>
             </div>
-            {blog.tags && blog.tags?.length && (
-              <div className="my-2 flex flex-wrap gap-2 py-6">
-                {blog.tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="inline-flex items-center rounded-sm bg-orange-200 px-2.5 py-0.5 text-xs font-medium text-neutral-700 dark:bg-neutral-800 dark:text-orange-400"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-            {blog?.body && (
-              <Mdx
-                code={blog?.body}
-                className="pt-8"
-              />
-            )}
-          </div>
-          <div className="mt-10 space-y-10">
-            <div className="space-y-2">
-              <p>Published on {new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(blog.date)}</p>
-              <p>{blog.readingTime}</p>
+          )}
+          <DocsTitle className="text-primary dark:text-secondary">{page.data.title}</DocsTitle>
+          <DocsDescription>{page.data.description}</DocsDescription>
+          {post.tags && post.tags?.length && (
+            <div className="my-2 flex flex-wrap gap-2 py-6">
+              {post.tags.map((tag, i) => (
+                <span
+                  key={i}
+                  className="bg-primary-100 dark:text-secondary text-primary inline-flex items-center rounded px-2.5 py-0.5 text-sm font-medium dark:bg-neutral-800"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
-            <Callout
-              type="warn"
-              title="Found an Issue!"
-            >
-              <p className="">
-                Find an issue with this post? Think you could clarify, update or add something? All my posts are available to edit on Github. Any fix,
-                little or small, is appreciated!
-              </p>
-              <Link
-                href={`https://github.com/braswelljr/braswelljr/blob/main/content/blog/${blog.params}/index.mdx`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline mt-4 inline-flex w-auto items-center gap-2 pb-1 text-base"
-              >
-                <FaGithub className="size-4" />
-                Edit on GitHub
-              </Link>
-            </Callout>
-            <Separator className="my-4 md:my-6" />
-            <BlogPaginate
-              blogs={allBlogs}
-              activeBlog={blog}
-            />
-          </div>
+          )}
         </div>
+        <DocsBody>
+          <MDX
+            components={getMDXComponents({
+              a: createRelativeLink(blog, page)
+            })}
+          />
+
+          <div className="space-y-2">
+            <p>Published on {new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(post.date)}</p>
+            <p>{post.readingTime}</p>
+          </div>
+
+          <Callout
+            type="warn"
+            title="Found an Issue!"
+          >
+            <p className="">
+              Find an issue with this post? Think you could clarify, update or add something? All my posts are available to edit on Github. Any fix,
+              little or small, is appreciated!
+            </p>
+            <Link
+              href={`https://github.com/braswelljr/braswelljr/blob/main/content/blog/${post.path}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline mt-4 inline-flex w-auto items-center gap-2 pb-1 text-base no-underline"
+            >
+              <FaGithub className="size-4" />
+              Edit on GitHub
+            </Link>
+          </Callout>
+        </DocsBody>
       </div>
-      {toc && (
-        <TableOfContents
-          toc={toc}
-          resources={blog?.resources}
-        />
-      )}
-    </main>
+    </DocsPage>
   );
+}
+
+export async function generateStaticParams() {
+  return blog.generateParams();
+}
+
+export async function generateMetadata(props: PageProps<'/blog/[...slug]'>): Promise<Metadata> {
+  const params = await props.params;
+  const page = blog.getPage(params.slug);
+  if (!page) notFound();
+
+  return {
+    title: page.data.title,
+    description: page.data.description,
+    openGraph: {
+      images: getPageImage(page).url
+    }
+  };
 }

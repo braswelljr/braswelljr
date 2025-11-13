@@ -4,18 +4,17 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaSpotify } from 'react-icons/fa6';
-import { HiCode, HiHome, HiOutlineMenuAlt2 } from 'react-icons/hi';
+import { HiCode, HiHome } from 'react-icons/hi';
 import { IoIosPerson } from 'react-icons/io';
 import { MdArticle } from 'react-icons/md';
 import { useMedia } from 'react-use';
 import { cn } from 'lib/utils';
 import Search from '~/components/search';
-import ThemeSwitch from '~/components/shared/theme-switcher';
+import { ThemeSwitch } from '~/components/theme-switch';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Kbd } from '~/components/ui/kbd';
 import { SegmentedControl, SegmentedControlList, SegmentedControlTrigger } from '~/components/ui/segmented-control';
 import { useIsMac } from '~/hooks/use-is-mac';
-import { useStore } from '~/store/store';
 
 export const nav = [
   {
@@ -45,13 +44,21 @@ export const nav = [
   }
 ];
 
-export default function Navbar({ className }: { className?: string }) {
+export default function Navbar({
+  className,
+  disableOnRoutes = [],
+  disableOnLayouts = []
+}: {
+  className?: string;
+  disableOnRoutes?: string[];
+  disableOnLayouts?: string[];
+}) {
   const [tab, setTab] = useState(nav[0].path);
   const [open, onOpenChange] = useState(false);
   const searchButtonRef = useRef<HTMLButtonElement | null>(null);
+  const navRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname();
-  const { toggle, onToggle } = useStore((s) => s);
-  const lg = useMedia('(width >= 1024px', false);
+  const lg = useMedia('(width >= 1024px', true);
   const isMac = useIsMac();
 
   useEffect(() => {
@@ -78,49 +85,50 @@ export default function Navbar({ className }: { className?: string }) {
     return () => document.removeEventListener('keydown', down);
   }, []);
 
+  useEffect(() => {
+    const updateHeight = () => {
+      if (navRef.current) {
+        const height = `${navRef.current.offsetHeight ?? 60}px`;
+        document.documentElement.style.setProperty('--fd-nav-height', height, 'important');
+      }
+    };
+
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
   return (
     <nav
+      ref={navRef}
       className={cn(
-        'fixed inset-x-0 top-0 z-4 flex items-center justify-between px-4 py-2 font-bold shadow backdrop-blur max-lg:flex-wrap',
-        className
+        'fixed inset-x-0 top-0 z-4 flex min-h-max items-center justify-between px-4 py-2 font-bold shadow backdrop-blur max-lg:flex-wrap',
+        className,
+        disableOnRoutes && disableOnRoutes.includes(pathname) && 'hidden',
+        disableOnLayouts && disableOnLayouts.some((layout) => pathname.startsWith(layout)) && 'hidden'
       )}
     >
-      <div className="max-w-40 lg:w-full">
-        {pathname.startsWith('/blog/') && !lg ? (
-          <button
-            type="button"
-            className={cn(
-              'flex size-8 items-center justify-center rounded-sm bg-neutral-900 text-white focus:outline-none md:hidden dark:bg-neutral-500'
-            )}
-            onClick={() => onToggle(!toggle)}
-          >
-            <HiOutlineMenuAlt2 className="size-4" />
-          </button>
-        ) : (
-          <Avatar className="size-8 rounded-none">
-            <AvatarImage
-              src="/icons/b.png"
-              alt="B"
-              className="hidden dark:block"
-            />
-            <AvatarImage
-              src="/icons/black-b.png"
-              alt="B"
-              className="dark:hidden"
-            />
-            <AvatarFallback>B</AvatarFallback>
-          </Avatar>
-        )}
-      </div>
+      <Avatar className="size-8 rounded-none">
+        <AvatarImage
+          src="/icons/b.png"
+          alt="B"
+          className="hidden dark:block"
+        />
+        <AvatarImage
+          src="/icons/black-b.png"
+          alt="B"
+          className="dark:hidden"
+        />
+        <AvatarFallback>B</AvatarFallback>
+      </Avatar>
 
       <SegmentedControl
         value={tab}
-        className="flex shrink-0 items-center justify-center gap-4 max-lg:order-last max-lg:mt-4 max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto"
+        className="flex min-h-max shrink-0 items-center justify-center gap-4 max-lg:order-last max-lg:mt-4 max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto max-lg:pb-2"
       >
         <SegmentedControlList
-          // orientation="vertical"
           orientation="horizontal"
-          className="max-xsm:text-sm gap-4 font-semibold whitespace-nowrap"
+          className="max-xsm:text-sm min-h-max gap-4 font-semibold whitespace-nowrap max-lg:pb-2"
           classNames={{ indicator: 'h-2! bottom-0! inset-x-0! inset-auto bg-primary rounded-none rounded-t-xl! dark:bg-secondary' }}
         >
           {nav.map((item, idx) => (
@@ -142,29 +150,29 @@ export default function Navbar({ className }: { className?: string }) {
 
       <Layout
         isViewport={lg}
-        className="flex items-center gap-2"
+        className="flex min-h-max items-center gap-2"
       >
         <button
           id="search-button"
-          className="border-primary-300 dark:border-secondary-300 dark:text-secondary-300 flex h-8 w-full max-w-2/3 items-center justify-between gap-4 rounded-sm border px-3 text-sm focus:outline-none lg:max-w-3xs"
+          className="border-primary dark:border-secondary dark:text-secondary flex h-8 w-full max-w-1/2 items-center justify-between gap-4 rounded-sm border px-3 text-sm focus:outline-none lg:max-w-3xs"
           aria-label="Search"
           onClick={() => onOpenChange(!open)}
         >
           <span>Search ...</span>
           <span className="flex items-center gap-0.5">
             <Kbd className="hidden rounded border px-1 py-0.5 font-sans text-xs">{isMac ? '⌘' : 'Ctrl'} K</Kbd>
-            <Kbd className="border-primary-300 text-primary dark:border-secondary-300 dark:text-secondary-300 rounded border px-1 py-0.5 font-sans text-xs">
+            <Kbd className="border-primary text-primary dark:border-secondary dark:text-secondary rounded border px-1 py-0.5 font-sans text-xs">
               /
             </Kbd>
           </span>
         </button>
 
-        <ThemeSwitch className="dark:bg-neutral-800" />
+        <ThemeSwitch />
       </Layout>
 
       <Search
         open={open}
-        setOpen={onOpenChange}
+        onOpenChange={onOpenChange}
         searchButtonRef={searchButtonRef}
       />
     </nav>

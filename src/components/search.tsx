@@ -9,18 +9,34 @@ import { createPortal } from 'react-dom';
 import { cn } from 'lib/utils';
 
 export default function Search({
-  open,
-  setOpen,
+  defaultOpen = false,
+  open: openProp,
+  onOpenChange: setOpenProp,
   searchButtonRef
 }: {
-  open: boolean;
-  setOpen?: Dispatch<SetStateAction<boolean>>;
+  defaultOpen?: boolean;
+  open?: boolean;
+  onOpenChange?: Dispatch<SetStateAction<boolean>>;
   searchButtonRef: RefObject<HTMLButtonElement | null>;
 }) {
   const searchId = useId();
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
   const [isAskAiActive, onAskAiToggle] = useState<boolean>(true);
   const { push } = useRouter();
+
+  const [_open, _setOpen] = useState(defaultOpen);
+  const o = openProp ?? _open;
+  const setOpen = useCallback(
+    (value: boolean | ((value: boolean) => boolean)) => {
+      const openState = typeof value === 'function' ? value(o) : value;
+      if (setOpenProp) {
+        setOpenProp(openState);
+      } else {
+        _setOpen(openState);
+      }
+    },
+    [setOpenProp, o]
+  );
 
   const onOpen = useCallback(() => setOpen?.(true), [setOpen]);
 
@@ -47,7 +63,7 @@ export default function Search({
   }, [onClose]);
 
   useDocSearchKeyboardEvents({
-    isOpen: open,
+    isOpen: o,
     onOpen,
     onClose,
     onInput,
@@ -63,9 +79,9 @@ export default function Search({
   return (
     <div
       id={searchId}
-      className={cn('fixed inset-0 z-11 size-full bg-neutral-500/80', !open && 'hidden')}
+      className={cn('fixed inset-0 z-11 size-full bg-neutral-500/80', !o && 'hidden')}
     >
-      {open &&
+      {o &&
         createPortal(
           <DocSearchModal
             initialQuery={searchQuery}

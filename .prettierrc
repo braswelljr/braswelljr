@@ -33,7 +33,7 @@
     "^[./].*\\.css$",
     "^[.]"
   ],
-  "tailwindFunctions": ["cn", "classnames", "classNames", "clsx", "ctl", "cva", "tv"],
+  "tailwindFunctions": ["cn", "classnames", "className", "classNames", "clsx", "ctl", "cva", "tv"],
   "overrides": [
     {
       "files": "Makefile",

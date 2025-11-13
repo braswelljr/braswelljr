@@ -145,6 +145,12 @@ export const career: Array<Career> = [
 
 export const OTHER_PROJECTS = [
   {
+    name: 'Glam Beauty Studio (Manager)',
+    homepageUrl: 'https://manager-aeshglam.vercel.app',
+    url: '',
+    description: 'Redefining Elegance, Where Confidence Meets Creativity'
+  },
+  {
     name: 'Carbazza',
     homepageUrl: 'https://carbazza.vercel.app',
     url: '',

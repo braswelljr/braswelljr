@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cn } from 'lib/utils';
 import { CopyButton, CopyWithClassNames } from '~/components/copy-button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
+import { SegmentedControl, SegmentedControlContent, SegmentedControlList, SegmentedControlTrigger } from '~/components/ui/segmented-control';
 
 type ComponentExampleProps = React.HTMLAttributes<HTMLDivElement> & {
   extractClassname?: boolean;
@@ -36,15 +36,15 @@ export function ComponentExample({ children, className, extractedClassNames, ali
       className={cn('group relative my-4 flex flex-col space-y-2', className)}
       {...props}
     >
-      <Tabs
+      <SegmentedControl
         defaultValue="preview"
         className="mr-auto w-full"
       >
         <div className="flex items-center justify-between">
-          <TabsList>
-            <TabsTrigger value="preview">Preview</TabsTrigger>
-            <TabsTrigger value="code">Code</TabsTrigger>
-          </TabsList>
+          <SegmentedControlList>
+            <SegmentedControlTrigger value="preview">Preview</SegmentedControlTrigger>
+            <SegmentedControlTrigger value="code">Code</SegmentedControlTrigger>
+          </SegmentedControlList>
           {extractedClassNames ? (
             <CopyWithClassNames
               value={codeString}
@@ -55,7 +55,7 @@ export function ComponentExample({ children, className, extractedClassNames, ali
             codeString && <CopyButton value={codeString} />
           )}
         </div>
-        <TabsContent
+        <SegmentedControlContent
           value="preview"
           className="p-0"
         >
@@ -68,8 +68,8 @@ export function ComponentExample({ children, className, extractedClassNames, ali
           >
             {Example}
           </div>
-        </TabsContent>
-        <TabsContent
+        </SegmentedControlContent>
+        <SegmentedControlContent
           value="code"
           className="border-none p-0"
         >
@@ -77,8 +77,8 @@ export function ComponentExample({ children, className, extractedClassNames, ali
             <div className="w-full rounded-md [&_button]:hidden [&_pre]:my-0 [&_pre]:max-h-[350px] [&_pre]:overflow-auto">{Code}</div>
             {Children && <div className="rounded-md [&_button]:hidden [&_pre]:my-0 [&_pre]:max-h-[350px] [&_pre]:overflow-auto">{Children}</div>}
           </div>
-        </TabsContent>
-      </Tabs>
+        </SegmentedControlContent>
+      </SegmentedControl>
     </div>
   );
 }

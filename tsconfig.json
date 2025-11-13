@@ -16,7 +16,11 @@
     "jsx": "react-jsx",
     "incremental": true,
     "paths": {
-      "content/generated": ["./.contentlayer/generated", "./.content-collections/generated"],
+      "content/generated": [
+        // "./.contentlayer/generated",
+        // "./.content-collections/generated",
+        "./.source"
+      ],
       "lib/*": ["./lib/*"],
       "types/*": ["./types/*"],
       "~/*": ["./src/*"],
@@ -32,9 +36,10 @@
     ".next/types/**/*.ts",
     ".contentlayer/generated",
     ".content-collections/generated",
-    "next.config.js",
+    "next.config.ts",
     ".next\\dev/types/**/*.ts",
-    ".next\\dev/types/**/*.ts"
+    ".next\\dev/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

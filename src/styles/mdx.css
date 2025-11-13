@@ -16,7 +16,7 @@
   @apply relative;
 }
 [data-rehype-pretty-code-fragment] code {
-  @apply grid min-w-full rounded-none border-0 bg-transparent p-0 break-words dark:bg-transparent;
+  @apply grid min-w-full rounded-none border-0 bg-transparent p-0 wrap-break-word dark:bg-transparent;
   counter-reset: line;
   box-decoration-break: clone;
 }

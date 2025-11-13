@@ -1,48 +1,54 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { HiDesktopComputer, HiMoon, HiSun } from 'react-icons/hi';
 import { cn } from 'lib/utils';
+import { SegmentedControl, SegmentedControlList, SegmentedControlTrigger } from '~/components/ui/segmented-control';
 
-export default function ThemeSwitch({
-  className,
+export function ThemeSwitch({
   classNames
 }: {
-  className?: string;
-  classNames?: { base?: string; icon?: string; panel?: string; indicator?: string; block?: string };
-}) {
+  classNames?: {
+    base?: string;
+    icon?: string;
+    panel?: string;
+    indicator?: string;
+    block?: string;
+  };
+}): React.JSX.Element {
+  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return <div className="bg-primary dark:bg-secondary h-7 w-32 animate-pulse rounded" />;
+
   return (
-    <ul className={cn('flex items-center justify-center space-x-2', classNames?.base, className)}>
-      {[
-        {
-          key: 'system',
-          icon: <HiDesktopComputer className={cn('size-4', classNames?.icon)} />
-        },
-        { key: 'dark', icon: <HiMoon className={cn('size-4', classNames?.icon)} /> },
-        { key: 'light', icon: <HiSun className={cn('size-4', classNames?.icon)} /> }
-      ].map(({ key, icon }, i, self) => (
-        <li
-          key={key}
-          className={cn('relative block cursor-pointer p-1.5', classNames?.panel)}
-          onClick={() => setTheme(key)}
-        >
-          {key === theme && (
-            <motion.span
-              layoutId="theme-bubble:switch"
-              className={cn(
-                'absolute inset-0 size-full bg-neutral-800 dark:bg-neutral-500',
-                i === 0 && 'rounded-l-sm',
-                i === self.length - 1 && 'rounded-r-sm',
-                classNames?.indicator
-              )}
-            />
-          )}
-          <div className={cn('relative z-1', key === theme && 'text-white', classNames?.block)}>{icon}</div>
-        </li>
-      ))}
-    </ul>
+    <SegmentedControl
+      value={theme}
+      className={cn('flex min-h-max shrink-0 items-center justify-center', classNames?.base)}
+    >
+      <SegmentedControlList
+        orientation="horizontal"
+        className="min-h-max font-semibold whitespace-nowrap"
+        classNames={{ indicator: cn('bg-primary dark:bg-secondary', classNames?.indicator) }}
+      >
+        {Object.entries({
+          system: <HiDesktopComputer className={cn('size-3.5', classNames?.icon)} />,
+          dark: <HiMoon className={cn('size-3.5', classNames?.icon)} />,
+          light: <HiSun className={cn('size-3.5', classNames?.icon)} />
+        }).map(([key, value], idx) => (
+          <SegmentedControlTrigger
+            key={idx}
+            value={key}
+            onClick={() => setTheme(key)}
+            className={cn('text-primary dark:text-secondary p-1.5', key === theme && 'text-neutral-950!')}
+          >
+            {value}
+          </SegmentedControlTrigger>
+        ))}
+      </SegmentedControlList>
+    </SegmentedControl>
   );
 }

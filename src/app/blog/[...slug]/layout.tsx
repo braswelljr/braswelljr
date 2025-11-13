@@ -1,13 +1,16 @@
-import { ReactNode } from 'react';
-import { cn } from 'lib/utils';
+import { DocsLayout } from 'fumadocs-ui/layouts/docs';
+import { blog } from 'lib/source';
+import Navbar from '~/components/navbar';
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function Layout({ children }: LayoutProps<'/blog/[...slug]'>) {
   return (
-    <div
-      suppressHydrationWarning
-      className={cn('max-w-8xl mx-auto flex-1 items-start')}
+    <DocsLayout
+      tree={blog.pageTree}
+      sidebar={{ enabled: false }}
+      nav={{ component: <Navbar className="bg-white/50 dark:bg-neutral-900/90" /> }}
+      githubUrl="https://github.com/braswelljr"
     >
       {children}
-    </div>
+    </DocsLayout>
   );
 }

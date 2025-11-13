@@ -1,7 +1,4 @@
-'use client';
-
 import Image from 'next/image';
-import { MDXContent } from '@content-collections/mdx/react';
 import * as Twoslash from 'fumadocs-twoslash/ui';
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 import { Callout } from 'fumadocs-ui/components/callout';
@@ -31,10 +28,10 @@ import { Icons } from './icons';
 import { Mermaid } from './mermaid';
 
 const components = {
-  h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+  h1: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h1
       className={cn(
-        'from-secondary to-primary dark:to-primary mt-2 scroll-m-20 bg-linear-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl',
+        'text-primary dark:text-secondary mt-2 scroll-m-20 text-2xl leading-tight font-bold tracking-tight uppercase sm:text-3xl md:text-4xl',
         className
       )}
       {...props}
@@ -42,10 +39,10 @@ const components = {
       <span className="text-sm">#</span> {props.children}
     </h1>
   ),
-  h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+  h2: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h2
       className={cn(
-        'from-secondary to-primary dark:to-primary mt-16 scroll-m-20 border-b border-b-neutral-200 bg-linear-to-l bg-clip-text pb-2 text-3xl font-semibold tracking-tight text-transparent first:mt-0 dark:border-b-neutral-800',
+        'text-primary dark:text-secondary mt-16 scroll-m-20 border-b border-b-neutral-200 pb-2 text-2xl font-semibold tracking-tight first:mt-0 dark:border-b-neutral-800',
         className
       )}
       {...props}
@@ -53,45 +50,33 @@ const components = {
       <span className="text-sm">##</span> {props.children}
     </h2>
   ),
-  h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+  h3: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h3
-      className={cn(
-        'from-secondary to-primary dark:to-primary mt-12 scroll-m-20 bg-linear-to-l bg-clip-text text-2xl font-semibold tracking-tight text-transparent',
-        className
-      )}
+      className={cn('text-primary dark:text-secondary mt-12 scroll-m-20 text-xl font-semibold tracking-tight', className)}
       {...props}
     >
       <span className="text-sm">###</span> {props.children}
     </h3>
   ),
-  h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+  h4: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h4
-      className={cn(
-        'from-secondary to-primary dark:to-primary mt-8 scroll-m-20 bg-linear-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent',
-        className
-      )}
+      className={cn('text-primary dark:text-secondary mt-8 scroll-m-20 text-lg font-semibold tracking-tight', className)}
       {...props}
     >
       <span className="text-sm">####</span> {props.children}
     </h4>
   ),
-  h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+  h5: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h5
-      className={cn(
-        'from-secondary to-primary dark:to-primary mt-8 scroll-m-20 bg-linear-to-l bg-clip-text text-lg font-semibold tracking-tight text-transparent',
-        className
-      )}
+      className={cn('text-primary dark:text-secondary mt-8 scroll-m-20 text-base font-semibold tracking-tight', className)}
       {...props}
     >
       <span className="text-sm">#####</span> {props.children}
     </h5>
   ),
-  h6: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+  h6: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h6
-      className={cn(
-        'from-secondary to-primary dark:to-primary mt-8 scroll-m-20 bg-linear-to-l bg-clip-text text-base font-semibold tracking-tight text-transparent',
-        className
-      )}
+      className={cn('text-primary dark:text-secondary mt-8 scroll-m-20 text-base font-semibold tracking-tight', className)}
       {...props}
     >
       <span className="text-sm">######</span> {props.children}
@@ -99,98 +84,37 @@ const components = {
   ),
   a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
     <a
-      className={cn('font-medium text-neutral-900 underline underline-offset-4 dark:text-neutral-50', className)}
-      {...props}
-    />
-  ),
-  p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p
-      className={cn('leading-7 not-first:mt-6', className)}
-      {...props}
-    />
-  ),
-  ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul
-      className={cn('my-6 ml-6 list-disc', className)}
-      {...props}
-    />
-  ),
-  ol: ({ className, ...props }: React.HTMLAttributes<HTMLOListElement>) => (
-    <ol
-      className={cn('my-6 ml-6 list-decimal', className)}
-      {...props}
-    />
-  ),
-  li: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <li
-      className={cn('mt-2', className)}
+      className={cn(
+        'font text-primary! dark:text-secondary! prose-a:text-primary! dark:prose-a:text-secondary! underline decoration-current! underline-offset-4',
+        className
+      )}
       {...props}
     />
   ),
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <blockquote
-      className={cn('mt-6 border-l-2 border-neutral-300 pl-6 text-neutral-800 italic *:text-neutral-600', className)}
-      {...props}
-    />
-  ),
-  img: ({ className, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
-    <img
-      className={cn('rounded-md border border-neutral-200', className)}
-      alt={alt}
+      className={cn('border-primary-200 dark:border-secondary-200 mt-6 border-l-2 pl-6 text-neutral-800 italic *:text-neutral-600', className)}
       {...props}
     />
   ),
   hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
     <hr
-      className="my-4 border-neutral-200 md:my-8 dark:border-neutral-600"
-      {...props}
-    />
-  ),
-  table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-    <div className="my-6 w-full overflow-auto">
-      <table
-        className={cn('w-full rounded-2xl', className)}
-        {...props}
-      />
-    </div>
-  ),
-  tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
-    <tr
-      className={cn('m-0 border-t border-neutral-500/50 p-0', className)}
-      {...props}
-    />
-  ),
-  th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
-    <th
-      className={cn('border border-neutral-500/50 px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right', className)}
-      {...props}
-    />
-  ),
-  td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
-    <td
-      className={cn('border border-neutral-500/50 px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right', className)}
+      className="border-primary dark:border-secondary my-4 md:my-8"
       {...props}
     />
   ),
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
-      className={cn('from-secondary to-primary font-cascadia relative rounded bg-linear-to-l bg-clip-text px-[0.3rem] py-[0.2rem]', className)}
+      className={cn('text-primary dark:text-secondary font-cascadia relative rounded px-[0.3rem] py-[0.2rem] decoration-current!', className)}
       {...props}
     />
   ),
-  pre: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
+  pre: ({ className, ...props }: React.ComponentProps<'pre'>) => {
     return (
       <CodeBlock.CodeBlock
         className={cn('prose font-cascadia', className)}
+        date-code-block="true"
         {...props}
-        Actions={(p) => (
-          <div
-            data-codeblock-actions
-            className={cn('flex items-center gap-1', p.className)}
-          >
-            {p.children}
-          </div>
-        )}
       >
         <CodeBlock.Pre>{props.children}</CodeBlock.Pre>
       </CodeBlock.CodeBlock>
@@ -219,11 +143,6 @@ const components = {
   SelectSeparator,
   SelectScrollUpButton,
   SelectScrollDownButton,
-  //segmented control
-  // SegmentedControl,
-  // SegmentedControlContent,
-  // SegmentedControlList,
-  // SegmentedControlTrigger,
   ...snippets
 };
 
@@ -236,22 +155,7 @@ export function getMDXComponents(comps?: MDXComponents): MDXComponents {
     ...Twoslash,
     Accordion,
     Accordions,
+    ...components,
     ...comps
   };
-}
-interface MdxProps {
-  code: string;
-  className?: string;
-}
-
-export function Mdx({ code, className }: MdxProps) {
-  const comps = getMDXComponents(components);
-  return (
-    <div className={cn('mdx', className)}>
-      <MDXContent
-        code={code}
-        components={comps}
-      />
-    </div>
-  );
 }
