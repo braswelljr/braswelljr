@@ -38,13 +38,13 @@ export default function Search({
     [setOpenProp, o]
   );
 
-  const onOpen = useCallback(() => setOpen?.(true), [setOpen]);
+  const onOpen = useCallback(() => setOpen(true), [setOpen]);
 
-  const onClose = useCallback(() => setOpen?.(false), [setOpen]);
+  const onClose = useCallback(() => setOpen(false), [setOpen]);
 
   const onInput = useCallback(
     (e: KeyboardEvent) => {
-      setOpen?.(true);
+      setOpen(true);
       setSearchQuery(e.key);
     },
     [setOpen]
@@ -93,7 +93,7 @@ export default function Search({
             indices={['braswelljr']}
             navigator={{
               navigate({ itemUrl }) {
-                setOpen?.(false);
+                setOpen(false);
                 push(itemUrl);
               }
             }}
