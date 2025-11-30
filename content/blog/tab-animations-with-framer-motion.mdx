@@ -27,7 +27,7 @@ motion/react tailwindcss postcss autoprefixer clsx
 
 We will use tailwindcss to style the tabs. We will create a new file `tailwind.config.js` in the root of the project and add the following code.
 
-```js ts2js title="tailwind.config.js" twoslash
+```js title="tailwind.config.js"
 module.exports = {
   experimental: {
     optimizeUniversalDefaults: true
@@ -43,7 +43,7 @@ module.exports = {
 
 We will also create a new file `postcss.config.js` in the root of the project and add the following code.
 
-```js ts2js title="postcss.config.js" twoslash
+```js title="postcss.config.js"
 module.exports = {
   plugins: {
     'tailwindcss/nesting': {}, // enable css nesting
@@ -71,7 +71,7 @@ We will use the `AnimatePresence` component from motion/react to animate the tab
 
 We will create a simple array that will hold the tab data for the component. The data will contain the tab title and content.
 
-```ts ts2js title="data.ts" twoslash
+```ts title="data.ts"
 export const tabs = [
   {
     title: 'Frontend',
@@ -100,7 +100,7 @@ A new file `Tab.tsx` will be created in the `components` folder. This component 
 
 We will import the `Tab.tsx` component into your component or page example `app/page.tsx` file and pass the `tabs` data as props.
 
-```tsx ts2js title="app/page.tsx"
+```tsx title="app/page.tsx"
 import Tab from '~/components/animated-tab';
 import { tabs } from '~/data';
 

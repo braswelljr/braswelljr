@@ -372,7 +372,7 @@
 }
 
 @utility container {
-  @apply 2xl:w-fd-container mx-auto px-8;
+  @apply 2xl:max-w-9xl mx-auto px-8;
 }
 
 .scrollbars-hidden {

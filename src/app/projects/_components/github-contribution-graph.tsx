@@ -1,6 +1,6 @@
 'use client';
 
-import GitHubActivity from 'react-github-calendar';
+import { GitHubCalendar } from 'react-github-calendar';
 import { cn } from 'lib/utils';
 
 export function GitHubContributionGraph({ className }: { className?: string }) {
@@ -13,7 +13,7 @@ export function GitHubContributionGraph({ className }: { className?: string }) {
       </nav>
 
       <div className="relative mt-2 rounded-xl bg-neutral-200 p-1 dark:bg-neutral-900">
-        <GitHubActivity
+        <GitHubCalendar
           username="braswelljr"
           theme={{
             light: ['#fff3ec', '#ffc6a5', '#ff420a', '#cc1602', '#a1130b'],

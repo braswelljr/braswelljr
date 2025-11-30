@@ -75,5 +75,6 @@ export const languages = [
   'csharp',
   'objectivec',
   'swift',
-  'scala'
+  'scala',
+  'markup'
 ];

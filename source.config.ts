@@ -63,6 +63,7 @@ export default defineConfig({
         light: 'github-light-default',
         dark: 'github-dark-default'
       },
+      langs: ['js', 'javascript', 'ts', 'tsx', 'css', 'html', 'json', 'bash', 'diff', 'go', 'rust', 'java'],
       tab: true,
       transformers: [
         ...(rehypeCodeDefaultOptions.transformers ?? []),
