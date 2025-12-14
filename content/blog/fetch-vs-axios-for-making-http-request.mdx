@@ -107,6 +107,11 @@ The promises-chain method is another way to use the fetch API. This method is no
 
 ```ts title="promises-chain-method.ts" twoslash
 const token = 'my-token';
+
+type ErrorCause = Error & {
+  cause?: { error: Error; response: Response };
+};
+
 // Fetch data from the API
 fetch('https://jsonplaceholder.typicode.com/todos/1', {
   method: 'GET', // method can be GET, POST, PUT, PATCH, DELETE depending on the API endpoint definition

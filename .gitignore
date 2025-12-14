@@ -55,3 +55,6 @@ yarn.lock
 .content-collections
 # fumadocs
 .source
+
+# build logs
+build_log.txt

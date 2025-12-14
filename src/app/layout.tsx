@@ -66,7 +66,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="fixed inset-0 min-h-dvh w-full">
                 <Image
                   src="/images/beams-2.png"
-                  alt="Background parttern"
+                  alt="Background pattern"
                   loading="eager"
                   fill
                   style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
@@ -79,7 +79,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="relative inset-0 z-1 min-h-dvh w-full">
                 {children}
                 <ScrollTop
-                  className="bg-primary! dark:bg-secondary! fixed right-5 bottom-5 z-10 dark:text-neutral-950!"
+                  className="bg-primary! fixed right-5 bottom-5 z-10 dark:text-neutral-950!"
                   disableOnLayouts={['/blog/']}
                 />
               </div>

@@ -23,7 +23,7 @@
     "^types(/.*)?$",
     "^schema(/.*)?$",
 
-    "^content/generated(/.*)?$",
+    "^@content-source(/.*)?$",
 
     "^([~@])(?!react)(/.*)?$",
 

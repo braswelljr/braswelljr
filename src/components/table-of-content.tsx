@@ -81,7 +81,7 @@ function Content({ toc, className, resources }: TocProps) {
         {/* blogs */}
         <Link
           href="/blog"
-          className="group/link text-primary dark:text-secondary relative inline-flex items-center space-x-2 pb-1.5 uppercase"
+          className="group/link text-primary! relative inline-flex items-center space-x-2 pb-1.5 uppercase"
         >
           <HiArrowLeft className="h-3 w-auto" />
           <span>Back to blog</span>

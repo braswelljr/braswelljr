@@ -7,7 +7,7 @@ export default function Layout({ children }: LayoutProps<'/blog/[...slug]'>) {
     <DocsLayout
       tree={blog.pageTree}
       sidebar={{ enabled: false }}
-      nav={{ component: <Navbar className="bg-white/50 dark:bg-neutral-900/90" /> }}
+      nav={{ component: <Navbar className="bg-white/50 backdrop-blur dark:bg-neutral-900/90" />, transparentMode: 'top' }}
       githubUrl="https://github.com/braswelljr"
     >
       {children}

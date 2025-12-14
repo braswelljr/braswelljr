@@ -1,15 +1,7 @@
-import {
-  rehypeCodeDefaultOptions,
-  rehypeToc,
-  remarkCodeTab,
-  remarkDirectiveAdmonition,
-  remarkGfm,
-  remarkMdxFiles,
-  remarkNpm
-} from 'fumadocs-core/mdx-plugins';
+import { rehypeToc, remarkCodeTab, remarkDirectiveAdmonition, remarkGfm, remarkMdxFiles, remarkNpm } from 'fumadocs-core/mdx-plugins';
 import { remarkTypeScriptToJavaScript } from 'fumadocs-docgen/remark-ts2js';
 import { defineConfig, defineDocs, frontmatterSchema, metaSchema, remarkInclude } from 'fumadocs-mdx/config';
-import { transformerTwoslash } from 'fumadocs-twoslash';
+import lastModified from 'fumadocs-mdx/plugins/last-modified';
 import rehypePreLanguage from 'rehype-pre-language';
 import rehypeSlug from 'rehype-slug';
 import codeImport from 'remark-code-import';
@@ -48,7 +40,8 @@ export const blog = defineDocs({
   docs: {
     schema: frontmatterSchema.and(blogSchema),
     postprocess: {
-      includeProcessedMarkdown: true
+      includeProcessedMarkdown: true,
+      extractLinkReferences: true
     }
   },
   meta: {
@@ -63,13 +56,7 @@ export default defineConfig({
         light: 'github-light-default',
         dark: 'github-dark-default'
       },
-      langs: ['js', 'javascript', 'ts', 'tsx', 'css', 'html', 'json', 'bash', 'diff', 'go', 'rust', 'java'],
-      tab: true,
-      transformers: [
-        ...(rehypeCodeDefaultOptions.transformers ?? []),
-        //  ,transformerTwoslash()
-        transformerTwoslash()
-      ]
+      tab: true
     },
     remarkPlugins: [
       remarkGfm,
@@ -83,5 +70,6 @@ export default defineConfig({
       remarkDirective
     ],
     rehypePlugins: [rehypeToc, rehypeSlug, rehypeComponent, [rehypePreLanguage, 'data-language']]
-  }
+  },
+  plugins: [lastModified()]
 });

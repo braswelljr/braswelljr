@@ -81,7 +81,7 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
       tableOfContent={{ ...tocOptions, style: 'clerk' }}
       tableOfContentPopover={{ ...tocOptions, style: 'clerk' }}
     >
-      <div className="relative">
+      <div className="relative pt-[calc(var(--fd-nav-height)+15px)] lg:pt-[calc(var(--fd-nav-height)+5px)]">
         <div className="space-y-4">
           {isAfter(post.date, subDays(new Date(), 150)) && (
             <div className="bg-primary-100 dark:text-primary-400 inline-flex h-8 w-auto items-center gap-1 rounded-sm px-2.5 py-0.5 text-sm font-medium text-neutral-700 uppercase dark:bg-neutral-800">
@@ -89,7 +89,7 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
               <span>New</span>
             </div>
           )}
-          <DocsTitle className="text-primary dark:text-secondary">{page.data.title}</DocsTitle>
+          <DocsTitle className="text-primary!">{page.data.title}</DocsTitle>
           <DocsDescription>{page.data.description}</DocsDescription>
           {post.tags && post.tags?.length && (
             <div className="my-2 flex flex-wrap gap-2 py-6">

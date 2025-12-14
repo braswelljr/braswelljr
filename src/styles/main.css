@@ -131,6 +131,8 @@
 
 :root {
   --fd-nav-height: 80px !important;
+  --fd-header-height: 80px;
+  --fd-toc-popover-height: 80px;
 }
 
 @layer base {
@@ -231,10 +233,10 @@
   /* --color-fd-background: hsl(0, 0%, 96%); */
   /* --color-fd-foreground: hsl(0, 0%, 3.9%); */
   /* --color-fd-muted: hsl(0, 0%, 96.1%); */
-  --color-fd-muted-foreground: var(--color-neutral-700);
+  --color-fd-muted-foreground: var(--color-stone-700);
   /* --color-fd-popover: hsl(0, 0%, 98%); */
   /* --color-fd-popover-foreground: hsl(0, 0%, 15.1%); */
-  --color-fd-card: var(--color-neutral-100);
+  --color-fd-card: var(--color-stone-100);
   /* --color-fd-card-foreground: hsl(0, 0%, 3.9%); */
   /* --color-fd-border: hsla(0, 0%, 80%, 50%); */
   --color-fd-primary: var(--color-primary);
@@ -362,7 +364,7 @@
   --color-fd-card: var(--color-neutral-950);
   /* --color-fd-card-foreground: hsl(0, 0%, 98%); */
   /* --color-fd-border: hsla(0, 0%, 40%, 20%); */
-  --color-fd-primary: var(--color-secondary);
+  --color-fd-primary: var(--color-primary);
   /* --color-fd-primary-foreground: hsl(0, 0%, 9%); */
   /* --color-fd-secondary: hsl(0, 0%, 12.9%); */
   /* --color-fd-secondary-foreground: hsl(0, 0%, 92%); */

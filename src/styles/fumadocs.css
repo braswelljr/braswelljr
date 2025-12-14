@@ -1,3 +1,11 @@
 [date-code-block] {
   @apply bg-stone-50 dark:bg-stone-900;
 }
+
+#nd-docs-layout {
+  --fd-header-height: var(--fd-nav-height);
+}
+
+#nd-toc {
+  @apply lg:pt-[calc(var(--fd-nav-height)+25px)];
+}

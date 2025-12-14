@@ -1,10 +1,9 @@
 import { loader, type InferPageType } from 'fumadocs-core/source';
 import { lucideIconsPlugin } from 'fumadocs-core/source/lucide-icons';
-import { blog as Posts } from 'content/generated';
+import { blog as blogPosts } from '@content-source/server';
 
-export const blog = loader({
+export const blog = loader(blogPosts.toFumadocsSource(), {
   baseUrl: '/blog',
-  source: Posts.toFumadocsSource(),
   plugins: [lucideIconsPlugin()]
 });
 

@@ -93,7 +93,7 @@
 
 .DocSearch-MagnifierLabel svg,
 .DocSearch-LoadingIndicator svg {
-  @apply size-4 stroke-2 text-primary dark:text-secondary;
+  @apply text-primary! size-4 stroke-2;
 }
 
 .DocSearch-Container--Stalled .DocSearch-MagnifierLabel,
@@ -134,7 +134,7 @@
 
   .DocSearch-Clear,
   .DocSearch-Close {
-    @apply h-6 min-w-8 rounded border border-primary px-1.5 py-1 text-primary shadow-sm dark:border-secondary dark:text-secondary;
+    @apply border-primary text-primary h-6 min-w-8 rounded border px-1.5 py-1 shadow-sm;
   }
 
   .DocSearch-Clear {
@@ -152,10 +152,10 @@
     background-repeat: no-repeat;
     background-size: 57.1428571429% auto;
 
-    .dark & {
-      /* esc */
+    /* esc */
+    /* .dark & {
       background-image: url("data:image/svg+xml,%3Csvg width='16' height='7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M.506 6h3.931V4.986H1.736v-1.39h2.488V2.583H1.736V1.196h2.69V.182H.506V6ZM8.56 1.855h1.18C9.721.818 8.87.102 7.574.102c-1.276 0-2.21.705-2.205 1.762-.003.858.602 1.35 1.585 1.585l.634.159c.633.153.986.335.988.727-.002.426-.406.716-1.03.716-.64 0-1.1-.295-1.14-.878h-1.19c.03 1.259.931 1.91 2.343 1.91 1.42 0 2.256-.68 2.259-1.745-.003-.969-.733-1.483-1.744-1.71l-.523-.125c-.506-.117-.93-.304-.92-.722 0-.375.332-.65.934-.65.588 0 .949.267.994.724ZM15.78 2.219C15.618.875 14.6.102 13.254.102c-1.537 0-2.71 1.086-2.71 2.989 0 1.898 1.153 2.989 2.71 2.989 1.492 0 2.392-.992 2.526-2.063l-1.244-.006c-.117.623-.606.98-1.262.98-.883 0-1.483-.656-1.483-1.9 0-1.21.591-1.9 1.492-1.9.673 0 1.159.389 1.253 1.028h1.244Z' fill='%23ff8d22'/%3E%3C/svg%3E");
-    }
+    } */
   }
 }
 
@@ -166,7 +166,7 @@
 .DocSearch-Hit-source {
   margin: 0 1.5rem 1rem;
 
-  @apply pt-10 font-mono leading-6 font-semibold text-primary uppercase dark:text-secondary;
+  @apply text-primary pt-10 font-mono leading-6 font-semibold uppercase;
 }
 
 .DocSearch-Hits:first-child .DocSearch-Hit-source {
@@ -208,20 +208,20 @@
 }
 
 .DocSearch-Hit-path {
-  @apply line-clamp-1 self-start rounded-full bg-[#e6381923] px-4 py-0.5 text-xs leading-6 font-semibold text-primary dark:bg-neutral-200/10 dark:text-secondary;
+  @apply text-primary line-clamp-1 self-start rounded-full bg-[#e6381923] px-4 py-0.5 text-xs leading-6 font-semibold dark:bg-neutral-900;
 }
 
 .DocSearch-Hit[aria-selected='true'] .DocSearch-Hit--Parent .DocSearch-Hit-icon {
   /* book icon */
   background-image: url("data:image/svg+xml,%3Csvg height='6' width='6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3.5 0c1.093 0 2.117.27 3 .743V10a6.344 6.344 0 0 0-3-.743c-1.093 0-2.617.27-3.5.743V.743C.883.27 2.407 0 3.5 0Z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.5 0c1.093 0 2.617.27 3.5.743V10c-.883-.473-2.407-.743-3.5-.743s-2.117.27-3 .743V.743a6.344 6.344 0 0 1 3-.743Z' fill='%23fff'/%3E%3C/svg%3E");
 
-  .dark & {
+  /* .dark & {
     background-image: url("data:image/svg+xml,%3Csvg height='6' width='6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3.5 0c1.093 0 2.117.27 3 .743V10a6.344 6.344 0 0 0-3-.743c-1.093 0-2.617.27-3.5.743V.743C.883.27 2.407 0 3.5 0Z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.5 0c1.093 0 2.617.27 3.5.743V10c-.883-.473-2.407-.743-3.5-.743s-2.117.27-3 .743V.743a6.344 6.344 0 0 1 3-.743Z' fill='%23fff'/%3E%3C/svg%3E");
-  }
+  } */
 }
 
 .DocSearch-Hit[aria-selected='true'] .DocSearch-Hit-action svg {
-  @apply h-5 w-5 stroke-current text-primary dark:text-secondary;
+  @apply text-primary! h-5 w-5 stroke-current;
 }
 
 .DocSearch-Hit-title {
@@ -250,7 +250,7 @@
 }
 
 .DocSearch-Hit[aria-selected='true'] .DocSearch-Hit-action path {
-  @apply stroke-primary dark:stroke-secondary;
+  @apply stroke-primary;
 }
 
 .DocSearch-Hit--Result {
@@ -291,7 +291,7 @@
 
 .DocSearch-Hits mark {
   background: none;
-  @apply border-b-2 border-primary font-semibold text-primary dark:border-secondary dark:text-secondary;
+  @apply border-primary text-primary border-b-2 font-semibold;
 }
 
 .DocSearch-Hit-path mark {
@@ -299,7 +299,7 @@
 }
 
 .DocSearch-Hit[aria-selected='true'] mark {
-  @apply text-primary dark:text-secondary;
+  @apply text-primary!;
 }
 
 .DocSearch-Footer {
@@ -307,7 +307,7 @@
 }
 
 .DocSearch-Logo a {
-  @apply flex items-center text-sm font-medium text-primary dark:text-secondary;
+  @apply text-primary! flex items-center text-sm font-medium;
 }
 
 .DocSearch-Logo svg {
@@ -345,7 +345,7 @@
 }
 
 .DocSearch-NoResults-Prefill-List .DocSearch-Help {
-  @apply mb-3 text-sm leading-6 font-semibold text-[#e0543b] dark:text-secondary;
+  @apply mb-3 text-sm leading-6 font-semibold text-[#e0543b];
 }
 
 .DocSearch-NoResults-Prefill-List ul {
@@ -392,38 +392,38 @@
   /* hollow star */
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' stroke='%23e63819a4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
-  .dark & {
+  /* .dark & {
     background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' stroke='%23ff8d22a4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  }
+  } */
 }
 
 .DocSearch-Hit-action [title='Save this search']:hover {
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' stroke='%23e63819' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
-  .dark & {
+  /* .dark & {
     background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' stroke='%23ff8d22' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  }
+  } */
 }
 
 .DocSearch-Hit-action [title='Remove this search from history'] {
   /* x icon */
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 7 7 17M7 7l10 10' stroke='%23e63819a4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
-  .dark & {
+  /* .dark & {
     background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 7 7 17M7 7l10 10' stroke='%23ff8d22a4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  }
+  } */
 }
 
 .DocSearch-Hit-action [title='Remove this search from history']:hover {
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 7 7 17M7 7l10 10' stroke='%23e63819' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
-  .dark & {
+  /* .dark & {
     background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 7 7 17M7 7l10 10' stroke='%23ff8d22' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  }
+  } */
 }
 
 .DocSearch-Hit-action + .DocSearch-Hit-action {
-  @apply ml-3 border-l border-primary-200 pl-3 dark:border-primary-200/5;
+  @apply border-primary-200 dark:border-primary-200/5 ml-3 border-l pl-3;
 }
 
 .DocSearch-VisuallyHiddenForAccessibility {
@@ -431,11 +431,11 @@
 }
 
 .DocSearch-Logo a {
-  @apply flex items-center text-xs font-medium text-primary dark:text-secondary;
+  @apply text-primary! flex items-center text-xs font-medium;
 }
 
 .DocSearch-Label {
-  @apply text-sm text-primary dark:text-secondary;
+  @apply text-primary! text-sm;
 }
 
 .DocSearch-Logo svg {
@@ -443,7 +443,7 @@
 }
 
 .DocSearch-Logo svg * {
-  @apply ml-3 fill-primary dark:fill-secondary;
+  @apply fill-primary ml-3;
 }
 
 .DocSearch-Commands {
@@ -455,7 +455,7 @@
 
   .DocSearch-Commands-Key,
   .DocSearch-Escape-Key span {
-    @apply rounded bg-primary-400/50 px-2 py-1 font-sans text-xs font-semibold dark:bg-neutral-950 dark:text-secondary;
+    @apply bg-primary-400/50 rounded px-2 py-1 font-sans text-xs font-semibold dark:bg-neutral-950;
 
     svg {
       @apply size-3;

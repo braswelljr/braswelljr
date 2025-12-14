@@ -10,10 +10,10 @@ export default function About() {
     <div className="py-10 max-lg:pt-28">
       <div className="mx-auto max-w-4xl px-4 text-gray-800 *:space-y-6 sm:mt-14 sm:*:space-y-10 dark:text-neutral-100">
         <div className="md:leading-relaxed">
-          Hey, I am <span className="text-primary dark:text-secondary uppercase">Braswell Kenneth Azu Junior</span>, a Software Engineer with
-          experience in building scalable, user-centric web and mobile applications. Adept at collaborating with cross-functional teams to design
-          intuitive user interfaces, architect efficient APIs, and implement cloud-native solutions. Passionate about frontend animation, developer
-          experience, and creating seamless digital products.
+          Hey, I am <span className="text-primary! uppercase">Braswell Kenneth Azu Junior</span>, a Software Engineer with experience in building
+          scalable, user-centric web and mobile applications. Adept at collaborating with cross-functional teams to design intuitive user interfaces,
+          architect efficient APIs, and implement cloud-native solutions. Passionate about frontend animation, developer experience, and creating
+          seamless digital products.
         </div>
 
         <div className="mt-10">
@@ -21,7 +21,7 @@ export default function About() {
             href="/documents/Braswell-Kenneth-Azu-Junior-Resume.pdf"
             className={cn(
               'inline-flex items-center justify-center space-x-2 rounded-sm px-3 py-1.5 pr-4',
-              'bg-primary dark:bg-secondary',
+              'bg-primary',
               'text-sm font-bold text-white capitalize dark:text-neutral-950',
               'hocus:translate-y-0.5 transition-transform'
             )}
@@ -53,7 +53,7 @@ export default function About() {
                   </span>
                 </ItemTitle>
                 <ItemContent className="pl-2">
-                  <h2 className="text-primary dark:text-secondary space-x-2 text-base">
+                  <h2 className="text-primary! space-x-2 text-base">
                     <span className="font-cascadia text-lg font-bold">{job.company}</span>
                     <span className="">|</span>
                     <span className="text-primary-400 dark:text-secondary-400">
@@ -97,7 +97,7 @@ export default function About() {
                   <span>{institute.name}</span>
                 </ItemTitle>
                 <ItemContent className="pl-2">
-                  <h2 className="text-primary dark:text-secondary space-x-2 text-base">
+                  <h2 className="text-primary! space-x-2 text-base">
                     <span className="font-cascadia text-lg font-bold">{institute.degree}</span>
                     <span className="">|</span>
                     <span className="text-neutral-800 dark:text-neutral-400">

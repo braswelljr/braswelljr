@@ -16,11 +16,7 @@
     "jsx": "react-jsx",
     "incremental": true,
     "paths": {
-      "content/generated": [
-        // "./.contentlayer/generated",
-        // "./.content-collections/generated",
-        "./.source"
-      ],
+      "@content-source/*": ["./.source/*"],
       "lib/*": ["./lib/*"],
       "types/*": ["./types/*"],
       "~/*": ["./src/*"],

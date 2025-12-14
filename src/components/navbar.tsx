@@ -48,11 +48,11 @@ export default function Navbar({
   className,
   disableOnRoutes = [],
   disableOnLayouts = []
-}: {
+}: Partial<{
   className?: string;
   disableOnRoutes?: string[];
   disableOnLayouts?: string[];
-}) {
+}>) {
   const [tab, setTab] = useState(nav[0].path);
   const [open, onOpenChange] = useState(false);
   const searchButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -90,6 +90,8 @@ export default function Navbar({
       if (navRef.current) {
         const height = `${navRef.current.offsetHeight ?? 60}px`;
         document.documentElement.style.setProperty('--fd-nav-height', height, 'important');
+        document.documentElement.style.setProperty('--fd-header-height', height, 'important');
+        document.documentElement.style.setProperty('--fd-toc-popover-height', height);
       }
     };
 
@@ -129,7 +131,7 @@ export default function Navbar({
         <SegmentedControlList
           orientation="horizontal"
           className="max-xsm:text-sm min-h-max gap-4 font-semibold whitespace-nowrap max-lg:pb-2"
-          classNames={{ indicator: 'h-2! bottom-0! inset-x-0! inset-auto bg-primary rounded-none rounded-t-xl! dark:bg-secondary' }}
+          classNames={{ indicator: 'h-2! bottom-0! inset-x-0! inset-auto bg-primary! rounded-none rounded-t-xl!' }}
         >
           {nav.map((item, idx) => (
             <SegmentedControlTrigger
@@ -154,16 +156,14 @@ export default function Navbar({
       >
         <button
           id="search-button"
-          className="border-primary dark:border-secondary dark:text-secondary flex h-8 w-full max-w-1/2 items-center justify-between gap-4 rounded-sm border px-3 text-sm focus:outline-none lg:max-w-3xs"
+          className="border-primary! flex h-8 w-full max-w-1/2 items-center justify-between gap-4 rounded-sm border px-3 text-sm focus:outline-none lg:max-w-3xs"
           aria-label="Search"
           onClick={() => onOpenChange(!open)}
         >
           <span>Search ...</span>
           <span className="flex items-center gap-0.5">
             <Kbd className="hidden rounded border px-1 py-0.5 font-sans text-xs">{isMac ? '⌘' : 'Ctrl'} K</Kbd>
-            <Kbd className="border-primary text-primary dark:border-secondary dark:text-secondary rounded border px-1 py-0.5 font-sans text-xs">
-              /
-            </Kbd>
+            <Kbd className="border-primary! text-primary! rounded border px-1 py-0.5 font-sans text-xs">/</Kbd>
           </span>
         </button>
 

@@ -22,7 +22,7 @@ export function ThemeSwitch({
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) return <div className="bg-primary dark:bg-secondary h-7 w-32 animate-pulse rounded" />;
+  if (!mounted) return <div className="bg-primary! h-7 w-32 animate-pulse rounded" />;
 
   return (
     <SegmentedControl
@@ -32,7 +32,7 @@ export function ThemeSwitch({
       <SegmentedControlList
         orientation="horizontal"
         className="min-h-max font-semibold whitespace-nowrap"
-        classNames={{ indicator: cn('bg-primary dark:bg-secondary', classNames?.indicator) }}
+        classNames={{ indicator: cn('bg-primary!', classNames?.indicator) }}
       >
         {Object.entries({
           system: <HiDesktopComputer className={cn('size-3.5', classNames?.icon)} />,
@@ -43,7 +43,7 @@ export function ThemeSwitch({
             key={idx}
             value={key}
             onClick={() => setTheme(key)}
-            className={cn('text-primary dark:text-secondary p-1.5', key === theme && 'text-neutral-950!')}
+            className={cn('text-primary! p-1.5', key === theme && 'text-neutral-950!')}
           >
             {value}
           </SegmentedControlTrigger>
