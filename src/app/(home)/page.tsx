@@ -8,7 +8,7 @@ import { useInterval } from 'react-use';
 import { cn } from 'lib/utils';
 import FloatingDock from '~/components/ui/floating-dock';
 import { socials } from '~/config/data';
-import { useDevice } from '~/hooks/useDevice';
+import { useDevice } from '~/hooks/use-device';
 
 export default function Page() {
   const [r, setR] = useState<number>(0);

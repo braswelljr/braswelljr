@@ -1,5 +1,5 @@
 import { RefObject } from 'react';
-import useEventListener from '~/hooks/useEventListener';
+import useEventListener from '~/hooks/use-event-listener';
 
 /**
  * useOnClickOutside - Hook that handles click events outside of a given element

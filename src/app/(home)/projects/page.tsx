@@ -6,7 +6,7 @@ import { BsStar } from 'react-icons/bs';
 import { HiFolderOpen, HiOutlineExternalLink } from 'react-icons/hi';
 import { TfiLayoutListThumb } from 'react-icons/tfi';
 import useXStore from '~/context/use-repos';
-import useMedia from '~/hooks/useMedia';
+import useMedia from '~/hooks/use-media';
 import { GitHubContributionGraph } from './_components/github-contribution-graph';
 import { OtherProjects } from './_components/other-projects';
 

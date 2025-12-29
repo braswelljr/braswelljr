@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { HiArrowUp } from 'react-icons/hi';
 import { cn } from 'lib/utils';
-import useTop from '~/hooks/useTop';
+import useTop from '~/hooks/use-top';
 
 type ScrollToTopProps = React.ComponentProps<'button'> & {
   offset?: number;
