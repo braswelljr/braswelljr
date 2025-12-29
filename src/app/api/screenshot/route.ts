@@ -15,8 +15,7 @@ const screenshotCache = new LRUCache<string, Uint8Array>({
 let browserInstance: Browser | null = null;
 
 async function getBrowser() {
-  // FIX 1: Correct property check is isConnected(), not connected
-  if (browserInstance && !browserInstance.isConnected()) {
+  if (browserInstance && !browserInstance.connected) {
     console.warn('Browser disconnected, rebooting...');
     browserInstance = null;
   }
@@ -24,11 +23,17 @@ async function getBrowser() {
   if (!browserInstance) {
     const isServerless = !!process.env.AWS_EXECUTION_ENV || !!process.env.VERCEL;
 
-    if (isServerless) {
-      await chromium.font('https://raw.githack.com/googlei18n/noto-emoji/master/fonts/NotoColorEmoji.ttf');
-    }
+    let execPath;
 
-    const execPath = isServerless ? await chromium.executablePath() : puppeteer.executablePath();
+    if (isServerless) {
+      const version = 'v143.0.0';
+
+      const remoteExecutablePath = `https://github.com/Sparticuz/chromium/releases/download/${version}/chromium-${version}-pack.tar`;
+
+      execPath = await chromium.executablePath(remoteExecutablePath);
+    } else {
+      execPath = puppeteer.executablePath();
+    }
 
     browserInstance = await core.launch({
       executablePath: execPath,
@@ -126,7 +131,7 @@ export async function GET(request: Request) {
     });
   } catch (err: any) {
     console.error('Screenshot error:', err);
-    if (browserInstance && !browserInstance.isConnected()) {
+    if (browserInstance && !browserInstance.connected) {
       browserInstance = null;
     }
     return NextResponse.json({ error: 'Failed to capture screenshot', details: err.message }, { status: 500 });
