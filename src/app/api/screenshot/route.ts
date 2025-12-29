@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import chromium from '@sparticuz/chromium';
+import chromium from '@sparticuz/chromium-min';
 import { LRUCache } from 'lru-cache';
 import puppeteer from 'puppeteer';
 import core, { Browser, Page } from 'puppeteer-core';

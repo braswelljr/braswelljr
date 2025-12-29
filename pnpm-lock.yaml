@@ -56,6 +56,9 @@ importers:
       '@sparticuz/chromium':
         specifier: ^143.0.0
         version: 143.0.0
+      '@sparticuz/chromium-min':
+        specifier: ^143.0.0
+        version: 143.0.0
       '@spotify/web-api-ts-sdk':
         specifier: ^1.2.0
         version: 1.2.0
@@ -1974,6 +1977,10 @@ packages:
 
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
+
+  '@sparticuz/chromium-min@143.0.0':
+    resolution: {integrity: sha512-B9nRt5kQi6q8wW+bmLlGqKC3VEulZgq3XWYAevK5B9ep3izIJGasIsVgczRvXuLeE9iGUQ8/dgSfNmC0/CbW/g==}
+    engines: {node: '>=20.11.0'}
 
   '@sparticuz/chromium@143.0.0':
     resolution: {integrity: sha512-/vvplFwu1yDNt/Q1uwXQUwxmfZutU9K+WtzSYwptLWV8IeSdSF6vwW9hW11fZA8Gl9+2mytAGUe6/otgd2VeXA==}
@@ -7824,6 +7831,16 @@ snapshots:
       '@types/hast': 3.0.4
 
   '@shikijs/vscode-textmate@10.0.2': {}
+
+  '@sparticuz/chromium-min@143.0.0':
+    dependencies:
+      follow-redirects: 1.15.11
+      tar-fs: 3.1.1
+    transitivePeerDependencies:
+      - bare-abort-controller
+      - bare-buffer
+      - debug
+      - react-native-b4a
 
   '@sparticuz/chromium@143.0.0':
     dependencies:
