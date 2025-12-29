@@ -1,94 +1,69 @@
 import { NextResponse } from 'next/server';
 import chromium from '@sparticuz/chromium';
 import { LRUCache } from 'lru-cache';
-import puppeteer from 'puppeteer'; // used only in local dev
+import puppeteer from 'puppeteer';
 import core, { Browser, Page } from 'puppeteer-core';
-import sharp from 'sharp';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
-// Safe memory LRU cache
-const screenshotCache = new LRUCache<string, Buffer>({
-  max: 30,
-  ttl: 1000 * 60 * 2
+const screenshotCache = new LRUCache<string, Uint8Array>({
+  max: 50,
+  ttl: 1000 * 60 * 5
 });
 
-let browserPromise: Promise<Browser> | null = null;
+let browserInstance: Browser | null = null;
 
-// Determine which Chromium to use based on environment
-async function getExecutablePath() {
-  const isLambda = !!process.env.AWS_EXECUTION_ENV;
-  const isVercel = !!process.env.VERCEL;
-  const isServerless = isLambda || isVercel;
-
-  // Production serverless → use Chromium
-  if (isServerless) {
-    return await chromium.executablePath();
+async function getBrowser() {
+  // FIX 1: Correct property check is isConnected(), not connected
+  if (browserInstance && !browserInstance.isConnected()) {
+    console.warn('Browser disconnected, rebooting...');
+    browserInstance = null;
   }
 
-  // Local dev → use full Puppeteer
-  return puppeteer.executablePath();
-}
+  if (!browserInstance) {
+    const isServerless = !!process.env.AWS_EXECUTION_ENV || !!process.env.VERCEL;
 
-//  Preload Chromium or Chrome
-async function getBrowser() {
-  if (!browserPromise) {
-    const isProd = process.env.VERCEL || process.env.AWS_EXECUTION_ENV;
+    if (isServerless) {
+      await chromium.font('https://raw.githack.com/googlei18n/noto-emoji/master/fonts/NotoColorEmoji.ttf');
+    }
 
-    const execPath = await getExecutablePath();
+    const execPath = isServerless ? await chromium.executablePath() : puppeteer.executablePath();
 
-    browserPromise = core.launch({
+    browserInstance = await core.launch({
       executablePath: execPath,
-      args: [
-        ...(isProd ? chromium.args : []),
-        '--hide-scrollbars',
-        '--disable-web-security',
-        '--disable-dev-shm-usage',
-        '--disable-gpu',
-        '--no-zygote'
-      ],
-      headless: true,
-      defaultViewport: null
+      args: isServerless ? chromium.args : [],
+      defaultViewport: null,
+      headless: true
     });
   }
 
-  return browserPromise;
-}
-
-// Simple safeGoto
-async function safeGoto(page: Page, url: string) {
-  return page.goto(url, {
-    waitUntil: ['load', 'domcontentloaded', 'networkidle0'],
-    timeout: 60000
-  });
+  return browserInstance;
 }
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const targetUrl = searchParams.get('url');
 
-  if (!targetUrl) {
-    return NextResponse.json({ error: 'Missing ?url=' }, { status: 400 });
-  }
+  if (!targetUrl) return NextResponse.json({ error: 'Missing ?url=' }, { status: 400 });
 
   const width = Number(searchParams.get('width')) || 800;
   const height = Number(searchParams.get('height')) || 420;
   const fullPageRequested = searchParams.get('fullPage') === 'true';
-
   const formatParam = (searchParams.get('format') || 'jpeg').toLowerCase();
   const format: 'png' | 'jpeg' = formatParam === 'png' ? 'png' : 'jpeg';
   const quality = format === 'jpeg' ? Number(searchParams.get('quality')) || 70 : undefined;
 
-  const cacheKey = `${targetUrl}|${width}|${height}|${fullPageRequested}|${format}|${quality}`;
+  const cacheKey = `${targetUrl}-${width}-${height}-${fullPageRequested}-${format}-${quality}`;
   const cached = screenshotCache.get(cacheKey);
 
   if (cached) {
-    return new NextResponse(new Uint8Array(cached), {
+    return new NextResponse(cached as any as BodyInit, {
       status: 200,
       headers: {
-        'Content-Type': format === 'png' ? 'image/png' : 'image/jpeg',
-        'Cache-Control': 'public, max-age=120'
+        'Content-Type': `image/${format}`,
+        'Cache-Control': 'public, max-age=300, stale-while-revalidate=60',
+        'X-Cache': 'HIT'
       }
     });
   }
@@ -97,55 +72,65 @@ export async function GET(request: Request) {
 
   try {
     const browser = await getBrowser();
-
     page = await browser.newPage();
-    page.setDefaultNavigationTimeout(45000);
-    await page.setViewport({ width, height });
-    await page.setBypassCSP(true);
 
-    await safeGoto(page, targetUrl);
+    await page.setRequestInterception(true);
 
-    // Full-page auto handling (no double screenshot)
+    page.on('request', (req) => {
+      const resourceType = req.resourceType();
+      if (['document', 'stylesheet', 'image', 'font', 'script'].includes(resourceType)) {
+        req.continue();
+      } else if (['media', 'websocket', 'manifest', 'other'].includes(resourceType)) {
+        req.abort();
+      } else {
+        req.continue();
+      }
+    });
+
+    await Promise.all([page.setViewport({ width, height, deviceScaleFactor: 1 }), page.setBypassCSP(true)]);
+
+    try {
+      await page.goto(targetUrl, {
+        waitUntil: 'load',
+        timeout: 20000 // 20s timeout
+      });
+    } catch (err: any) {
+      if (err.name === 'TimeoutError' || err.message.includes('Timeout')) {
+        console.warn(`Timeout loading ${targetUrl}, attempting screenshot anyway...`);
+      } else {
+        throw err; // Re-throw other errors (like DNS failure)
+      }
+    }
+
     let captureFullPage = false;
-
     if (fullPageRequested) {
       const docHeight = await page.evaluate(() => document.body.scrollHeight);
-      captureFullPage = docHeight <= 2000;
+      captureFullPage = docHeight <= 3000;
     }
 
-    // 🔥 Single-pass screenshot
-    let screenshotBuffer = (await page.screenshot({
+    const screenshotBuffer = await page.screenshot({
       type: format,
       fullPage: captureFullPage,
-      quality
-    })) as Buffer;
-
-    // JPEG optimization only
-    if (format === 'jpeg') {
-      screenshotBuffer = await sharp(screenshotBuffer)
-        .jpeg({ quality: quality || 70 })
-        .toBuffer();
-    }
+      quality: format === 'jpeg' ? quality : undefined
+    });
 
     screenshotCache.set(cacheKey, screenshotBuffer);
 
-    return new NextResponse(new Uint8Array(screenshotBuffer), {
+    return new NextResponse(screenshotBuffer as any as BodyInit, {
       status: 200,
       headers: {
-        'Content-Type': format === 'png' ? 'image/png' : 'image/jpeg',
-        'Cache-Control': 'public, max-age=120'
+        'Content-Type': `image/${format}`,
+        'Cache-Control': 'public, max-age=300, stale-while-revalidate=60',
+        'X-Cache': 'MISS'
       }
     });
   } catch (err: any) {
-    console.error('Screenshot failed:', err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  } finally {
-    if (page) {
-      try {
-        await page.close();
-      } catch {
-        //
-      }
+    console.error('Screenshot error:', err);
+    if (browserInstance && !browserInstance.isConnected()) {
+      browserInstance = null;
     }
+    return NextResponse.json({ error: 'Failed to capture screenshot', details: err.message }, { status: 500 });
+  } finally {
+    if (page) await page.close().catch(() => {});
   }
 }
