@@ -28,7 +28,7 @@ async function getBrowser() {
     if (isServerless) {
       const version = 'v143.0.0';
 
-      const remoteExecutablePath = `https://github.com/Sparticuz/chromium/releases/download/${version}/chromium-${version}-pack.tar`;
+      const remoteExecutablePath = `https://github.com/Sparticuz/chromium/releases/download/${version}/chromium-${version}-pack.x64.tar`;
 
       execPath = await chromium.executablePath(remoteExecutablePath);
     } else {
