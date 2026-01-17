@@ -25,8 +25,8 @@ export default function Page() {
   }, 5000);
 
   return (
-    <main className={cn('minh-h-dvh flex items-center justify-center')}>
-      <section className="space-y-4 pt-40 pb-10">
+    <main className={cn('flex size-full min-h-dvh items-center justify-center px-4 py-10 md:py-20')}>
+      <section className="space-y-4 py-10">
         <Image
           src="/images/braswelljr.png"
           alt="braswelljr"
@@ -46,7 +46,7 @@ export default function Page() {
                   <motion.div
                     key={id}
                     className={cn(
-                      'to-primary xxs:text-2xl xsm:text-3xl dark:to-primary bg-linear-to-l from-[#ff8d22] bg-clip-text pb-3 text-center font-sans text-xl font-black text-transparent uppercase sm:text-4xl md:text-5xl'
+                      'to-primary xxs:text-2xl xsm:text-3xl dark:to-primary from-secondary bg-linear-to-l bg-clip-text pb-3 text-center font-sans text-xl font-black text-transparent uppercase sm:text-4xl md:text-5xl'
                     )}
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
