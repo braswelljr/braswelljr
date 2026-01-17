@@ -26,7 +26,7 @@ export default function Projects() {
   const ALL_PROJECTS = Array.isArray(filteredProjects) ? filteredProjects.slice(0, limitProjects) : [];
 
   return (
-    <div className="py-10 max-lg:pt-28">
+    <div className="py-12 max-lg:pt-36">
       <div className="mx-auto max-w-[calc(var(--container-4xl)+5px)] space-y-8 px-4 text-gray-800 sm:mt-14 sm:space-y-10 dark:text-neutral-100">
         <h1 className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl">
           Work, Hobby and Open Source

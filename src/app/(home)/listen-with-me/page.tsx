@@ -3,7 +3,7 @@ import { TopTracks } from './_sections/top-tracks';
 
 export default function Page() {
   return (
-    <div className="py-10 max-lg:pt-28">
+    <div className="py-12 max-lg:pt-36">
       <div className="mx-auto max-w-4xl px-4 text-gray-800 sm:mt-14 dark:text-neutral-100">
         {/* Header */}
         <nav className="flex items-start justify-between">

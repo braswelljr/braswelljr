@@ -28,6 +28,23 @@ export const education: Array<Education> = [
  */
 export const career: Array<Career> = [
   {
+    role: 'Fullstack Software Engineer',
+    type: 'Full-Time',
+    company: 'Ghana School of Law',
+    companyLink: 'https://www.gslaw.edu.gh',
+    date: {
+      from: new Date(2025, 10, 19), // November 19, 2025 (month is 0-indexed)
+      to: new Date() // Current
+    },
+    description: [
+      'Built the Student Companion app, enhancing student learning and collaboration through intuitive mobile-first design (Laravel/PHP/NativePHP/React)',
+      'Developed the Short Courses platform, streamlining course delivery and collaboration for students and administrators (React/TypeScript/Supabase)',
+      'Built APIs connecting the Student Companion mobile app to backend systems, ensuring data consistency across mobile and Student Management System (Laravel/PHP)',
+      'Lead mobile UI/UX design across all applications, creating accessible interfaces that drive user engagement and satisfaction',
+      'Implemented CI/CD workflows, automating deployments and improving development efficiency (GitHub Actions/Docker)'
+    ]
+  },
+  {
     role: 'Software Engineer',
     type: 'Contract',
     company: 'Global Tech Network LLC',
@@ -123,8 +140,8 @@ export const career: Array<Career> = [
       to: new Date(2021, 11, 1)
     }, //'Apr 2021 - Nov 2021',
     description: [
-      'Designed UIs for mobile/web platforms and contributed to the Hive Institute project.',
-      'Shadowed senior engineers and acquired new technical skills.'
+      'Designed UIs for mobile/web platforms and contributed to the Hive Institute project. (React/Go)',
+      'Stepped up as the sole frontend developer for the Hive Institute Project  (React, TypeScript)'
     ]
   },
   {
