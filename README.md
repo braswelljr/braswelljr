@@ -56,12 +56,6 @@ Docker, AWS, GCP, GitHub Actions, Jenkins
 
 English (Fluent), French (Elementary)
 
-## 📈 GitHub Stats
-
-### Most Used Languages
-
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=braswelljr&theme=radical&langs_count=10&layout=compact&card_width=540)
-
 ### Contribution Streak
 
 ![streaks graph](https://streak-stats.demolab.com?user=braswelljr&theme=radical)
