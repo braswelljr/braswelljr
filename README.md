@@ -14,16 +14,6 @@ I'm [`braswelljr`](https://braswelljr.vercel.app/), a software developer passion
 - **Phone**: [+233 500 181 106](tel:+233500181106) | [+233 540 732 749](tel:+233540732749)
 - **Portfolio**: [braswelljr.vercel.app](https://braswelljr.vercel.app/)
 
-## 🔗 Social
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/braswell-kenneth-870827192/)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=flat&logo=github)](https://github.com/braswelljr)
-[![Twitter](https://img.shields.io/badge/Twitter-Follow-blue?style=flat&logo=twitter)](https://twitter.com/braswell_jnr)
-[![Instagram](https://img.shields.io/badge/Instagram-Follow-red?style=flat&logo=instagram)](https://www.instagram.com/braswelljr/)
-[![WhatsApp](https://img.shields.io/badge/WhatsApp-Contact-green?style=flat&logo=whatsapp)](https://wa.me/233500181106)
-
----
-
 ## ⚙️ Technologies & Skills
 
 ### Programming Languages
@@ -36,13 +26,13 @@ JavaScript, TypeScript, Go, Dart, PHP
 
 React (Next.js, Remix, Gatsby), Vue, React Native, Flutter, Node.js (Express, Encore), Go (Encore), PHP (Laravel)
 
-![Frameworks & Libraries](https://skillicons.dev/icons?i=react,nextjs,remix,gatsby,vue,reactnative,flutter,nodejs,express,go,laravel)
+![Frameworks & Libraries](https://skillicons.dev/icons?i=react,nextjs,remix,gatsby,vue,flutter,nodejs,express,go,laravel)
 
 ### Styling & Animation
 
 TailwindCSS, SASS, PostCSS, Framer Motion, GSAP
 
-![Styling & Animation](https://skillicons.dev/icons?i=tailwind,sass,postcss)
+![Styling & Animation](https://skillicons.dev/icons?i=css,tailwind,sass,framer,postcss)
 
 ### State Management & Databases
 
@@ -65,8 +55,6 @@ Docker, AWS, GCP, GitHub Actions, Jenkins
 ### Languages
 
 English (Fluent), French (Elementary)
-
----
 
 ## 📈 GitHub Stats
 
