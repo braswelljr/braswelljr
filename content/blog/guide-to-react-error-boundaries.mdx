@@ -20,6 +20,8 @@ Error Boundaries are React components that catch JavaScript errors anywhere in t
 
 **NOTE:** Error boundaries only catch errors in the components **below** them in the tree. An error boundary can't catch an error within itself. This post assumes you have a basic understanding of React and JavaScript.
 
+**Important Note on Component Types:** Error boundaries in React versions prior to React 19 require class components because they need access to specific lifecycle methods (`static getDerivedStateFromError` and `componentDidCatch`) that aren't available in functional components. In React 19+, you can use functional components with the `onError` prop. This guide covers both approaches.
+
 ## What Errors Do Error Boundaries Catch?
 
 Error boundaries catch JavaScript errors that occur:
@@ -40,12 +42,49 @@ Error boundaries **do not** catch errors for:
 
 ## Creating a Basic Error Boundary
 
-Error boundaries are class components that implement either or both of these lifecycle methods:
+### React 19+ Approach (Functional Components)
+
+Starting with React 19, you can create error boundaries using functional components with the built-in `React.ErrorBoundary` component:
+
+```tsx title="react-19-error-boundary.tsx" twoslash
+import * as React from 'react';
+
+function ErrorFallback({ error, reset }: { error: Error; reset: () => void }) {
+  return (
+    <div style={{ padding: '20px', border: '1px solid red', borderRadius: '8px' }}>
+      <h2>Something went wrong!</h2>
+      <p>{error.message}</p>
+      <button onClick={reset}>Try again</button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <React.ErrorBoundary
+      fallback={(error, reset) => (
+        <ErrorFallback
+          error={error}
+          reset={reset}
+        />
+      )}
+    >
+      <YourComponent />
+    </React.ErrorBoundary>
+  );
+}
+```
+
+### React 18 and Earlier (Class Components)
+
+**Note:** Error boundaries in React versions prior to React 19 must be class components. This is a React requirement because error boundaries need access to specific lifecycle methods that aren't available in functional components.
+
+Class component error boundaries implement either or both of these lifecycle methods:
 
 - `static getDerivedStateFromError()` - For rendering a fallback UI
 - `componentDidCatch()` - For logging error information
 
-Here's a basic error boundary:
+Here's a basic error boundary for React 18 and earlier:
 
 ```tsx title="basic-error-boundary.tsx" twoslash
 import * as React from 'react';
@@ -60,6 +99,11 @@ interface ErrorBoundaryProps {
   fallback?: React.ReactNode;
 }
 
+/**
+ * Error Boundary for React 18 and earlier
+ * NOTE: Class components are required for error boundaries in React < 19
+ * because they need access to static getDerivedStateFromError and componentDidCatch
+ */
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
@@ -171,6 +215,10 @@ function ErrorFallback({ error, resetError }: ErrorFallbackProps) {
 }
 
 // Enhanced Error Boundary with reset functionality
+/**
+ * NOTE: Class components are required for error boundaries in React < 19
+ * Consider using React 19's React.ErrorBoundary for new projects
+ */
 interface EnhancedErrorBoundaryProps {
   children: React.ReactNode;
   fallback?: (error: Error, resetError: () => void) => React.ReactNode;
@@ -219,37 +267,32 @@ class EnhancedErrorBoundary extends React.Component<EnhancedErrorBoundaryProps, 
 
 ## Functional Error Boundary with Hooks
 
-You can create a more modern error boundary using hooks:
+**Important:** Prior to React 19, you cannot create a true error boundary using only hooks and functional components. Error boundaries require access to `static getDerivedStateFromError` and `componentDidCatch` lifecycle methods, which are only available in class components.
 
-```tsx title="functional-error-boundary.tsx" twoslash
+However, you can create a simplified error handling component using hooks for specific use cases like handling manually thrown errors:
+
+```tsx title="functional-error-handler.tsx" twoslash
 import * as React from 'react';
 
-interface ErrorBoundaryProps {
+interface ErrorHandlerProps {
   children: React.ReactNode;
   fallback: (error: Error, reset: () => void) => React.ReactNode;
 }
 
-interface ErrorBoundaryState {
+interface ErrorHandlerState {
   error: Error | null;
 }
 
-export function ErrorBoundary({ children, fallback }: ErrorBoundaryProps) {
+/**
+ * NOTE: This is NOT a true error boundary and won't catch rendering errors.
+ * Use class components or React 19's React.ErrorBoundary for actual error boundaries.
+ * This component only handles manually thrown errors via the throwError prop.
+ */
+export function ErrorHandler({ children, fallback }: ErrorHandlerProps) {
   const [error, setError] = React.useState<Error | null>(null);
 
-  React.useEffect(() => {
-    // Create a ref to track if error boundary has caught an error
-    const resetErrorBoundary = () => setError(null);
-
-    // Store reset function on the window for external access
-    (window as any).resetErrorBoundary = resetErrorBoundary;
-
-    return () => {
-      delete (window as any).resetErrorBoundary;
-    };
-  }, []);
-
-  // This is a simplified version
-  // In practice, you'd use the class component for true error boundaries
+  // This is a simplified version for demonstration
+  // It cannot catch rendering errors like a true error boundary
   if (error) {
     return fallback(error, () => setError(null));
   }
@@ -258,36 +301,7 @@ export function ErrorBoundary({ children, fallback }: ErrorBoundaryProps) {
 }
 ```
 
-**Note:** As of React 19, you can now use a function component with the `onError` prop to create error boundaries more easily:
-
-```tsx title="react-19-error-boundary.tsx" twoslash
-import * as React from 'react';
-
-function ErrorFallback({ error, reset }: { error: Error; reset: () => void }) {
-  return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <p>{error.message}</p>
-      <button onClick={reset}>Try again</button>
-    </div>
-  );
-}
-
-function App() {
-  return (
-    <React.ErrorBoundary
-      fallback={(error, reset) => (
-        <ErrorFallback
-          error={error}
-          reset={reset}
-        />
-      )}
-    >
-      <YourComponent />
-    </React.ErrorBoundary>
-  );
-}
-```
+**Recommendation:** For React 18 and earlier, use class components for error boundaries. For React 19+, use the built-in `React.ErrorBoundary` component shown above.
 
 ## Handling Errors in Event Handlers
 
@@ -575,6 +589,11 @@ interface LoggingErrorBoundaryState {
   error?: Error;
 }
 
+/**
+ * Logging Error Boundary for React 18 and earlier
+ * NOTE: Class components are required for error boundaries in React < 19
+ * For React 19+, consider using React.ErrorBoundary with error reporting
+ */
 class LoggingErrorBoundary extends React.Component<LoggingErrorBoundaryProps, LoggingErrorBoundaryState> {
   constructor(props: LoggingErrorBoundaryProps) {
     super(props);
@@ -633,9 +652,23 @@ class LoggingErrorBoundary extends React.Component<LoggingErrorBoundaryProps, Lo
 
 Error boundaries are an essential tool for building robust React applications. They provide a graceful way to handle errors in your component tree and prevent the entire app from crashing. By strategically placing error boundaries and providing helpful fallback UIs, you can improve user experience and make debugging easier.
 
+### Choosing the Right Approach
+
+**For React 19+ projects:**
+
+- Prefer the built-in `React.ErrorBoundary` with functional components
+- It's modern, easier to use, and aligns with functional component patterns
+
+**For React 18 and earlier:**
+
+- Class components are required for error boundaries
+- The examples in this guide provide production-ready implementations
+- Consider upgrading to React 19 to use functional component error boundaries
+
 Remember:
 
 - Error boundaries catch errors in rendering, lifecycle methods, and constructors
 - They don't catch errors in event handlers or async code (use try/catch for those)
 - You can use them at any level in your component tree
 - Always log errors to help with debugging
+- Class components are only required for error boundaries in React < 19, not for other use cases

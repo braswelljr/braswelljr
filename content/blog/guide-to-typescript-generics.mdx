@@ -94,9 +94,11 @@ const boxBox: Box<Box<string>> = {
 };
 ```
 
-## Generic Classes
+## Generic Classes and Functional Alternatives
 
-Classes can also be generic:
+While classes can be generic, modern TypeScript/JavaScript often prefers functional patterns:
+
+### Class-based approach (traditional):
 
 ```ts title="generic-class.ts" twoslash
 class Storage<T> {
@@ -121,6 +123,38 @@ stringStorage.add('Item 1');
 stringStorage.add('Item 2');
 
 const numberStorage = new Storage<number>();
+numberStorage.add(1);
+numberStorage.add(2);
+```
+
+### Functional approach (modern):
+
+```ts title="generic-functional.ts" twoslash
+// Factory function with generics
+function createStorage<T>() {
+  let items: T[] = [];
+
+  return {
+    add(item: T): void {
+      items.push(item);
+    },
+
+    get(index: number): T | undefined {
+      return items[index];
+    },
+
+    getAll(): T[] {
+      return [...items];
+    }
+  };
+}
+
+// Usage - same as class but with functional pattern
+const stringStorage = createStorage<string>();
+stringStorage.add('Item 1');
+stringStorage.add('Item 2');
+
+const numberStorage = createStorage<number>();
 numberStorage.add(1);
 numberStorage.add(2);
 ```
@@ -298,65 +332,86 @@ async function getPost(id: number) {
 
 ## Real-World Example: Generic Repository Pattern
 
+Using a functional approach with TypeScript generics:
+
 ```ts title="repository.ts" twoslash
 interface Entity {
   id: number;
 }
 
-abstract class Repository<T extends Entity> {
-  abstract findById(id: number): Promise<T | null>;
-  abstract findAll(): Promise<T[]>;
-  abstract create(entity: Omit<T, 'id'>): Promise<T>;
-  abstract update(id: number, updates: Partial<T>): Promise<T | null>;
-  abstract delete(id: number): Promise<boolean>;
+// Functional repository definition using TypeScript generics
+interface Repository<T extends Entity> {
+  findById(id: number): Promise<T | null>;
+  findAll(): Promise<T[]>;
+  create(entity: Omit<T, 'id'>): Promise<T>;
+  update(id: number, updates: Partial<T>): Promise<T | null>;
+  delete(id: number): Promise<boolean>;
 }
 
+// Factory function to create a repository
+function createRepository<T extends Entity>(initialData: T[] = []): Repository<T> {
+  let items: T[] = [...initialData];
+
+  return {
+    async findById(id: number): Promise<T | null> {
+      return items.find((item) => item.id === id) || null;
+    },
+
+    async findAll(): Promise<T[]> {
+      return [...items];
+    },
+
+    async create(entity: Omit<T, 'id'>): Promise<T> {
+      const newEntity: T = {
+        id: items.length + 1,
+        ...entity
+      } as T;
+      items.push(newEntity);
+      return newEntity;
+    },
+
+    async update(id: number, updates: Partial<T>): Promise<T | null> {
+      const index = items.findIndex((item) => item.id === id);
+      if (index === -1) return null;
+
+      items[index] = { ...items[index], ...updates };
+      return items[index];
+    },
+
+    async delete(id: number): Promise<boolean> {
+      const index = items.findIndex((item) => item.id === id);
+      if (index === -1) return false;
+
+      items.splice(index, 1);
+      return true;
+    }
+  };
+}
+
+// Usage example
 interface User extends Entity {
   name: string;
   email: string;
 }
 
-class UserRepository extends Repository<User> {
-  private users: User[] = [];
+// Create a user repository using the factory function
+const userRepository = createRepository<User>([{ id: 1, name: 'Alice', email: 'alice@example.com' }]);
 
-  async findById(id: number): Promise<User | null> {
-    return this.users.find((user) => user.id === id) || null;
-  }
-
-  async findAll(): Promise<User[]> {
-    return [...this.users];
-  }
-
-  async create(user: Omit<User, 'id'>): Promise<User> {
-    const newUser: User = {
-      id: this.users.length + 1,
-      ...user
-    };
-    this.users.push(newUser);
-    return newUser;
-  }
-
-  async update(id: number, updates: Partial<User>): Promise<User | null> {
-    const index = this.users.findIndex((user) => user.id === id);
-    if (index === -1) return null;
-
-    this.users[index] = { ...this.users[index], ...updates };
-    return this.users[index];
-  }
-
-  async delete(id: number): Promise<boolean> {
-    const index = this.users.findIndex((user) => user.id === id);
-    if (index === -1) return false;
-
-    this.users.splice(index, 1);
-    return true;
-  }
+// Use the repository methods
+async function example() {
+  const user = await userRepository.findById(1);
+  const allUsers = await userRepository.findAll();
+  const newUser = await userRepository.create({ name: 'Bob', email: 'bob@example.com' });
+  const updated = await userRepository.update(1, { name: 'Alice Updated' });
+  const deleted = await userRepository.delete(1);
 }
 ```
 
 ## Best Practices
 
-1. **Use descriptive type parameter names**: While `T` is conventional, use more descriptive names when appropriate:
+1. **Prefer functional patterns**: Modern TypeScript/JavaScript favors functional programming patterns over classes. Use factory functions and composition over class inheritance where possible.
+
+2. **Use descriptive type parameter names**: While `T` is conventional, use more descriptive names when appropriate:
 
    ```ts
    <T, U, V> // For multiple type parameters
@@ -364,9 +419,9 @@ class UserRepository extends Repository<User> {
    <TComponent> // For React components
    ```
 
-2. **Use constraints when needed**: Don't make your generic too permissive. Use `extends` to enforce requirements.
+3. **Use constraints when needed**: Don't make your generic too permissive. Use `extends` to enforce requirements.
 
-3. **Consider defaults**: You can provide default types for generics:
+4. **Consider defaults**: You can provide default types for generics:
 
    ```ts
    interface Box<T = string> {
@@ -376,7 +431,7 @@ class UserRepository extends Repository<User> {
    const defaultBox: Box = { contents: 'hello' }; // T is string
    ```
 
-4. **Don't overuse**: Not everything needs to be generic. Use generics when you genuinely need type flexibility.
+5. **Don't overuse**: Not everything needs to be generic. Use generics when you genuinely need type flexibility.
 
 ## Conclusion
 
