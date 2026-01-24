@@ -52,7 +52,91 @@ sequenceDiagram
 
 ### WebSocket Example (Client)
 
-```tsx title="websocket-client.tsx" twoslash
+<Tabs groupId="websocket-client" items={['Functional', 'Class']}>
+  <Tab value="Functional">
+
+```tsx title="websocket-client-functional.tsx" twoslash
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+function useWebSocket(url: string) {
+  const [isConnected, setIsConnected] = useState(false);
+  const [lastMessage, setLastMessage] = useState<string | null>(null);
+  const wsRef = useRef<WebSocket | null>(null);
+
+  const connect = useCallback(() => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      return;
+    }
+
+    const ws = new WebSocket(url);
+
+    ws.onopen = () => {
+      console.log('WebSocket connected');
+      setIsConnected(true);
+    };
+
+    ws.onmessage = (event) => {
+      console.log('Received:', event.data);
+      setLastMessage(event.data);
+    };
+
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    ws.onclose = () => {
+      console.log('WebSocket disconnected');
+      setIsConnected(false);
+      // Auto-reconnect logic here
+    };
+
+    wsRef.current = ws;
+  }, [url]);
+
+  const send = useCallback((message: string | object) => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      const data = typeof message === 'string' ? message : JSON.stringify(message);
+      wsRef.current.send(data);
+    } else {
+      console.error('WebSocket is not connected');
+    }
+  }, []);
+
+  const disconnect = useCallback(() => {
+    wsRef.current?.close();
+  }, []);
+
+  useEffect(() => {
+    connect();
+
+    return () => {
+      disconnect();
+    };
+  }, [connect, disconnect]);
+
+  return { isConnected, lastMessage, send, disconnect, connect };
+}
+
+// Usage in a component
+function WebSocketComponent() {
+  const { isConnected, lastMessage, send } = useWebSocket('ws://localhost:8080');
+
+  return (
+    <div>
+      <p>Status: {isConnected ? 'Connected' : 'Disconnected'}</p>
+      <p>Last message: {lastMessage}</p>
+      <button onClick={() => send({ type: 'greeting', message: 'Hello Server!' })}>
+        Send Message
+      </button>
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab value="Class">
+
+```tsx title="websocket-client-class.tsx" twoslash
 class WebSocketClient {
   private ws: WebSocket | null = null;
   private url: string;
@@ -102,6 +186,9 @@ client.connect();
 client.send({ type: 'greeting', message: 'Hello Server!' });
 ```
 
+  </Tab>
+</Tabs>
+
 ## What Are Server-Sent Events?
 
 Server-Sent Events (SSE) is a server-push technology that enables a client to receive automatic updates from a server via an HTTP connection. Unlike WebSockets, SSE is **unidirectional** - only the server can send messages to the client.
@@ -133,7 +220,90 @@ sequenceDiagram
 
 ### SSE Example (Client)
 
-```tsx title="sse-client.tsx" twoslash
+<Tabs groupId="sse-client" items={['Functional', 'Class']}>
+  <Tab value="Functional">
+
+```tsx title="sse-client-functional.tsx" twoslash
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+function useEventSource(url: string) {
+  const [isConnected, setIsConnected] = useState(false);
+  const [lastMessage, setLastMessage] = useState<any>(null);
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const eventSourceRef = useRef<EventSource | null>(null);
+
+  const connect = useCallback(() => {
+    if (eventSourceRef.current) {
+      return;
+    }
+
+    const eventSource = new EventSource(url);
+
+    eventSource.onopen = () => {
+      console.log('SSE connected');
+      setIsConnected(true);
+    };
+
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log('Received:', data);
+      setLastMessage(data);
+    };
+
+    eventSource.onerror = (error) => {
+      console.error('SSE error:', error);
+      // Browser automatically attempts reconnection
+    };
+
+    // Listen for specific event types
+    eventSource.addEventListener('notification', (event) => {
+      const data = JSON.parse((event as MessageEvent).data);
+      console.log('Notification:', data);
+      setNotifications((prev) => [...prev, data]);
+    });
+
+    eventSourceRef.current = eventSource;
+  }, [url]);
+
+  const disconnect = useCallback(() => {
+    eventSourceRef.current?.close();
+    eventSourceRef.current = null;
+    setIsConnected(false);
+  }, []);
+
+  useEffect(() => {
+    connect();
+
+    return () => {
+      disconnect();
+    };
+  }, [connect, disconnect]);
+
+  return { isConnected, lastMessage, notifications, disconnect, connect };
+}
+
+// Usage in a component
+function SSEComponent() {
+  const { isConnected, lastMessage, notifications } = useEventSource('http://localhost:8080/events');
+
+  return (
+    <div>
+      <p>Status: {isConnected ? 'Connected' : 'Disconnected'}</p>
+      <p>Last message: {JSON.stringify(lastMessage)}</p>
+      <ul>
+        {notifications.map((n, i) => (
+          <li key={i}>{JSON.stringify(n)}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab value="Class">
+
+```tsx title="sse-client-class.tsx" twoslash
 class SSEClient {
   private eventSource: EventSource | null = null;
   private url: string;
@@ -175,6 +345,9 @@ class SSEClient {
 const client = new SSEClient('http://localhost:8080/events');
 client.connect();
 ```
+
+  </Tab>
+</Tabs>
 
 ## Key Differences Comparison
 
@@ -234,7 +407,89 @@ class DocumentCollaborator {
 
 Chat applications require bidirectional communication:
 
-```tsx title="chat-example.tsx" twoslash
+<Tabs groupId="chat-app" items={['Functional', 'Class']}>
+  <Tab value="Functional">
+
+```tsx title="chat-functional.tsx" twoslash
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+interface ChatMessage {
+  id: string;
+  user: string;
+  text: string;
+  timestamp: number;
+}
+
+function useChat(roomId: string) {
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [isConnected, setIsConnected] = useState(false);
+  const wsRef = useRef<WebSocket | null>(null);
+
+  const connect = useCallback(() => {
+    const ws = new WebSocket(`ws://localhost:8080/chat/${roomId}`);
+
+    ws.onopen = () => {
+      setIsConnected(true);
+    };
+
+    ws.onmessage = (event) => {
+      const message: ChatMessage = JSON.parse(event.data);
+      setMessages((prev) => [...prev, message]);
+    };
+
+    ws.onclose = () => {
+      setIsConnected(false);
+    };
+
+    wsRef.current = ws;
+  }, [roomId]);
+
+  const sendMessage = useCallback((text: string) => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current.send(
+        JSON.stringify({
+          type: 'message',
+          text,
+          timestamp: Date.now()
+        })
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    connect();
+
+    return () => {
+      wsRef.current?.close();
+    };
+  }, [connect]);
+
+  return { messages, isConnected, sendMessage };
+}
+
+// Usage
+function ChatRoom() {
+  const { messages, isConnected, sendMessage } = useChat('room123');
+
+  return (
+    <div>
+      <div>Connected: {isConnected ? 'Yes' : 'No'}</div>
+      <ul>
+        {messages.map((m) => (
+          <li key={m.id}>
+            {m.user}: {m.text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab value="Class">
+
+```tsx title="chat-class.tsx" twoslash
 interface ChatMessage {
   id: string;
   user: string;
@@ -263,14 +518,120 @@ class ChatClient {
       })
     );
   }
+
+  private displayMessage(message: ChatMessage): void {
+    // Display message logic
+  }
 }
 ```
+
+  </Tab>
+</Tabs>
 
 ### Online Gaming
 
 Games require low-latency, bidirectional communication:
 
-```tsx title="gaming-example.tsx" twoslash
+<Tabs groupId="online-gaming" items={['Functional', 'Class']}>
+  <Tab value="Functional">
+
+```tsx title="gaming-functional.tsx" twoslash
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+interface GameState {
+  players: PlayerState[];
+  ball: BallState;
+  score: Score;
+}
+
+interface PlayerAction {
+  type: string;
+  data: any;
+}
+
+function useGameClient(gameId: string) {
+  const [gameState, setGameState] = useState<GameState | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const wsRef = useRef<WebSocket | null>(null);
+
+  const connect = useCallback(() => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      return;
+    }
+
+    const ws = new WebSocket(`ws://localhost:8080/game/${gameId}`);
+
+    ws.onopen = () => {
+      console.log('Game connected');
+      setIsConnected(true);
+    };
+
+    ws.onmessage = (event) => {
+      const state: GameState = JSON.parse(event.data);
+      setGameState(state);
+    };
+
+    ws.onerror = (error) => {
+      console.error('Game WebSocket error:', error);
+    };
+
+    ws.onclose = () => {
+      console.log('Game disconnected');
+      setIsConnected(false);
+    };
+
+    wsRef.current = ws;
+  }, [gameId]);
+
+  const sendAction = useCallback((action: PlayerAction) => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current.send(JSON.stringify(action));
+    } else {
+      console.error('Game WebSocket is not connected');
+    }
+  }, []);
+
+  const disconnect = useCallback(() => {
+    wsRef.current?.close();
+  }, []);
+
+  useEffect(() => {
+    connect();
+    return () => {
+      disconnect();
+    };
+  }, [connect, disconnect]);
+
+  return { gameState, isConnected, sendAction, disconnect, connect };
+}
+
+// Usage in a component
+function GameBoard({ gameId }: { gameId: string }) {
+  const { gameState, isConnected, sendAction } = useGameClient(gameId);
+
+  const handleMove = (direction: string) => {
+    sendAction({ type: 'move', data: { direction } });
+  };
+
+  return (
+    <div>
+      <p>Status: {isConnected ? 'Connected' : 'Disconnected'}</p>
+      {gameState && (
+        <div>
+          <p>Score: {gameState.score}</p>
+          <button onClick={() => handleMove('up')}>Up</button>
+          <button onClick={() => handleMove('down')}>Down</button>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab value="Class">
+
+```tsx title="gaming-class.tsx" twoslash
 interface GameState {
   players: PlayerState[];
   ball: BallState;
@@ -295,13 +656,103 @@ class GameClient {
 }
 ```
 
+  </Tab>
+</Tabs>
+
 ## When to Use Server-Sent Events
 
 ### Live Feeds and Updates
 
 SSE is perfect for one-way data streams like live feeds:
 
-```tsx title="live-feed-example.tsx" twoslash
+<Tabs groupId="live-feeds" items={['Functional', 'Class']}>
+  <Tab value="Functional">
+
+```tsx title="live-feed-functional.tsx" twoslash
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+function useLiveFeed(feedType: string) {
+  const [feed, setFeed] = useState<any[]>([]);
+  const [isConnected, setIsConnected] = useState(false);
+  const eventSourceRef = useRef<EventSource | null>(null);
+
+  const subscribe = useCallback(() => {
+    if (eventSourceRef.current) {
+      return;
+    }
+
+    const eventSource = new EventSource(`/api/feeds/${feedType}`);
+
+    eventSource.onopen = () => {
+      console.log(`${feedType} feed connected`);
+      setIsConnected(true);
+    };
+
+    eventSource.onmessage = (event) => {
+      const update = JSON.parse(event.data);
+      setFeed((prev) => [...prev, update]);
+    };
+
+    eventSource.onerror = (error) => {
+      console.error('Feed error:', error);
+    };
+
+    eventSourceRef.current = eventSource;
+  }, [feedType]);
+
+  const unsubscribe = useCallback(() => {
+    eventSourceRef.current?.close();
+    eventSourceRef.current = null;
+    setIsConnected(false);
+  }, []);
+
+  useEffect(() => {
+    subscribe();
+    return () => {
+      unsubscribe();
+    };
+  }, [subscribe, unsubscribe]);
+
+  return { feed, isConnected, unsubscribe, subscribe };
+}
+
+// Usage for stock prices
+function StockTicker() {
+  const { feed } = useLiveFeed('stock-prices');
+
+  return (
+    <div>
+      <h2>Stock Prices</h2>
+      <ul>
+        {feed.map((item, i) => (
+          <li key={i}>{JSON.stringify(item)}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// Usage for news updates
+function NewsFeed() {
+  const { feed } = useLiveFeed('news');
+
+  return (
+    <div>
+      <h2>News Updates</h2>
+      <ul>
+        {feed.map((item, i) => (
+          <li key={i}>{JSON.stringify(item)}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab value="Class">
+
+```tsx title="live-feed-class.tsx" twoslash
 class LiveFeedClient {
   private eventSource: EventSource;
 
@@ -324,11 +775,89 @@ const newsFeed = new LiveFeedClient();
 newsFeed.subscribe('news');
 ```
 
+  </Tab>
+</Tabs>
+
 ### Notification Systems
 
 SSE excels at delivering notifications:
 
-```tsx title="notification-example.tsx" twoslash
+<Tabs groupId="notifications" items={['Functional', 'Class']}>
+  <Tab value="Functional">
+
+```tsx title="notification-functional.tsx" twoslash
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+interface Notification {
+  id: string;
+  type: 'info' | 'warning' | 'error' | 'success';
+  title: string;
+  message: string;
+  timestamp: number;
+}
+
+function useNotifications(userId: string) {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const eventSourceRef = useRef<EventSource | null>(null);
+
+  const connect = useCallback(() => {
+    if (eventSourceRef.current) {
+      return;
+    }
+
+    const eventSource = new EventSource(`/api/notifications/${userId}`);
+
+    eventSource.addEventListener('notification', (event) => {
+      const notification: Notification = JSON.parse((event as MessageEvent).data);
+      console.log(`[${notification.type}] ${notification.title}: ${notification.message}`);
+      setNotifications((prev) => [...prev, notification]);
+    });
+
+    eventSource.onerror = (error) => {
+      console.error('SSE error:', error);
+    };
+
+    eventSourceRef.current = eventSource;
+  }, [userId]);
+
+  const disconnect = useCallback(() => {
+    eventSourceRef.current?.close();
+    eventSourceRef.current = null;
+  }, []);
+
+  useEffect(() => {
+    connect();
+    return () => {
+      disconnect();
+    };
+  }, [connect, disconnect]);
+
+  return { notifications, disconnect, connect };
+}
+
+// Usage in a component
+function NotificationCenter({ userId }: { userId: string }) {
+  const { notifications } = useNotifications(userId);
+
+  return (
+    <div>
+      <h2>Notifications</h2>
+      <ul>
+        {notifications.map((n) => (
+          <li key={n.id}>
+            [{n.type}] {n.title}: {n.message}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab value="Class">
+
+```tsx title="notification-class.tsx" twoslash
 interface Notification {
   id: string;
   type: 'info' | 'warning' | 'error' | 'success';
@@ -356,11 +885,96 @@ class NotificationClient {
 }
 ```
 
+  </Tab>
+</Tabs>
+
 ### Progress Updates
 
 SSE is great for long-running operations:
 
-```tsx title="progress-example.tsx" twoslash
+<Tabs groupId="progress-updates" items={['Functional', 'Class']}>
+  <Tab value="Functional">
+
+```tsx title="progress-functional.tsx" twoslash
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+interface ProgressUpdate {
+  jobId: string;
+  progress: number;
+  status: string;
+  completed: boolean;
+}
+
+function useJobProgress(jobId: string) {
+  const [progress, setProgress] = useState<ProgressUpdate | null>(null);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const eventSourceRef = useRef<EventSource | null>(null);
+
+  const trackJob = useCallback(() => {
+    if (eventSourceRef.current) {
+      return;
+    }
+
+    const eventSource = new EventSource(`/api/jobs/${jobId}/progress`);
+
+    eventSource.onmessage = (event) => {
+      const update: ProgressUpdate = JSON.parse(event.data);
+      setProgress(update);
+
+      if (update.completed) {
+        setIsCompleted(true);
+        eventSource.close();
+        eventSourceRef.current = null;
+      }
+    };
+
+    eventSource.onerror = (error) => {
+      console.error('SSE error:', error);
+    };
+
+    eventSourceRef.current = eventSource;
+  }, [jobId]);
+
+  const stopTracking = useCallback(() => {
+    eventSourceRef.current?.close();
+    eventSourceRef.current = null;
+  }, []);
+
+  useEffect(() => {
+    trackJob();
+    return () => {
+      stopTracking();
+    };
+  }, [trackJob, stopTracking]);
+
+  return { progress, isCompleted, stopTracking };
+}
+
+// Usage in a component
+function JobTracker({ jobId }: { jobId: string }) {
+  const { progress, isCompleted } = useJobProgress(jobId);
+
+  return (
+    <div>
+      <h3>Job Progress</h3>
+      {progress ? (
+        <div>
+          <p>Status: {progress.status}</p>
+          <p>Progress: {progress.progress}%</p>
+          {isCompleted && <p>Job completed!</p>}
+        </div>
+      ) : (
+        <p>Connecting...</p>
+      )}
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab value="Class">
+
+```tsx title="progress-class.tsx" twoslash
 interface ProgressUpdate {
   jobId: string;
   progress: number;
@@ -394,11 +1008,87 @@ class ProgressTracker {
 }
 ```
 
+  </Tab>
+</Tabs>
+
 ## Real-Time Data Streaming
 
 SSE is excellent for streaming real-time data:
 
-```tsx title="streaming-example.tsx" twoslash
+<Tabs groupId="data-streaming" items={['Functional', 'Class']}>
+  <Tab value="Functional">
+
+```tsx title="streaming-functional.tsx" twoslash
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+function useDataStream(metrics: string[]) {
+  const [streamData, setStreamData] = useState<any[]>([]);
+  const [isConnected, setIsConnected] = useState(false);
+  const eventSourceRef = useRef<EventSource | null>(null);
+
+  const startStream = useCallback(() => {
+    if (eventSourceRef.current) {
+      return;
+    }
+
+    const params = new URLSearchParams({ metrics: metrics.join(',') });
+    const eventSource = new EventSource(`/api/stream?${params}`);
+
+    eventSource.onopen = () => {
+      console.log('Data stream connected');
+      setIsConnected(true);
+    };
+
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setStreamData((prev) => [...prev, data]);
+    };
+
+    eventSource.onerror = (error) => {
+      console.error('Stream error:', error);
+    };
+
+    eventSourceRef.current = eventSource;
+  }, [metrics]);
+
+  const stopStream = useCallback(() => {
+    eventSourceRef.current?.close();
+    eventSourceRef.current = null;
+    setIsConnected(false);
+  }, []);
+
+  useEffect(() => {
+    startStream();
+    return () => {
+      stopStream();
+    };
+  }, [startStream, stopStream]);
+
+  return { streamData, isConnected, startStream, stopStream };
+}
+
+// Usage in a component
+function DataDashboard({ metrics }: { metrics: string[] }) {
+  const { streamData, isConnected } = useDataStream(metrics);
+
+  return (
+    <div>
+      <h2>Real-Time Dashboard</h2>
+      <p>Status: {isConnected ? 'Connected' : 'Disconnected'}</p>
+      <ul>
+        {streamData.map((data, i) => (
+          <li key={i}>{JSON.stringify(data)}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab value="Class">
+
+```tsx title="streaming-class.tsx" twoslash
 class DataStreamClient {
   private eventSource: EventSource | null = null;
 
@@ -422,11 +1112,106 @@ class DataStreamClient {
 }
 ```
 
+  </Tab>
+</Tabs>
+
 ## Combining Both Technologies
 
 Sometimes the best approach is to use both technologies together based on the use case:
 
-```tsx title="hybrid-example.tsx" twoslash
+<Tabs groupId="hybrid-approach" items={['Functional', 'Class']}>
+  <Tab value="Functional">
+
+```tsx title="hybrid-functional.tsx" twoslash
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+function useHybridClient(roomId: string, userId: string) {
+  const [collabData, setCollabData] = useState<any>(null);
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const wsRef = useRef<WebSocket | null>(null);
+  const eventSourceRef = useRef<EventSource | null>(null);
+
+  // Use WebSocket for real-time collaboration
+  const connectCollaboration = useCallback(() => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      return;
+    }
+
+    const ws = new WebSocket(`ws://localhost:8080/collab/${roomId}`);
+
+    ws.onopen = () => {
+      console.log('Collaboration WebSocket connected');
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setCollabData(data);
+    };
+
+    ws.onerror = (error) => {
+      console.error('Collaboration WebSocket error:', error);
+    };
+
+    wsRef.current = ws;
+  }, [roomId]);
+
+  // Use SSE for notifications
+  const subscribeNotifications = useCallback(() => {
+    if (eventSourceRef.current) {
+      return;
+    }
+
+    const eventSource = new EventSource(`/api/notifications/${userId}`);
+
+    eventSource.addEventListener('notification', (event) => {
+      const notification = JSON.parse((event as MessageEvent).data);
+      setNotifications((prev) => [...prev, notification]);
+    });
+
+    eventSourceRef.current = eventSource;
+  }, [userId]);
+
+  const disconnectAll = useCallback(() => {
+    wsRef.current?.close();
+    eventSourceRef.current?.close();
+    eventSourceRef.current = null;
+  }, []);
+
+  useEffect(() => {
+    connectCollaboration();
+    subscribeNotifications();
+    return () => {
+      disconnectAll();
+    };
+  }, [connectCollaboration, subscribeNotifications, disconnectAll]);
+
+  return { collabData, notifications, disconnectAll };
+}
+
+// Usage in a component
+function HybridApp({ roomId, userId }: { roomId: string; userId: string }) {
+  const { collabData, notifications } = useHybridClient(roomId, userId);
+
+  return (
+    <div>
+      <h2>Collaborative Room</h2>
+      {collabData && <div>Collab Data: {JSON.stringify(collabData)}</div>}
+
+      <h3>Notifications</h3>
+      <ul>
+        {notifications.map((n, i) => (
+          <li key={i}>{JSON.stringify(n)}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+  </Tab>
+  <Tab value="Class">
+
+```tsx title="hybrid-class.tsx" twoslash
 class HybridClient {
   private ws: WebSocket | null = null;
   private eventSource: EventSource | null = null;
@@ -454,6 +1239,9 @@ class HybridClient {
   }
 }
 ```
+
+  </Tab>
+</Tabs>
 
 ## Server-Side Examples
 
