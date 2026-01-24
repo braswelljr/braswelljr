@@ -92,7 +92,7 @@ export default function Search({
             apiKey="c7fe5c895331a45ebd59889d32de1165"
             indices={['braswelljr']}
             navigator={{
-              navigate({ itemUrl }) {
+              navigate({ itemUrl }: { itemUrl: string }) {
                 setOpen(false);
                 push(itemUrl);
               }
