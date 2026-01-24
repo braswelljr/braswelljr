@@ -1,10 +1,11 @@
 ---
-title: Tab Animation with framer motion
-description: A simple tab animation with framer motion
+title: Tab Animation with motion/react
+description: A simple tab animation with motion/react and Tailwind CSS v4
 tags:
   - motion/react
   - react
   - animation
+  - tailwindcss
 date: 2023-04-15
 published: true
 ---
@@ -13,53 +14,48 @@ published: true
 
 Tabs are a common UI element that can be used to switch between different views. In this post, we will create a simple tab animation with motion/react.
 
-This post assumes that you have a basic understanding of React. If you are new to React, you can follow the [React getting started guide](https://react.dev/). We will also use [tailwindcss](https://tailwindcss.com/) for styling and [motion/react](https://www.framer.com/motion/) a popular animation library for React.
+This post assumes that you have a basic understanding of React. If you are new to React, you can follow the [React getting started guide](https://react.dev/). We will also use [tailwindcss v4](https://tailwindcss.com/) for styling and [motion/react](https://www.framer.com/motion/) a popular animation library for React.
 
 ## Setup
 
 We will install the required dependencies for the project.
 
 ```package-install
-motion/react tailwindcss postcss autoprefixer clsx
+motion/react tailwindcss@next @tailwindcss/postcss postcss autoprefixer clsx
 ```
 
 ## Styling the Tabs
 
-We will use tailwindcss to style the tabs. We will create a new file `tailwind.config.js` in the root of the project and add the following code.
+We will use Tailwind CSS v4 to style the tabs. In v4, configuration is now done using CSS instead of JavaScript config files.
 
-```js title="tailwind.config.js"
-module.exports = {
-  experimental: {
-    optimizeUniversalDefaults: true
-  },
-  content: ['./src/**/*.{js,jsx,ts,tsx,vue,mdx,md}'],
-  darkMode: 'class',
-  theme: {
-    extend: {}
-  },
-  plugins: []
-};
-```
+### PostCSS Configuration
 
-We will also create a new file `postcss.config.js` in the root of the project and add the following code.
+Create a `postcss.config.js` file in the root of your project:
 
 ```js title="postcss.config.js"
 module.exports = {
   plugins: {
-    'tailwindcss/nesting': {}, // enable css nesting
-    tailwindcss: {},
+    '@tailwindcss/postcss': {},
     autoprefixer: {}
   }
 };
 ```
 
-We will also update the `tailwind.css` file in the `styles` folder with the following code.
+### Global CSS Configuration
 
-```css title="styles/tailwind.css"
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+In Tailwind CSS v4, configuration is now done using CSS instead of JavaScript config files. Create or update your `app/globals.css` file:
+
+```css title="app/globals.css"
+@import 'tailwindcss';
+
+/* Customize your theme using CSS variables */
+@theme {
+  --color-orange-300: #fdba74;
+  --color-orange-300-dark: #ea580c;
+}
 ```
+
+This CSS-based configuration approach is much simpler than the old JavaScript config. You can define custom colors, spacing, and other design tokens directly in your CSS using the `@theme` directive.
 
 ## Animating the Tabs
 
@@ -115,7 +111,7 @@ export default function Home() {
 
 ## Conclusion
 
-We have successfully created a tab component with motion/react and tailwindcss. Which can be used in any project to display content in a tabbed format. Our tab component is also responsive and can be used on any device. Resulting in a better user experience. Below is the result of the tab component we created.
+We have successfully created a tab component with motion/react and Tailwind CSS v4. The new CSS-based configuration using `@import "tailwindcss"` and the `@theme` directive makes setup much simpler than the old JavaScript config approach. Our tab component can be used in any project to display content in a tabbed format, is responsive, and works on any device. Below is the result of the tab component we created.
 
 <AnimatedTab
   contains={[

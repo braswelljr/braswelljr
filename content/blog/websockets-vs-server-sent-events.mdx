@@ -1,0 +1,544 @@
+---
+title: WebSockets vs Server-Sent Events
+description: When building real-time applications, choosing between WebSockets and Server-Sent Events (SSE) is crucial. This guide explains the differences, use cases, and when to use each technology.
+tags:
+  - websockets
+  - sse
+  - real-time
+  - http
+  - api
+date: 2026-01-12
+published: false
+resources:
+  - title: MDN WebSockets API
+    url: https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
+  - title: MDN Server-Sent Events
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events
+  - title: HTTP/2 Server Push
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Server_push
+---
+
+When building real-time applications that require server-to-client communication, two technologies stand out: **WebSockets** and **Server-Sent Events (SSE)**. Both allow servers to push data to clients in real-time, but they have different architectures, capabilities, and ideal use cases.
+
+**NOTE:** This post assumes you have a basic understanding of HTTP, JavaScript, and web development concepts.
+
+## What Are WebSockets?
+
+WebSockets provide a full-duplex communication channel over a single TCP connection. Unlike HTTP, which is request-response based, WebSockets allow both the client and server to send messages at any time without needing to request anything.
+
+### Key Characteristics
+
+- **Full-duplex**: Both client and server can send messages simultaneously
+- **Persistent connection**: Once established, the connection stays open
+- **Low latency**: No overhead of HTTP headers for each message
+- **Binary data support**: Efficient for sending binary data like images or files
+
+### WebSocket Connection Flow
+
+<Mermaid chart="
+sequenceDiagram
+    participant Client
+    participant Server
+
+    Client->>Server: HTTP Request (Upgrade: websocket)
+    Server->>Client: HTTP Response (101 Switching Protocols)
+    Note over Client,Server: WebSocket Connection Established
+    Client->>Server: Message (any time)
+    Server->>Client: Message (any time)
+    Client->>Server: Message (any time)
+    Client->>Server: Close Connection
+
+" />
+
+### WebSocket Example (Client)
+
+```tsx title="websocket-client.tsx" twoslash
+class WebSocketClient {
+  private ws: WebSocket | null = null;
+  private url: string;
+
+  constructor(url: string) {
+    this.url = url;
+  }
+
+  connect(): void {
+    this.ws = new WebSocket(this.url);
+
+    this.ws.onopen = () => {
+      console.log('WebSocket connected');
+    };
+
+    this.ws.onmessage = (event) => {
+      console.log('Received:', event.data);
+    };
+
+    this.ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    this.ws.onclose = () => {
+      console.log('WebSocket disconnected');
+      // Auto-reconnect logic here
+    };
+  }
+
+  send(message: string | object): void {
+    if (this.ws?.readyState === WebSocket.OPEN) {
+      const data = typeof message === 'string' ? message : JSON.stringify(message);
+      this.ws.send(data);
+    } else {
+      console.error('WebSocket is not connected');
+    }
+  }
+
+  disconnect(): void {
+    this.ws?.close();
+  }
+}
+
+// Usage
+const client = new WebSocketClient('ws://localhost:8080');
+client.connect();
+client.send({ type: 'greeting', message: 'Hello Server!' });
+```
+
+## What Are Server-Sent Events?
+
+Server-Sent Events (SSE) is a server-push technology that enables a client to receive automatic updates from a server via an HTTP connection. Unlike WebSockets, SSE is **unidirectional** - only the server can send messages to the client.
+
+### Key Characteristics
+
+- **Unidirectional**: Only server can send messages to client
+- **Uses HTTP**: Built on top of standard HTTP
+- **Automatic reconnection**: Built-in reconnection handling
+- **Text-based**: Only supports text data (JSON, plain text)
+- **Simple API**: Easier to implement than WebSockets
+
+### SSE Connection Flow
+
+<Mermaid chart="
+sequenceDiagram
+    participant Client
+    participant Server
+
+    Client->>Server: HTTP Request (Accept: text/event-stream)
+    Server->>Client: HTTP 200 (Content-Type: text/event-stream)
+    Note over Server,Client: Connection stays open
+    Server->>Client: event: message
+    Server->>Client: event: update
+    Server->>Client: event: update
+    Client->>Server: Connection closed (or auto-reconnect)
+
+" />
+
+### SSE Example (Client)
+
+```tsx title="sse-client.tsx" twoslash
+class SSEClient {
+  private eventSource: EventSource | null = null;
+  private url: string;
+
+  constructor(url: string) {
+    this.url = url;
+  }
+
+  connect(): void {
+    this.eventSource = new EventSource(this.url);
+
+    this.eventSource.onopen = () => {
+      console.log('SSE connected');
+    };
+
+    this.eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log('Received:', data);
+    };
+
+    this.eventSource.onerror = (error) => {
+      console.error('SSE error:', error);
+      // Browser automatically attempts reconnection
+    };
+
+    // Listen for specific event types
+    this.eventSource.addEventListener('notification', (event) => {
+      const data = JSON.parse(event.data);
+      console.log('Notification:', data);
+    });
+  }
+
+  disconnect(): void {
+    this.eventSource?.close();
+  }
+}
+
+// Usage
+const client = new SSEClient('http://localhost:8080/events');
+client.connect();
+```
+
+## Key Differences Comparison
+
+| Feature               | WebSockets                            | Server-Sent Events                       |
+| --------------------- | ------------------------------------- | ---------------------------------------- |
+| **Direction**         | Full-duplex (bidirectional)           | Unidirectional (server → client only)    |
+| **Protocol**          | WebSocket protocol (ws:// or wss://)  | HTTP/HTTPS                               |
+| **Reconnection**      | Manual implementation required        | Built-in automatic reconnection          |
+| **Data Types**        | Text and binary data                  | Text only (JSON, plain text)             |
+| **Browser Support**   | Excellent (all modern browsers)       | Excellent (all modern browsers)          |
+| **Proxy/Firewall**    | May have issues with some proxies     | Works seamlessly with HTTP               |
+| **Server Complexity** | Higher (requires stateful connection) | Lower (can use standard HTTP)            |
+| **Scalability**       | More complex scaling                  | Easier to scale with HTTP infrastructure |
+| **Latency**           | Lower overhead                        | Slightly higher overhead                 |
+| **Use Case**          | Real-time collaboration, gaming, chat | News feeds, stock prices, notifications  |
+
+## When to Use WebSockets
+
+### Real-Time Collaboration
+
+WebSockets are ideal for applications where multiple users interact simultaneously:
+
+```tsx title="collaboration-example.tsx" twoslash
+// Real-time document editing
+class DocumentCollaborator {
+  private ws: WebSocket;
+
+  constructor(docId: string) {
+    this.ws = new WebSocket(`ws://localhost:8080/collab/${docId}`);
+
+    this.ws.onmessage = (event) => {
+      const update = JSON.parse(event.data);
+
+      switch (update.type) {
+        case 'text_insert':
+          this.handleTextInsert(update);
+          break;
+        case 'text_delete':
+          this.handleTextDelete(update);
+          break;
+        case 'cursor_move':
+          this.handleCursorMove(update);
+          break;
+      }
+    };
+  }
+
+  sendChange(change: object): void {
+    this.ws.send(JSON.stringify(change));
+  }
+
+  // Other methods...
+}
+```
+
+### Chat Applications
+
+Chat applications require bidirectional communication:
+
+```tsx title="chat-example.tsx" twoslash
+interface ChatMessage {
+  id: string;
+  user: string;
+  text: string;
+  timestamp: number;
+}
+
+class ChatClient {
+  private ws: WebSocket;
+
+  connect(roomId: string): void {
+    this.ws = new WebSocket(`ws://localhost:8080/chat/${roomId}`);
+
+    this.ws.onmessage = (event) => {
+      const message: ChatMessage = JSON.parse(event.data);
+      this.displayMessage(message);
+    };
+  }
+
+  sendMessage(text: string): void {
+    this.ws.send(
+      JSON.stringify({
+        type: 'message',
+        text,
+        timestamp: Date.now()
+      })
+    );
+  }
+}
+```
+
+### Online Gaming
+
+Games require low-latency, bidirectional communication:
+
+```tsx title="gaming-example.tsx" twoslash
+interface GameState {
+  players: PlayerState[];
+  ball: BallState;
+  score: Score;
+}
+
+class GameClient {
+  private ws: WebSocket;
+
+  connect(gameId: string): void {
+    this.ws = new WebSocket(`ws://localhost:8080/game/${gameId}`);
+
+    this.ws.onmessage = (event) => {
+      const state: GameState = JSON.parse(event.data);
+      this.render(state);
+    };
+  }
+
+  sendAction(action: PlayerAction): void {
+    this.ws.send(JSON.stringify(action));
+  }
+}
+```
+
+## When to Use Server-Sent Events
+
+### Live Feeds and Updates
+
+SSE is perfect for one-way data streams like live feeds:
+
+```tsx title="live-feed-example.tsx" twoslash
+class LiveFeedClient {
+  private eventSource: EventSource;
+
+  subscribe(feedType: string): void {
+    this.eventSource = new EventSource(`/api/feeds/${feedType}`);
+
+    this.eventSource.onmessage = (event) => {
+      const update = JSON.parse(event.data);
+      this.updateFeed(update);
+    };
+  }
+}
+
+// Usage for stock prices
+const stockFeed = new LiveFeedClient();
+stockFeed.subscribe('stock-prices');
+
+// Usage for news updates
+const newsFeed = new LiveFeedClient();
+newsFeed.subscribe('news');
+```
+
+### Notification Systems
+
+SSE excels at delivering notifications:
+
+```tsx title="notification-example.tsx" twoslash
+interface Notification {
+  id: string;
+  type: 'info' | 'warning' | 'error' | 'success';
+  title: string;
+  message: string;
+  timestamp: number;
+}
+
+class NotificationClient {
+  private eventSource: EventSource;
+
+  connect(userId: string): void {
+    this.eventSource = new EventSource(`/api/notifications/${userId}`);
+
+    this.eventSource.addEventListener('notification', (event) => {
+      const notification: Notification = JSON.parse(event.data);
+      this.showNotification(notification);
+    });
+  }
+
+  private showNotification(notification: Notification): void {
+    // Display notification to user
+    console.log(`[${notification.type}] ${notification.title}: ${notification.message}`);
+  }
+}
+```
+
+### Progress Updates
+
+SSE is great for long-running operations:
+
+```tsx title="progress-example.tsx" twoslash
+interface ProgressUpdate {
+  jobId: string;
+  progress: number;
+  status: string;
+  completed: boolean;
+}
+
+class ProgressTracker {
+  trackJob(jobId: string): void {
+    const eventSource = new EventSource(`/api/jobs/${jobId}/progress`);
+
+    eventSource.onmessage = (event) => {
+      const update: ProgressUpdate = JSON.parse(event.data);
+
+      this.updateProgressBar(update.progress);
+
+      if (update.completed) {
+        eventSource.close();
+        this.showCompletionMessage();
+      }
+    };
+  }
+
+  private updateProgressBar(progress: number): void {
+    console.log(`Progress: ${progress}%`);
+  }
+
+  private showCompletionMessage(): void {
+    console.log('Job completed!');
+  }
+}
+```
+
+## Real-Time Data Streaming
+
+SSE is excellent for streaming real-time data:
+
+```tsx title="streaming-example.tsx" twoslash
+class DataStreamClient {
+  private eventSource: EventSource | null = null;
+
+  startStream(metrics: string[]): void {
+    const params = new URLSearchParams({ metrics: metrics.join(',') });
+    this.eventSource = new EventSource(`/api/stream?${params}`);
+
+    this.eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      this.updateDashboard(data);
+    };
+  }
+
+  stopStream(): void {
+    this.eventSource?.close();
+  }
+
+  private updateDashboard(data: any): void {
+    // Update UI with streamed data
+  }
+}
+```
+
+## Combining Both Technologies
+
+Sometimes the best approach is to use both technologies together based on the use case:
+
+```tsx title="hybrid-example.tsx" twoslash
+class HybridClient {
+  private ws: WebSocket | null = null;
+  private eventSource: EventSource | null = null;
+
+  // Use WebSocket for real-time collaboration
+  connectCollaboration(roomId: string): void {
+    this.ws = new WebSocket(`ws://localhost:8080/collab/${roomId}`);
+    this.ws.onmessage = (event) => this.handleCollaboration(event);
+  }
+
+  // Use SSE for notifications
+  subscribeNotifications(userId: string): void {
+    this.eventSource = new EventSource(`/api/notifications/${userId}`);
+    this.eventSource.addEventListener('notification', (event) => {
+      this.handleNotification(event);
+    });
+  }
+
+  private handleCollaboration(event: MessageEvent): void {
+    // Handle collaboration updates
+  }
+
+  private handleNotification(event: MessageEvent): void {
+    // Handle notifications
+  }
+}
+```
+
+## Server-Side Examples
+
+### Node.js WebSocket Server
+
+```ts title="websocket-server.ts" twoslash
+import { WebSocketServer } from 'ws';
+
+const wss = new WebSocketServer({ port: 8080 });
+
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+
+  ws.on('message', (data) => {
+    // Broadcast to all clients
+    wss.clients.forEach((client) => {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(data);
+      }
+    });
+  });
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});
+```
+
+### Node.js SSE Server
+
+```ts title="sse-server.ts" twoslash
+import express from 'express';
+
+const app = express();
+
+app.get('/events', (req, res) => {
+  // Set headers for SSE
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  // Send initial message
+  res.write('event: connected\ndata: {"message": "Connected!"}\n\n');
+
+  // Send updates every second
+  const interval = setInterval(() => {
+    const data = JSON.stringify({
+      timestamp: Date.now(),
+      value: Math.random()
+    });
+    res.write(`data: ${data}\n\n`);
+  }, 1000);
+
+  // Clean up on client disconnect
+  req.on('close', () => {
+    clearInterval(interval);
+  });
+});
+
+app.listen(8080);
+```
+
+## Decision Framework
+
+Use this decision tree to choose between WebSockets and SSE:
+
+```
+Do you need client → server communication?
+├── Yes → Use WebSockets
+└── No → Continue
+
+    Do you need binary data support?
+    ├── Yes → Use WebSockets
+    └── No → Continue
+
+        Is simplicity more important than lowest latency?
+        ├── Yes → Use SSE
+        └── No → Consider WebSockets
+```
+
+## Conclusion
+
+Both WebSockets and Server-Sent Events are powerful technologies for real-time communication:
+
+- Choose **WebSockets** for interactive, bidirectional applications like chat, collaboration, and gaming
+- Choose **SSE** for one-way data streaming like notifications, live feeds, and updates
+
+Consider your specific requirements: communication direction, data types, complexity, and scalability needs. Often, the right choice becomes clear when you evaluate what you're trying to achieve rather than choosing based on technical features alone.

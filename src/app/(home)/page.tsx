@@ -26,7 +26,7 @@ export default function Page() {
 
   return (
     <main className={cn('flex size-full min-h-dvh items-center justify-center px-4 py-10 md:py-20')}>
-      <section className="space-y-4 py-10">
+      <section className="space-y-4 py-10 max-sm:pt-20">
         <Image
           src="/images/braswelljr.png"
           alt="braswelljr"

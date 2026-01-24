@@ -130,7 +130,7 @@ export default function Navbar({
       >
         <SegmentedControlList
           orientation="horizontal"
-          className="max-xsm:text-sm min-h-max gap-4 font-semibold whitespace-nowrap max-lg:pb-2"
+          className="max-xsm:text-sm *:data-[state=active]:text-primary! min-h-max gap-4 font-semibold whitespace-nowrap max-lg:pb-2"
           classNames={{ indicator: 'h-2! bottom-0! inset-x-0! inset-auto bg-primary! rounded-none rounded-t-xl!' }}
         >
           {nav.map((item, idx) => (

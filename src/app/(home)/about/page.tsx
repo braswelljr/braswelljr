@@ -40,8 +40,8 @@ export default function About() {
         {/* Career */}
         <div className="mt-10">
           <h2 className="text-2xl font-bold uppercase">Career</h2>
-          <div className="relative ml-4 pt-5 sm:ml-8.25 md:ml-14.25 lg:ml-[max(calc(15.5rem+1px),calc(100%-48rem))]">
-            <div className={cn('bg-primary! absolute top-3 right-full bottom-0 w-px', 'mr-7 ml-5 md:mr-13')} />
+          <div className="relative ml-6 pt-5 sm:ml-8.25 md:ml-14.25 lg:ml-[max(calc(15.5rem+1px),calc(100%-48rem))]">
+            <div className={cn('bg-primary absolute top-3 right-full bottom-0 w-px', 'mr-7 ml-6 md:mr-13')} />
             <div className="space-y-16">
               {career.map((job, index) => (
                 <article
@@ -51,7 +51,7 @@ export default function About() {
                   <div className="absolute -inset-x-4 -inset-y-2.5 md:-inset-x-6 md:-inset-y-4" />
                   <svg
                     viewBox="0 0 9 9"
-                    className={cn('text-primary! absolute top-2 right-full size-2.25 overflow-visible', 'mr-6 ml-5 md:mr-12')}
+                    className={cn('text-primary absolute top-2 right-full size-2.25 overflow-visible', 'mr-6 ml-5 md:mr-12')}
                   >
                     <circle
                       cx="4.5"
@@ -64,13 +64,13 @@ export default function About() {
                   </svg>
                   <div className="relative">
                     <h3 className="pt-8 text-xl font-semibold tracking-tight text-neutral-950 lg:pt-0 dark:text-neutral-200">
-                      {job.role} - <span className="text-primary-400 dark:text-secondary-400">({job.type})</span>
+                      {job.role} - <span className="text-primary-600">({job.type})</span>
                     </h3>
                     <div className="mt-2 mb-4 font-medium text-neutral-900 dark:text-neutral-400">
                       <span className="font-cascadia text-lg font-bold">{job.company}</span>
                     </div>
                     {job.description?.length > 0 && (
-                      <ul className="list-item pb-2 text-neutral-600 dark:text-neutral-400">
+                      <ul className="list-item pb-2 text-neutral-600 dark:text-neutral-300">
                         {job.description.map((desc, i) => (
                           <li
                             key={i}
@@ -99,8 +99,8 @@ export default function About() {
 
         <div className="mt-10">
           <h2 className="text-2xl font-bold uppercase">Education</h2>
-          <div className="relative ml-4 pt-5 sm:ml-8.25 md:ml-14.25 lg:ml-[max(calc(15.5rem+1px),calc(100%-48rem))]">
-            <div className={cn('bg-primary! absolute top-3 right-full bottom-0 w-px', 'mr-7 ml-5 md:mr-13')} />
+          <div className="relative ml-6 pt-5 sm:ml-8.25 md:ml-14.25 lg:ml-[max(calc(15.5rem+1px),calc(100%-48rem))]">
+            <div className={cn('bg-primary absolute top-3 right-full bottom-0 w-px', 'mr-7 ml-6 md:mr-13')} />
             <div className="space-y-16">
               {education.map((institute, index) => (
                 <article
@@ -110,7 +110,7 @@ export default function About() {
                   <div className="absolute -inset-x-4 -inset-y-2.5 md:-inset-x-6 md:-inset-y-4" />
                   <svg
                     viewBox="0 0 9 9"
-                    className={cn('text-primary! absolute top-2 right-full size-2.25 overflow-visible', 'mr-6 ml-5 md:mr-12')}
+                    className={cn('text-primary absolute top-2 right-full size-2.25 overflow-visible', 'mr-6 ml-5 md:mr-12')}
                   >
                     <circle
                       cx="4.5"

@@ -1,0 +1,383 @@
+---
+title: A Simple Guide to TypeScript Generics
+description: Generics are a powerful feature in TypeScript that allows you to write reusable, flexible, and type-safe code by creating components and functions that work with a variety of types while maintaining type safety.
+tags:
+  - typescript
+  - generics
+  - types
+  - programming
+  - javascript
+date: 2026-01-05
+published: false
+resources:
+  - title: TypeScript Generics
+    url: https://www.typescriptlang.org/docs/handbook/2/generics.html
+  - title: TypeScript Generic Constraints
+    url: https://www.typescriptlang.org/docs/handbook/2/generics.html#generic-constraints
+---
+
+Generics are a powerful feature in TypeScript that allows you to write reusable, flexible, and type-safe code by creating components and functions that work with a variety of types while maintaining type safety. Instead of writing multiple functions that do the same thing but with different types, you can write a single generic function that adapts to the type it receives.
+
+**NOTE:** This post assumes you have a basic understanding of TypeScript and JavaScript. Generics can be complex at first, but once you understand the concept, they become an invaluable tool in your TypeScript toolkit.
+
+## The Problem Without Generics
+
+Before diving into generics, let's look at why we need them. Consider a function that returns whatever is passed to it:
+
+```ts title="without-generics.ts" twoslash
+function identity(arg: string): string {
+  return arg;
+}
+
+function identityNumber(arg: number): number {
+  return arg;
+}
+
+function identityBoolean(arg: boolean): boolean {
+  return arg;
+}
+```
+
+This is repetitive and not scalable. We could use `any`, but we lose type safety:
+
+```ts title="using-any.ts" twoslash
+function identity(arg: any): any {
+  return arg;
+}
+
+const output = identity('hello');
+// We don't know what type output is, which defeats TypeScript's purpose
+```
+
+## Basic Generic Syntax
+
+With generics, we can create a single function that works with any type while preserving type information:
+
+```ts title="basic-generic.ts" twoslash
+function identity<T>(arg: T): T {
+  return arg;
+}
+
+// TypeScript can infer the type
+const stringResult = identity('hello'); // type is string
+const numberResult = identity(42); // type is number
+const booleanResult = identity(true); // type is boolean
+
+// You can also explicitly specify the type
+const explicitResult = identity<string>('hello'); // type is string
+```
+
+The `<T>` is a type variable - a placeholder for a type that will be specified when the function is called. You can think of it like a function argument, but for types instead of values.
+
+## Generic Interfaces
+
+You can also use generics with interfaces:
+
+```ts title="generic-interface.ts" twoslash
+interface Box<T> {
+  contents: T;
+}
+
+const stringBox: Box<string> = {
+  contents: 'Hello, Generics!'
+};
+
+const numberBox: Box<number> = {
+  contents: 42
+};
+
+// You can even nest generics
+const boxBox: Box<Box<string>> = {
+  contents: {
+    contents: 'Nested box!'
+  }
+};
+```
+
+## Generic Classes
+
+Classes can also be generic:
+
+```ts title="generic-class.ts" twoslash
+class Storage<T> {
+  private items: T[] = [];
+
+  add(item: T): void {
+    this.items.push(item);
+  }
+
+  get(index: number): T | undefined {
+    return this.items[index];
+  }
+
+  getAll(): T[] {
+    return [...this.items];
+  }
+}
+
+// Usage
+const stringStorage = new Storage<string>();
+stringStorage.add('Item 1');
+stringStorage.add('Item 2');
+
+const numberStorage = new Storage<number>();
+numberStorage.add(1);
+numberStorage.add(2);
+```
+
+## Generic Constraints
+
+Sometimes you want to constrain a generic to only work with certain types. You can do this using the `extends` keyword:
+
+```ts title="generic-constraint.ts" twoslash
+interface Lengthwise {
+  length: number;
+}
+
+function logLength<T extends Lengthwise>(arg: T): void {
+  console.log(arg.length);
+}
+
+logLength('hello'); // Works - strings have a length property
+logLength([1, 2, 3]); // Works - arrays have a length property
+logLength({ length: 10, value: 'test' }); // Works - has length property
+// logLength(42); // Error - numbers don't have a length property
+```
+
+You can also constrain to specific object shapes:
+
+```ts title="constraint-properties.ts" twoslash
+interface WithId {
+  id: number;
+}
+
+function findById<T extends WithId>(items: T[], id: number): T | undefined {
+  return items.find((item) => item.id === id);
+}
+
+const users = [
+  { id: 1, name: 'Alice' },
+  { id: 2, name: 'Bob' }
+];
+
+const user = findById(users, 1); // type is { id: number; name: string; } | undefined
+```
+
+## Using Type Parameters in Generic Constraints
+
+You can reference one type parameter in the constraint of another:
+
+```ts title="type-parameter-constraint.ts" twoslash
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+const user = {
+  name: 'Alice',
+  age: 30,
+  email: 'alice@example.com'
+};
+
+const name = getProperty(user, 'name'); // type is string
+const age = getProperty(user, 'age'); // type is number
+// const invalid = getProperty(user, "invalid"); // Error - "invalid" is not a key of user
+```
+
+This is extremely powerful for creating type-safe property access.
+
+## Generic Utility Types
+
+TypeScript provides several built-in generic utility types:
+
+### `Partial<T>` - Makes all properties optional
+
+```ts title="partial.ts" twoslash
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+function updateUser(id: number, updates: Partial<User>): void {
+  // updates can have any subset of User properties
+  const user: User = { id, name: '', email: '' };
+  Object.assign(user, updates);
+}
+
+updateUser(1, { name: 'New Name' }); // Works
+```
+
+### `Required<T>` - Makes all properties required
+
+```ts title="required.ts" twoslash
+interface PartialUser {
+  id?: number;
+  name?: string;
+  email?: string;
+}
+
+type FullUser = Required<PartialUser>;
+// All properties are now required
+```
+
+### `Pick<T, K>` - Select specific properties
+
+```ts title="pick.ts" twoslash
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+}
+
+type PublicUser = Pick<User, 'id' | 'name' | 'email'>;
+// PublicUser has only id, name, and email
+```
+
+### `Omit<T, K>` - Remove specific properties
+
+```ts title="omit.ts" twoslash
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+}
+
+type PublicUser = Omit<User, 'password'>;
+// PublicUser has everything except password
+```
+
+## Real-World Example: API Response Handler
+
+Here's a practical example of using generics for API handling:
+
+```ts title="api-response.ts" twoslash
+interface ApiResponse<T> {
+  data: T;
+  status: number;
+  message: string;
+}
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+}
+
+async function fetchApi<T>(url: string): Promise<ApiResponse<T>> {
+  const response = await fetch(url);
+  const data = await response.json();
+
+  return {
+    data,
+    status: response.status,
+    message: response.statusText
+  };
+}
+
+// Usage
+async function getUser(id: number) {
+  const response = await fetchApi<User>(`/api/users/${id}`);
+  // response.data is typed as User
+  console.log(response.data.name);
+}
+
+async function getPost(id: number) {
+  const response = await fetchApi<Post>(`/api/posts/${id}`);
+  // response.data is typed as Post
+  console.log(response.data.title);
+}
+```
+
+## Real-World Example: Generic Repository Pattern
+
+```ts title="repository.ts" twoslash
+interface Entity {
+  id: number;
+}
+
+abstract class Repository<T extends Entity> {
+  abstract findById(id: number): Promise<T | null>;
+  abstract findAll(): Promise<T[]>;
+  abstract create(entity: Omit<T, 'id'>): Promise<T>;
+  abstract update(id: number, updates: Partial<T>): Promise<T | null>;
+  abstract delete(id: number): Promise<boolean>;
+}
+
+interface User extends Entity {
+  name: string;
+  email: string;
+}
+
+class UserRepository extends Repository<User> {
+  private users: User[] = [];
+
+  async findById(id: number): Promise<User | null> {
+    return this.users.find((user) => user.id === id) || null;
+  }
+
+  async findAll(): Promise<User[]> {
+    return [...this.users];
+  }
+
+  async create(user: Omit<User, 'id'>): Promise<User> {
+    const newUser: User = {
+      id: this.users.length + 1,
+      ...user
+    };
+    this.users.push(newUser);
+    return newUser;
+  }
+
+  async update(id: number, updates: Partial<User>): Promise<User | null> {
+    const index = this.users.findIndex((user) => user.id === id);
+    if (index === -1) return null;
+
+    this.users[index] = { ...this.users[index], ...updates };
+    return this.users[index];
+  }
+
+  async delete(id: number): Promise<boolean> {
+    const index = this.users.findIndex((user) => user.id === id);
+    if (index === -1) return false;
+
+    this.users.splice(index, 1);
+    return true;
+  }
+}
+```
+
+## Best Practices
+
+1. **Use descriptive type parameter names**: While `T` is conventional, use more descriptive names when appropriate:
+
+   ```ts
+   <T, U, V> // For multiple type parameters
+   <TKey, TValue> // For key-value pairs
+   <TComponent> // For React components
+   ```
+
+2. **Use constraints when needed**: Don't make your generic too permissive. Use `extends` to enforce requirements.
+
+3. **Consider defaults**: You can provide default types for generics:
+
+   ```ts
+   interface Box<T = string> {
+     contents: T;
+   }
+
+   const defaultBox: Box = { contents: 'hello' }; // T is string
+   ```
+
+4. **Don't overuse**: Not everything needs to be generic. Use generics when you genuinely need type flexibility.
+
+## Conclusion
+
+Generics are a fundamental tool in TypeScript that allows you to write reusable, type-safe code. They enable you to create functions, interfaces, and classes that work with a variety of types while maintaining full type safety. By mastering generics, you'll write more maintainable and flexible code that catches errors at compile time rather than runtime.

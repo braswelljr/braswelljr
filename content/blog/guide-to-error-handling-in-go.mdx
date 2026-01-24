@@ -1,0 +1,735 @@
+---
+title: A Simple Guide to Error Handling in Go
+description: Error handling in Go is explicit and straightforward. Unlike exceptions in other languages, Go treats errors as values that you handle explicitly. This guide covers everything you need to know about error handling in Go.
+tags:
+  - golang
+  - error-handling
+  - programming
+  - go
+  - errors
+date: 2026-01-08
+published: false
+resources:
+  - title: Go Error Handling
+    url: https://go.dev/doc/tutorial/errors
+  - title: Error handling and Go
+    url: https://go.dev/blog/error-handling-and-go
+  - title: Working with Errors in Go 1.13+
+    url: https://go.dev/blog/go1.13-errors
+---
+
+Error handling in Go is different from many other programming languages. Instead of using try-catch blocks or exceptions, Go treats errors as values that you explicitly check and handle. While this might seem verbose at first, it leads to more robust and predictable code.
+
+**NOTE:** This post assumes you have a basic understanding of Go and programming concepts. Go's approach to error handling emphasizes clarity and explicit handling over hidden control flow.
+
+## The Error Interface
+
+In Go, an error is any value that implements the following interface:
+
+```go title="error-interface.go"type error interface {
+    Error() string
+}
+```
+
+This simple interface is all you need to create and work with errors in Go.
+
+## Basic Error Handling
+
+The most common pattern in Go is to return an error as the last return value from a function:
+
+```go title="basic-error-handling.go"package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func divide(a, b float64) (float64, error) {
+	if b == 0 {
+		return 0, errors.New("division by zero")
+	}
+	return a / b, nil
+}
+
+func main() {
+	result, err := divide(10, 0)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	fmt.Println("Result:", result)
+}
+```
+
+## Creating Errors
+
+### Using errors.New()
+
+The simplest way to create an error:
+
+```go title="errors-new.go"package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func greet(name string) (string, error) {
+	if name == "" {
+		return "", errors.New("name cannot be empty")
+	}
+	return "Hello, " + name, nil
+}
+
+func main() {
+	msg, err := greet("")
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	fmt.Println(msg)
+}
+```
+
+### Using fmt.Errorf()
+
+For more detailed error messages with formatting:
+
+```go title="fmt-errorf.go"package main
+
+import (
+	"fmt"
+)
+
+func validateAge(age int) error {
+	if age < 0 {
+		return fmt.Errorf("age cannot be negative: %d", age)
+	}
+	if age > 120 {
+		return fmt.Errorf("age seems unrealistic: %d", age)
+	}
+	return nil
+}
+
+func main() {
+	err := validateAge(-5)
+	if err != nil {
+		fmt.Println("Validation error:", err)
+	}
+}
+```
+
+## Wrapping Errors (Go 1.13+)
+
+Go 1.13 introduced error wrapping, which allows you to add context while preserving the original error:
+
+```go title="error-wrapping.go"package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func readFile(filename string) ([]byte, error) {
+	return nil, errors.New("file not found")
+}
+
+func processFile(filename string) error {
+	data, err := readFile(filename)
+	if err != nil {
+		// Wrap the error with additional context
+		return fmt.Errorf("processFile failed: %w", err)
+	}
+	fmt.Println("File data:", data)
+	return nil
+}
+
+func main() {
+	err := processFile("data.txt")
+	if err != nil {
+		fmt.Println("Error:", err)
+
+		// Check if a specific error is in the chain
+		if errors.Is(err, errors.New("file not found")) {
+			fmt.Println("The file was not found")
+		}
+	}
+}
+```
+
+### Unwrapping Errors
+
+Use `errors.Unwrap()` to get the underlying error:
+
+```go title="error-unwrap.go"package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func main() {
+	baseErr := errors.New("base error")
+	wrappedErr := fmt.Errorf("wrapped: %w", baseErr)
+
+	// Unwrap to get the original error
+	unwrapped := errors.Unwrap(wrappedErr)
+	fmt.Println("Unwrapped:", unwrapped)
+
+	// Check if errors are the same
+	fmt.Println("Is same:", errors.Is(wrappedErr, baseErr))
+}
+```
+
+## Custom Error Types
+
+You can create your own error types by implementing the `error` interface:
+
+```go title="custom-error-type.go"package main
+
+import (
+	"fmt"
+)
+
+// ValidationError represents a validation error
+type ValidationError struct {
+	Field   string
+	Message string
+}
+
+func (e *ValidationError) Error() string {
+	return fmt.Sprintf("validation failed for field '%s': %s", e.Field, e.Message)
+}
+
+func validateEmail(email string) error {
+	if email == "" {
+		return &ValidationError{
+			Field:   "email",
+			Message: "cannot be empty",
+		}
+	}
+	return nil
+}
+
+func main() {
+	err := validateEmail("")
+	if err != nil {
+		fmt.Println("Error:", err)
+
+		// Type assertion to access custom error properties
+		if validationErr, ok := err.(*ValidationError); ok {
+			fmt.Printf("Field: %s, Message: %s\n", validationErr.Field, validationErr.Message)
+		}
+	}
+}
+```
+
+## Errors with Multiple Return Values
+
+It's common in Go to return both a result and an error:
+
+```go title="multiple-return.go"package main
+
+import (
+	"fmt"
+)
+
+func getUser(id int) (string, error) {
+	if id <= 0 {
+		return "", fmt.Errorf("invalid user ID: %d", id)
+	}
+	users := map[int]string{
+		1: "Alice",
+		2: "Bob",
+	}
+	name, exists := users[id]
+	if !exists {
+		return "", fmt.Errorf("user not found: %d", id)
+	}
+	return name, nil
+}
+
+func main() {
+	name, err := getUser(1)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	fmt.Println("User:", name)
+}
+```
+
+## Panic and Recover
+
+Go has a mechanism called `panic` and `recover` for exceptional situations. Think of panic like exceptions in other languages, but use them sparingly.
+
+### Panic
+
+Panic is used when a program cannot continue:
+
+```go title="panic.go"package main
+
+import "fmt"
+
+func process(data []int) {
+	if len(data) == 0 {
+		panic("cannot process empty data")
+	}
+	fmt.Println("Processing:", data)
+}
+
+func main() {
+	data := []int{}
+	process(data)
+}
+```
+
+### Recover
+
+Recover is only useful inside deferred functions:
+
+```go title="recover.go"package main
+
+import (
+	"fmt"
+)
+
+func safeProcess(data []int) (err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("panic recovered: %v", r)
+		}
+	}()
+
+	if len(data) == 0 {
+		panic("cannot process empty data")
+	}
+	return nil
+}
+
+func main() {
+	err := safeProcess([]int{})
+	if err != nil {
+		fmt.Println("Handled error:", err)
+	}
+}
+```
+
+**Warning:** Panic and recover should only be used for truly exceptional situations, not for normal error handling.
+
+## Error Handling Patterns
+
+### Sentinel Errors
+
+Sentinel errors are predefined errors that you can check for specifically:
+
+```go title="sentinel-errors.go"package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	ErrUserNotFound = errors.New("user not found")
+	ErrInvalidInput = errors.New("invalid input")
+)
+
+func getUser(id int) (string, error) {
+	if id <= 0 {
+		return "", ErrInvalidInput
+	}
+	if id > 100 {
+		return "", ErrUserNotFound
+	}
+	return "User", nil
+}
+
+func main() {
+	_, err := getUser(101)
+	if err != nil {
+		if errors.Is(err, ErrUserNotFound) {
+			fmt.Println("User does not exist")
+		} else if errors.Is(err, ErrInvalidInput) {
+			fmt.Println("Invalid user ID")
+		} else {
+			fmt.Println("Other error:", err)
+		}
+	}
+}
+```
+
+### Error Types with Methods
+
+You can add methods to your custom error types for more sophisticated error handling:
+
+```go title="error-with-methods.go"package main
+
+import (
+	"fmt"
+	"net/http"
+)
+
+// HTTPError represents an HTTP error
+type HTTPError struct {
+	StatusCode int
+	Message    string
+}
+
+func (e *HTTPError) Error() string {
+	return fmt.Sprintf("HTTP error %d: %s", e.StatusCode, e.Message)
+}
+
+// Temporary returns true if the error is temporary
+func (e *HTTPError) Temporary() bool {
+	return e.StatusCode >= 500 || e.StatusCode == http.StatusTooManyRequests
+}
+
+func fetchData(url string) error {
+	return &HTTPError{
+		StatusCode: http.StatusTooManyRequests,
+		Message:    "rate limit exceeded",
+	}
+}
+
+func main() {
+	err := fetchData("https://api.example.com")
+	if err != nil {
+		if httpErr, ok := err.(*HTTPError); ok {
+			fmt.Printf("Status: %d\n", httpErr.StatusCode)
+			if httpErr.Temporary() {
+				fmt.Println("This is a temporary error, retry later")
+			}
+		}
+	}
+}
+```
+
+### Aggregate Errors
+
+Sometimes you need to collect multiple errors:
+
+```go title="aggregate-errors.go"package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+// MultiError collects multiple errors
+type MultiError []error
+
+func (e MultiError) Error() string {
+	var errs []string
+	for _, err := range e {
+		errs = append(errs, err.Error())
+	}
+	return strings.Join(errs, "; ")
+}
+
+// Add appends an error to the MultiError
+func (e *MultiError) Add(err error) {
+	if err != nil {
+		*e = append(*e, err)
+	}
+}
+
+// ToError returns the MultiError as an error, or nil if empty
+func (e MultiError) ToError() error {
+	if len(e) == 0 {
+		return nil
+	}
+	return e
+}
+
+func main() {
+	var multiErr MultiError
+
+	multiErr.Add(fmt.Errorf("error 1"))
+	multiErr.Add(fmt.Errorf("error 2"))
+
+	if err := multiErr.ToError(); err != nil {
+		fmt.Println("Errors:", err)
+	}
+}
+```
+
+In Go 1.20+, you can use `errors.Join()` for this:
+
+```go title="errors-join.go"package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func main() {
+	err1 := fmt.Errorf("error 1")
+	err2 := fmt.Errorf("error 2")
+
+	// Join multiple errors
+	combined := errors.Join(err1, err2)
+
+	fmt.Println("Combined error:", combined)
+
+	// Check if specific error is in the chain
+	fmt.Println("Contains err1:", errors.Is(combined, err1))
+}
+```
+
+## Best Practices
+
+### 1. Always Handle Errors
+
+Never ignore errors:
+
+```go title="bad-error-handling.go"// BAD: Ignoring error
+data, _ := readFile("data.txt")
+
+// GOOD: Handle the error
+data, err := readFile("data.txt")
+if err != nil {
+	return fmt.Errorf("failed to read file: %w", err)
+}
+```
+
+### 2. Add Context When Wrapping
+
+Add helpful context when wrapping errors:
+
+```go title="error-context.go"// BAD: No context
+if err != nil {
+	return err
+}
+
+// GOOD: Added context
+if err != nil {
+	return fmt.Errorf("failed to load user: %w", err)
+}
+```
+
+### 3. Return Early for Errors
+
+The common Go pattern is to check errors and return early:
+
+```go title="early-return.go"func processData(id int) error {
+	// Validate input
+	if id <= 0 {
+		return fmt.Errorf("invalid ID: %d", id)
+	}
+
+	// Fetch data
+	data, err := fetchData(id)
+	if err != nil {
+		return fmt.Errorf("fetch failed: %w", err)
+	}
+
+	// Process data
+	err = analyze(data)
+	if err != nil {
+		return fmt.Errorf("analysis failed: %w", err)
+	}
+
+	return nil
+}
+```
+
+### 4. Use Descriptive Error Messages
+
+Make error messages helpful:
+
+```go title="descriptive-errors.go"// BAD: Vague error
+return errors.New("error occurred")
+
+// GOOD: Descriptive error
+return fmt.Errorf("failed to connect to database '%s' after 3 attempts", dbHost)
+```
+
+### 5. Don't Use Panics for Normal Errors
+
+Panics should be reserved for truly exceptional situations:
+
+```go title="panic-usage.go"// BAD: Using panic for normal error handling
+func divide(a, b int) int {
+	if b == 0 {
+		panic("division by zero")
+	}
+	return a / b
+}
+
+// GOOD: Returning an error
+func divide(a, b int) (int, error) {
+	if b == 0 {
+		return 0, errors.New("division by zero")
+	}
+	return a / b, nil
+}
+```
+
+## Real-World Examples
+
+### File Operations
+
+```go title="file-operations.go"package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func processFile(filename string) error {
+	// Open file
+	file, err := os.Open(filename)
+	if err != nil {
+		return fmt.Errorf("failed to open file '%s': %w", filename, err)
+	}
+	defer file.Close()
+
+	// Read file
+	data := make([]byte, 1024)
+	n, err := file.Read(data)
+	if err != nil {
+		return fmt.Errorf("failed to read from file '%s': %w", filename, err)
+	}
+
+	fmt.Printf("Read %d bytes: %s\n", n, string(data[:n]))
+	return nil
+}
+
+func main() {
+	err := processFile("example.txt")
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	}
+}
+```
+
+### HTTP Server
+
+```go title="http-server-errors.go"package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+)
+
+type User struct {
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+
+var (
+	ErrUserNotFound    = fmt.Errorf("user not found")
+	ErrInvalidJSON     = fmt.Errorf("invalid JSON")
+	ErrInvalidUserData = fmt.Errorf("invalid user data")
+)
+
+func getUserHandler(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Query().Get("id")
+	if id == "" {
+		http.Error(w, "missing id parameter", http.StatusBadRequest)
+		return
+	}
+
+	user, err := fetchUser(id)
+	if err != nil {
+		if err == ErrUserNotFound {
+			http.Error(w, err.Error(), http.StatusNotFound)
+		} else {
+			http.Error(w, "internal server error", http.StatusInternalServerError)
+		}
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(user)
+}
+
+func fetchUser(id string) (*User, error) {
+	// Simulate database lookup
+	if id != "1" {
+		return nil, ErrUserNotFound
+	}
+	return &User{ID: 1, Name: "Alice", Email: "alice@example.com"}, nil
+}
+
+func main() {
+	http.HandleFunc("/user", getUserHandler)
+	fmt.Println("Server listening on :8080")
+	http.ListenAndServe(":8080", nil)
+}
+```
+
+### Database Operations
+
+```go title="database-errors.go"package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	ErrNoRows      = errors.New("no rows in result set")
+	ErrDuplicateKey = errors.New("duplicate key")
+	ErrConnection  = errors.New("connection error")
+)
+
+type DB struct {
+	// Database connection
+}
+
+func (db *DB) GetUser(id int) (*User, error) {
+	// Simulate database query
+	if id == 0 {
+		return nil, fmt.Errorf("get user failed: %w", ErrNoRows)
+	}
+	return &User{ID: id, Name: "Alice"}, nil
+}
+
+func (db *DB) CreateUser(user *User) error {
+	// Simulate duplicate key check
+	if user.ID == 1 {
+		return fmt.Errorf("create user failed: %w", ErrDuplicateKey)
+	}
+	return nil
+}
+
+func main() {
+	db := &DB{}
+
+	// Handle user lookup
+	user, err := db.GetUser(0)
+	if err != nil {
+		if errors.Is(err, ErrNoRows) {
+			fmt.Println("User not found")
+		} else {
+			fmt.Printf("Database error: %v\n", err)
+		}
+	} else {
+		fmt.Printf("Found user: %v\n", user)
+	}
+}
+
+type User struct {
+	ID   int
+	Name string
+}
+```
+
+## Conclusion
+
+Error handling in Go is explicit, predictable, and encourages careful consideration of error cases. By treating errors as values, Go makes it clear when errors need to be handled and encourages developers to think about failure modes.
+
+Key takeaways:
+
+- **Check errors explicitly** - Never ignore returned errors
+- **Add context** - Wrap errors with additional context using `fmt.Errorf` with `%w`
+- **Use custom error types** - For domain-specific error handling
+- **Return errors early** - The common Go pattern for clean code
+- **Reserve panic for truly exceptional cases** - Not for normal error handling
+- **Make errors helpful** - Provide clear, actionable error messages
+
+By following these patterns and best practices, you'll write more robust and maintainable Go code that handles errors gracefully.
