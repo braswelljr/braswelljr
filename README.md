@@ -11,7 +11,7 @@ I'm [`braswelljr`](https://braswelljr.vercel.app/), a software developer passion
 ## 📬 Contact
 
 - **Email**: [braswellkenneth7@gmail.com](mailto:braswellkenneth7@gmail.com) | [braswellkenneth99@gmail.com](mailto:braswellkenneth99@gmail.com)
-- **Phone**: [+233 500 181 106](tel:+233500181106) | [+233 540 732 749](tel:+233540732749)
+- **Phone**: [+233 500 181 106](tel:+233500181106)
 - **Portfolio**: [braswelljr.vercel.app](https://braswelljr.vercel.app/)
 
 ## ⚙️ Technologies & Skills
