@@ -1,17 +1,10 @@
 {
-  "eslint.workingDirectories": [
-    {
-      "mode": "auto"
-    }
-  ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always",
     "source.fixAll.prettier": "always",
     "source.fixAll.markdownlint": "always"
   },
   "editor.formatOnSave": true,
-  "eslint.options": {},
-  "eslint.validate": ["javascript", "mdx", "markdown", "typescript", "html", "vue", "javascriptreact", "typescriptreact"],
   "emmet.includeLanguages": {
     "javascript": "javascriptreact",
     "typescript": "typescriptreact"
