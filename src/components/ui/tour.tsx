@@ -16,10 +16,11 @@ import {
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { Direction as DirectionPrimitive, Slot as SlotPrimitive } from 'radix-ui';
 import * as ReactDOM from 'react-dom';
-import { cn, useComposedRefs } from 'lib/utils';
-import { useIsomorphicLayoutEffect } from '../..//hooks/use-isomorphic-layout-effect';
-import { useLazyRef } from '../..//hooks/use-lazy-ref';
-import { useAsRef } from '../../hooks/use-as-ref';
+import { useComposedRefs } from 'lib/compose-refs';
+import { cn } from 'lib/utils';
+import { useAsRef } from '@/hooks/use-as-ref';
+import { useIsomorphicLayoutEffect } from '@/hooks/use-isomorphic-layout-effect';
+import { useLazyRef } from '@/hooks/use-lazy-ref';
 import { Button } from './button';
 
 const ROOT_NAME = 'Tour';

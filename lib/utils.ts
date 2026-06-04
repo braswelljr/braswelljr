@@ -1,5 +1,5 @@
 import { ClassValue, clsx } from 'clsx';
-import type { Expression, Program } from 'estree';
+import { Expression, Program } from 'estree';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {

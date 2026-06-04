@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { DropdownMenuTriggerProps } from '@radix-ui/react-dropdown-menu';
+import { MenuTriggerProps } from '@base-ui/react/menu';
 import { cn } from 'lib/utils';
 import { TerminalCommands } from 'types/unist';
 import { Icons } from '~/components/icons';
@@ -50,7 +50,7 @@ export function CopyButton({ value, className, src, ...props }: CopyButtonProps)
   );
 }
 
-interface CopyWithClassNamesProps extends DropdownMenuTriggerProps {
+interface CopyWithClassNamesProps extends MenuTriggerProps {
   value: string;
   classNames: string;
   className: string;
@@ -101,7 +101,7 @@ export function CopyWithClassNames({
   );
 }
 
-interface CopyNpmCommandButtonProps extends DropdownMenuTriggerProps {
+interface CopyNpmCommandButtonProps extends MenuTriggerProps {
   commands: Required<TerminalCommands>;
   className?: string;
 }

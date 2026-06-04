@@ -2,11 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import { u } from 'unist-builder';
 import { visit } from 'unist-util-visit';
-import { UnistNode, UnistTree } from 'types/unist';
+import { UnistNode } from 'types/unist';
 import { REHYPE_LANGS } from './rehype-languages';
 
 export function rehypeComponent() {
-  return async (tree: UnistTree) => {
+  return async (tree: UnistNode) => {
     visit(tree, (node: UnistNode) => {
       const { value: src } = getNodeAttributeByName(node, 'src') || {};
 

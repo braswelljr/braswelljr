@@ -15,7 +15,7 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { AnimatePresence, motion, Transition } from 'motion/react';
 import { cn } from 'lib/utils';
-import { useIsMobile } from '../../hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 import {
   Drawer,
   DrawerClose,

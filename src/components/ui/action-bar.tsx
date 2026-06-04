@@ -3,9 +3,10 @@
 import * as React from 'react';
 import { Direction as DirectionPrimitive, Slot as SlotPrimitive } from 'radix-ui';
 import * as ReactDOM from 'react-dom';
-import { cn, useComposedRefs } from 'lib/utils';
-import { useAsRef } from '../../hooks/use-as-ref';
-import { useIsomorphicLayoutEffect } from '../../hooks/use-isomorphic-layout-effect';
+import { useComposedRefs } from 'lib/compose-refs';
+import { cn } from 'lib/utils';
+import { useAsRef } from '@/hooks/use-as-ref';
+import { useIsomorphicLayoutEffect } from '@/hooks/use-isomorphic-layout-effect';
 import { Button } from './button';
 
 const ROOT_NAME = 'ActionBar';
@@ -139,6 +140,7 @@ function ActionBar(props: ActionBarProps) {
   const dir = DirectionPrimitive.useDirection(dirProp);
 
   React.useLayoutEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
