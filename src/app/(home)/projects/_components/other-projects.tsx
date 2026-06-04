@@ -2,7 +2,14 @@ import Link from 'next/link';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import { cn } from 'lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '~/components/ui/card';
 import { OTHER_PROJECTS } from '~/config/data';
 
 type OtherProjectProps = {
@@ -42,7 +49,7 @@ export function OtherProjects({ className }: OtherProjectProps) {
               </CardHeader>
               <div className="flex min-h-24 flex-1 flex-col justify-between gap-4">
                 <CardContent className="px-2">
-                  <CardTitle className="from-secondary to-primary dark:to-primary flex items-center space-x-2 bg-linear-to-l bg-clip-text text-sm text-transparent uppercase">
+                  <CardTitle className="flex items-center space-x-2 bg-linear-to-l from-secondary to-primary bg-clip-text text-sm text-transparent uppercase dark:to-primary">
                     {project.name}
                   </CardTitle>
                   <CardDescription className="line-clamp-2">{project.description}</CardDescription>

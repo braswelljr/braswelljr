@@ -1,6 +1,19 @@
-import { rehypeToc, remarkCodeTab, remarkDirectiveAdmonition, remarkGfm, remarkMdxFiles, remarkNpm } from 'fumadocs-core/mdx-plugins';
+import {
+  rehypeToc,
+  remarkCodeTab,
+  remarkDirectiveAdmonition,
+  remarkGfm,
+  remarkMdxFiles,
+  remarkNpm
+} from 'fumadocs-core/mdx-plugins';
 import { remarkTypeScriptToJavaScript } from 'fumadocs-docgen/remark-ts2js';
-import { defineConfig, defineDocs, frontmatterSchema, metaSchema, remarkInclude } from 'fumadocs-mdx/config';
+import {
+  defineConfig,
+  defineDocs,
+  frontmatterSchema,
+  metaSchema,
+  remarkInclude
+} from 'fumadocs-mdx/config';
 import lastModified from 'fumadocs-mdx/plugins/last-modified';
 import rehypePreLanguage from 'rehype-pre-language';
 import rehypeSlug from 'rehype-slug';
@@ -20,7 +33,8 @@ const blogSchema = z.object({
     .any()
     .refine((file) => file?.size <= 5000000, `Max image size is 5MB.`)
     .refine(
-      (file) => ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file?.type as string),
+      (file) =>
+        ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file?.type as string),
       'Only .jpg, .jpeg, .png and .webp formats are supported.'
     )
     .optional(),

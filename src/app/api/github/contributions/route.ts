@@ -18,10 +18,13 @@ export const GET = async (req: NextRequest): Promise<Response> => {
   const searchParams = req.nextUrl.searchParams;
   const year = Number(searchParams.get('year')) || '';
   try {
-    const response = await fetch(`https://github-contributions-api.jogruber.de/v4/braswelljr?year=${year}`, {
-      method: 'GET',
-      mode: 'cors'
-    });
+    const response = await fetch(
+      `https://github-contributions-api.jogruber.de/v4/braswelljr?year=${year}`,
+      {
+        method: 'GET',
+        mode: 'cors'
+      }
+    );
     const data: DataType = await response.json();
 
     const content: GitHubProperties = {
@@ -30,10 +33,16 @@ export const GET = async (req: NextRequest): Promise<Response> => {
 
         return activityDate <= endOfLastWeek && activityDate >= startDate;
       }),
-      total: data.contributions.reduce((total, { date, count }) => (new Date(date) >= oneYearAgo ? total + count : total), 0)
+      total: data.contributions.reduce(
+        (total, { date, count }) => (new Date(date) >= oneYearAgo ? total + count : total),
+        0
+      )
     };
 
-    return NextResponse.json({ message: 'successfully retrieved github contributions', data: content }, { status: 200 });
+    return NextResponse.json(
+      { message: 'successfully retrieved github contributions', data: content },
+      { status: 200 }
+    );
   } catch (error) {
     let err: ErrorCause;
 

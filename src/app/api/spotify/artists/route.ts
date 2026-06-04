@@ -8,7 +8,10 @@ export async function GET() {
 
     if (!playlists) throw new Error(`couldn't retrieve playlists`);
 
-    return NextResponse.json({ message: 'successfully retrieved playlists', data: playlists }, { status: 200 });
+    return NextResponse.json(
+      { message: 'successfully retrieved playlists', data: playlists },
+      { status: 200 }
+    );
   } catch (error) {
     let err: ErrorCause;
 

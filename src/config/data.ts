@@ -3,7 +3,11 @@ import { FaXTwitter } from 'react-icons/fa6';
 import { Career, Education } from 'types/types';
 
 export const socials = [
-  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/braswell-kenneth-870827192/', icon: FaLinkedin },
+  {
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/braswell-kenneth-870827192/',
+    icon: FaLinkedin
+  },
   { name: 'GitHub', url: 'https://github.com/braswelljr', icon: FaGithub },
   { name: 'Instagram', url: 'https://www.instagram.com/braswell_jr/', icon: FaInstagram },
   { name: 'X', url: 'https://x.com/braswell_jnr', icon: FaXTwitter },
@@ -178,7 +182,8 @@ export const OTHER_PROJECTS = [
     name: 'Colored',
     homepageUrl: 'https://colored.vercel.app',
     url: 'https://github.com/braswelljr/colored',
-    description: 'Experience a world of personalized design with an array of handpicked colors at your disposal.'
+    description:
+      'Experience a world of personalized design with an array of handpicked colors at your disposal.'
   },
   {
     name: 'OZ Moview',

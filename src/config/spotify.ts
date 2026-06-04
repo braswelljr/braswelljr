@@ -27,13 +27,18 @@ export const AUTH_SCOPES = [
   'user-read-currently-playing'
 ];
 
-export const SpotifySDK = SpotifyApi.withClientCredentials(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, AUTH_SCOPES, {
-  afterRequest(_, __, response) {
-    if (!response.ok) {
-      throw new Error(response.statusText, { cause: { response } });
+export const SpotifySDK = SpotifyApi.withClientCredentials(
+  SPOTIFY_CLIENT_ID,
+  SPOTIFY_CLIENT_SECRET,
+  AUTH_SCOPES,
+  {
+    afterRequest(_, __, response) {
+      if (!response.ok) {
+        throw new Error(response.statusText, { cause: { response } });
+      }
     }
   }
-});
+);
 
 export async function getAccessToken(): Promise<string> {
   const tokenResponse = await ky

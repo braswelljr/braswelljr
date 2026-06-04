@@ -16,14 +16,17 @@ export function TopTracks({ className }: { className?: string }) {
     data: Array<SpotifyTrack>;
   }>({
     queryKey: ['top-tracks'],
-    queryFn: () => fetch(`/api/spotify/top-tracks?limit=6`, { method: 'GET', mode: 'cors' }).then((res) => res.json()),
+    queryFn: () =>
+      fetch(`/api/spotify/top-tracks?limit=6`, { method: 'GET', mode: 'cors' }).then((res) =>
+        res.json()
+      ),
     retry: true
   });
 
   return (
     <section className={cn('', className)}>
       <nav className="flex items-center justify-between">
-        <h2 className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent">
+        <h2 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary">
           Top Tracks
         </h2>
         <button
@@ -35,7 +38,13 @@ export function TopTracks({ className }: { className?: string }) {
         </button>
       </nav>
 
-      <div className="mt-4">{data?.data && Array.isArray(data?.data) && data?.data?.length ? <Tracks data={data?.data} /> : <TracksLoader />}</div>
+      <div className="mt-4">
+        {data?.data && Array.isArray(data?.data) && data?.data?.length ? (
+          <Tracks data={data?.data} />
+        ) : (
+          <TracksLoader />
+        )}
+      </div>
     </section>
   );
 }
@@ -89,11 +98,13 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
                   src={track?.image}
                   alt={track?.name}
                 />
-                <AvatarFallback className="animate-pulse rounded-xl">{track?.name?.charAt(0)}</AvatarFallback>
+                <AvatarFallback className="animate-pulse rounded-xl">
+                  {track?.name?.charAt(0)}
+                </AvatarFallback>
               </Avatar>
               <div className="space-y-2">
                 <h4 className="line-clamp-2 text-sm sm:text-base">{track?.name}</h4>
-                <p className="text-xsm line-clamp-2 sm:text-sm">
+                <p className="line-clamp-2 text-xsm sm:text-sm">
                   {track?.artists?.map((a, i) => (
                     <Fragment key={i}>
                       {i !== 0 && ', '}
@@ -103,7 +114,10 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
                           e.stopPropagation(); // Prevent triggering the parent link
                           window.open(a?.href, '_blank', 'noopener noreferrer');
                         }}
-                        className={cn('cursor-pointer text-orange-500 underline', i === 0 && 'font-semibold')}
+                        className={cn(
+                          'cursor-pointer text-orange-500 underline',
+                          i === 0 && 'font-semibold'
+                        )}
                       >
                         {a?.name}
                       </span>

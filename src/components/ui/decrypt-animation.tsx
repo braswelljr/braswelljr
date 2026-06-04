@@ -67,7 +67,9 @@ export function DecryptedText({
       }
     };
 
-    const availableChars = useOriginalCharsOnly ? Array.from(new Set(text.split(''))).filter((char) => char !== ' ') : characters.split('');
+    const availableChars = useOriginalCharsOnly
+      ? Array.from(new Set(text.split(''))).filter((char) => char !== ' ')
+      : characters.split('');
 
     const shuffleText = (originalText: string, currentRevealed: Set<number>): string => {
       if (useOriginalCharsOnly) {
@@ -78,7 +80,9 @@ export function DecryptedText({
           isRevealed: currentRevealed.has(i)
         }));
 
-        const nonSpaceChars = positions.filter((p) => !p.isSpace && !p.isRevealed).map((p) => p.char);
+        const nonSpaceChars = positions
+          .filter((p) => !p.isSpace && !p.isRevealed)
+          .map((p) => p.char);
 
         for (let i = nonSpaceChars.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
@@ -142,7 +146,16 @@ export function DecryptedText({
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isHovering, text, speed, maxIterations, sequential, revealDirection, characters, useOriginalCharsOnly]);
+  }, [
+    isHovering,
+    text,
+    speed,
+    maxIterations,
+    sequential,
+    revealDirection,
+    characters,
+    useOriginalCharsOnly
+  ]);
 
   useEffect(() => {
     if (animateOn !== 'view') return;

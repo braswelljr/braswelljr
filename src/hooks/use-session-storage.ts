@@ -31,7 +31,8 @@ export default function useSessionStorage<T>(
     const storage = options.keepOnWindowClosed ? window.localStorage : window.sessionStorage;
 
     // set value in storage
-    if (sessionValue !== options.initialValue) storage.setItem(sessionKey, JSON.stringify(sessionValue));
+    if (sessionValue !== options.initialValue)
+      storage.setItem(sessionKey, JSON.stringify(sessionValue));
   }, [sessionValue, sessionKey, options.keepOnWindowClosed, options.initialValue]);
 
   useEffect(() => {

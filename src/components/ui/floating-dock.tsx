@@ -7,7 +7,15 @@
  **/
 import { useRef, useState } from 'react';
 import Link, { type LinkProps } from 'next/link';
-import { AnimatePresence, motion, MotionValue, SpringOptions, useMotionValue, useSpring, useTransform } from 'motion/react';
+import {
+  AnimatePresence,
+  motion,
+  MotionValue,
+  SpringOptions,
+  useMotionValue,
+  useSpring,
+  useTransform
+} from 'motion/react';
 import { cn } from 'lib/utils';
 
 export type IconT = LinkProps & { title: string; icon: React.ReactNode };
@@ -28,7 +36,10 @@ export default function FloatingDock({
     <motion.div
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
-      className={cn('mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-gray-50 px-4 pb-3 md:flex dark:bg-neutral-900', className)}
+      className={cn(
+        'mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-gray-50 px-4 pb-3 md:flex dark:bg-neutral-900',
+        className
+      )}
     >
       {items.map((item) => {
         return (
@@ -103,7 +114,10 @@ function IconContainer({
         data-motion-hover={hovered}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className={cn('relative flex aspect-square items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800', classNames?.container)}
+        className={cn(
+          'relative flex aspect-square items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800',
+          classNames?.container
+        )}
       >
         <AnimatePresence>
           {hovered && (

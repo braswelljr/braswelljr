@@ -1,7 +1,5 @@
-'use client';
-
 import * as React from 'react';
-import * as AccordionPrimitive from '@radix-ui/react-accordion';
+import { Accordion as AccordionPrimitive } from '@base-ui/react/accordion';
 import { ChevronDown } from 'lucide-react';
 import { cn } from 'lib/utils';
 
@@ -33,27 +31,25 @@ const AccordionTrigger = React.forwardRef<
       {...props}
     >
       {children}
-      <ChevronDown className="size-4 transition-transform duration-200" />
+      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
 const AccordionContent = React.forwardRef<
-  React.ComponentRef<typeof AccordionPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
+  React.ComponentRef<typeof AccordionPrimitive.Panel>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Panel>
 >(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Content
+  <AccordionPrimitive.Panel
     ref={ref}
-    className={cn(
-      'data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm transition-all',
-      className
-    )}
+    className="overflow-hidden text-sm transition-[height] duration-200 ease-in-out data-ending-style:h-0 data-starting-style:h-0"
     {...props}
   >
-    <div className="pt-0 pb-4">{children}</div>
-  </AccordionPrimitive.Content>
+    <div className={cn('pt-0 pb-4', className)}>{children}</div>
+  </AccordionPrimitive.Panel>
 ));
-AccordionContent.displayName = AccordionPrimitive.Content.displayName;
+
+AccordionContent.displayName = AccordionPrimitive.Panel.displayName;
 
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };

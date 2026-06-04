@@ -1,0 +1,180 @@
+@import "./partials/code.css";
+@import "./partials/placeholder.css";
+@import "./partials/lists.css";
+@import "./partials/typography.css";
+@import "./partials/zoom.css";
+
+.minimal-tiptap-editor .ProseMirror {
+  @apply z-0 flex max-w-full cursor-text flex-col outline-0;
+}
+
+.minimal-tiptap-editor .ProseMirror > div.editor {
+  @apply block flex-1 whitespace-pre-wrap;
+}
+
+.minimal-tiptap-editor .ProseMirror .block-node:not(:last-child),
+.minimal-tiptap-editor .ProseMirror .list-node:not(:last-child),
+.minimal-tiptap-editor .ProseMirror .text-node:not(:last-child) {
+  @apply mb-2.5;
+}
+
+.minimal-tiptap-editor .ProseMirror ol,
+.minimal-tiptap-editor .ProseMirror ul {
+  @apply pl-6;
+}
+
+.minimal-tiptap-editor .ProseMirror blockquote,
+.minimal-tiptap-editor .ProseMirror dl,
+.minimal-tiptap-editor .ProseMirror ol,
+.minimal-tiptap-editor .ProseMirror p,
+.minimal-tiptap-editor .ProseMirror pre,
+.minimal-tiptap-editor .ProseMirror ul {
+  @apply m-0;
+}
+
+.minimal-tiptap-editor .ProseMirror li {
+  @apply leading-7;
+}
+
+.minimal-tiptap-editor .ProseMirror p {
+  @apply wrap-break-word;
+}
+
+.minimal-tiptap-editor .ProseMirror li .text-node:has(+ .list-node),
+.minimal-tiptap-editor .ProseMirror li > .list-node,
+.minimal-tiptap-editor .ProseMirror li > .text-node,
+.minimal-tiptap-editor .ProseMirror li p {
+  @apply mb-0;
+}
+
+.minimal-tiptap-editor .ProseMirror blockquote {
+  @apply relative pl-3.5;
+}
+
+.minimal-tiptap-editor .ProseMirror blockquote::before,
+.minimal-tiptap-editor .ProseMirror blockquote.is-empty::before {
+  @apply absolute top-0 bottom-0 left-0 h-full w-1 rounded-sm bg-neutral-900/15 content-[''] dark:bg-neutral-100/15;
+}
+
+.minimal-tiptap-editor .ProseMirror hr {
+  @apply my-3 h-0.5 w-full border-none bg-(--mt-hr);
+}
+
+.minimal-tiptap-editor .ProseMirror-focused hr.ProseMirror-selectednode {
+  @apply rounded-full outline-2 outline-offset-1 outline-neutral-500;
+}
+
+.minimal-tiptap-editor .ProseMirror .ProseMirror-gapcursor {
+  @apply pointer-events-none absolute hidden;
+}
+
+.minimal-tiptap-editor .ProseMirror .ProseMirror-hideselection {
+  @apply caret-transparent;
+}
+
+.minimal-tiptap-editor .ProseMirror.resize-cursor {
+  @apply cursor-col-resize;
+}
+
+.minimal-tiptap-editor .ProseMirror .selection {
+  @apply inline-block;
+}
+
+.minimal-tiptap-editor .ProseMirror s span {
+  @apply line-through;
+}
+
+.minimal-tiptap-editor .ProseMirror .selection,
+.minimal-tiptap-editor .ProseMirror *::selection {
+  @apply bg-primary/25;
+}
+
+/* Override native selection when custom selection is present */
+.minimal-tiptap-editor .ProseMirror .selection::selection {
+  background: transparent;
+}
+
+/* Tables */
+.minimal-tiptap-editor .ProseMirror table {
+  @apply my-4 w-full border-collapse overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800;
+}
+
+.minimal-tiptap-editor .ProseMirror table td,
+.minimal-tiptap-editor .ProseMirror table th {
+  @apply relative min-w-25 border border-neutral-200 px-3 py-2 text-left align-top dark:border-neutral-800;
+}
+
+.minimal-tiptap-editor .ProseMirror table th {
+  @apply bg-neutral-100 font-semibold dark:bg-neutral-800;
+}
+
+.minimal-tiptap-editor .ProseMirror table .selectedCell {
+  @apply bg-primary/10;
+}
+
+.minimal-tiptap-editor .ProseMirror table .selectedCell::after {
+  @apply pointer-events-none absolute inset-0 bg-primary/10 content-[''];
+}
+
+/* Column resize handle */
+.minimal-tiptap-editor .ProseMirror .column-resize-handle {
+  @apply absolute top-0 -right-0.5 bottom-0 z-10 w-1 cursor-col-resize bg-primary/50;
+}
+
+.minimal-tiptap-editor .ProseMirror.resize-cursor {
+  @apply cursor-col-resize;
+}
+
+/* Mentions */
+.minimal-tiptap-editor .ProseMirror .mention {
+  @apply inline-block rounded-md bg-primary/10 px-1.5 py-0.5 font-medium text-primary;
+}
+
+.minimal-tiptap-editor .ProseMirror .mention:hover {
+  @apply bg-primary/20;
+}
+
+/* Highlight */
+.minimal-tiptap-editor .ProseMirror mark {
+  @apply rounded-sm bg-yellow-200 px-0.5 dark:bg-yellow-500/40;
+}
+
+.minimal-tiptap-editor .ProseMirror mark[data-color] {
+  background-color: var(--highlight-color, #fef08a);
+}
+
+/* Details / Collapsible */
+.minimal-tiptap-editor .ProseMirror details {
+  @apply my-2 rounded-lg border border-neutral-200 bg-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-800/30;
+}
+
+.minimal-tiptap-editor .ProseMirror details summary {
+  @apply cursor-pointer px-4 py-2 font-medium select-none;
+}
+
+.minimal-tiptap-editor .ProseMirror details summary:hover {
+  @apply bg-neutral-100/50 dark:bg-neutral-800/50;
+}
+
+.minimal-tiptap-editor .ProseMirror details[open] summary {
+  @apply border-b border-neutral-200 dark:border-neutral-800;
+}
+
+.minimal-tiptap-editor .ProseMirror details > div:not(summary) {
+  @apply px-4 py-3;
+}
+
+/* YouTube / Twitch embeds */
+.minimal-tiptap-editor .ProseMirror .youtube-node,
+.minimal-tiptap-editor .ProseMirror .twitch-node {
+  @apply my-4;
+}
+
+.minimal-tiptap-editor .ProseMirror iframe {
+  @apply max-w-full rounded-lg border border-neutral-200 dark:border-neutral-800;
+  aspect-ratio: 16 / 9;
+}
+
+.minimal-tiptap-editor .ProseMirror .ProseMirror-selectednode iframe {
+  @apply outline outline-offset-2 outline-primary;
+}

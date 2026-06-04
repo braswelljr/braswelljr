@@ -9,11 +9,14 @@ export async function GET(req: NextRequest): Promise<Response> {
   const limit = Number(searchParams.get('limit')) || 10;
   try {
     const token = await getAccessToken();
-    const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=${limit}&offset=${offset}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-      next: { revalidate: 0 }
-    });
+    const response = await fetch(
+      `https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=${limit}&offset=${offset}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        next: { revalidate: 0 }
+      }
+    );
 
     if (!response.ok) throw new Error(response.statusText, { cause: { response } });
 
@@ -43,7 +46,10 @@ export async function GET(req: NextRequest): Promise<Response> {
           )
         : [];
 
-    return NextResponse.json({ message: response?.statusText || 'gocha', data: tracks }, { status: response?.status || 200 });
+    return NextResponse.json(
+      { message: response?.statusText || 'gocha', data: tracks },
+      { status: response?.status || 200 }
+    );
   } catch (error) {
     let err: ErrorCause;
 

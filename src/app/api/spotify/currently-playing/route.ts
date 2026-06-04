@@ -34,7 +34,10 @@ export async function GET(): Promise<Response> {
       }
     } satisfies SpotifyTrack;
 
-    return NextResponse.json({ message: response?.statusText || 'gocha', data: track }, { status: response?.status || 200 });
+    return NextResponse.json(
+      { message: response?.statusText || 'gocha', data: track },
+      { status: response?.status || 200 }
+    );
   } catch (error) {
     let err: ErrorCause;
 

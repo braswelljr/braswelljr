@@ -12,7 +12,13 @@ type ScrollToTopProps = React.ComponentProps<'button'> & {
   disableOnLayouts?: string[];
 };
 
-export default function ScrollTop({ className, offset = 100, disableOnRoutes = [], disableOnLayouts = [], ...props }: ScrollToTopProps) {
+export default function ScrollTop({
+  className,
+  offset = 100,
+  disableOnRoutes = [],
+  disableOnLayouts = [],
+  ...props
+}: ScrollToTopProps) {
   const scrollRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
 
@@ -48,7 +54,9 @@ export default function ScrollTop({ className, offset = 100, disableOnRoutes = [
         className,
         'flex size-10 translate-y-20 items-center justify-center rounded-sm bg-neutral-900 text-white transition-transform dark:bg-neutral-500 dark:text-white',
         disableOnRoutes && disableOnRoutes.includes(pathname) && 'hidden',
-        disableOnLayouts && disableOnLayouts.some((layout) => pathname.startsWith(layout)) && 'hidden'
+        disableOnLayouts &&
+          disableOnLayouts.some((layout) => pathname.startsWith(layout)) &&
+          'hidden'
       )}
       onClick={(e) => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -62,7 +70,13 @@ export default function ScrollTop({ className, offset = 100, disableOnRoutes = [
   );
 }
 
-export function ScrollToTopWithBlog({ className, offset = 100, disableOnRoutes, disableOnLayouts, ...props }: ScrollToTopProps) {
+export function ScrollToTopWithBlog({
+  className,
+  offset = 100,
+  disableOnRoutes,
+  disableOnLayouts,
+  ...props
+}: ScrollToTopProps) {
   const pathname = usePathname();
   const top = useTop();
 
@@ -73,7 +87,9 @@ export function ScrollToTopWithBlog({ className, offset = 100, disableOnRoutes, 
       className={cn(
         'relative inline-flex items-center gap-1 pb-1.5 pl-0.5 uppercase',
         disableOnRoutes && disableOnRoutes.includes(pathname) && 'hidden',
-        disableOnLayouts && disableOnLayouts.some((layout) => pathname.startsWith(layout)) && 'hidden',
+        disableOnLayouts &&
+          disableOnLayouts.some((layout) => pathname.startsWith(layout)) &&
+          'hidden',
         top < offset && 'hidden',
         className
       )}

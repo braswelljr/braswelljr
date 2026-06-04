@@ -20,7 +20,10 @@ export function useDevice() {
       const tabletBreakpoint = 1024;
 
       // Check for mobile using userAgent and screen width
-      if (/Mobi|Android|iPhone|iPod/i.test(userAgent) || (isTouchDevice && screenWidth <= mobileBreakpoint)) {
+      if (
+        /Mobi|Android|iPhone|iPod/i.test(userAgent) ||
+        (isTouchDevice && screenWidth <= mobileBreakpoint)
+      ) {
         setDevice('mobile');
       }
       // Check for tablets by considering touch support and screen width

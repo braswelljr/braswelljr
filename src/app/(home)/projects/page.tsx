@@ -22,32 +22,67 @@ export default function Projects() {
   // projects
   const limitProjects = viewMoreProjects ? allProjects.length : lg ? 6 : 4;
   // remove pinned projects from all projects
-  const filteredProjects = allProjects.filter((project) => !pinnedProjects.find((pinnedProject) => pinnedProject.name === project.name));
-  const ALL_PROJECTS = Array.isArray(filteredProjects) ? filteredProjects.slice(0, limitProjects) : [];
+  const filteredProjects = allProjects.filter(
+    (project) => !pinnedProjects.find((pinnedProject) => pinnedProject.name === project.name)
+  );
+  const ALL_PROJECTS = Array.isArray(filteredProjects)
+    ? filteredProjects.slice(0, limitProjects)
+    : [];
 
   return (
     <div className="py-12 max-lg:pt-36">
       <div className="mx-auto max-w-[calc(var(--container-4xl)+5px)] space-y-8 px-4 text-gray-800 sm:mt-14 sm:space-y-10 dark:text-neutral-100">
-        <h1 className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl">
+        <h1 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-primary">
           Work, Hobby and Open Source
         </h1>
         {/* Write up */}
         <div className="space-y-6 text-neutral-600 dark:text-neutral-400">
           <p className="">
             I&rsquo;m obsessed with building things that are useful and fun to use. I am an{' '}
-            <span className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text px-3 text-transparent uppercase">enthusiast</span>{' '}
-            and I love to contribute to open source. I am also a hobbyist and I love to build things that are fun to use.
+            <span className="bg-linear-to-l from-secondary to-primary bg-clip-text px-3 text-transparent uppercase dark:to-primary">
+              enthusiast
+            </span>{' '}
+            and I love to contribute to open source. I am also a hobbyist and I love to build things
+            that are fun to use.
           </p>
           <p>
-            I prefer to work with <span className="bg-linear-to-l from-[#2273ff] to-[#00e5ff] bg-clip-text text-transparent uppercase">React</span>,{' '}
-            <span className="bg-linear-to-l from-[#3b80ff] to-[#3b80ff] bg-clip-text text-transparent uppercase">Next.js</span>,{' '}
-            <span className="bg-linear-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text text-transparent uppercase">Golang</span>,{' '}
-            <span className="bg-linear-to-l from-[#236e00] to-[#00bf06] bg-clip-text text-transparent uppercase">Node.js</span>,{' '}
-            <span className="bg-linear-to-l from-[#00b731] to-[#008f02] bg-clip-text text-transparent uppercase">MongoDB</span>,{' '}
-            <span className="bg-linear-to-l from-[#f2ff00] to-[#ffc70d] bg-clip-text text-transparent uppercase">Firebase</span>,{' '}
-            <span className="bg-linear-to-l from-[#00b731] to-[#008f02] bg-clip-text text-transparent uppercase">Supabase</span>,{' '}
-            <span className="bg-linear-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text text-transparent uppercase">PostgreSQL</span>, and{' '}
-            <span className="bg-linear-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text text-transparent uppercase">GraphQL</span>.
+            I prefer to work with{' '}
+            <span className="bg-linear-to-l from-[#2273ff] to-[#00e5ff] bg-clip-text text-transparent uppercase">
+              React
+            </span>
+            ,{' '}
+            <span className="bg-linear-to-l from-[#3b80ff] to-[#3b80ff] bg-clip-text text-transparent uppercase">
+              Next.js
+            </span>
+            ,{' '}
+            <span className="bg-linear-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text text-transparent uppercase">
+              Golang
+            </span>
+            ,{' '}
+            <span className="bg-linear-to-l from-[#236e00] to-[#00bf06] bg-clip-text text-transparent uppercase">
+              Node.js
+            </span>
+            ,{' '}
+            <span className="bg-linear-to-l from-[#00b731] to-[#008f02] bg-clip-text text-transparent uppercase">
+              MongoDB
+            </span>
+            ,{' '}
+            <span className="bg-linear-to-l from-[#f2ff00] to-[#ffc70d] bg-clip-text text-transparent uppercase">
+              Firebase
+            </span>
+            ,{' '}
+            <span className="bg-linear-to-l from-[#00b731] to-[#008f02] bg-clip-text text-transparent uppercase">
+              Supabase
+            </span>
+            ,{' '}
+            <span className="bg-linear-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text text-transparent uppercase">
+              PostgreSQL
+            </span>
+            , and{' '}
+            <span className="bg-linear-to-l from-[#3b80ff] to-[#0d59ff] bg-clip-text text-transparent uppercase">
+              GraphQL
+            </span>
+            .
           </p>
         </div>
         <GitHubContributionGraph className="" />
@@ -164,7 +199,9 @@ export default function Projects() {
                       >
                         <div className="divide-y divide-zinc-500/25 *:p-2.5">
                           <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
-                            <h2 className="text-lg leading-tight font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{project.name}</h2>
+                            <h2 className="text-lg leading-tight font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+                              {project.name}
+                            </h2>
                             <div className="space-x-3 text-sm *:flex *:items-center *:space-x-1">
                               <div>
                                 <BsStar className="h-4 w-auto" />
@@ -178,7 +215,11 @@ export default function Projects() {
                             {/* body */}
                           </div>
                           <div className="min-h-16 text-sm font-thin">
-                            <p className="line-clamp-2">{project.description ? project.description : 'Lorem ipsum dolor sit amet consectetur.'}</p>
+                            <p className="line-clamp-2">
+                              {project.description
+                                ? project.description
+                                : 'Lorem ipsum dolor sit amet consectetur.'}
+                            </p>
                           </div>
                         </div>
                         <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">

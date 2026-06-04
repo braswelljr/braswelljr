@@ -1,27 +1,37 @@
 'use client';
 
-import { forwardRef } from 'react';
-import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
+import { Collapsible as CollapsiblePrimitive } from '@base-ui/react/collapsible';
 import { cn } from 'lib/utils';
 
-const Collapsible = CollapsiblePrimitive.Root;
+function Collapsible({ ...props }: CollapsiblePrimitive.Root.Props) {
+  return (
+    <CollapsiblePrimitive.Root
+      data-slot="collapsible"
+      {...props}
+    />
+  );
+}
 
-const CollapsibleTrigger = CollapsiblePrimitive.CollapsibleTrigger;
+function CollapsibleTrigger({ ...props }: CollapsiblePrimitive.Trigger.Props) {
+  return (
+    <CollapsiblePrimitive.Trigger
+      data-slot="collapsible-trigger"
+      {...props}
+    />
+  );
+}
 
-const CollapsibleContent = forwardRef<
-  React.ComponentRef<typeof CollapsiblePrimitive.CollapsibleContent>,
-  React.ComponentPropsWithoutRef<typeof CollapsiblePrimitive.CollapsibleContent>
->(({ className, ...props }, ref) => (
-  <CollapsiblePrimitive.CollapsibleContent
-    ref={ref}
-    className={cn(
-      'data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden text-sm transition-all',
-      className
-    )}
-    {...props}
-  />
-));
+function CollapsibleContent({ className, ...props }: CollapsiblePrimitive.Panel.Props) {
+  return (
+    <CollapsiblePrimitive.Panel
+      data-slot="collapsible-content"
+      className={cn(
+        'h-(--collapsible-panel-height) overflow-hidden transition-[height] duration-200 data-ending-style:h-0 data-starting-style:h-0',
+        className
+      )}
+      {...props}
+    />
+  );
+}
 
-CollapsibleContent.displayName = CollapsiblePrimitive.CollapsibleContent.displayName;
-
-export { Collapsible, CollapsibleContent, CollapsibleTrigger };
+export { Collapsible, CollapsibleTrigger, CollapsibleContent };

@@ -81,7 +81,7 @@ function Content({ toc, className, resources }: TocProps) {
         {/* blogs */}
         <Link
           href="/blog"
-          className="group/link text-primary! relative inline-flex items-center space-x-2 pb-1.5 uppercase"
+          className="group/link relative inline-flex items-center space-x-2 pb-1.5 text-primary! uppercase"
         >
           <HiArrowLeft className="h-3 w-auto" />
           <span>Back to blog</span>
@@ -104,7 +104,7 @@ function Content({ toc, className, resources }: TocProps) {
             {resources.map((resource, i) => (
               <li
                 key={i}
-                className="hover:text-primary dark:hover:text-secondary text-sm font-medium text-neutral-600 hover:underline dark:text-neutral-400"
+                className="text-sm font-medium text-neutral-600 hover:text-primary hover:underline dark:text-neutral-400 dark:hover:text-secondary"
               >
                 <Link href={resource.url}>{resource.title}</Link>
               </li>

@@ -16,7 +16,8 @@ export function CurrentlyPlaying({ className }: { className?: string }) {
     data: SpotifyTrack;
   }>({
     queryKey: ['currently-playing'],
-    queryFn: () => fetch('/api/spotify/currently-playing', { method: 'GET' }).then((res) => res.json()),
+    queryFn: () =>
+      fetch('/api/spotify/currently-playing', { method: 'GET' }).then((res) => res.json()),
     retry: true
   });
 
@@ -29,7 +30,8 @@ export function CurrentlyPlaying({ className }: { className?: string }) {
     data: Array<SpotifyTrack>;
   }>({
     queryKey: ['recently-played'],
-    queryFn: () => fetch('/api/spotify/recently-played?limit=4', { method: 'GET' }).then((res) => res.json()),
+    queryFn: () =>
+      fetch('/api/spotify/recently-played?limit=4', { method: 'GET' }).then((res) => res.json()),
     retry: true
   });
 
@@ -39,8 +41,12 @@ export function CurrentlyPlaying({ className }: { className?: string }) {
     <div className={cn('space-y-8', className)}>
       <section className="w-full rounded-xl bg-neutral-300/80 p-2 dark:bg-neutral-800/80">
         <nav className="flex items-center justify-between px-2">
-          <h2 className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text font-semibold tracking-tight text-transparent uppercase">
-            {data?.data ? 'Curently Playing' : cd?.data && Array.isArray(cd?.data) && cd?.data?.length ? 'Last Played' : 'Curently Playing'}
+          <h2 className="bg-linear-to-l from-secondary to-primary bg-clip-text font-semibold tracking-tight text-transparent uppercase dark:to-primary">
+            {data?.data
+              ? 'Curently Playing'
+              : cd?.data && Array.isArray(cd?.data) && cd?.data?.length
+                ? 'Last Played'
+                : 'Curently Playing'}
           </h2>
           <button
             type="button"
@@ -64,7 +70,7 @@ export function CurrentlyPlaying({ className }: { className?: string }) {
 
       <section className={cn('', className)}>
         <nav className="flex items-center justify-between">
-          <h2 className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent">
+          <h2 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary">
             Recently Played
           </h2>
           <button
@@ -77,7 +83,11 @@ export function CurrentlyPlaying({ className }: { className?: string }) {
         </nav>
 
         <div className="mt-4">
-          {cd?.data && Array.isArray(cd?.data) && cd?.data?.length ? <Tracks data={cd?.data} /> : <TracksLoader items={4} />}
+          {cd?.data && Array.isArray(cd?.data) && cd?.data?.length ? (
+            <Tracks data={cd?.data} />
+          ) : (
+            <TracksLoader items={4} />
+          )}
         </div>
       </section>
     </div>
@@ -86,14 +96,16 @@ export function CurrentlyPlaying({ className }: { className?: string }) {
 
 function Player({ className, data }: { className?: string; data: SpotifyTrack }) {
   return (
-    <div className={cn('xsm:grid-cols-[auto_1fr] grid gap-6 px-2 py-4', className)}>
-      <Avatar className="max-xsm:w-full mx-auto size-40 overflow-hidden rounded-xl">
+    <div className={cn('grid gap-6 px-2 py-4 xsm:grid-cols-[auto_1fr]', className)}>
+      <Avatar className="mx-auto size-40 overflow-hidden rounded-xl max-xsm:w-full">
         <AvatarImage
           src={data?.image}
           alt={data?.name}
           className="object-cover object-center"
         />
-        <AvatarFallback className="animate-pulse rounded-xl">{data?.name?.charAt(0)}</AvatarFallback>
+        <AvatarFallback className="animate-pulse rounded-xl">
+          {data?.name?.charAt(0)}
+        </AvatarFallback>
       </Avatar>
       <div className="flex flex-col justify-between gap-4">
         <div className="space-y-2">
@@ -136,8 +148,8 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
 function PlayerLoader({ className }: { className?: string }) {
   return (
     <div className={cn('', className)}>
-      <div className={cn('xsm:grid-cols-[auto_1fr] grid gap-6 px-2 py-4', className)}>
-        <Skeleton className="max-xsm:w-full size-40 rounded-xl bg-neutral-400/80 dark:bg-neutral-700/80" />
+      <div className={cn('grid gap-6 px-2 py-4 xsm:grid-cols-[auto_1fr]', className)}>
+        <Skeleton className="size-40 rounded-xl bg-neutral-400/80 max-xsm:w-full dark:bg-neutral-700/80" />
         <div className="flex flex-col justify-between gap-4">
           <div className="space-y-2">
             <Skeleton className="size-4 w-1/2 bg-neutral-400/80 dark:bg-neutral-700/80" />

@@ -25,7 +25,9 @@ export default function Page() {
   }, 5000);
 
   return (
-    <main className={cn('flex size-full min-h-dvh items-center justify-center px-4 py-10 md:py-20')}>
+    <main
+      className={cn('flex size-full min-h-dvh items-center justify-center px-4 py-10 md:py-20')}
+    >
       <section className="space-y-4 py-10 max-sm:pt-20">
         <Image
           src="/images/braswelljr.png"
@@ -37,7 +39,8 @@ export default function Page() {
         />
         <div className="space-y-8 md:space-y-12">
           <div className="text-center text-lg font-extralight sm:text-xl md:text-2xl">
-            <div className="">I am</div> <div className="font-cascadia font-bold">Braswell Kenneth Azu Jr.</div>
+            <div className="">I am</div>{' '}
+            <div className="font-cascadia font-bold">Braswell Kenneth Azu Jr.</div>
           </div>
           <AnimatePresence mode="wait">
             {roles.map(
@@ -46,12 +49,18 @@ export default function Page() {
                   <motion.div
                     key={id}
                     className={cn(
-                      'to-primary xxs:text-2xl xsm:text-3xl dark:to-primary from-secondary bg-linear-to-l bg-clip-text pb-3 text-center font-sans text-xl font-black text-transparent uppercase sm:text-4xl md:text-5xl'
+                      'bg-linear-to-l from-secondary to-primary bg-clip-text pb-3 text-center font-sans text-xl font-black text-transparent uppercase xxs:text-2xl xsm:text-3xl sm:text-4xl md:text-5xl dark:to-primary'
                     )}
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: 20, opacity: 0 }}
-                    transition={{ type: 'spring', duration: 1, delay: 0.25, stiffness: 260, damping: 20 }}
+                    transition={{
+                      type: 'spring',
+                      duration: 1,
+                      delay: 0.25,
+                      stiffness: 260,
+                      damping: 20
+                    }}
                   >
                     a {role}
                   </motion.div>
@@ -69,10 +78,13 @@ export default function Page() {
                   target: '_blank',
                   rel: 'noopener noreferrer'
                 }))}
-                classNames={{ container: 'data-[motion-hover=true]:bg-linear-to-l from-secondary to-primary backdrop-blur-md' }}
+                classNames={{
+                  container:
+                    'data-[motion-hover=true]:bg-linear-to-l from-secondary to-primary backdrop-blur-md'
+                }}
               />
             ) : (
-              <div className="xs:space-x-6 mx-auto flex items-center justify-center space-x-3">
+              <div className="mx-auto flex items-center justify-center space-x-3 xs:space-x-6">
                 {socials.map((item) => (
                   <Link
                     key={item.name}
@@ -93,9 +105,11 @@ export default function Page() {
               href="mailto:{braswellkenneth7@gmail.com}"
               target="_blank"
               rel="noopener noreferrer"
-              className="link-underline font-cascadia pb-1 font-bold"
+              className="link-underline pb-1 font-cascadia font-bold"
             >
-              <span className="from-secondary to-primary bg-linear-to-l bg-clip-text text-transparent">braswellkenneth7@gmail.com</span>
+              <span className="bg-linear-to-l from-secondary to-primary bg-clip-text text-transparent">
+                braswellkenneth7@gmail.com
+              </span>
             </Link>
           </div>
         </div>

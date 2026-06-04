@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { HiDesktopComputer, HiMoon, HiSun } from 'react-icons/hi';
 import { cn } from 'lib/utils';
-import { SegmentedControl, SegmentedControlList, SegmentedControlTrigger } from '~/components/ui/segmented-control';
+import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs';
 
 export function ThemeSwitch({
   classNames
@@ -22,33 +22,33 @@ export function ThemeSwitch({
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) return <div className="bg-primary! h-7 w-32 animate-pulse rounded" />;
+  if (!mounted) return <div className="h-7 w-32 animate-pulse rounded bg-primary!" />;
 
   return (
-    <SegmentedControl
+    <Tabs
       value={theme}
+      orientation="horizontal"
       className={cn('flex min-h-max shrink-0 items-center justify-center', classNames?.base)}
     >
-      <SegmentedControlList
-        orientation="horizontal"
+      <TabsList
+        indicatorClassName="bg-primary!"
         className="min-h-max font-semibold whitespace-nowrap"
-        classNames={{ indicator: cn('bg-primary!', classNames?.indicator) }}
       >
         {Object.entries({
           system: <HiDesktopComputer className={cn('size-3.5', classNames?.icon)} />,
           dark: <HiMoon className={cn('size-3.5', classNames?.icon)} />,
           light: <HiSun className={cn('size-3.5', classNames?.icon)} />
         }).map(([key, value], idx) => (
-          <SegmentedControlTrigger
+          <TabsTrigger
             key={idx}
             value={key}
             onClick={() => setTheme(key)}
-            className={cn('text-primary! p-1.5', key === theme && 'text-neutral-950!')}
+            className={cn('size-7! text-primary!', key === theme && 'text-neutral-950!')}
           >
             {value}
-          </SegmentedControlTrigger>
+          </TabsTrigger>
         ))}
-      </SegmentedControlList>
-    </SegmentedControl>
+      </TabsList>
+    </Tabs>
   );
 }

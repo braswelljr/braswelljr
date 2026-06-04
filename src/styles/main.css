@@ -10,6 +10,7 @@
 /* custom css files here to prevent purging needed classes */
 @import './docsearch.css';
 @import './fumadocs.css';
+@import "./minimal-tiptap/index.css";
 /* @import './mdx.css'; */
 @import './mouse-pointer-glow.css';
 /*! purgecss end ignore */

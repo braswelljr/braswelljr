@@ -48,12 +48,12 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
       <div className="flex flex-col gap-1">
         <Link
           href="/blog"
-          className="link-underline text-primary text-xsm dark:text-secondary relative inline-flex max-w-max items-center gap-1 pb-1.5 uppercase"
+          className="link-underline relative inline-flex max-w-max items-center gap-1 pb-1.5 text-xsm text-primary uppercase dark:text-secondary"
         >
           <HiArrowLeft className="size-3" />
           <span>Back to menu</span>
         </Link>
-        <ScrollToTopWithBlog className="text-primary! text-xsm dark:text-secondary! link-underline max-w-max" />
+        <ScrollToTopWithBlog className="link-underline max-w-max text-xsm text-primary! dark:text-secondary!" />
       </div>
     ),
     footer:
@@ -64,7 +64,7 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
             {post.resources.map((resource, i) => (
               <li
                 key={i}
-                className="hover:text-primary dark:hover:text-secondary text-sm font-medium text-neutral-600 hover:underline dark:text-neutral-400"
+                className="text-sm font-medium text-neutral-600 hover:text-primary hover:underline dark:text-neutral-400 dark:hover:text-secondary"
               >
                 <Link href={resource.url}>{resource.title}</Link>
               </li>
@@ -84,7 +84,7 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
       <div className="relative pt-[calc(var(--fd-nav-height)+15px)] lg:pt-[calc(var(--fd-nav-height)+5px)]">
         <div className="space-y-4">
           {isAfter(post.date, subDays(new Date(), 150)) && (
-            <div className="bg-primary-100 dark:text-primary-400 inline-flex h-8 w-auto items-center gap-1 rounded-sm px-2.5 py-0.5 text-sm font-medium text-neutral-700 uppercase dark:bg-neutral-800">
+            <div className="inline-flex h-8 w-auto items-center gap-1 rounded-sm bg-primary-100 px-2.5 py-0.5 text-sm font-medium text-neutral-700 uppercase dark:bg-neutral-800 dark:text-primary-400">
               <MdOutlineWorkspacePremium className="h-3 w-auto" />
               <span>New</span>
             </div>
@@ -96,7 +96,7 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
               {post.tags.map((tag, i) => (
                 <span
                   key={i}
-                  className="bg-primary-100 dark:text-secondary text-primary inline-flex items-center rounded px-2.5 py-0.5 text-sm font-medium dark:bg-neutral-800"
+                  className="inline-flex items-center rounded bg-primary-100 px-2.5 py-0.5 text-sm font-medium text-primary dark:bg-neutral-800 dark:text-secondary"
                 >
                   {tag}
                 </span>
@@ -112,7 +112,10 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
           />
 
           <div className="space-y-1">
-            <p>Published on {new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(post.date)}</p>
+            <p>
+              Published on{' '}
+              {new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(post.date)}
+            </p>
             <p>{post.readingTime}</p>
           </div>
 
@@ -121,8 +124,8 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
             title="Found an Issue!"
           >
             <p className="">
-              Find an issue with this post? Think you could clarify, update or add something? All my posts are available to edit on Github. Any fix,
-              little or small, is appreciated!
+              Find an issue with this post? Think you could clarify, update or add something? All my
+              posts are available to edit on Github. Any fix, little or small, is appreciated!
             </p>
             <Link
               href={`https://github.com/braswelljr/braswelljr/blob/main/content/blog/${post.path}`}

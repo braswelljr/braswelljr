@@ -30,7 +30,10 @@ import { Mermaid } from './mermaid';
 const components = {
   h1: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h1
-      className={cn('text-primary! mt-2 scroll-m-20 text-2xl leading-tight font-bold tracking-tight uppercase sm:text-3xl md:text-4xl', className)}
+      className={cn(
+        'mt-2 scroll-m-20 text-2xl leading-tight font-bold tracking-tight text-primary! uppercase sm:text-3xl md:text-4xl',
+        className
+      )}
       {...props}
     >
       <span className="text-sm">#</span> {props.children}
@@ -39,7 +42,7 @@ const components = {
   h2: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h2
       className={cn(
-        'text-primary! mt-16 scroll-m-20 border-b border-b-neutral-200 pb-2 text-2xl font-semibold tracking-tight first:mt-0 dark:border-b-neutral-800',
+        'mt-16 scroll-m-20 border-b border-b-neutral-200 pb-2 text-2xl font-semibold tracking-tight text-primary! first:mt-0 dark:border-b-neutral-800',
         className
       )}
       {...props}
@@ -49,7 +52,10 @@ const components = {
   ),
   h3: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h3
-      className={cn('text-primary! mt-12 scroll-m-20 text-xl font-semibold tracking-tight', className)}
+      className={cn(
+        'mt-12 scroll-m-20 text-xl font-semibold tracking-tight text-primary!',
+        className
+      )}
       {...props}
     >
       <span className="text-sm">###</span> {props.children}
@@ -57,7 +63,10 @@ const components = {
   ),
   h4: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h4
-      className={cn('text-primary! mt-8 scroll-m-20 text-lg font-semibold tracking-tight', className)}
+      className={cn(
+        'mt-8 scroll-m-20 text-lg font-semibold tracking-tight text-primary!',
+        className
+      )}
       {...props}
     >
       <span className="text-sm">####</span> {props.children}
@@ -65,7 +74,10 @@ const components = {
   ),
   h5: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h5
-      className={cn('text-primary! mt-8 scroll-m-20 text-base font-semibold tracking-tight', className)}
+      className={cn(
+        'mt-8 scroll-m-20 text-base font-semibold tracking-tight text-primary!',
+        className
+      )}
       {...props}
     >
       <span className="text-sm">#####</span> {props.children}
@@ -73,7 +85,10 @@ const components = {
   ),
   h6: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h6
-      className={cn('text-primary! mt-8 scroll-m-20 text-base font-semibold tracking-tight', className)}
+      className={cn(
+        'mt-8 scroll-m-20 text-base font-semibold tracking-tight text-primary!',
+        className
+      )}
       {...props}
     >
       <span className="text-sm">######</span> {props.children}
@@ -81,19 +96,25 @@ const components = {
   ),
   a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
     <a
-      className={cn('font text-primary! prose-a:text-primary! underline decoration-current! underline-offset-4', className)}
+      className={cn(
+        'font text-primary! underline decoration-current! underline-offset-4 prose-a:text-primary!',
+        className
+      )}
       {...props}
     />
   ),
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <blockquote
-      className={cn('border-primary-200! mt-6 border-l-2 pl-6 text-neutral-800 italic *:text-neutral-600', className)}
+      className={cn(
+        'mt-6 border-l-2 border-primary-200! pl-6 text-neutral-800 italic *:text-neutral-600',
+        className
+      )}
       {...props}
     />
   ),
   hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
     <hr
-      className="border-primary! my-4 md:my-8"
+      className="my-4 border-primary! md:my-8"
       {...props}
     />
   ),
@@ -108,7 +129,7 @@ const components = {
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr
       className={cn(
-        'border-primary-200 dark:border-secondary/10 m-0 border-t bg-neutral-100 p-0 backdrop-blur even:bg-neutral-200/70 dark:bg-neutral-900 dark:even:bg-neutral-950',
+        'm-0 border-t border-primary-200 bg-neutral-100 p-0 backdrop-blur even:bg-neutral-200/70 dark:border-secondary/10 dark:bg-neutral-900 dark:even:bg-neutral-950',
         className
       )}
       {...props}
@@ -117,7 +138,7 @@ const components = {
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
       className={cn(
-        'bg-primary-200 border-primary-300 dark:border-secondary/10 border px-4 py-2 text-left font-bold backdrop-blur dark:bg-neutral-950 [[align=center]]:text-center [[align=right]]:text-right',
+        'border border-primary-300 bg-primary-200 px-4 py-2 text-left font-bold backdrop-blur dark:border-secondary/10 dark:bg-neutral-950 [[align=center]]:text-center [[align=right]]:text-right',
         className
       )}
       {...props}
@@ -126,7 +147,7 @@ const components = {
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td
       className={cn(
-        'border-primary-200 dark:border-secondary/10 border px-4 py-2 text-left backdrop-blur dark:bg-neutral-800/50 [[align=center]]:text-center [[align=right]]:text-right',
+        'border border-primary-200 px-4 py-2 text-left backdrop-blur dark:border-secondary/10 dark:bg-neutral-800/50 [[align=center]]:text-center [[align=right]]:text-right',
         className
       )}
       {...props}
@@ -134,7 +155,10 @@ const components = {
   ),
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
-      className={cn('text-primary! font-cascadia relative rounded px-[0.3rem] py-[0.2rem] decoration-current!', className)}
+      className={cn(
+        'relative rounded px-[0.3rem] py-[0.2rem] font-cascadia text-primary! decoration-current!',
+        className
+      )}
       {...props}
     />
   ),

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cn } from 'lib/utils';
 import { CopyButton, CopyWithClassNames } from '~/components/copy-button';
-import { SegmentedControl, SegmentedControlContent, SegmentedControlList, SegmentedControlTrigger } from '~/components/ui/segmented-control';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 
 type ComponentExampleProps = React.HTMLAttributes<HTMLDivElement> & {
   extractClassname?: boolean;
@@ -11,7 +11,13 @@ type ComponentExampleProps = React.HTMLAttributes<HTMLDivElement> & {
   align?: 'center' | 'start' | 'end';
 };
 
-export function ComponentExample({ children, className, extractedClassNames, align = 'center', ...props }: ComponentExampleProps) {
+export function ComponentExample({
+  children,
+  className,
+  extractedClassNames,
+  align = 'center',
+  ...props
+}: ComponentExampleProps) {
   // const [Example, Code, ...Children] = React.Children.toArray(children) as React.ReactElement[];
   const childrenArray = React.Children.toArray(children);
 
@@ -20,7 +26,12 @@ export function ComponentExample({ children, className, extractedClassNames, ali
   const Children = childrenArray.slice(2) as React.ReactElement[];
 
   const codeString = React.useMemo(() => {
-    if (Code && typeof Code === 'object' && Code.props && typeof (Code.props as any)['data-rehype-pretty-code-fragment'] !== 'undefined') {
+    if (
+      Code &&
+      typeof Code === 'object' &&
+      Code.props &&
+      typeof (Code.props as any)['data-rehype-pretty-code-fragment'] !== 'undefined'
+    ) {
       const codeChildren = React.Children.toArray((Code.props as any).children);
       const Button = codeChildren[1] as React.ReactElement | undefined;
 
@@ -36,15 +47,15 @@ export function ComponentExample({ children, className, extractedClassNames, ali
       className={cn('group relative my-4 flex flex-col space-y-2', className)}
       {...props}
     >
-      <SegmentedControl
+      <Tabs
         defaultValue="preview"
         className="mr-auto w-full"
       >
         <div className="flex items-center justify-between">
-          <SegmentedControlList>
-            <SegmentedControlTrigger value="preview">Preview</SegmentedControlTrigger>
-            <SegmentedControlTrigger value="code">Code</SegmentedControlTrigger>
-          </SegmentedControlList>
+          <TabsList>
+            <TabsTrigger value="preview">Preview</TabsTrigger>
+            <TabsTrigger value="code">Code</TabsTrigger>
+          </TabsList>
           {extractedClassNames ? (
             <CopyWithClassNames
               value={codeString}
@@ -55,12 +66,12 @@ export function ComponentExample({ children, className, extractedClassNames, ali
             codeString && <CopyButton value={codeString} />
           )}
         </div>
-        <SegmentedControlContent
+        <TabsContent
           value="preview"
           className="p-0"
         >
           <div
-            className={cn('flex min-h-[350px] justify-center p-10', {
+            className={cn('flex min-h-87.5 justify-center p-10', {
               'items-center': align === 'center',
               'items-start': align === 'start',
               'items-end': align === 'end'
@@ -68,17 +79,23 @@ export function ComponentExample({ children, className, extractedClassNames, ali
           >
             {Example}
           </div>
-        </SegmentedControlContent>
-        <SegmentedControlContent
+        </TabsContent>
+        <TabsContent
           value="code"
           className="border-none p-0"
         >
           <div className="flex flex-col space-y-4">
-            <div className="w-full rounded-md [&_button]:hidden [&_pre]:my-0 [&_pre]:max-h-[350px] [&_pre]:overflow-auto">{Code}</div>
-            {Children && <div className="rounded-md [&_button]:hidden [&_pre]:my-0 [&_pre]:max-h-[350px] [&_pre]:overflow-auto">{Children}</div>}
+            <div className="w-full rounded-md [&_button]:hidden [&_pre]:my-0 [&_pre]:max-h-87.5 [&_pre]:overflow-auto">
+              {Code}
+            </div>
+            {Children && (
+              <div className="rounded-md [&_button]:hidden [&_pre]:my-0 [&_pre]:max-h-87.5 [&_pre]:overflow-auto">
+                {Children}
+              </div>
+            )}
           </div>
-        </SegmentedControlContent>
-      </SegmentedControl>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

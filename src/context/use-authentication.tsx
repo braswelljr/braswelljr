@@ -25,7 +25,8 @@ type DataI = {
 export function AuthenticationProvider({ children }: AuthenticationProviderProps) {
   const { data, error, refetch } = useQuery<{ message: string; data: DataI }>({
     queryKey: ['token'],
-    queryFn: () => fetch(`/api/spotify/access-token`, { method: 'GET', mode: 'cors' }).then((r) => r.json()),
+    queryFn: () =>
+      fetch(`/api/spotify/access-token`, { method: 'GET', mode: 'cors' }).then((r) => r.json()),
     staleTime: 3600,
     retry: true
   });
@@ -44,7 +45,11 @@ export function AuthenticationProvider({ children }: AuthenticationProviderProps
     [data?.data?.access_token]
   );
 
-  return <AuthenticationContext.Provider value={memoizedValue}>{children}</AuthenticationContext.Provider>;
+  return (
+    <AuthenticationContext.Provider value={memoizedValue}>
+      {children}
+    </AuthenticationContext.Provider>
+  );
 }
 
 export function useAuthentication() {

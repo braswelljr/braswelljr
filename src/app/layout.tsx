@@ -33,7 +33,10 @@ export const metadata: Metadata = {
 
 const Satoshi = LocalFont({ src: './_fonts/Satoshi-Variable.woff2', variable: '--font-satoshi' });
 const Inter = LocalFont({ src: './_fonts/Inter[slnt,wght].ttf', variable: '--font-inter' });
-const AbyssinicaSIL = LocalFont({ src: './_fonts/AbyssinicaSIL-Regular.ttf', variable: '--font-abyssinca' });
+const AbyssinicaSIL = LocalFont({
+  src: './_fonts/AbyssinicaSIL-Regular.ttf',
+  variable: '--font-abyssinca'
+});
 const Cascadia = LocalFont({ src: './_fonts/Cascadia.ttf', variable: '--font-cascadia' });
 const JetbrainsMono = LocalFont({
   src: [
@@ -79,7 +82,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="relative inset-0 z-1 min-h-dvh w-full">
                 {children}
                 <ScrollTop
-                  className="bg-primary! fixed right-5 bottom-5 z-10 dark:text-neutral-950!"
+                  className="fixed right-5 bottom-5 z-10 bg-primary! dark:text-neutral-950!"
                   disableOnLayouts={['/blog/']}
                 />
               </div>

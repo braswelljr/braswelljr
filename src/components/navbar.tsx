@@ -13,7 +13,7 @@ import Search from '~/components/search';
 import { ThemeSwitch } from '~/components/theme-switch';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Kbd } from '~/components/ui/kbd';
-import { SegmentedControl, SegmentedControlList, SegmentedControlTrigger } from '~/components/ui/segmented-control';
+import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import { useIsMac } from '~/hooks/use-is-mac';
 
 export const nav = [
@@ -107,7 +107,9 @@ export default function Navbar({
         'fixed inset-x-0 top-0 z-4 flex min-h-max items-center justify-between px-4 py-2 font-bold shadow backdrop-blur max-lg:flex-wrap',
         className,
         disableOnRoutes && disableOnRoutes.includes(pathname) && 'hidden',
-        disableOnLayouts && disableOnLayouts.some((layout) => pathname.startsWith(layout)) && 'hidden'
+        disableOnLayouts &&
+          disableOnLayouts.some((layout) => pathname.startsWith(layout)) &&
+          'hidden'
       )}
     >
       <Avatar className="size-8 rounded-none">
@@ -124,31 +126,34 @@ export default function Navbar({
         <AvatarFallback>B</AvatarFallback>
       </Avatar>
 
-      <SegmentedControl
+      <Tabs
         value={tab}
-        className="flex min-h-max shrink-0 items-center justify-center gap-4 max-lg:order-last max-lg:mt-4 max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto max-lg:pb-2"
+        orientation="horizontal"
+        className="flex min-h-max shrink-0 items-center justify-center gap-4 max-lg:order-last max-lg:mt-4 max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto"
       >
-        <SegmentedControlList
-          orientation="horizontal"
-          className="max-xsm:text-sm *:data-[state=active]:text-primary! min-h-max gap-4 font-semibold whitespace-nowrap max-lg:pb-2"
-          classNames={{ indicator: 'h-2! bottom-0! inset-x-0! inset-auto bg-primary! rounded-none rounded-t-xl!' }}
+        <TabsList
+          indicatorClassName="h-1.5! bg-primary! rounded-t-xl!"
+          variant="underline"
+          className="min-h-max gap-4 font-semibold whitespace-nowrap *:data-active:text-primary! max-xsm:text-sm max-lg:pb-2"
         >
           {nav.map((item, idx) => (
-            <SegmentedControlTrigger
+            <TabsTrigger
               key={idx}
               value={item.path}
-              asChild
-            >
-              <Link
-                href={item.path}
-                className=""
-              >
-                {item.name}
-              </Link>
-            </SegmentedControlTrigger>
+              nativeButton={false}
+              render={(p) => (
+                <Link
+                  {...p}
+                  href={item.path}
+                  className=""
+                >
+                  {item.name}
+                </Link>
+              )}
+            />
           ))}
-        </SegmentedControlList>
-      </SegmentedControl>
+        </TabsList>
+      </Tabs>
 
       <Layout
         isViewport={lg}
@@ -156,14 +161,18 @@ export default function Navbar({
       >
         <button
           id="search-button"
-          className="border-primary! flex h-8 w-full max-w-1/2 items-center justify-between gap-4 rounded-sm border px-3 text-sm focus:outline-none lg:max-w-3xs"
+          className="flex h-8 w-full max-w-1/2 items-center justify-between gap-4 rounded-sm border border-primary! px-3 text-sm focus:outline-none lg:max-w-3xs"
           aria-label="Search"
           onClick={() => onOpenChange(!open)}
         >
           <span>Search ...</span>
           <span className="flex items-center gap-0.5">
-            <Kbd className="hidden rounded border px-1 py-0.5 font-sans text-xs">{isMac ? '⌘' : 'Ctrl'} K</Kbd>
-            <Kbd className="border-primary! text-primary! rounded border px-1 py-0.5 font-sans text-xs">/</Kbd>
+            <Kbd className="hidden rounded border px-1 py-0.5 font-sans text-xs">
+              {isMac ? '⌘' : 'Ctrl'} K
+            </Kbd>
+            <Kbd className="rounded border border-primary! px-1 py-0.5 font-sans text-xs text-primary!">
+              /
+            </Kbd>
           </span>
         </button>
 

@@ -41,7 +41,7 @@ export function Playlist({ className }: { className?: string }) {
   return (
     <section className={cn('', className)}>
       <nav className="flex items-center justify-between">
-        <h2 className="from-secondary to-primary dark:to-primary bg-linear-to-l bg-clip-text text-xl font-semibold tracking-tight text-transparent">
+        <h2 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary">
           Playlist
         </h2>
         <button
@@ -54,7 +54,11 @@ export function Playlist({ className }: { className?: string }) {
       </nav>
 
       <div className="mt-4">
-        {data?.data && Array.isArray(data?.data?.items) && data?.data?.items?.length ? <PlaylistData data={data?.data} /> : <PlaylistError />}
+        {data?.data && Array.isArray(data?.data?.items) && data?.data?.items?.length ? (
+          <PlaylistData data={data?.data} />
+        ) : (
+          <PlaylistError />
+        )}
       </div>
     </section>
   );
@@ -93,7 +97,13 @@ export function PlaylistError({ className }: { className?: string }) {
   );
 }
 
-export function PlaylistData({ className, data }: { className?: string; data: Page<Playlist<TrackItem>> }) {
+export function PlaylistData({
+  className,
+  data
+}: {
+  className?: string;
+  data: Page<Playlist<TrackItem>>;
+}) {
   return (
     <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-5', className)}>
       {data?.items?.map((playlist, i) => (
@@ -111,12 +121,14 @@ export function PlaylistData({ className, data }: { className?: string; data: Pa
                     src={playlist?.images?.at(0)?.url}
                     className="aspect-auto size-full object-cover"
                   />
-                  <AvatarFallback className="size-full animate-pulse rounded bg-neutral-900/0">{playlist?.name?.charAt(0)}</AvatarFallback>
+                  <AvatarFallback className="size-full animate-pulse rounded bg-neutral-900/0">
+                    {playlist?.name?.charAt(0)}
+                  </AvatarFallback>
                 </Avatar>
               </CardContent>
               <CardFooter className="flex-col items-start gap-2 p-4 pt-0">
                 <span
-                  className="group hover:text-secondary flex items-center justify-center gap-2"
+                  className="group flex items-center justify-center gap-2 hover:text-secondary"
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent triggering the parent link
                     window.open(playlist.external_urls?.spotify, '_blank', 'noopener noreferrer');
@@ -126,7 +138,9 @@ export function PlaylistData({ className, data }: { className?: string; data: Pa
                   <CardTitle className="line-clamp-1 w-full text-lg">{playlist.name}</CardTitle>
                 </span>
                 <div className="flex w-full items-center gap-2">
-                  <CardDescription className="line-clamp-1">{playlist.owner?.display_name}</CardDescription>
+                  <CardDescription className="line-clamp-1">
+                    {playlist.owner?.display_name}
+                  </CardDescription>
                 </div>
               </CardFooter>
             </div>
