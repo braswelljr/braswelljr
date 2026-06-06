@@ -115,4 +115,3 @@ export function ScrollToTopWithBlog({
     </AnimatePresence>
   );
 }
-

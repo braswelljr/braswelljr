@@ -14,6 +14,8 @@ import {
   MotionAvatar,
   MotionAvatarFallback,
   MotionAvatarImage,
+  MotionFrame,
+  MotionFramePanel,
   MotionLink,
   MotionSkeleton,
   safeVariants
@@ -42,7 +44,7 @@ export function TopTracks({ className }: { className?: string }) {
           variants={safeVariants(headingVariants, isReduced)}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false }}
         >
           Top Tracks
         </motion.h2>
@@ -73,7 +75,7 @@ export function TracksLoader({ className, items = 6 }: { className?: string; ite
   const isReduced = useReducedMotion();
   return (
     <motion.div
-      className={cn('grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] gap-8', className)}
+      className={cn('grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] gap-4', className)}
       variants={safeVariants(containerVariants, isReduced)}
       initial="hidden"
       animate="visible"
@@ -81,21 +83,23 @@ export function TracksLoader({ className, items = 6 }: { className?: string; ite
       {Array(items || 6)
         .fill('')
         .map((_, i) => (
-          <motion.div
+          <MotionFrame
             key={i}
             variants={safeVariants(cardVariants, isReduced)}
-            className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-4"
+            className="gap-0 p-1"
           >
-            <div>{i + 1}.</div>
-            <MotionSkeleton className="mx-auto size-28 overflow-hidden rounded bg-neutral-400/80 dark:bg-neutral-700/80" />
-            <div className="space-y-2">
-              <MotionSkeleton className="h-4 w-3/5 bg-neutral-400/80 dark:bg-neutral-700/80" />
-              <div className="mt-4 flex items-center gap-2">
-                <MotionSkeleton className="size-4 bg-neutral-400/80 dark:bg-neutral-700/80" />
-                <MotionSkeleton className="h-4 w-2/5 bg-neutral-400/80 dark:bg-neutral-700/80" />
+            <MotionFramePanel className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-3">
+              <div className="text-sm">{i + 1}.</div>
+              <MotionSkeleton className="mx-auto size-28 overflow-hidden rounded bg-neutral-400/80 dark:bg-neutral-700/80" />
+              <div className="space-y-2">
+                <MotionSkeleton className="h-4 w-3/5 bg-neutral-400/80 dark:bg-neutral-700/80" />
+                <div className="mt-4 flex items-center gap-2">
+                  <MotionSkeleton className="size-4 bg-neutral-400/80 dark:bg-neutral-700/80" />
+                  <MotionSkeleton className="h-4 w-2/5 bg-neutral-400/80 dark:bg-neutral-700/80" />
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </MotionFramePanel>
+          </MotionFrame>
         ))}
     </motion.div>
   );
@@ -104,28 +108,29 @@ export function TracksLoader({ className, items = 6 }: { className?: string; ite
 export function Tracks({ className, data }: { className?: string; data: Array<SpotifyTrack> }) {
   const isReduced = useReducedMotion();
   return (
-    <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] gap-8', className)}>
+    <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] gap-4', className)}>
       <AnimatedBackground
         className="rounded-xl bg-yellow-100/30"
         transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
         enableHover
       >
         {data?.map((track, i) => (
-          <MotionLink
+          <motion.a
             key={i}
             data-id={`track-card-${i}`}
             href={track?.href}
-            passHref
             target="_blank"
             rel="noopener noreferrer"
             variants={safeVariants(cardVariants, isReduced)}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-40px' }}
+            viewport={{ once: false, margin: '-40px' }}
             {...(isReduced ? {} : interactiveCard)}
+            className="block"
           >
-            <div className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-4">
-              <div>{i + 1}.</div>
+            <MotionFrame className="h-full gap-0 p-1">
+              <MotionFramePanel className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-3">
+              <div className="text-sm">{i + 1}.</div>
               <MotionAvatar
                 className="mx-auto size-28 overflow-hidden rounded"
                 whileHover={{ scale: 1.05 }}
@@ -145,18 +150,17 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
               <div className="space-y-2">
                 <h4 className="line-clamp-2 text-sm sm:text-base">{track?.name}</h4>
                 <p className="line-clamp-2 text-xsm sm:text-sm">
-                  {track?.artists?.map((a, i) => (
-                    <Fragment key={i}>
-                      {i !== 0 && ', '}
+                  {track?.artists?.map((a, j) => (
+                    <Fragment key={j}>
+                      {j !== 0 && ', '}
                       <span
-                        key={a?.id}
                         onClick={(e) => {
                           e.stopPropagation();
                           window.open(a?.href, '_blank', 'noopener noreferrer');
                         }}
                         className={cn(
                           'cursor-pointer text-orange-500 underline',
-                          i === 0 && 'font-semibold'
+                          j === 0 && 'font-semibold'
                         )}
                       >
                         {a?.name}
@@ -165,8 +169,9 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
                   ))}
                 </p>
               </div>
-            </div>
-          </MotionLink>
+            </MotionFramePanel>
+            </MotionFrame>
+          </motion.a>
         ))}
       </AnimatedBackground>
     </div>

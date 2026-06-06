@@ -14,11 +14,10 @@ import {
   MotionAvatar,
   MotionAvatarFallback,
   MotionAvatarImage,
-  MotionCard,
-  MotionCardContent,
-  MotionCardDescription,
-  MotionCardFooter,
-  MotionCardTitle,
+  MotionFrame,
+  MotionFrameFooter,
+  MotionFramePanel,
+  MotionFrameTitle,
   MotionSkeleton,
   safeVariants,
   tapScale
@@ -84,7 +83,7 @@ export function PlaylistError({ className }: { className?: string }) {
   const isReduced = useReducedMotion();
   return (
     <motion.div
-      className={cn('grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-5', className)}
+      className={cn('grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-4', className)}
       variants={safeVariants(containerVariants, isReduced)}
       initial="hidden"
       animate="visible"
@@ -92,12 +91,12 @@ export function PlaylistError({ className }: { className?: string }) {
       {Array(10)
         .fill('')
         .map((_, i) => (
-          <MotionCard
+          <MotionFrame
             key={i}
             variants={safeVariants(cardVariants, isReduced)}
-            className="grid border-0 bg-neutral-100/60 dark:bg-neutral-800/60"
+            className="gap-0 p-1"
           >
-            <MotionCardContent className="grid grid-cols-2 gap-2 p-4">
+            <MotionFramePanel className="grid grid-cols-2 gap-2 p-3">
               {Array(4)
                 .fill('')
                 .map((_, x) => (
@@ -106,15 +105,15 @@ export function PlaylistError({ className }: { className?: string }) {
                     className="h-20 w-full bg-neutral-400/80 dark:bg-neutral-900/80"
                   />
                 ))}
-            </MotionCardContent>
-            <MotionCardFooter className="flex-col items-start gap-2 p-4 pt-0">
+            </MotionFramePanel>
+            <MotionFrameFooter className="flex flex-col items-start gap-2 px-3 py-2">
               <MotionSkeleton className="h-4 w-4/5 bg-neutral-400/80 dark:bg-neutral-900/80" />
               <div className="flex w-full items-center gap-2">
                 <MotionSkeleton className="size-4 bg-neutral-400/80 dark:bg-neutral-900/80" />
                 <MotionSkeleton className="h-4 w-4/5 bg-neutral-400/80 dark:bg-neutral-900/80" />
               </div>
-            </MotionCardFooter>
-          </MotionCard>
+            </MotionFrameFooter>
+          </MotionFrame>
         ))}
     </motion.div>
   );
@@ -130,62 +129,56 @@ export function PlaylistData({
   const isReduced = useReducedMotion();
   return (
     <motion.div
-      className={cn('grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-5', className)}
+      className={cn('grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-4', className)}
       variants={safeVariants(containerVariants, isReduced)}
       initial="hidden"
       animate="visible"
     >
       {data?.items?.map((playlist, i) => (
-        <MotionCard
+        <motion.a
           key={i}
+          href={`/listen-with-me/playlists/${playlist?.id}`}
           variants={safeVariants(cardVariants, isReduced)}
           {...(isReduced ? {} : interactiveCard)}
-          className="playlist-card grid border-0 bg-neutral-100/60 dark:bg-neutral-800/60"
-          render={(p) => (
-            <a
-              {...p}
-              href={`/listen-with-me/playlists/${playlist?.id}`}
-            />
-          )}
+          className="block"
         >
-          <div className="relative z-1 rounded-lg bg-neutral-100 dark:bg-neutral-800">
-            <MotionCardContent className="p-4">
-              <MotionAvatar className="h-[176px] w-full rounded bg-neutral-400/80 dark:bg-neutral-900/80">
-                <MotionAvatarImage
-                  src={playlist?.images?.at(0)?.url}
-                  alt={playlist?.name}
-                  className="aspect-auto size-full object-cover"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.4, delay: i * 0.04 }}
-                />
-                <MotionAvatarFallback className="size-full animate-pulse rounded bg-neutral-900/0">
-                  {playlist?.name?.charAt(0)}
-                </MotionAvatarFallback>
-              </MotionAvatar>
-            </MotionCardContent>
-            <MotionCardFooter className="flex-col items-start gap-2 p-4 pt-0">
-              <motion.span
-                className="group flex items-center justify-center gap-2 hover:text-secondary"
-                {...tapScale}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.open(playlist.external_urls?.spotify, '_blank', 'noopener noreferrer');
-                }}
-              >
-                <HiExternalLink className="size-6" />
-                <MotionCardTitle className="line-clamp-1 w-full text-lg">
-                  {playlist.name}
-                </MotionCardTitle>
-              </motion.span>
-              <div className="flex w-full items-center gap-2">
-                <MotionCardDescription className="line-clamp-1">
-                  {playlist.owner?.display_name}
-                </MotionCardDescription>
-              </div>
-            </MotionCardFooter>
-          </div>
-        </MotionCard>
+          <MotionFrame className="h-full gap-0 p-1">
+          <MotionFramePanel className="p-2">
+            <MotionAvatar className="h-44 w-full overflow-hidden rounded-lg bg-neutral-400/80 dark:bg-neutral-900/80">
+              <MotionAvatarImage
+                src={playlist?.images?.at(0)?.url}
+                alt={playlist?.name}
+                className="aspect-auto size-full object-cover"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: i * 0.04 }}
+              />
+              <MotionAvatarFallback className="size-full animate-pulse rounded-none">
+                {playlist?.name?.charAt(0)}
+              </MotionAvatarFallback>
+            </MotionAvatar>
+          </MotionFramePanel>
+
+          <MotionFrameFooter className="flex flex-col items-start gap-1 px-3 py-2">
+            <motion.span
+              className="flex items-center gap-2 hover:text-secondary"
+              {...tapScale}
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(playlist.external_urls?.spotify, '_blank', 'noopener noreferrer');
+              }}
+            >
+              <HiExternalLink className="size-4 shrink-0" />
+              <MotionFrameTitle className="line-clamp-1 text-sm font-semibold">
+                {playlist.name}
+              </MotionFrameTitle>
+            </motion.span>
+            <p className="line-clamp-1 text-xs text-neutral-600 dark:text-neutral-400">
+              {playlist.owner?.display_name}
+            </p>
+          </MotionFrameFooter>
+          </MotionFrame>
+        </motion.a>
       ))}
     </motion.div>
   );

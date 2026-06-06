@@ -14,6 +14,9 @@ import {
   MotionAvatar,
   MotionAvatarFallback,
   MotionAvatarImage,
+  MotionFrame,
+  MotionFramePanel,
+  MotionFrameTitle,
   MotionLink,
   MotionSkeleton,
   safeVariants
@@ -52,36 +55,36 @@ export function CurrentlyPlaying({ className }: { className?: string }) {
   return (
     <div className={cn('space-y-8', className)}>
       {/* Currently / Last Playing */}
-      <motion.section
-        className="w-full rounded-xl bg-neutral-300/80 p-2 dark:bg-neutral-800/80"
+      <MotionFrame
+        className="gap-0 p-1"
         variants={safeVariants(fadeVariants, isReduced)}
         initial="hidden"
         animate="visible"
       >
-        <nav className="flex items-center justify-between px-2">
-          <motion.h2
-            className="bg-linear-to-l from-secondary to-primary bg-clip-text font-semibold tracking-tight text-transparent uppercase dark:to-primary"
-            variants={safeVariants(headingVariants, isReduced)}
-          >
-            {data?.data
-              ? 'Currently Playing'
-              : cd?.data && Array.isArray(cd?.data) && cd?.data?.length
-                ? 'Last Played'
-                : 'Currently Playing'}
-          </motion.h2>
-          <motion.button
-            type="button"
-            className="flex size-6 items-center justify-center rounded-full outline-none focus:outline-none"
-            onClick={() => refetch()}
-            whileHover={{ rotate: 180 }}
-            transition={{ duration: 0.3 }}
-            aria-label="Refresh"
-          >
-            <MdRefresh className={cn('size-5', (isFetching || irf) && 'animate-spin')} />
-          </motion.button>
-        </nav>
+        <MotionFramePanel className="p-3">
+          <nav className="mb-3 flex items-center justify-between">
+            <MotionFrameTitle
+              className="bg-linear-to-l from-secondary to-primary bg-clip-text font-semibold tracking-tight text-transparent uppercase dark:to-primary"
+              variants={safeVariants(headingVariants, isReduced)}
+            >
+              {data?.data
+                ? 'Currently Playing'
+                : cd?.data && Array.isArray(cd?.data) && cd?.data?.length
+                  ? 'Last Played'
+                  : 'Currently Playing'}
+            </MotionFrameTitle>
+            <motion.button
+              type="button"
+              className="flex size-6 items-center justify-center rounded-full outline-none focus:outline-none"
+              onClick={() => refetch()}
+              whileHover={{ rotate: 180 }}
+              transition={{ duration: 0.3 }}
+              aria-label="Refresh"
+            >
+              <MdRefresh className={cn('size-5', (isFetching || irf) && 'animate-spin')} />
+            </motion.button>
+          </nav>
 
-        <div className="mt-2 rounded-xl bg-neutral-200 p-2 dark:bg-neutral-900">
           {data?.data ? (
             <Player data={data.data} />
           ) : cd?.data && Array.isArray(cd?.data) && cd?.data?.length && firstTrack ? (
@@ -89,8 +92,8 @@ export function CurrentlyPlaying({ className }: { className?: string }) {
           ) : (
             <PlayerLoader />
           )}
-        </div>
-      </motion.section>
+        </MotionFramePanel>
+      </MotionFrame>
 
       {/* Recently Played */}
       <section className={cn('', className)}>
@@ -155,10 +158,7 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
         className="flex flex-col justify-between gap-4"
         variants={safeVariants(containerVariants, isReduced)}
       >
-        <motion.div
-          className="space-y-2"
-          variants={safeVariants(cardVariants, isReduced)}
-        >
+        <motion.div className="space-y-2" variants={safeVariants(cardVariants, isReduced)}>
           <h3 className="text-base font-semibold uppercase">{data?.name}</h3>
           <div className="line-clamp-1">
             <span className="mr-2 text-neutral-600">by</span>
@@ -166,7 +166,6 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
               <Fragment key={i}>
                 {i !== 0 && ','}
                 <MotionLink
-                  key={a?.id}
                   href={a?.href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -181,10 +180,7 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
           </div>
         </motion.div>
 
-        <motion.div
-          className="mt-4 line-clamp-1"
-          variants={safeVariants(cardVariants, isReduced)}
-        >
+        <motion.div className="mt-4 line-clamp-1" variants={safeVariants(cardVariants, isReduced)}>
           <span className="mr-2">album :</span>
           <MotionLink
             href={data?.album?.href}

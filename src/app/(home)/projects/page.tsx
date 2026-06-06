@@ -11,7 +11,9 @@ import {
   containerVariants,
   headingVariants,
   interactiveCard,
-  MotionCard,
+  MotionFrame,
+  MotionFrameFooter,
+  MotionFramePanel,
   MotionLink,
   safeVariants,
   tapScale
@@ -50,7 +52,7 @@ export default function Projects() {
         {/* Page heading */}
         <InView
           variants={safeHeading}
-          viewOptions={{ once: true }}
+          viewOptions={{ once: false }}
           as="h1"
           className="bg-linear-to-l from-secondary to-primary bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-primary"
         >
@@ -63,7 +65,7 @@ export default function Projects() {
           variants={safeVariants(containerVariants, isReduced)}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: false, margin: '-60px' }}
         >
           <motion.p variants={safeVariants(cardVariants, isReduced)}>
             I&rsquo;m obsessed with building things that are useful and fun to use. I am an{' '}
@@ -120,7 +122,7 @@ export default function Projects() {
         <div className="space-y-6">
           <InView
             variants={safeHeading}
-            viewOptions={{ once: true, margin: '-40px' }}
+            viewOptions={{ once: false, margin: '-40px' }}
             className="flex items-end justify-between"
           >
             <h2 className="text-2xl leading-tight font-bold tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
@@ -133,26 +135,26 @@ export default function Projects() {
             {PINNED_PROJECTS.length > 0 ? (
               <>
                 <motion.div
-                  className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                  className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
                   variants={safeContainer}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-60px' }}
+                  viewport={{ once: false, margin: '-60px' }}
                 >
                   {PINNED_PROJECTS.map((project, i) => (
-                    <motion.div
+                    <MotionFrame
                       key={i}
                       variants={safeCard}
                       {...(isReduced ? {} : interactiveCard)}
-                      className="rounded bg-zinc-900/20 shadow-sm backdrop-blur"
+                      className="justify-between gap-0 p-1"
                     >
-                      <div className="divide-y divide-zinc-500/25 *:p-2.5">
+                      <MotionFramePanel className="flex flex-1 flex-col gap-3 p-3">
                         <div className="flex items-start justify-between">
-                          <h2 className="flex items-center space-x-2">
-                            <HiFolderOpen className="h-5 w-auto" />
-                            <span>{project.name}</span>
+                          <h2 className="flex items-center gap-2 font-medium">
+                            <HiFolderOpen className="h-5 w-auto shrink-0 text-primary" />
+                            <span className="line-clamp-1">{project.name}</span>
                           </h2>
-                          <div className="flex items-center justify-end space-x-3 *:flex *:items-center *:space-x-1">
+                          <div className="flex items-center gap-3 text-sm *:flex *:items-center *:gap-1">
                             <div>
                               <BsStar className="h-4 w-auto" />
                               <span>{project.stargazers.totalCount}</span>
@@ -163,12 +165,13 @@ export default function Projects() {
                             </div>
                           </div>
                         </div>
-                        <div className="min-h-16 text-sm font-thin">
-                          <p className="line-clamp-3">{project.description}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
-                        <span className="space-x-2">
+                        <p className="line-clamp-3 min-h-14 text-sm text-neutral-600 dark:text-neutral-400">
+                          {project.description}
+                        </p>
+                      </MotionFramePanel>
+
+                      <MotionFrameFooter className="flex items-center justify-between px-3 py-2">
+                        <span className="flex items-center gap-2 text-sm">
                           <span
                             className="size-3 rounded-full"
                             style={{ backgroundColor: project.primaryLanguage.color ?? '#ef5453' }}
@@ -179,21 +182,21 @@ export default function Projects() {
                           href={project.homepageUrl ? project.homepageUrl : project.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                          className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm bg-neutral-900 px-2 py-1 text-xs text-neutral-100 uppercase focus:outline-none dark:bg-neutral-700/60 dark:text-white"
                           {...tapScale}
                           whileHover={{ gap: '10px', transition: { duration: 0.15 } }}
                         >
                           <HiOutlineExternalLink className="h-4 w-auto" />
                           <span>Visit</span>
                         </MotionLink>
-                      </div>
-                    </motion.div>
+                      </MotionFrameFooter>
+                    </MotionFrame>
                   ))}
                 </motion.div>
                 <div className="mt-4 flex justify-end">
                   <motion.button
                     onClick={() => setViewMorePins(!viewMorePins)}
-                    className="group relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    className="inline-flex cursor-pointer items-center gap-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.96 }}
                     transition={{ duration: 0.15 }}
@@ -215,7 +218,7 @@ export default function Projects() {
         <div className="space-y-6">
           <InView
             variants={safeHeading}
-            viewOptions={{ once: true, margin: '-40px' }}
+            viewOptions={{ once: false, margin: '-40px' }}
             className="flex items-end justify-between"
           >
             <h2 className="text-2xl leading-tight font-bold tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
@@ -228,25 +231,25 @@ export default function Projects() {
             {ALL_PROJECTS.length > 0 ? (
               <>
                 <motion.div
-                  className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                  className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
                   variants={safeContainer}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-60px' }}
+                  viewport={{ once: false, margin: '-60px' }}
                 >
                   {ALL_PROJECTS.map((project, i) => (
-                    <motion.div
+                    <MotionFrame
                       key={i}
                       variants={safeCard}
                       {...(isReduced ? {} : interactiveCard)}
-                      className="rounded bg-zinc-900/20 shadow-sm backdrop-blur"
+                      className="justify-between gap-0 p-1"
                     >
-                      <div className="divide-y divide-zinc-500/25 *:p-2.5">
-                        <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
-                          <h2 className="text-lg leading-tight font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+                      <MotionFramePanel className="flex flex-1 flex-col gap-3 p-3">
+                        <div className="flex items-center justify-between gap-3">
+                          <h2 className="line-clamp-1 font-semibold text-neutral-900 dark:text-neutral-100">
                             {project.name}
                           </h2>
-                          <div className="space-x-3 text-sm *:flex *:items-center *:space-x-1">
+                          <div className="flex shrink-0 items-center gap-3 text-sm *:flex *:items-center *:gap-1">
                             <div>
                               <BsStar className="h-4 w-auto" />
                               <span>{project.stargazers_count}</span>
@@ -257,33 +260,31 @@ export default function Projects() {
                             </div>
                           </div>
                         </div>
-                        <div className="min-h-16 text-sm font-thin">
-                          <p className="line-clamp-2">
-                            {project.description || 'Lorem ipsum dolor sit amet consectetur.'}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
-                        <span />
+                        <p className="line-clamp-2 min-h-10 text-sm text-neutral-600 dark:text-neutral-400">
+                          {project.description || 'No description provided.'}
+                        </p>
+                      </MotionFramePanel>
+
+                      <MotionFrameFooter className="flex items-center justify-end px-3 py-2">
                         <MotionLink
                           href={project.html_url ? project.html_url : project.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                          className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm bg-neutral-900 px-2 py-1 text-xs text-neutral-100 uppercase focus:outline-none dark:bg-neutral-700/60 dark:text-white"
                           {...tapScale}
                           whileHover={{ gap: '10px', transition: { duration: 0.15 } }}
                         >
                           <HiOutlineExternalLink className="h-4 w-auto" />
                           <span>Visit</span>
                         </MotionLink>
-                      </div>
-                    </motion.div>
+                      </MotionFrameFooter>
+                    </MotionFrame>
                   ))}
                 </motion.div>
                 <div className="mt-4 flex justify-end">
                   <motion.button
                     onClick={() => setViewMoreProjects(!viewMoreProjects)}
-                    className="group relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    className="inline-flex cursor-pointer items-center gap-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase focus:outline-none dark:bg-neutral-500/50 dark:text-white"
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.96 }}
                     transition={{ duration: 0.15 }}
