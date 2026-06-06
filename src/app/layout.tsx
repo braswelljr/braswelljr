@@ -3,11 +3,11 @@ import LocalFont from 'next/font/local';
 import Image from 'next/image';
 import { Analytics } from '@vercel/analytics/next';
 import { cn } from 'lib/utils';
-import Navbar from '~/components/navbar';
-import ScrollTop from '~/components/scroll-top';
-import { siteConfig } from '~/config/site';
-import Base from '~/providers/base';
-import '~/styles/main.css';
+import Navbar from '@/components/navbar';
+import ScrollTop from '@/components/scroll-top';
+import { siteConfig } from '@/config/site';
+import Base from '@/providers/base';
+import '@/styles/main.css';
 
 export const metadata: Metadata = {
   title: {

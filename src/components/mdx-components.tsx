@@ -10,7 +10,7 @@ import defaultMdxComponents from 'fumadocs-ui/mdx';
 import * as icons from 'lucide-react';
 import type { MDXComponents } from 'mdx/types';
 import { cn } from 'lib/utils';
-import { snippets } from '~/components/snippets';
+import { snippets } from '@/components/snippets';
 import {
   Select,
   SelectContent,
@@ -22,7 +22,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue
-} from '~/components/ui/select';
+} from '@/components/ui/select';
 import { ComponentExample } from './component-example';
 import { Icons } from './icons';
 import { Mermaid } from './mermaid';

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { CurrentlyPlayingI, SpotifyTrack } from 'types/spotify';
 import { ErrorCause } from 'types/types';
-import { getAccessToken } from '~/config/spotify';
+import { getAccessToken } from '@/config/spotify';
 
 export async function GET(): Promise<Response> {
   try {

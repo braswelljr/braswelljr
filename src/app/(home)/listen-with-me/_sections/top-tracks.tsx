@@ -1,16 +1,27 @@
 'use client';
 
 import { Fragment } from 'react';
-import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
+import { motion, useReducedMotion } from 'motion/react';
 import { MdRefresh } from 'react-icons/md';
 import { cn } from 'lib/utils';
 import { SpotifyTrack } from 'types/spotify';
-import { AnimatedBackground } from '~/components/ui/animated-background';
-import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
-import { Skeleton } from '~/components/ui/skeleton';
+import {
+  cardVariants,
+  containerVariants,
+  headingVariants,
+  interactiveCard,
+  MotionAvatar,
+  MotionAvatarFallback,
+  MotionAvatarImage,
+  MotionLink,
+  MotionSkeleton,
+  safeVariants
+} from '@/components/motion';
+import { AnimatedBackground } from '@/components/ui/animated-background';
 
 export function TopTracks({ className }: { className?: string }) {
+  const isReduced = useReducedMotion();
   const { data, refetch, isFetching } = useQuery<{
     message: string;
     data: Array<SpotifyTrack>;
@@ -26,21 +37,30 @@ export function TopTracks({ className }: { className?: string }) {
   return (
     <section className={cn('', className)}>
       <nav className="flex items-center justify-between">
-        <h2 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary">
+        <motion.h2
+          className="bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary"
+          variants={safeVariants(headingVariants, isReduced)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           Top Tracks
-        </h2>
-        <button
+        </motion.h2>
+        <motion.button
           type="button"
-          className="flex size-6 items-center justify-center rounded-full outline-none hover:outline-none focus:outline-none"
+          className="flex size-6 items-center justify-center rounded-full outline-none focus:outline-none"
           onClick={() => refetch()}
+          whileHover={{ rotate: 180 }}
+          transition={{ duration: 0.3 }}
+          aria-label="Refresh top tracks"
         >
           <MdRefresh className={cn('size-5', isFetching && 'animate-spin')} />
-        </button>
+        </motion.button>
       </nav>
 
       <div className="mt-4">
         {data?.data && Array.isArray(data?.data) && data?.data?.length ? (
-          <Tracks data={data?.data} />
+          <Tracks data={data.data} />
         ) : (
           <TracksLoader />
         )}
@@ -50,31 +70,39 @@ export function TopTracks({ className }: { className?: string }) {
 }
 
 export function TracksLoader({ className, items = 6 }: { className?: string; items?: number }) {
+  const isReduced = useReducedMotion();
   return (
-    <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] gap-8', className)}>
+    <motion.div
+      className={cn('grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] gap-8', className)}
+      variants={safeVariants(containerVariants, isReduced)}
+      initial="hidden"
+      animate="visible"
+    >
       {Array(items || 6)
         .fill('')
         .map((_, i) => (
-          <div
+          <motion.div
             key={i}
+            variants={safeVariants(cardVariants, isReduced)}
             className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-4"
           >
-            <div className="">{i + 1}.</div>
-            <Skeleton className="mx-auto size-28 overflow-hidden rounded bg-neutral-400/80 dark:bg-neutral-700/80" />
+            <div>{i + 1}.</div>
+            <MotionSkeleton className="mx-auto size-28 overflow-hidden rounded bg-neutral-400/80 dark:bg-neutral-700/80" />
             <div className="space-y-2">
-              <Skeleton className="h-4 w-3/5 bg-neutral-400/80 dark:bg-neutral-700/80" />
+              <MotionSkeleton className="h-4 w-3/5 bg-neutral-400/80 dark:bg-neutral-700/80" />
               <div className="mt-4 flex items-center gap-2">
-                <Skeleton className="size-4 bg-neutral-400/80 dark:bg-neutral-700/80" />
-                <Skeleton className="h-4 w-2/5 bg-neutral-400/80 dark:bg-neutral-700/80" />
+                <MotionSkeleton className="size-4 bg-neutral-400/80 dark:bg-neutral-700/80" />
+                <MotionSkeleton className="h-4 w-2/5 bg-neutral-400/80 dark:bg-neutral-700/80" />
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
-    </div>
+    </motion.div>
   );
 }
 
 export function Tracks({ className, data }: { className?: string; data: Array<SpotifyTrack> }) {
+  const isReduced = useReducedMotion();
   return (
     <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] gap-8', className)}>
       <AnimatedBackground
@@ -83,25 +111,37 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
         enableHover
       >
         {data?.map((track, i) => (
-          <Link
+          <MotionLink
             key={i}
             data-id={`track-card-${i}`}
             href={track?.href}
             passHref
             target="_blank"
             rel="noopener noreferrer"
+            variants={safeVariants(cardVariants, isReduced)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-40px' }}
+            {...(isReduced ? {} : interactiveCard)}
           >
             <div className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-4">
-              <div className="">{i + 1}.</div>
-              <Avatar className="mx-auto size-28 overflow-hidden rounded">
-                <AvatarImage
+              <div>{i + 1}.</div>
+              <MotionAvatar
+                className="mx-auto size-28 overflow-hidden rounded"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <MotionAvatarImage
                   src={track?.image}
                   alt={track?.name}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.4, delay: i * 0.04 }}
                 />
-                <AvatarFallback className="animate-pulse rounded-xl">
+                <MotionAvatarFallback className="animate-pulse rounded-xl">
                   {track?.name?.charAt(0)}
-                </AvatarFallback>
-              </Avatar>
+                </MotionAvatarFallback>
+              </MotionAvatar>
               <div className="space-y-2">
                 <h4 className="line-clamp-2 text-sm sm:text-base">{track?.name}</h4>
                 <p className="line-clamp-2 text-xsm sm:text-sm">
@@ -111,7 +151,7 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
                       <span
                         key={a?.id}
                         onClick={(e) => {
-                          e.stopPropagation(); // Prevent triggering the parent link
+                          e.stopPropagation();
                           window.open(a?.href, '_blank', 'noopener noreferrer');
                         }}
                         className={cn(
@@ -126,7 +166,7 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
                 </p>
               </div>
             </div>
-          </Link>
+          </MotionLink>
         ))}
       </AnimatedBackground>
     </div>

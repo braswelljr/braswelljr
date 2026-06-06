@@ -4,13 +4,13 @@ import { useCallback, useEffect, useState } from 'react';
 import { MenuTriggerProps } from '@base-ui/react/menu';
 import { cn } from 'lib/utils';
 import { TerminalCommands } from 'types/unist';
-import { Icons } from '~/components/icons';
+import { Icons } from '@/components/icons';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
-} from '~/components/ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu';
 
 interface CopyButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   value: string;

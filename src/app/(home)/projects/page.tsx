@@ -1,12 +1,24 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { BiGitRepoForked } from 'react-icons/bi';
 import { BsStar } from 'react-icons/bs';
 import { HiFolderOpen, HiOutlineExternalLink } from 'react-icons/hi';
 import { TfiLayoutListThumb } from 'react-icons/tfi';
-import useXStore from '~/context/use-repos';
-import useMedia from '~/hooks/use-media';
+import {
+  cardVariants,
+  containerVariants,
+  headingVariants,
+  interactiveCard,
+  MotionCard,
+  MotionLink,
+  safeVariants,
+  tapScale
+} from '@/components/motion';
+import { InView } from '@/components/ui/in-view';
+import useXStore from '@/context/use-repos';
+import useMedia from '@/hooks/use-media';
 import { GitHubContributionGraph } from './_components/github-contribution-graph';
 import { OtherProjects } from './_components/other-projects';
 
@@ -15,37 +27,53 @@ export default function Projects() {
   const [viewMorePins, setViewMorePins] = useState(false);
   const [viewMoreProjects, setViewMoreProjects] = useState(false);
   const lg = useMedia('(min-width: 1024px)');
-  // pins
+  const isReduced = useReducedMotion();
+
   const limitPins = viewMorePins ? pinnedProjects.length : lg ? 3 : 2;
   const PINNED_PROJECTS = Array.isArray(pinnedProjects) ? pinnedProjects.slice(0, limitPins) : [];
 
-  // projects
   const limitProjects = viewMoreProjects ? allProjects.length : lg ? 6 : 4;
-  // remove pinned projects from all projects
   const filteredProjects = allProjects.filter(
-    (project) => !pinnedProjects.find((pinnedProject) => pinnedProject.name === project.name)
+    (project) => !pinnedProjects.find((p) => p.name === project.name)
   );
   const ALL_PROJECTS = Array.isArray(filteredProjects)
     ? filteredProjects.slice(0, limitProjects)
     : [];
 
+  const safeContainer = safeVariants(containerVariants, isReduced);
+  const safeCard = safeVariants(cardVariants, isReduced);
+  const safeHeading = safeVariants(headingVariants, isReduced);
+
   return (
     <div className="py-12 max-lg:pt-36">
       <div className="mx-auto max-w-[calc(var(--container-4xl)+5px)] space-y-8 px-4 text-gray-800 sm:mt-14 sm:space-y-10 dark:text-neutral-100">
-        <h1 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-primary">
+        {/* Page heading */}
+        <InView
+          variants={safeHeading}
+          viewOptions={{ once: true }}
+          as="h1"
+          className="bg-linear-to-l from-secondary to-primary bg-clip-text text-2xl leading-tight font-bold tracking-tight text-transparent uppercase sm:text-3xl md:text-4xl dark:to-primary"
+        >
           Work, Hobby and Open Source
-        </h1>
+        </InView>
+
         {/* Write up */}
-        <div className="space-y-6 text-neutral-600 dark:text-neutral-400">
-          <p className="">
+        <motion.div
+          className="space-y-6 text-neutral-600 dark:text-neutral-400"
+          variants={safeVariants(containerVariants, isReduced)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
+          <motion.p variants={safeVariants(cardVariants, isReduced)}>
             I&rsquo;m obsessed with building things that are useful and fun to use. I am an{' '}
             <span className="bg-linear-to-l from-secondary to-primary bg-clip-text px-3 text-transparent uppercase dark:to-primary">
               enthusiast
             </span>{' '}
             and I love to contribute to open source. I am also a hobbyist and I love to build things
             that are fun to use.
-          </p>
-          <p>
+          </motion.p>
+          <motion.p variants={safeVariants(cardVariants, isReduced)}>
             I prefer to work with{' '}
             <span className="bg-linear-to-l from-[#2273ff] to-[#00e5ff] bg-clip-text text-transparent uppercase">
               React
@@ -83,93 +111,98 @@ export default function Projects() {
               GraphQL
             </span>
             .
-          </p>
-        </div>
-        <GitHubContributionGraph className="" />
+          </motion.p>
+        </motion.div>
+
+        <GitHubContributionGraph />
+
         {/* Starred Projects */}
         <div className="space-y-6">
-          {/* header */}
-          <div className="flex items-end justify-between">
+          <InView
+            variants={safeHeading}
+            viewOptions={{ once: true, margin: '-40px' }}
+            className="flex items-end justify-between"
+          >
             <h2 className="text-2xl leading-tight font-bold tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
               Starred Projects
             </h2>
             <span className="text-lg">({pinnedProjects.length})</span>
-          </div>
-          {/* projects */}
-          <div className="">
+          </InView>
+
+          <div>
             {PINNED_PROJECTS.length > 0 ? (
-              <div className="">
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {PINNED_PROJECTS.map((project, i) => {
-                    return (
-                      <div
-                        key={i}
-                        className="rounded bg-zinc-900/20 shadow-sm backdrop-blur"
-                      >
-                        {/* main */}
-                        <div className="divide-y divide-zinc-500/25 *:p-2.5">
-                          {/* header */}
-                          <div className="flex items-start justify-between">
-                            <h2 className="flex items-center space-x-2">
-                              <HiFolderOpen className="h-5 w-auto" />
-                              <span>{project.name}</span>
-                            </h2>
-                            {/* stats */}
-                            <div className="flex items-center justify-end space-x-3 *:flex *:items-center *:space-x-1">
-                              {/* stars */}
-                              <div className="">
-                                <BsStar className="h-4 w-auto" />
-                                <span>{project.stargazers.totalCount}</span>
-                              </div>
-                              {/* forks */}
-                              <div className="">
-                                <BiGitRepoForked className="h-4 w-auto" />
-                                <span>{project.forks.totalCount}</span>
-                              </div>
+              <>
+                <motion.div
+                  className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                  variants={safeContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: '-60px' }}
+                >
+                  {PINNED_PROJECTS.map((project, i) => (
+                    <motion.div
+                      key={i}
+                      variants={safeCard}
+                      {...(isReduced ? {} : interactiveCard)}
+                      className="rounded bg-zinc-900/20 shadow-sm backdrop-blur"
+                    >
+                      <div className="divide-y divide-zinc-500/25 *:p-2.5">
+                        <div className="flex items-start justify-between">
+                          <h2 className="flex items-center space-x-2">
+                            <HiFolderOpen className="h-5 w-auto" />
+                            <span>{project.name}</span>
+                          </h2>
+                          <div className="flex items-center justify-end space-x-3 *:flex *:items-center *:space-x-1">
+                            <div>
+                              <BsStar className="h-4 w-auto" />
+                              <span>{project.stargazers.totalCount}</span>
+                            </div>
+                            <div>
+                              <BiGitRepoForked className="h-4 w-auto" />
+                              <span>{project.forks.totalCount}</span>
                             </div>
                           </div>
-                          {/* body */}
-                          <div className="min-h-16 text-sm font-thin">
-                            <p className="line-clamp-3">{project.description}</p>
-                          </div>
                         </div>
-                        {/* footer */}
-                        <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
-                          {/* language */}
-                          <span className="space-x-2">
-                            <span
-                              className="size-3 rounded-full"
-                              style={{
-                                backgroundColor: project.primaryLanguage.color ?? `#ef5453`
-                              }}
-                            />
-                            <span>{project.primaryLanguage.name}</span>
-                          </span>
-                          {/* link */}
-                          <a
-                            href={project.homepageUrl ? project.homepageUrl : project.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                          >
-                            <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
-                            <span>Visit</span>
-                          </a>
+                        <div className="min-h-16 text-sm font-thin">
+                          <p className="line-clamp-3">{project.description}</p>
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
+                      <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
+                        <span className="space-x-2">
+                          <span
+                            className="size-3 rounded-full"
+                            style={{ backgroundColor: project.primaryLanguage.color ?? '#ef5453' }}
+                          />
+                          <span>{project.primaryLanguage.name}</span>
+                        </span>
+                        <MotionLink
+                          href={project.homepageUrl ? project.homepageUrl : project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                          {...tapScale}
+                          whileHover={{ gap: '10px', transition: { duration: 0.15 } }}
+                        >
+                          <HiOutlineExternalLink className="h-4 w-auto" />
+                          <span>Visit</span>
+                        </MotionLink>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
                 <div className="mt-4 flex justify-end">
-                  <button
+                  <motion.button
                     onClick={() => setViewMorePins(!viewMorePins)}
-                    className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    className="group relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.96 }}
+                    transition={{ duration: 0.15 }}
                   >
-                    <TfiLayoutListThumb className="h-5 w-auto group-hover:scale-95" />
-                    <span>{viewMoreProjects ? 'View Less' : 'View More'}</span>
-                  </button>
+                    <TfiLayoutListThumb className="h-5 w-auto" />
+                    <span>{viewMorePins ? 'View Less' : 'View More'}</span>
+                  </motion.button>
                 </div>
-              </div>
+              </>
             ) : (
               <div className="flex min-h-[25vh] flex-col items-center justify-center uppercase">
                 <span>Loading ...</span>
@@ -177,87 +210,89 @@ export default function Projects() {
             )}
           </div>
         </div>
+
         {/* All Projects */}
         <div className="space-y-6">
-          {/* header */}
-          <div className="flex items-end justify-between">
+          <InView
+            variants={safeHeading}
+            viewOptions={{ once: true, margin: '-40px' }}
+            className="flex items-end justify-between"
+          >
             <h2 className="text-2xl leading-tight font-bold tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-100">
-              All Projects{' '}
+              All Projects
             </h2>
             <span className="text-lg">({filteredProjects.length})</span>
-          </div>
-          {/* projects */}
-          <div className="">
+          </InView>
+
+          <div>
             {ALL_PROJECTS.length > 0 ? (
-              <div className="">
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {ALL_PROJECTS.map((project, i) => {
-                    return (
-                      <div
-                        key={i}
-                        className="group rounded bg-zinc-900/20 shadow-sm backdrop-blur transition-transform"
-                      >
-                        <div className="divide-y divide-zinc-500/25 *:p-2.5">
-                          <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
-                            <h2 className="text-lg leading-tight font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-                              {project.name}
-                            </h2>
-                            <div className="space-x-3 text-sm *:flex *:items-center *:space-x-1">
-                              <div>
-                                <BsStar className="h-4 w-auto" />
-                                <span>{project.stargazers_count}</span>
-                              </div>
-                              <div>
-                                <BiGitRepoForked className="h-4 w-auto" />
-                                <span>{project.forks_count}</span>
-                              </div>
+              <>
+                <motion.div
+                  className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                  variants={safeContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: '-60px' }}
+                >
+                  {ALL_PROJECTS.map((project, i) => (
+                    <motion.div
+                      key={i}
+                      variants={safeCard}
+                      {...(isReduced ? {} : interactiveCard)}
+                      className="rounded bg-zinc-900/20 shadow-sm backdrop-blur"
+                    >
+                      <div className="divide-y divide-zinc-500/25 *:p-2.5">
+                        <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
+                          <h2 className="text-lg leading-tight font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+                            {project.name}
+                          </h2>
+                          <div className="space-x-3 text-sm *:flex *:items-center *:space-x-1">
+                            <div>
+                              <BsStar className="h-4 w-auto" />
+                              <span>{project.stargazers_count}</span>
                             </div>
-                            {/* body */}
-                          </div>
-                          <div className="min-h-16 text-sm font-thin">
-                            <p className="line-clamp-2">
-                              {project.description
-                                ? project.description
-                                : 'Lorem ipsum dolor sit amet consectetur.'}
-                            </p>
+                            <div>
+                              <BiGitRepoForked className="h-4 w-auto" />
+                              <span>{project.forks_count}</span>
+                            </div>
                           </div>
                         </div>
-                        <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
-                          <span className="space-x-2">
-                            {/* <span
-                              className="h-3 w-3 rounded-full"
-                              style={{
-                                backgroundColor:
-                                  project.primaryLanguage.color ?? `#ef5453`
-                              }}
-                            />
-                            <span>{project.primaryLanguage.name}</span> */}
-                          </span>
-                          {/* link */}
-                          <a
-                            href={project.html_url ? project.html_url : project.url}
-                            target="_blank"
-                            rel="noopener noreferer noreferrer"
-                            className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
-                          >
-                            <HiOutlineExternalLink className="h-4 w-auto group-hover:scale-95" />
-                            <span>Visit</span>
-                          </a>
+                        <div className="min-h-16 text-sm font-thin">
+                          <p className="line-clamp-2">
+                            {project.description || 'Lorem ipsum dolor sit amet consectetur.'}
+                          </p>
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
+                      <div className="flex items-center justify-between space-x-3 p-2 *:flex *:items-center *:space-x-2">
+                        <span />
+                        <MotionLink
+                          href={project.html_url ? project.html_url : project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                          {...tapScale}
+                          whileHover={{ gap: '10px', transition: { duration: 0.15 } }}
+                        >
+                          <HiOutlineExternalLink className="h-4 w-auto" />
+                          <span>Visit</span>
+                        </MotionLink>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
                 <div className="mt-4 flex justify-end">
-                  <button
+                  <motion.button
                     onClick={() => setViewMoreProjects(!viewMoreProjects)}
-                    className="group relative inline-flex cursor-pointer items-center justify-center space-x-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase transition-transform backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    className="group relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm bg-neutral-900 px-1.5 py-1 text-xs text-neutral-100 uppercase backdrop:backdrop-blur focus:outline-none dark:bg-neutral-500/50 dark:text-white"
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.96 }}
+                    transition={{ duration: 0.15 }}
                   >
-                    <TfiLayoutListThumb className="h-5 w-auto group-hover:scale-95" />
+                    <TfiLayoutListThumb className="h-5 w-auto" />
                     <span>{viewMoreProjects ? 'View Less' : 'View More'}</span>
-                  </button>
+                  </motion.button>
                 </div>
-              </div>
+              </>
             ) : (
               <div className="flex min-h-[25vh] flex-col items-center justify-center uppercase">
                 <span>Loading ...</span>

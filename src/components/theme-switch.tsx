@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { HiDesktopComputer, HiMoon, HiSun } from 'react-icons/hi';
 import { cn } from 'lib/utils';
-import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export function ThemeSwitch({
   classNames

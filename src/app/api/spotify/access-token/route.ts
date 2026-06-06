@@ -6,7 +6,7 @@ import {
   SPOTIFY_CLIENT_SECRET,
   SPOTIFY_COOKIE_STORE,
   SPOTIFY_REFRESH_TOKEN
-} from '~/config/spotify';
+} from '@/config/spotify';
 
 type DataI = {
   access_token: string;

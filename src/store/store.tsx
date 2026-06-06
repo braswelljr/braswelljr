@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { Repo, State } from '~/store/types';
+import { Repo, State } from '@/store/types';
 
 export const useStore = create<State>()(
   devtools((set) => ({

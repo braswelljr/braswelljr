@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { HiArrowLeft } from 'react-icons/hi';
 import { TableOfContents as TableOfContentsType } from 'lib/toc';
 import { cn } from 'lib/utils';
-import { Sheet, SheetContent } from '~/components/ui/sheet';
-import useMounted from '~/hooks/use-mounted';
-import { useStore } from '~/store/store';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
+import useMounted from '@/hooks/use-mounted';
+import { useStore } from '@/store/store';
 import { ScrollToTopWithBlog } from './scroll-top';
 
 type BlogResources = {

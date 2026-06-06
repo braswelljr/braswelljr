@@ -6,7 +6,7 @@ import { MdOutlineWorkspacePremium } from 'react-icons/md';
 import readingTime from 'reading-time';
 import { blog } from 'lib/source';
 import { cn } from 'lib/utils';
-import { formatDate } from '~/utils/formatDate';
+import { formatDate } from '@/utils/formatDate';
 
 export default async function Page() {
   // get all blog pages

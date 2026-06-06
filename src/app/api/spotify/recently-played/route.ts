@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SpotifyTrack, SpotifyTrackData } from 'types/spotify';
 import { ErrorCause } from 'types/types';
-import { getAccessToken } from '~/config/spotify';
+import { getAccessToken } from '@/config/spotify';
 
 export async function GET(req: NextRequest): Promise<Response> {
   const searchParams = req.nextUrl.searchParams;

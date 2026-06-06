@@ -11,8 +11,8 @@ import { HiArrowLeft } from 'react-icons/hi';
 import { MdOutlineWorkspacePremium } from 'react-icons/md';
 import readingTime from 'reading-time';
 import { blog, getPageImage } from 'lib/source';
-import { getMDXComponents } from '~/components/mdx-components';
-import { ScrollToTopWithBlog } from '~/components/scroll-top';
+import { getMDXComponents } from '@/components/mdx-components';
+import { ScrollToTopWithBlog } from '@/components/scroll-top';
 
 export default async function Page(props: PageProps<'/blog/[...slug]'>) {
   const params = await props.params;
