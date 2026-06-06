@@ -226,8 +226,8 @@ export const SPRING_BOUNCE = { type: 'spring', stiffness: 300, damping: 15 } as 
 
 /** Page-level entrance — fade + rise */
 export const pageVariants = {
-  hidden: { opacity: 0, y: 18 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: EASE_OUT } }
+  hidden: { opacity: 0, y: 18, x: 18 },
+  visible: { opacity: 1, y: 0, x: 0, transition: { duration: 0.35, ease: EASE_OUT } }
 } as const;
 
 /** Stagger container — pair with itemVariants / cardVariants children */
@@ -238,14 +238,14 @@ export const containerVariants = {
 
 /** Individual stagger item — slide-up + fade */
 export const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.28, ease: EASE_OUT } }
+  hidden: { opacity: 0, y: 16, x: 16 },
+  visible: { opacity: 1, y: 0, x: 0, transition: { duration: 0.28, ease: EASE_OUT } }
 } as const;
 
 /** Card grid item — subtle scale + fade */
 export const cardVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.97 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.3, ease: EASE_OUT } }
+  hidden: { opacity: 0, y: 20, x: 20, scale: 0.97 },
+  visible: { opacity: 1, y: 0, x: 0, scale: 1, transition: { duration: 0.3, ease: EASE_OUT } }
 } as const;
 
 /** Section heading — slide in from left */

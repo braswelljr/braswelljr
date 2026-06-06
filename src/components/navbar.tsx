@@ -142,30 +142,21 @@ export default function Navbar({
           className="min-h-max gap-4 font-semibold whitespace-nowrap *:data-active:text-primary! max-xsm:text-sm max-lg:pb-2"
         >
           {nav.map((item, idx) => (
-            <motion.div
+            <TabsTrigger
               key={idx}
-              initial={isReduced ? false : { opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.25,
-                ease: [0.23, 1, 0.32, 1],
-                delay: 0.2 + idx * 0.06
-              }}
-            >
-              <TabsTrigger
-                value={item.path}
-                nativeButton={false}
-                render={(p) => (
-                  <Link
-                    {...p}
-                    href={item.path}
-                    className=""
-                  >
-                    {item.name}
-                  </Link>
-                )}
-              />
-            </motion.div>
+              value={item.path}
+              nativeButton={false}
+              className="data-active:text-primary! hocus:data-active:text-primary!"
+              render={(p) => (
+                <Link
+                  {...p}
+                  href={item.path}
+                  className=""
+                >
+                  {item.name}
+                </Link>
+              )}
+            />
           ))}
         </TabsList>
       </Tabs>
