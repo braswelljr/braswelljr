@@ -14,13 +14,11 @@ import {
   MotionAvatar,
   MotionAvatarFallback,
   MotionAvatarImage,
-  MotionFrame,
-  MotionFramePanel,
-  MotionLink,
+  MotionCard,
+  MotionCardContent,
   MotionSkeleton,
   safeVariants
 } from '@/components/motion';
-import { AnimatedBackground } from '@/components/ui/animated-background';
 
 export function TopTracks({ className }: { className?: string }) {
   const isReduced = useReducedMotion();
@@ -83,12 +81,12 @@ export function TracksLoader({ className, items = 6 }: { className?: string; ite
       {Array(items || 6)
         .fill('')
         .map((_, i) => (
-          <MotionFrame
+          <MotionCard
             key={i}
             variants={safeVariants(cardVariants, isReduced)}
-            className="gap-0 p-1"
+            className="border-0 bg-neutral-100/60 dark:bg-neutral-800/60"
           >
-            <MotionFramePanel className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-3">
+            <MotionCardContent className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-3">
               <div className="text-sm">{i + 1}.</div>
               <MotionSkeleton className="mx-auto size-28 overflow-hidden rounded bg-neutral-400/80 dark:bg-neutral-700/80" />
               <div className="space-y-2">
@@ -98,8 +96,8 @@ export function TracksLoader({ className, items = 6 }: { className?: string; ite
                   <MotionSkeleton className="h-4 w-2/5 bg-neutral-400/80 dark:bg-neutral-700/80" />
                 </div>
               </div>
-            </MotionFramePanel>
-          </MotionFrame>
+            </MotionCardContent>
+          </MotionCard>
         ))}
     </motion.div>
   );
@@ -108,72 +106,65 @@ export function TracksLoader({ className, items = 6 }: { className?: string; ite
 export function Tracks({ className, data }: { className?: string; data: Array<SpotifyTrack> }) {
   const isReduced = useReducedMotion();
   return (
-    <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] gap-4', className)}>
-      <AnimatedBackground
-        className="rounded-xl bg-yellow-100/30"
-        transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-        enableHover
-      >
-        {data?.map((track, i) => (
-          <motion.a
-            key={i}
-            data-id={`track-card-${i}`}
-            href={track?.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            variants={safeVariants(cardVariants, isReduced)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, margin: '-40px' }}
-            {...(isReduced ? {} : interactiveCard)}
-            className="block"
-          >
-            <MotionFrame className="h-full gap-0 p-1">
-              <MotionFramePanel className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-3">
-              <div className="text-sm">{i + 1}.</div>
-              <MotionAvatar
-                className="mx-auto size-28 overflow-hidden rounded"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
-                <MotionAvatarImage
-                  src={track?.image}
-                  alt={track?.name}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.4, delay: i * 0.04 }}
-                />
-                <MotionAvatarFallback className="animate-pulse rounded-xl">
-                  {track?.name?.charAt(0)}
-                </MotionAvatarFallback>
-              </MotionAvatar>
-              <div className="space-y-2">
-                <h4 className="line-clamp-2 text-sm sm:text-base">{track?.name}</h4>
-                <p className="line-clamp-2 text-xsm sm:text-sm">
-                  {track?.artists?.map((a, j) => (
-                    <Fragment key={j}>
-                      {j !== 0 && ', '}
-                      <span
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(a?.href, '_blank', 'noopener noreferrer');
-                        }}
-                        className={cn(
-                          'cursor-pointer text-orange-500 underline',
-                          j === 0 && 'font-semibold'
-                        )}
-                      >
-                        {a?.name}
-                      </span>
-                    </Fragment>
-                  ))}
-                </p>
-              </div>
-            </MotionFramePanel>
-            </MotionFrame>
-          </motion.a>
-        ))}
-      </AnimatedBackground>
-    </div>
+    <motion.div
+      className={cn('grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] gap-4', className)}
+      variants={safeVariants(containerVariants, isReduced)}
+      initial="hidden"
+      animate="visible"
+    >
+      {data?.map((track, i) => (
+        <MotionCard
+          key={i}
+          variants={safeVariants(cardVariants, isReduced)}
+          {...(isReduced ? {} : interactiveCard)}
+          className="border-0 bg-neutral-100/60 dark:bg-neutral-800/60"
+          render={(p) => (
+            <a {...p} href={track?.href} target="_blank" rel="noopener noreferrer" />
+          )}
+        >
+          <MotionCardContent className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-3">
+            <div className="text-sm">{i + 1}.</div>
+            <MotionAvatar
+              className="mx-auto size-28 overflow-hidden rounded"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
+              <MotionAvatarImage
+                src={track?.image}
+                alt={track?.name}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: i * 0.04 }}
+              />
+              <MotionAvatarFallback className="animate-pulse rounded-xl">
+                {track?.name?.charAt(0)}
+              </MotionAvatarFallback>
+            </MotionAvatar>
+            <div className="space-y-2">
+              <h4 className="line-clamp-2 text-sm sm:text-base">{track?.name}</h4>
+              <p className="line-clamp-2 text-xsm sm:text-sm">
+                {track?.artists?.map((a, j) => (
+                  <Fragment key={j}>
+                    {j !== 0 && ', '}
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(a?.href, '_blank', 'noopener noreferrer');
+                      }}
+                      className={cn(
+                        'cursor-pointer text-orange-500 underline',
+                        j === 0 && 'font-semibold'
+                      )}
+                    >
+                      {a?.name}
+                    </span>
+                  </Fragment>
+                ))}
+              </p>
+            </div>
+          </MotionCardContent>
+        </MotionCard>
+      ))}
+    </motion.div>
   );
 }

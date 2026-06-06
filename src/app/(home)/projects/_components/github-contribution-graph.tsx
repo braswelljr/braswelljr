@@ -7,6 +7,7 @@ import {
   fadeVariants,
   headingVariants,
   MotionFrame,
+  MotionFrameHeader,
   MotionFramePanel,
   MotionFrameTitle,
   safeVariants
@@ -33,16 +34,15 @@ export function GitHubContributionGraph({ className }: { className?: string }) {
       whileInView="visible"
       viewport={{ once: false, margin: '-60px' }}
     >
+      <MotionFrameHeader>
+        <MotionFrameTitle
+          className="bg-linear-to-l from-secondary to-primary bg-clip-text text-sm font-semibold tracking-tight text-transparent uppercase dark:to-primary"
+          variants={safeVariants(headingVariants, isReduced)}
+        >
+          GitHub Contributions
+        </MotionFrameTitle>
+      </MotionFrameHeader>
       <MotionFramePanel className="p-3">
-        <nav className="mb-3 flex items-center justify-between">
-          <MotionFrameTitle
-            className="bg-linear-to-l from-secondary to-primary bg-clip-text text-sm font-semibold tracking-tight text-transparent uppercase dark:to-primary"
-            variants={safeVariants(headingVariants, isReduced)}
-          >
-            GitHub Contributions
-          </MotionFrameTitle>
-        </nav>
-
         <div className="overflow-auto rounded-lg">
           <GitHubCalendar
             username="braswelljr"

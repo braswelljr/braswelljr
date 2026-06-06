@@ -18,6 +18,7 @@ import {
   MotionFrameFooter,
   MotionFramePanel,
   MotionFrameTitle,
+  MotionLink,
   MotionSkeleton,
   safeVariants,
   tapScale
@@ -41,7 +42,7 @@ export function Playlist({ className }: { className?: string }) {
     message: string;
     data: Page<Playlist<TrackItem>>;
   }>({
-    queryKey: ['playlists'],
+    queryKey: ['playlists', pagination.offset],
     queryFn: () =>
       fetch(`/api/spotify/playlists?offset=${pagination.offset}`, {
         method: 'GET',
@@ -102,15 +103,15 @@ export function PlaylistError({ className }: { className?: string }) {
                 .map((_, x) => (
                   <MotionSkeleton
                     key={x}
-                    className="h-20 w-full bg-neutral-400/80 dark:bg-neutral-900/80"
+                    className="h-20 w-full bg-neutral-400 dark:bg-neutral-800"
                   />
                 ))}
             </MotionFramePanel>
             <MotionFrameFooter className="flex flex-col items-start gap-2 px-3 py-2">
-              <MotionSkeleton className="h-4 w-4/5 bg-neutral-400/80 dark:bg-neutral-900/80" />
+              <MotionSkeleton className="h-4 w-4/5 bg-neutral-400 dark:bg-neutral-800" />
               <div className="flex w-full items-center gap-2">
-                <MotionSkeleton className="size-4 bg-neutral-400/80 dark:bg-neutral-900/80" />
-                <MotionSkeleton className="h-4 w-4/5 bg-neutral-400/80 dark:bg-neutral-900/80" />
+                <MotionSkeleton className="size-4 bg-neutral-400 dark:bg-neutral-800" />
+                <MotionSkeleton className="h-4 w-4/5 bg-neutral-400 dark:bg-neutral-800" />
               </div>
             </MotionFrameFooter>
           </MotionFrame>
@@ -135,7 +136,7 @@ export function PlaylistData({
       animate="visible"
     >
       {data?.items?.map((playlist, i) => (
-        <motion.a
+        <MotionLink
           key={i}
           href={`/listen-with-me/playlists/${playlist?.id}`}
           variants={safeVariants(cardVariants, isReduced)}
@@ -143,42 +144,42 @@ export function PlaylistData({
           className="block"
         >
           <MotionFrame className="h-full gap-0 p-1">
-          <MotionFramePanel className="p-2">
-            <MotionAvatar className="h-44 w-full overflow-hidden rounded-lg bg-neutral-400/80 dark:bg-neutral-900/80">
-              <MotionAvatarImage
-                src={playlist?.images?.at(0)?.url}
-                alt={playlist?.name}
-                className="aspect-auto size-full object-cover"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: i * 0.04 }}
-              />
-              <MotionAvatarFallback className="size-full animate-pulse rounded-none">
-                {playlist?.name?.charAt(0)}
-              </MotionAvatarFallback>
-            </MotionAvatar>
-          </MotionFramePanel>
+            <MotionFramePanel className="p-2">
+              <MotionAvatar className="h-44 w-full overflow-hidden rounded-lg bg-neutral-400 dark:bg-neutral-900">
+                <MotionAvatarImage
+                  src={playlist?.images?.at(0)?.url}
+                  alt={playlist?.name}
+                  className="aspect-auto size-full object-cover"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.4, delay: i * 0.04 }}
+                />
+                <MotionAvatarFallback className="size-full animate-pulse rounded-none">
+                  {playlist?.name?.charAt(0)}
+                </MotionAvatarFallback>
+              </MotionAvatar>
+            </MotionFramePanel>
 
-          <MotionFrameFooter className="flex flex-col items-start gap-1 px-3 py-2">
-            <motion.span
-              className="flex items-center gap-2 hover:text-secondary"
-              {...tapScale}
-              onClick={(e) => {
-                e.stopPropagation();
-                window.open(playlist.external_urls?.spotify, '_blank', 'noopener noreferrer');
-              }}
-            >
-              <HiExternalLink className="size-4 shrink-0" />
-              <MotionFrameTitle className="line-clamp-1 text-sm font-semibold">
-                {playlist.name}
-              </MotionFrameTitle>
-            </motion.span>
-            <p className="line-clamp-1 text-xs text-neutral-600 dark:text-neutral-400">
-              {playlist.owner?.display_name}
-            </p>
-          </MotionFrameFooter>
+            <MotionFrameFooter className="flex flex-col items-start gap-1 px-3 py-2">
+              <motion.span
+                className="flex items-center gap-2 hover:text-secondary"
+                {...tapScale}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(playlist.external_urls?.spotify, '_blank', 'noopener noreferrer');
+                }}
+              >
+                <HiExternalLink className="size-4 shrink-0" />
+                <MotionFrameTitle className="line-clamp-1 text-sm font-semibold">
+                  {playlist.name}
+                </MotionFrameTitle>
+              </motion.span>
+              <p className="line-clamp-1 text-xs text-neutral-600 dark:text-neutral-400">
+                {playlist.owner?.display_name}
+              </p>
+            </MotionFrameFooter>
           </MotionFrame>
-        </motion.a>
+        </MotionLink>
       ))}
     </motion.div>
   );

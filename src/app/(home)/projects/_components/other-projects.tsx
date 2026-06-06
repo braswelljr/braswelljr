@@ -13,7 +13,6 @@ import {
   MotionAvatarImage,
   MotionFrame,
   MotionFrameFooter,
-  MotionFrameHeader,
   MotionFramePanel,
   MotionFrameTitle,
   MotionLink,
@@ -57,8 +56,8 @@ export function OtherProjects({ className }: OtherProjectProps) {
             {...(isReduced ? {} : interactiveCard)}
             className="justify-between gap-0 p-1"
           >
-            <MotionFrameHeader className="p-0">
-              <MotionAvatar className="aspect-video h-full max-h-52 w-full rounded-lg overflow-hidden bg-neutral-200 dark:bg-neutral-800">
+            <MotionFramePanel className="p-0">
+              <MotionAvatar className="aspect-video h-full max-h-52 w-full overflow-hidden rounded-lg bg-neutral-200 dark:bg-neutral-800">
                 <MotionAvatarImage
                   src={`/api/screenshot?url=${project.homepageUrl}`}
                   alt={project.name}
@@ -74,18 +73,15 @@ export function OtherProjects({ className }: OtherProjectProps) {
                   {project.name}
                 </MotionAvatarFallback>
               </MotionAvatar>
-            </MotionFrameHeader>
+            </MotionFramePanel>
 
-            <MotionFramePanel className="flex flex-1 flex-col gap-2 p-3">
+            <MotionFrameFooter className="flex flex-1 flex-col gap-2">
               <MotionFrameTitle className="bg-linear-to-l from-secondary to-primary bg-clip-text text-sm text-transparent uppercase dark:to-primary">
                 {project.name}
               </MotionFrameTitle>
               <p className="line-clamp-2 text-sm text-neutral-600 dark:text-neutral-400">
                 {project.description}
               </p>
-            </MotionFramePanel>
-
-            <MotionFrameFooter className="flex items-center justify-end px-3 py-2">
               <MotionLink
                 href={project.homepageUrl ? project.homepageUrl : project.url}
                 target="_blank"
@@ -104,4 +100,3 @@ export function OtherProjects({ className }: OtherProjectProps) {
     </div>
   );
 }
-

@@ -15,6 +15,7 @@ import {
   MotionAvatarFallback,
   MotionAvatarImage,
   MotionFrame,
+  MotionFrameHeader,
   MotionFramePanel,
   MotionFrameTitle,
   MotionLink,
@@ -61,8 +62,8 @@ export function CurrentlyPlaying({ className }: { className?: string }) {
         initial="hidden"
         animate="visible"
       >
-        <MotionFramePanel className="p-3">
-          <nav className="mb-3 flex items-center justify-between">
+        <MotionFrameHeader>
+          <nav className="flex items-center justify-between">
             <MotionFrameTitle
               className="bg-linear-to-l from-secondary to-primary bg-clip-text font-semibold tracking-tight text-transparent uppercase dark:to-primary"
               variants={safeVariants(headingVariants, isReduced)}
@@ -84,7 +85,8 @@ export function CurrentlyPlaying({ className }: { className?: string }) {
               <MdRefresh className={cn('size-5', (isFetching || irf) && 'animate-spin')} />
             </motion.button>
           </nav>
-
+        </MotionFrameHeader>
+        <MotionFramePanel className="p-3">
           {data?.data ? (
             <Player data={data.data} />
           ) : cd?.data && Array.isArray(cd?.data) && cd?.data?.length && firstTrack ? (
@@ -158,7 +160,10 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
         className="flex flex-col justify-between gap-4"
         variants={safeVariants(containerVariants, isReduced)}
       >
-        <motion.div className="space-y-2" variants={safeVariants(cardVariants, isReduced)}>
+        <motion.div
+          className="space-y-2"
+          variants={safeVariants(cardVariants, isReduced)}
+        >
           <h3 className="text-base font-semibold uppercase">{data?.name}</h3>
           <div className="line-clamp-1">
             <span className="mr-2 text-neutral-600">by</span>
@@ -180,7 +185,10 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
           </div>
         </motion.div>
 
-        <motion.div className="mt-4 line-clamp-1" variants={safeVariants(cardVariants, isReduced)}>
+        <motion.div
+          className="mt-4 line-clamp-1"
+          variants={safeVariants(cardVariants, isReduced)}
+        >
           <span className="mr-2">album :</span>
           <MotionLink
             href={data?.album?.href}
