@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 
@@ -10,6 +10,7 @@ const ITEMS = ['React', 'GSAP', 'Next.js', 'TypeScript', 'Tailwind'];
 
 export default function GsapStagger() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [replay, setReplay] = useState(0);
 
   useGSAP(
     () => {
@@ -22,11 +23,11 @@ export default function GsapStagger() {
         stagger: 0.1
       });
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [replay] }
   );
 
   return (
-    <div ref={containerRef} className="flex flex-wrap items-center justify-center gap-3 p-6">
+    <div ref={containerRef} className="relative flex flex-wrap items-center justify-center gap-3 p-8">
       {ITEMS.map((item) => (
         <div
           key={item}
@@ -35,6 +36,13 @@ export default function GsapStagger() {
           {item}
         </div>
       ))}
+      <button
+        onClick={() => setReplay(r => r + 1)}
+        title="Replay animation"
+        className="absolute top-2 right-2 flex items-center gap-1 rounded-md border border-orange-400/60 bg-neutral-900/80 px-2 py-1 text-xsm font-semibold text-orange-400 backdrop-blur transition-colors hover:border-orange-400 hover:bg-neutral-900 active:scale-95"
+      >
+        ↺ Replay
+      </button>
     </div>
   );
 }

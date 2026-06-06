@@ -2,8 +2,10 @@ import { type Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getGithubLastEdit } from 'fumadocs-core/content/github';
+import { Callout } from 'fumadocs-ui/components/callout';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { DocsPage } from 'fumadocs-ui/page';
+import { FaGithub } from 'react-icons/fa6';
 import { HiArrowLeft } from 'react-icons/hi';
 import readingTime from 'reading-time';
 import { blog, getPageImage } from 'lib/source';
@@ -17,6 +19,7 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
   if (!page) notFound();
 
   const text = await page.data.getText('processed');
+  const MDX = page.data.body;
 
   const post = {
     ...page.data,
@@ -25,8 +28,6 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
     readingTime: readingTime(String(text)).text,
     date: new Date(page.data.date).toISOString()
   };
-
-  const MDX = post.body;
 
   const time = await getGithubLastEdit({
     owner: 'braswelljr',
@@ -79,11 +80,37 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
         description={post.description ?? ''}
         date={post.date}
         tags={post.tags ?? []}
-        readingTime={post.readingTime}
-        path={post.path}
-        MDX={MDX as React.ComponentType<any>}
-        mdxComponents={getMDXComponents({ a: createRelativeLink(blog, page) })}
-      />
+      >
+        {/* MDX rendered on the server — no functions cross the boundary */}
+        <MDX components={getMDXComponents({ a: createRelativeLink(blog, page) })} />
+
+        <div className="space-y-1">
+          <p>
+            Published on{' '}
+            {new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(new Date(post.date))}
+          </p>
+          <p>{post.readingTime}</p>
+        </div>
+
+        <Callout
+          type="warn"
+          title="Found an Issue!"
+        >
+          <p>
+            Find an issue with this post? Think you could clarify, update or add something? All my
+            posts are available to edit on Github. Any fix, little or small, is appreciated!
+          </p>
+          <Link
+            href={`https://github.com/braswelljr/braswelljr/blob/main/content/blog/${post.path}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline mt-4 inline-flex w-auto items-center gap-2 pb-1 text-base no-underline"
+          >
+            <FaGithub className="size-4" />
+            Edit on GitHub
+          </Link>
+        </Callout>
+      </BlogPostContent>
     </DocsPage>
   );
 }

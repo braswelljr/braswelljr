@@ -1,5 +1,6 @@
 import AnimatedGridComponent from '@/components/snippets/grid-component/animated-grid';
 import GsapFadeIn from '@/components/snippets/gsap/gsap-fade-in';
+import GsapReplay from '@/components/snippets/gsap/gsap-replay';
 import GsapScrollTrigger from '@/components/snippets/gsap/gsap-scroll-trigger';
 import GsapStagger from '@/components/snippets/gsap/gsap-stagger';
 import GsapTimeline from '@/components/snippets/gsap/gsap-timeline';
@@ -11,5 +12,6 @@ export const snippets = {
   GsapFadeIn,
   GsapStagger,
   GsapTimeline,
-  GsapScrollTrigger
+  GsapScrollTrigger,
+  GsapReplay
 };

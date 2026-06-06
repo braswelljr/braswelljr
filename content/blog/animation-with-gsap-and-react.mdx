@@ -107,8 +107,9 @@ The simplest GSAP animation: fade an element in from below on mount.
 ### How it works
 
 - `useGSAP` is the React-safe hook from `@gsap/react`. It handles cleanup automatically on unmount (no `useEffect` + `return () => gsap.killTweensOf(...)` boilerplate).
-- The `scope` option scopes all selector queries to `containerRef.current`, so `.box` only matches elements *inside* that container — safe to reuse across multiple instances.
+- The `scope` option scopes all selector queries to `containerRef.current`, so `.fade-box` only matches elements *inside* that container — safe to reuse across multiple instances.
 - `gsap.from` starts from `opacity: 0, y: 40` and animates to the element's natural state.
+- A `replay` state counter is passed in `dependencies: [replay]` — incrementing it kills the previous tween and re-runs the animation. Hit **↺ Replay** to see it in action.
 
 <include
   cwd
@@ -118,7 +119,7 @@ The simplest GSAP animation: fade an element in from below on mount.
   ./src/components/snippets/gsap/gsap-fade-in.tsx
 </include>
 
-**Live result:**
+**Live result — hit ↺ Replay to restart:**
 
 <GsapFadeIn />
 
@@ -159,7 +160,7 @@ gsap.from('.item', {
   ./src/components/snippets/gsap/gsap-stagger.tsx
 </include>
 
-**Live result:**
+**Live result — hit ↺ Replay to restart:**
 
 <GsapStagger />
 
@@ -208,7 +209,7 @@ Below is a profile card where the avatar, name, role, and status badge animate i
   ./src/components/snippets/gsap/gsap-timeline.tsx
 </include>
 
-**Live result:**
+**Live result — hit ↺ Replay to restart:**
 
 <GsapTimeline />
 
@@ -273,9 +274,71 @@ Common `toggleActions` patterns:
   ./src/components/snippets/gsap/gsap-scroll-trigger.tsx
 </include>
 
-**Live result — scroll into view to trigger:**
+**Live result — scroll into view to trigger, hit ↺ Replay to restart:**
 
 <GsapScrollTrigger />
+
+---
+
+## 5 — Replaying Animations
+
+Every animation in this post has a **↺ Replay** button. The pattern is two lines of code using `useGSAP`'s `dependencies` array.
+
+### How it works
+
+`useGSAP` behaves like `useEffect` — it re-runs whenever its `dependencies` change. When it re-runs, it **automatically kills all tweens and ScrollTriggers** created in the previous run before starting fresh. This gives you a clean replay with zero manual cleanup.
+
+```tsx title="components/gsap-replay.tsx"
+const [replay, setReplay] = useState(0);
+
+useGSAP(
+  () => {
+    // All tweens here are killed and re-created when `replay` changes
+    gsap.from('.element', { opacity: 0, y: 24, duration: 0.5 });
+  },
+  { scope: containerRef, dependencies: [replay] }
+);
+
+// Trigger a replay:
+<button onClick={() => setReplay(r => r + 1)}>↺ Replay</button>
+```
+
+### Why `dependencies: [replay]` instead of `tl.restart()`
+
+You might think to store a timeline ref and call `tl.restart()` directly:
+
+```tsx
+// ❌ Fragile — tl.restart() doesn't re-run useGSAP context,
+//    so new DOM nodes or changed props won't be picked up
+const tlRef = useRef<gsap.core.Timeline>();
+
+useGSAP(() => {
+  tlRef.current = gsap.timeline();
+  tlRef.current.from('.box', { opacity: 0 });
+}, { scope: containerRef });
+
+// This replays the tween but against potentially stale targets
+<button onClick={() => tlRef.current?.restart()}>Replay</button>
+```
+
+The `dependencies` approach is better because:
+- **Fresh context** — GSAP kills the old context and creates a new one, re-querying all selectors against the current DOM.
+- **Works with dynamic content** — if the list re-renders with new items, the new elements are picked up.
+- **Handles ScrollTriggers** — `tl.restart()` doesn't restart nested `ScrollTrigger` instances; the `dependencies` approach does.
+
+### Full example
+
+<include
+  cwd
+  lang="tsx"
+  meta='title="components/gsap-replay.tsx"'
+>
+  ./src/components/snippets/gsap/gsap-replay.tsx
+</include>
+
+**Live result:**
+
+<GsapReplay />
 
 ---
 
