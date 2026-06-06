@@ -3,8 +3,8 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { gsap } from 'gsap';
 import { motion, useReducedMotion } from 'motion/react';
 import { FaSpotify } from 'react-icons/fa6';
 import { HiCode, HiHome } from 'react-icons/hi';
@@ -116,8 +116,16 @@ export default function Navbar({
         transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1], delay: 0.15 }}
       >
         <Avatar className="size-8 rounded-none">
-          <AvatarImage src="/icons/b.png" alt="B" className="hidden dark:block" />
-          <AvatarImage src="/icons/black-b.png" alt="B" className="dark:hidden" />
+          <AvatarImage
+            src="/icons/b.png"
+            alt="B"
+            className="hidden dark:block"
+          />
+          <AvatarImage
+            src="/icons/black-b.png"
+            alt="B"
+            className="dark:hidden"
+          />
           <AvatarFallback>B</AvatarFallback>
         </Avatar>
       </motion.div>
@@ -148,7 +156,11 @@ export default function Navbar({
                 value={item.path}
                 nativeButton={false}
                 render={(p) => (
-                  <Link {...p} href={item.path} className="">
+                  <Link
+                    {...p}
+                    href={item.path}
+                    className=""
+                  >
                     {item.name}
                   </Link>
                 )}
@@ -171,7 +183,7 @@ export default function Navbar({
         >
           <button
             id="search-button"
-            className="flex h-8 w-full max-w-1/2 items-center justify-between gap-4 rounded-sm border border-primary! px-3 text-sm transition-colors hocus:bg-primary/5 focus:outline-none lg:max-w-3xs"
+            className="flex h-8 w-full max-w-1/2 items-center justify-between gap-4 rounded-sm border border-primary! px-3 text-sm transition-colors focus:outline-none lg:max-w-3xs hocus:bg-primary/5"
             aria-label="Search"
             onClick={() => onOpenChange(!open)}
           >
@@ -208,7 +220,10 @@ type LayoutType = React.HTMLProps<HTMLDivElement> & {
 function Layout({ children, className, isViewport, ...props }: LayoutType) {
   if (!isViewport) return <Fragment>{children}</Fragment>;
   return (
-    <div {...props} className={cn('', className)}>
+    <div
+      {...props}
+      className={cn('', className)}
+    >
       {children}
     </div>
   );
