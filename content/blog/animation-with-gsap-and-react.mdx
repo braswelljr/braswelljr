@@ -1,0 +1,382 @@
+---
+title: 'Animation with GSAP and React'
+description: 'A practical guide to building high-performance, sequenced animations in React using GSAP — covering gsap.from, stagger, timelines, and ScrollTrigger with live rendered examples.'
+tags:
+  - react
+  - gsap
+  - animation
+  - typescript
+  - nextjs
+date: 2026-06-07T00:00:00Z
+published: true
+resources:
+  - title: 'GSAP Docs'
+    url: 'https://gsap.com/docs/v3/'
+  - title: '@gsap/react — useGSAP hook'
+    url: 'https://gsap.com/resources/React/'
+  - title: 'ScrollTrigger plugin'
+    url: 'https://gsap.com/docs/v3/Plugins/ScrollTrigger/'
+  - title: 'GSAP Easing visualizer'
+    url: 'https://gsap.com/docs/v3/Eases/'
+---
+
+## What is GSAP?
+
+**GSAP** (GreenSock Animation Platform) is a battle-tested JavaScript animation library capable of animating anything JavaScript can touch — DOM elements, CSS properties, SVG, canvas, Web Audio, and more. It runs on every browser, respects GPU compositing, and produces silky 60fps motion even on low-end devices.
+
+Unlike CSS keyframes or `motion/react`, GSAP excels at **sequenced, imperative timelines** — the kind of choreographed entrance animations where element A finishes, then B starts halfway through C. That control is difficult to express declaratively and is where GSAP shines.
+
+### GSAP vs CSS vs Framer Motion
+
+| | CSS animations | Framer Motion | GSAP |
+|---|---|---|---|
+| **Control** | Limited | Good | Precise |
+| **Sequencing** | `animation-delay` hacks | `variants` stagger | `Timeline` API |
+| **Scroll-driven** | `@scroll-timeline` (limited support) | `useScroll` | `ScrollTrigger` |
+| **Performance** | GPU (transform/opacity only) | GPU | GPU |
+| **Bundle size** | 0 kb | ~50 kb | ~30 kb (core) |
+| **Best for** | Simple CSS transitions | Declarative React UI | Complex choreography |
+
+---
+
+## Setup
+
+Install GSAP and the official React integration:
+
+```package-install
+gsap @gsap/react
+```
+
+Register the `useGSAP` plugin once at the module level — this prevents double-registration in strict mode:
+
+```tsx title="app/layout.tsx"
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(useGSAP);
+```
+
+---
+
+## Core concepts
+
+### `gsap.to` vs `gsap.from` vs `gsap.fromTo`
+
+These are the three animation primitives. The difference is simply where the animation *starts* and *ends*.
+
+```tsx
+// Animate TO these values from whatever state the element is in
+gsap.to('.box', { opacity: 1, y: 0, duration: 0.6 });
+
+// Animate FROM these values to the element's current CSS state
+gsap.from('.box', { opacity: 0, y: 40, duration: 0.6 });
+
+// Explicitly define both start and end — most predictable
+gsap.fromTo(
+  '.box',
+  { opacity: 0, y: 40 },   // from
+  { opacity: 1, y: 0, duration: 0.6 }  // to
+);
+```
+
+<Callout type="info">
+  Prefer `gsap.fromTo` in production. `gsap.from` reads the element's computed style as the
+  end state, which can produce surprising results when styles change after mount (e.g. dark mode,
+  SSR hydration).
+</Callout>
+
+### Easing
+
+GSAP ships a comprehensive easing suite. The most useful for UI work:
+
+```tsx
+gsap.from('.box', { y: 40, ease: 'power3.out', duration: 0.5 });   // snappy entrance
+gsap.from('.box', { y: 40, ease: 'back.out(1.7)', duration: 0.5 }); // slight overshoot
+gsap.from('.box', { y: 40, ease: 'elastic.out(1, 0.4)', duration: 1 }); // springy
+gsap.from('.box', { y: 40, ease: 'expo.out', duration: 0.6 });      // very fast then slow
+```
+
+As a rule of thumb: use `power2.out` or `power3.out` for most UI entrances. Reserve `elastic` and `back` for playful, attention-grabbing moments.
+
+---
+
+## 1 — Fade In
+
+The simplest GSAP animation: fade an element in from below on mount.
+
+### How it works
+
+- `useGSAP` is the React-safe hook from `@gsap/react`. It handles cleanup automatically on unmount (no `useEffect` + `return () => gsap.killTweensOf(...)` boilerplate).
+- The `scope` option scopes all selector queries to `containerRef.current`, so `.box` only matches elements *inside* that container — safe to reuse across multiple instances.
+- `gsap.from` starts from `opacity: 0, y: 40` and animates to the element's natural state.
+
+<include
+  cwd
+  lang="tsx"
+  meta='title="components/gsap-fade-in.tsx"'
+>
+  ./src/components/snippets/gsap/gsap-fade-in.tsx
+</include>
+
+**Live result:**
+
+<GsapFadeIn />
+
+---
+
+## 2 — Stagger
+
+Stagger staggers the start time of the same animation across multiple elements — creating a wave or cascade effect.
+
+### How it works
+
+- `stagger: 0.1` means each subsequent `.stagger-item` starts 100ms after the previous one.
+- Stagger can also be an object: `stagger: { each: 0.1, from: 'center' }` to radiate outward from the middle.
+- `ease: 'back.out(1.7)'` adds a small overshoot on arrival — great for tags and chips.
+
+```tsx
+gsap.from('.item', {
+  opacity: 0,
+  y: 30,
+  scale: 0.85,
+  stagger: 0.1,         // 100ms between each
+  ease: 'back.out(1.7)',
+  duration: 0.5
+});
+
+// Advanced — radiate from center outward
+gsap.from('.item', {
+  opacity: 0,
+  stagger: { each: 0.08, from: 'center' }
+});
+```
+
+<include
+  cwd
+  lang="tsx"
+  meta='title="components/gsap-stagger.tsx"'
+>
+  ./src/components/snippets/gsap/gsap-stagger.tsx
+</include>
+
+**Live result:**
+
+<GsapStagger />
+
+---
+
+## 3 — Timeline
+
+A `gsap.timeline()` lets you **chain multiple tweens in sequence**, with precise overlap control via position parameters. This is the killer feature that makes GSAP irreplaceable for choreographed UI.
+
+### Position parameter
+
+The second argument to `tl.from()` / `tl.to()` is the **position parameter** — it controls where in the timeline the tween starts:
+
+```tsx
+const tl = gsap.timeline();
+
+tl.from('#avatar', { opacity: 0, scale: 0.5, duration: 0.4 })
+  // starts 0.1s before the previous tween ends
+  .from('#name',   { opacity: 0, x: -20 },  '-=0.1')
+  // starts 0.15s before the previous tween ends
+  .from('#role',   { opacity: 0, x: -20 },  '-=0.15')
+  // starts at absolute position 0.8s into the timeline
+  .from('#badge',  { opacity: 0, y: 10  },  '0.8')
+  // starts immediately after a label called "reveal"
+  .from('#cta',    { opacity: 0 },           'reveal')
+```
+
+| Position syntax | Meaning |
+|---|---|
+| `'-=0.2'` | 0.2s before the *previous* tween ends |
+| `'+=0.1'` | 0.1s after the *previous* tween ends |
+| `'<'` | Same start time as the *previous* tween |
+| `'<0.1'` | 0.1s after the *previous* tween *starts* |
+| `0.5` | Absolute 0.5s from the timeline start |
+| `'label'` | At the named label |
+
+### Profile card entrance
+
+Below is a profile card where the avatar, name, role, and status badge animate in sequence with overlapping timing:
+
+<include
+  cwd
+  lang="tsx"
+  meta='title="components/gsap-timeline.tsx"'
+>
+  ./src/components/snippets/gsap/gsap-timeline.tsx
+</include>
+
+**Live result:**
+
+<GsapTimeline />
+
+### `clearProps: 'all'`
+
+Always call `clearProps: 'all'` on entrance tweens when GSAP animates to a final state that is already expressed in CSS. Without it, GSAP leaves `opacity: 1; transform: translateY(0px)` as inline styles — which override your CSS and break things like dark mode transitions.
+
+```tsx
+gsap.from('.hero', {
+  opacity: 0,
+  y: 32,
+  duration: 0.5,
+  clearProps: 'all'  // removes inline styles when tween completes
+});
+```
+
+---
+
+## 4 — ScrollTrigger
+
+`ScrollTrigger` is a GSAP plugin that fires animations based on the scroll position. It is far more powerful than CSS `@scroll-timeline` and works in every browser today.
+
+### Registration
+
+```tsx
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+```
+
+### `toggleActions`
+
+The `toggleActions` string controls what happens at four scroll events: **onEnter, onLeave, onEnterBack, onLeaveBack**.
+
+```tsx
+scrollTrigger: {
+  trigger: '.section',
+  start: 'top 80%',        // when the top of .section hits 80% of viewport
+  end: 'bottom 20%',       // optional end point
+  toggleActions: 'play reverse play reverse'
+  //              ↑     ↑       ↑     ↑
+  //           enter  leave enterB leaveB
+}
+```
+
+Common `toggleActions` patterns:
+
+| Value | Behaviour |
+|---|---|
+| `'play none none none'` | Play once, never reverse (default) |
+| `'play reverse play reverse'` | Play on enter, reverse on leave, bidirectional |
+| `'play pause resume reset'` | Pause when leaving, resume on re-enter |
+| `'restart none none reset'` | Restart every time you scroll into view |
+
+### Cards that animate in on scroll
+
+<include
+  cwd
+  lang="tsx"
+  meta='title="components/gsap-scroll-trigger.tsx"'
+>
+  ./src/components/snippets/gsap/gsap-scroll-trigger.tsx
+</include>
+
+**Live result — scroll into view to trigger:**
+
+<GsapScrollTrigger />
+
+---
+
+## Putting it all together — the `useGSAP` hook
+
+`useGSAP` from `@gsap/react` is the idiomatic React way to run GSAP. It is a thin wrapper around `useLayoutEffect` that:
+
+1. Creates a GSAP **context** scoped to your container ref.
+2. Automatically **kills all tweens and ScrollTriggers** created inside it when the component unmounts.
+3. Works correctly with React 18 Strict Mode double-invocation.
+
+```tsx title="components/hero.tsx"
+'use client';
+
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+export function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      // All tweens/ScrollTriggers created here are automatically cleaned up
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out', clearProps: 'all' } });
+
+      tl.from('.hero-image',   { opacity: 0, scale: 0.9, duration: 0.6 })
+        .from('.hero-heading',  { opacity: 0, y: 24,     duration: 0.5 }, '-=0.3')
+        .from('.hero-subtext',  { opacity: 0, y: 16,     duration: 0.4 }, '-=0.2')
+        .from('.hero-cta',      { opacity: 0, y: 12,     duration: 0.35 }, '-=0.15');
+
+      // ScrollTrigger is also auto-killed on unmount
+      gsap.from('.feature-card', {
+        opacity: 0,
+        y: 40,
+        stagger: 0.1,
+        ease: 'power2.out',
+        duration: 0.5,
+        scrollTrigger: {
+          trigger: '.features',
+          start: 'top 80%',
+          toggleActions: 'play reverse play reverse'
+        }
+      });
+    },
+    { scope: containerRef } // scopes all class selectors to this element
+  );
+
+  return (
+    <div ref={containerRef}>
+      <section className="hero">
+        <img className="hero-image" src="/avatar.png" alt="hero" />
+        <h1 className="hero-heading">Build fast. Ship beautiful.</h1>
+        <p className="hero-subtext">Animations that feel native, powered by GSAP.</p>
+        <button className="hero-cta">Get started</button>
+      </section>
+      <section className="features">
+        <div className="feature-card">Performance</div>
+        <div className="feature-card">Flexibility</div>
+        <div className="feature-card">Control</div>
+      </section>
+    </div>
+  );
+}
+```
+
+---
+
+## Best practices
+
+**Always scope with a container ref.** Class-based selectors like `.box` are global. Without `{ scope: containerRef }`, your animation may accidentally target elements in *other* mounted components.
+
+**Use `clearProps: 'all'` on entrance tweens.** GSAP leaves inline styles after tweens complete. These override your CSS. `clearProps: 'all'` removes them when the animation finishes.
+
+**Register plugins once at module level.** Call `gsap.registerPlugin(...)` outside of components — not inside `useGSAP` or `useEffect`. Calling it inside a component re-registers on every render.
+
+**Respect `prefers-reduced-motion`.** Read `useReducedMotion()` from `motion/react` (or `window.matchMedia`) and skip or simplify animations for users who have requested reduced motion.
+
+```tsx
+import { useReducedMotion } from 'motion/react';
+
+export function AnimatedCard() {
+  const isReduced = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (isReduced) return; // skip all animation
+    gsap.from(ref.current, { opacity: 0, y: 24, duration: 0.5, clearProps: 'all' });
+  }, { scope: ref });
+
+  return <div ref={ref}>Content</div>;
+}
+```
+
+**Kill ScrollTriggers when content changes.** If you re-render a list (e.g. pagination), call `ScrollTrigger.refresh()` or return a cleanup function from `useGSAP` that kills specific instances.
+
+---
+
+## Conclusion
+
+GSAP gives you a level of animation control that CSS and declarative libraries cannot match. The three patterns covered here — **fade-in**, **stagger**, **timeline**, and **ScrollTrigger** — cover the vast majority of production UI animation needs. Start with `gsap.from` + `useGSAP` scoped to a container ref, add a timeline when you need sequencing, and reach for `ScrollTrigger` when you want animations to respond to scroll position.

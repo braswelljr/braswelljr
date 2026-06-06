@@ -11,8 +11,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion, useReducedMotion } from 'motion/react';
 import { FaGithub } from 'react-icons/fa6';
 import { MdOutlineWorkspacePremium } from 'react-icons/md';
-import { cn } from 'lib/utils';
-import { cardVariants, containerVariants, EASE_OUT, safeVariants } from '@/components/motion';
+import { cardVariants, containerVariants, safeVariants } from '@/components/motion';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
