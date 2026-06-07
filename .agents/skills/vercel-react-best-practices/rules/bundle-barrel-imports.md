@@ -32,7 +32,7 @@ module.exports = {
   experimental: {
     optimizePackageImports: ['lucide-react', '@mui/material']
   }
-}
+};
 ```
 
 ```tsx

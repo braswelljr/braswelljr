@@ -60,6 +60,7 @@ function TabPanel({ tabs, activeIndex }: Props) {
 ```
 
 **Guidelines:**
+
 - `layout="position"` - Use when element moves but size stays constant (tab indicators, drag-and-drop)
 - `layout="size"` - Use when element resizes in place but doesn't move (accordion panels, expandable cards)
 - `layout={true}` - Use when both position and size change (grid reflows, responsive layouts)

@@ -54,11 +54,13 @@ export function NotificationBadge({ count }: NotificationBadgeProps) {
 ```
 
 **When mini is sufficient:**
+
 - Imperative animations triggered by events
 - Simple enter/exit animations on DOM elements
 - Animations that do not need spring physics or complex sequencing
 
 **When to use full useAnimate:**
+
 - You need spring animations with custom damping/stiffness
 - You are already using LazyMotion (no additional cost)
 - You need to animate motion values or complex keyframes

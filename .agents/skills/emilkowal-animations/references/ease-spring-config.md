@@ -33,6 +33,7 @@ Apple's `duration` + `bounce` model is far easier to reason about than raw `stif
 Use `{ type: 'spring', mass: 1, stiffness: 100, damping: 10 }` only when you need precise physical behaviour the duration/bounce model can't express.
 
 **When NOT to use this pattern:**
+
 - Speed-critical functional UI (data entry, banking flows) where a fixed-duration ease-out is faster and calmer
 - Any animation a user triggers hundreds of times a day
 

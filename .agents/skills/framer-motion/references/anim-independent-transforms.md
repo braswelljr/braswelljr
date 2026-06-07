@@ -79,6 +79,7 @@ function FloatingCard() {
 ```
 
 **Available independent transforms:**
+
 - `x`, `y`, `z` - translation
 - `scale`, `scaleX`, `scaleY` - scaling
 - `rotate`, `rotateX`, `rotateY`, `rotateZ` - rotation

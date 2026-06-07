@@ -24,6 +24,7 @@ tags: tw, tailwind, easing, duration, transition, ease-out
 ```
 
 **Notes:**
+
 - `transition-transform`, `transition-opacity`, and `transition-colors` are narrower built-ins when you animate a single property group.
 - Reserve durations of 300–500ms for large surfaces (modals, drawers); see [`tw-asymmetric-timing`](tw-asymmetric-timing.md) for press/release splits.
 

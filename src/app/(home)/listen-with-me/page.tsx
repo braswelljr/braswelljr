@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef } from 'react';
-import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { gsap } from 'gsap';
 import { useReducedMotion } from 'motion/react';
 import { CurrentlyPlaying } from './_sections/currently-playing';
 import { TopTracks } from './_sections/top-tracks';

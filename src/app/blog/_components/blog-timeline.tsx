@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef } from 'react';
-import Link from 'next/link';
 import { useGSAP } from '@gsap/react';
 import { isAfter, subDays } from 'date-fns';
 import { gsap } from 'gsap';
@@ -125,7 +124,7 @@ export function BlogTimeline({ posts }: { posts: BlogPost[] }) {
                       transition={{ duration: 0.25, ease: EASE_OUT, delay: i * 0.04 }}
                     >
                       {isNew && (
-                        <div className="inline-flex h-6 w-auto items-center gap-1 rounded-sm bg-primary-300 px-1.5 py-1 pr-2 text-xsm font-bold text-neutral-950 uppercase dark:bg-primary">
+                        <div className="inline-flex h-6 w-auto items-center gap-1 rounded-sm bg-primary-300 px-1.5 py-1 pr-2 text-xsm font-bold text-neutral-950 uppercase dark:bg-primary dark:text-white">
                           <MdOutlineWorkspacePremium className="size-3.5" />
                           New
                         </div>
@@ -133,24 +132,36 @@ export function BlogTimeline({ posts }: { posts: BlogPost[] }) {
                       {!published && (
                         <div className="inline-flex h-6 w-auto items-center gap-1 rounded-sm bg-secondary-300 px-2.5 py-0.5 text-xs font-medium text-neutral-950 uppercase dark:bg-stone-950 dark:text-secondary">
                           <IoAlbums className="size-3.5" />
-                          <span>Draft / Unpublished<span className="sr-only">, {title}</span></span>
+                          <span>
+                            Draft / Unpublished<span className="sr-only">, {title}</span>
+                          </span>
                         </div>
                       )}
                     </motion.div>
                   )}
 
-                  <h3
+                  <motion.h3
                     className={cn(
                       'text-xl font-semibold tracking-tight text-neutral-950 dark:text-neutral-200',
                       isNew || !published ? 'pt-3 lg:pt-0' : 'pt-8 lg:pt-0'
                     )}
+                    initial={isReduced ? undefined : { opacity: 0, y: -6, x: -6 }}
+                    whileInView={isReduced ? undefined : { opacity: 1, y: 0, x: 0 }}
+                    viewport={{ once: false }}
+                    transition={{ duration: 0.25, ease: EASE_OUT, delay: i * 0.04 }}
                   >
                     {title}
-                  </h3>
+                  </motion.h3>
 
-                  <div className="mt-2 mb-4 line-clamp-2 font-medium text-neutral-900 dark:text-neutral-400">
+                  <motion.div
+                    className="mt-2 mb-4 line-clamp-2 font-medium text-neutral-900 dark:text-neutral-400"
+                    initial={isReduced ? undefined : { opacity: 0, y: -6, x: -6 }}
+                    whileInView={isReduced ? undefined : { opacity: 1, y: 0, x: 0 }}
+                    viewport={{ once: false }}
+                    transition={{ duration: 0.25, ease: EASE_OUT, delay: i * 0.04 }}
+                  >
                     {description}
-                  </div>
+                  </motion.div>
 
                   {Array.isArray(tags) && tags.length > 0 && (
                     <motion.div
@@ -161,7 +172,7 @@ export function BlogTimeline({ posts }: { posts: BlogPost[] }) {
                         <motion.span
                           key={j}
                           variants={safeVariants(cardVariants, isReduced)}
-                          className="inline-flex items-center rounded-sm bg-primary-200 px-2 py-1 text-xsm font-medium text-neutral-950 dark:bg-primary"
+                          className="inline-flex items-center rounded-sm bg-primary-200 px-2 py-1 text-xsm font-medium text-neutral-950 dark:bg-primary dark:text-white"
                         >
                           {tag}
                         </motion.span>
@@ -193,14 +204,16 @@ export function BlogTimeline({ posts }: { posts: BlogPost[] }) {
                 {/* Read more link — fades up last */}
                 <MotionLink
                   href={slug}
-                  className="link-underline group/link relative mt-5 inline-flex items-center justify-start gap-1 pb-1 pl-1.5 text-sm font-semibold text-primary! uppercase hover:bg-size-[95%_3px]"
+                  className="link-underline group/link relative mt-5 inline-flex items-center justify-start gap-1 pb-1 text-sm font-semibold text-primary! uppercase hover:bg-size-[95%_3px]"
                   initial={isReduced ? undefined : { opacity: 0, x: -8 }}
                   whileInView={isReduced ? undefined : { opacity: 1, x: 0 }}
                   viewport={{ once: false, margin: '-40px' }}
                   transition={{ duration: 0.25, ease: EASE_OUT, delay: 0.18 + i * 0.04 }}
                   whileHover={{ gap: '8px', transition: { duration: 0.15 } }}
                 >
-                  <span>Read more<span className="sr-only">, {title}</span></span>
+                  <span>
+                    Read more<span className="sr-only">, {title}</span>
+                  </span>
                   <HiChevronRight className="h-5 w-auto overflow-visible" />
                 </MotionLink>
               </motion.article>

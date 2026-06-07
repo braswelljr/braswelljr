@@ -7,6 +7,7 @@ Add SEO metadata to Next.js pages using the Metadata API.
 The `metadata` object and `generateMetadata` function are **only supported in Server Components**. They cannot be used in Client Components.
 
 If the target page has `'use client'`:
+
 1. Remove `'use client'` if possible, move client logic to child components
 2. Or extract metadata to a parent Server Component layout
 3. Or split the file: Server Component with metadata imports Client Components
@@ -83,16 +84,16 @@ Reference: https://nextjs.org/docs/app/getting-started/project-structure#metadat
 
 Place these files in `app/` directory (or route segments):
 
-| File | Purpose |
-|------|---------|
-| `favicon.ico` | Favicon |
-| `icon.png` / `icon.svg` | App icon |
-| `apple-icon.png` | Apple app icon |
-| `opengraph-image.png` | OG image |
-| `twitter-image.png` | Twitter card image |
-| `sitemap.ts` / `sitemap.xml` | Sitemap (use `generateSitemaps` for multiple) |
-| `robots.ts` / `robots.txt` | Robots directives |
-| `manifest.ts` / `manifest.json` | Web app manifest |
+| File                            | Purpose                                       |
+| ------------------------------- | --------------------------------------------- |
+| `favicon.ico`                   | Favicon                                       |
+| `icon.png` / `icon.svg`         | App icon                                      |
+| `apple-icon.png`                | Apple app icon                                |
+| `opengraph-image.png`           | OG image                                      |
+| `twitter-image.png`             | Twitter card image                            |
+| `sitemap.ts` / `sitemap.xml`    | Sitemap (use `generateSitemaps` for multiple) |
+| `robots.ts` / `robots.txt`      | Robots directives                             |
+| `manifest.ts` / `manifest.json` | Web app manifest                              |
 
 ## SEO Best Practice: Static Files Are Often Enough
 
@@ -108,6 +109,7 @@ app/
 ```
 
 **Tips:**
+
 - A single `opengraph-image.png` covers both Open Graph and Twitter (Twitter falls back to OG)
 - Static `title` and `description` in layout metadata is sufficient for most pages
 - Only use dynamic `generateMetadata` when content varies per page
@@ -240,6 +242,7 @@ export default async function Image() {
 ## Styling Notes
 
 ImageResponse uses Flexbox layout:
+
 - Use `display: 'flex'`
 - No CSS Grid support
 - Styles must be inline objects

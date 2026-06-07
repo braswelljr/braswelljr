@@ -29,6 +29,7 @@ tags: {prefix}, {technique}, {tool-if-mentioned}, {related-concepts}
 {Alternative approach when applicable}
 
 **When NOT to use this pattern:**
+
 - {Exception 1}
 - {Exception 2}
 

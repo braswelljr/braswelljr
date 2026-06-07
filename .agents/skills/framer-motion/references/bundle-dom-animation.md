@@ -80,6 +80,7 @@ export function NavigationMenu({ items }: NavigationMenuProps) {
 ```
 
 **When to use domMax instead:**
+
 - You need `layout` or `layoutId` animations
 - You need drag gestures (`drag`, `dragConstraints`)
 - You need pan gestures (`onPan`, `onPanStart`)

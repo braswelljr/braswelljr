@@ -26,6 +26,7 @@ A subtle scale-down on press makes a control feel responsive. In Tailwind v4 `ho
 ```
 
 **Notes:**
+
 - Pair with `hover:` only for an additional resting-state hint, never as the sole feedback—see [`tw-reduced-motion`](tw-reduced-motion.md) to gate motion for sensitive users.
 
 Reference: [Great Animations](https://emilkowal.ski/ui/great-animations)

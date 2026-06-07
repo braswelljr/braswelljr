@@ -68,11 +68,13 @@ function CardGrid({ items }) {
 ```
 
 **When to use willChange:**
+
 - Complex animations that stutter without it
 - Elements that animate frequently (navigation, modals)
 - Large elements where layer creation cost is justified
 
 **When NOT to use willChange:**
+
 - Simple opacity/transform animations (Motion handles this)
 - Static elements that rarely animate
 - Many elements at once (100+ cards in a grid)

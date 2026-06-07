@@ -59,6 +59,7 @@ function MessageList({ messages }: Props) {
 ```
 
 **When to use layoutScroll:**
+
 - Scrollable lists with reorderable items
 - Chat interfaces with layout-animated messages
 - Infinite scroll feeds with layout transitions

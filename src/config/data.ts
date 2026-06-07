@@ -166,6 +166,12 @@ export const career: Array<Career> = [
 
 export const OTHER_PROJECTS = [
   {
+    name: 'Ghana Timber Millers Organization',
+    homepageUrl: 'https://gtmo.vercel.app',
+    url: 'https://github.com/braswelljr/gtmo',
+    description: 'Official Website for the Ghana Timber Millers Organization.'
+  },
+  {
     name: 'Glam Beauty Studio (Manager)',
     homepageUrl: 'https://manager-aeshglam.vercel.app',
     url: '',

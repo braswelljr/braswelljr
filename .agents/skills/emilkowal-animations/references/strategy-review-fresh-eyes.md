@@ -28,6 +28,7 @@ Most animation flaws are invisible at full speed. Slow playback 2–5×, step fr
 ```
 
 What to look for in slow motion:
+
 - Crossfades that show two overlapping states instead of one smooth blend
 - Easing that starts or stops abruptly
 - A `transform-origin` that scales from the wrong point

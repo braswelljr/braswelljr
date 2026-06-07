@@ -7,7 +7,7 @@ tags: transform, starting-style, css, enter, mount
 
 ## Animate Enter States with @starting-style
 
-`@starting-style` defines the values an element animates *from* on first render, letting you animate entry with pure CSS. It replaces the common React pattern of flipping a `mounted` flag in `useEffect` just to trigger the enter transition—which costs an extra render and can flash the final state for one frame.
+`@starting-style` defines the values an element animates _from_ on first render, letting you animate entry with pure CSS. It replaces the common React pattern of flipping a `mounted` flag in `useEffect` just to trigger the enter transition—which costs an extra render and can flash the final state for one frame.
 
 **Incorrect (JavaScript mount flag):**
 
@@ -26,7 +26,9 @@ function Toast({ message }: { message: string }) {
 .toast {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 400ms ease, transform 400ms ease;
+  transition:
+    opacity 400ms ease,
+    transform 400ms ease;
 
   @starting-style {
     opacity: 0;
@@ -36,6 +38,7 @@ function Toast({ message }: { message: string }) {
 ```
 
 **When NOT to use this pattern:**
+
 - You must support browsers without `@starting-style`—keep the `data-mounted` attribute pattern as a fallback there
 
 Reference: [Great Animations](https://emilkowal.ski/ui/great-animations)

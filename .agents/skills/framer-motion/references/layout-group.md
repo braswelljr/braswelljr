@@ -68,6 +68,7 @@ function Sidebar({ expanded }: { expanded: boolean }) {
 ```
 
 **Use cases for LayoutGroup:**
+
 - Dashboard layouts where expanding one panel affects others
 - List items that reorder across multiple parent components
 - Multi-column layouts with coordinated animations

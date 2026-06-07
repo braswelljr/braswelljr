@@ -79,6 +79,7 @@ function SearchResults() {
 ```
 
 **Hardware-accelerated by default:**
+
 - `x`, `y`, `z`
 - `scale`, `scaleX`, `scaleY`
 - `rotate`, `rotateX`, `rotateY`, `rotateZ`
@@ -86,6 +87,7 @@ function SearchResults() {
 - `filter`
 
 **Tips for keeping animations smooth:**
+
 1. Use CSS classes instead of dynamic inline styles
 2. Defer heavy computations with `useDeferredValue` or `requestIdleCallback`
 3. Use `useTransition` for non-urgent state updates

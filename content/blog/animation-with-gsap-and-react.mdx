@@ -28,14 +28,14 @@ Unlike CSS keyframes or `motion/react`, GSAP excels at **sequenced, imperative t
 
 ### GSAP vs CSS vs Framer Motion
 
-| | CSS animations | Framer Motion | GSAP |
-|---|---|---|---|
-| **Control** | Limited | Good | Precise |
-| **Sequencing** | `animation-delay` hacks | `variants` stagger | `Timeline` API |
-| **Scroll-driven** | `@scroll-timeline` (limited support) | `useScroll` | `ScrollTrigger` |
-| **Performance** | GPU (transform/opacity only) | GPU | GPU |
-| **Bundle size** | 0 kb | ~50 kb | ~30 kb (core) |
-| **Best for** | Simple CSS transitions | Declarative React UI | Complex choreography |
+|                   | CSS animations                       | Framer Motion        | GSAP                 |
+| ----------------- | ------------------------------------ | -------------------- | -------------------- |
+| **Control**       | Limited                              | Good                 | Precise              |
+| **Sequencing**    | `animation-delay` hacks              | `variants` stagger   | `Timeline` API       |
+| **Scroll-driven** | `@scroll-timeline` (limited support) | `useScroll`          | `ScrollTrigger`      |
+| **Performance**   | GPU (transform/opacity only)         | GPU                  | GPU                  |
+| **Bundle size**   | 0 kb                                 | ~50 kb               | ~30 kb (core)        |
+| **Best for**      | Simple CSS transitions               | Declarative React UI | Complex choreography |
 
 ---
 
@@ -62,7 +62,7 @@ gsap.registerPlugin(useGSAP);
 
 ### `gsap.to` vs `gsap.from` vs `gsap.fromTo`
 
-These are the three animation primitives. The difference is simply where the animation *starts* and *ends*.
+These are the three animation primitives. The difference is simply where the animation _starts_ and _ends_.
 
 ```tsx
 // Animate TO these values from whatever state the element is in
@@ -80,9 +80,9 @@ gsap.fromTo(
 ```
 
 <Callout type="info">
-  Prefer `gsap.fromTo` in production. `gsap.from` reads the element's computed style as the
-  end state, which can produce surprising results when styles change after mount (e.g. dark mode,
-  SSR hydration).
+  Prefer `gsap.fromTo` in production. `gsap.from` reads the element's computed style as the end
+  state, which can produce surprising results when styles change after mount (e.g. dark mode, SSR
+  hydration).
 </Callout>
 
 ### Easing
@@ -107,7 +107,7 @@ The simplest GSAP animation: fade an element in from below on mount.
 ### How it works
 
 - `useGSAP` is the React-safe hook from `@gsap/react`. It handles cleanup automatically on unmount (no `useEffect` + `return () => gsap.killTweensOf(...)` boilerplate).
-- The `scope` option scopes all selector queries to `containerRef.current`, so `.fade-box` only matches elements *inside* that container — safe to reuse across multiple instances.
+- The `scope` option scopes all selector queries to `containerRef.current`, so `.fade-box` only matches elements _inside_ that container — safe to reuse across multiple instances.
 - `gsap.from` starts from `opacity: 0, y: 40` and animates to the element's natural state.
 - A `replay` state counter is passed in `dependencies: [replay]` — incrementing it kills the previous tween and re-runs the animation. Hit **↺ Replay** to see it in action.
 
@@ -188,14 +188,14 @@ tl.from('#avatar', { opacity: 0, scale: 0.5, duration: 0.4 })
   .from('#cta',    { opacity: 0 },           'reveal')
 ```
 
-| Position syntax | Meaning |
-|---|---|
-| `'-=0.2'` | 0.2s before the *previous* tween ends |
-| `'+=0.1'` | 0.1s after the *previous* tween ends |
-| `'<'` | Same start time as the *previous* tween |
-| `'<0.1'` | 0.1s after the *previous* tween *starts* |
-| `0.5` | Absolute 0.5s from the timeline start |
-| `'label'` | At the named label |
+| Position syntax | Meaning                                  |
+| --------------- | ---------------------------------------- |
+| `'-=0.2'`       | 0.2s before the _previous_ tween ends    |
+| `'+=0.1'`       | 0.1s after the _previous_ tween ends     |
+| `'<'`           | Same start time as the _previous_ tween  |
+| `'<0.1'`        | 0.1s after the _previous_ tween _starts_ |
+| `0.5`           | Absolute 0.5s from the timeline start    |
+| `'label'`       | At the named label                       |
 
 ### Profile card entrance
 
@@ -257,12 +257,12 @@ scrollTrigger: {
 
 Common `toggleActions` patterns:
 
-| Value | Behaviour |
-|---|---|
-| `'play none none none'` | Play once, never reverse (default) |
+| Value                         | Behaviour                                      |
+| ----------------------------- | ---------------------------------------------- |
+| `'play none none none'`       | Play once, never reverse (default)             |
 | `'play reverse play reverse'` | Play on enter, reverse on leave, bidirectional |
-| `'play pause resume reset'` | Pause when leaving, resume on re-enter |
-| `'restart none none reset'` | Restart every time you scroll into view |
+| `'play pause resume reset'`   | Pause when leaving, resume on re-enter         |
+| `'restart none none reset'`   | Restart every time you scroll into view        |
 
 ### Cards that animate in on scroll
 
@@ -322,6 +322,7 @@ useGSAP(() => {
 ```
 
 The `dependencies` approach is better because:
+
 - **Fresh context** — GSAP kills the old context and creates a new one, re-querying all selectors against the current DOM.
 - **Works with dynamic content** — if the list re-renders with new items, the new elements are picked up.
 - **Handles ScrollTriggers** — `tl.restart()` doesn't restart nested `ScrollTrigger` instances; the `dependencies` approach does.
@@ -412,7 +413,7 @@ export function Hero() {
 
 ## Best practices
 
-**Always scope with a container ref.** Class-based selectors like `.box` are global. Without `{ scope: containerRef }`, your animation may accidentally target elements in *other* mounted components.
+**Always scope with a container ref.** Class-based selectors like `.box` are global. Without `{ scope: containerRef }`, your animation may accidentally target elements in _other_ mounted components.
 
 **Use `clearProps: 'all'` on entrance tweens.** GSAP leaves inline styles after tweens complete. These override your CSS. `clearProps: 'all'` removes them when the animation finishes.
 

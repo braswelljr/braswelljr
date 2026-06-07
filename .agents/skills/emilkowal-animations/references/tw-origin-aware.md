@@ -5,7 +5,7 @@ impactDescription: scales from the trigger edge instead of 50% off-center, so th
 tags: tw, tailwind, transform-origin, scale, origin, dropdown
 ---
 
-## Set transform-origin with origin-* Utilities in Tailwind v4
+## Set transform-origin with origin-\* Utilities in Tailwind v4
 
 A scale animation grows from its transform-origin. The default `center` makes a dropdown appear to inflate from its own middle, disconnected from the control that opened it. Match the origin to the anchor with an `origin-*` utility so the surface looks like it emerges from the trigger.
 
@@ -24,6 +24,7 @@ A scale animation grows from its transform-origin. The default `center` makes a 
 ```
 
 **Notes:**
+
 - Origin utilities cover all nine positions, e.g. `origin-top`, `origin-bottom-right`, `origin-left`; pick the one nearest the trigger.
 
 Reference: [CSS Transforms](https://emilkowal.ski/ui/css-transforms)

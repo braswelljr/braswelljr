@@ -156,11 +156,13 @@ export function Modal({ children }: { children: React.ReactNode }) {
 ### Why NOT `router.push('/')` or `<Link href="/">`?
 
 Using `push` or `Link` to "close" a modal:
+
 1. Adds a new history entry (back button shows modal again)
 2. Doesn't properly clear the intercepted route
 3. Can cause the modal to flash or persist unexpectedly
 
 `router.back()` correctly:
+
 1. Removes the intercepted route from history
 2. Returns to the previous page
 3. Properly unmounts the modal
@@ -169,18 +171,19 @@ Using `push` or `Link` to "close" a modal:
 
 Matchers match **route segments**, not filesystem paths:
 
-| Matcher | Matches | Example |
-|---------|---------|---------|
-| `(.)` | Same level | `@modal/(.)photos` intercepts `/photos` |
-| `(..)` | One level up | `@modal/(..)settings` from `/dashboard/@modal` intercepts `/settings` |
-| `(..)(..)` | Two levels up | Rarely used |
-| `(...)` | From root | `@modal/(...)photos` intercepts `/photos` from anywhere |
+| Matcher    | Matches       | Example                                                               |
+| ---------- | ------------- | --------------------------------------------------------------------- |
+| `(.)`      | Same level    | `@modal/(.)photos` intercepts `/photos`                               |
+| `(..)`     | One level up  | `@modal/(..)settings` from `/dashboard/@modal` intercepts `/settings` |
+| `(..)(..)` | Two levels up | Rarely used                                                           |
+| `(...)`    | From root     | `@modal/(...)photos` intercepts `/photos` from anywhere               |
 
 **Common mistake**: Thinking `(..)` means "parent folder" - it means "parent route segment".
 
 ## Handling Hard Navigation
 
 When users directly visit `/photos/123` (bookmark, refresh, shared link):
+
 - The intercepting route is bypassed
 - The full `photos/[id]/page.tsx` renders
 - Modal doesn't appear (expected behavior)
@@ -230,6 +233,7 @@ app/
 ### 4. Intercepted Route Shows Wrong Content
 
 Check your matcher:
+
 - `(.)photos` intercepts `/photos` from the same route level
 - If your `@modal` is in `app/dashboard/@modal`, use `(.)photos` to intercept `/dashboard/photos`, not `/photos`
 

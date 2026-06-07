@@ -70,15 +70,15 @@ GSAP’s CSSPlugin (included in core) animates DOM elements. Use **camelCase** f
 
 **Transform aliases (prefer over translateX(), rotate(), etc.):**
 
-| GSAP property | Equivalent CSS / note |
-|---------------|------------------------|
-| `x`, `y`, `z` | translateX/Y/Z (default unit: px) |
-| `xPercent`, `yPercent` | translateX/Y in %; use for percentage-based movement; work on SVG |
-| `scale`, `scaleX`, `scaleY` | scale; `scale` sets both X and Y |
-| `rotation` | rotate (default: deg; or `"1.25rad"`) |
-| `rotationX`, `rotationY` | 3D rotate (rotationZ = rotation) |
-| `skewX`, `skewY` | skew (deg or rad string) |
-| `transformOrigin` | transform-origin (e.g. `"left top"`, `"50% 50%"`) |
+| GSAP property               | Equivalent CSS / note                                             |
+| --------------------------- | ----------------------------------------------------------------- |
+| `x`, `y`, `z`               | translateX/Y/Z (default unit: px)                                 |
+| `xPercent`, `yPercent`      | translateX/Y in %; use for percentage-based movement; work on SVG |
+| `scale`, `scaleX`, `scaleY` | scale; `scale` sets both X and Y                                  |
+| `rotation`                  | rotate (default: deg; or `"1.25rad"`)                             |
+| `rotationX`, `rotationY`    | 3D rotate (rotationZ = rotation)                                  |
+| `skewX`, `skewY`            | skew (deg or rad string)                                          |
+| `transformOrigin`           | transform-origin (e.g. `"left top"`, `"50% 50%"`)                 |
 
 Relative values work: `x: "+=20"`, `rotation: "-=30"`. Default units: x/y in px, rotation in deg.
 
@@ -89,9 +89,9 @@ Relative values work: `x: "+=20"`, `rotation: "-=30"`. Default units: x/y in px,
 - **clearProps** — Comma-separated list of property names (or `"all"` / `true`) to **remove** from the element’s inline style when the tween completes. Use when a class or other CSS should take over after the animation. Clearing any transform-related property (e.g. `x`, `scale`, `rotation`) clears the **entire** transform.
 
 ```javascript
-gsap.to(".box", { x: 100, rotation: "360_cw", duration: 1 });
-gsap.to(".fade", { autoAlpha: 0, duration: 0.5, clearProps: "visibility" });
-gsap.to(svgEl, { rotation: 90, svgOrigin: "100 100" });
+gsap.to('.box', { x: 100, rotation: '360_cw', duration: 1 });
+gsap.to('.fade', { autoAlpha: 0, duration: 0.5, clearProps: 'visibility' });
+gsap.to(svgEl, { rotation: 90, svgOrigin: '100 100' });
 ```
 
 ## Targets
@@ -100,13 +100,15 @@ gsap.to(svgEl, { rotation: 90, svgOrigin: "100 100" });
 
 ## Stagger
 
-Offset the animation of each item by 0.1 second like this: 
-```javascript 
-gsap.to(".item", {
+Offset the animation of each item by 0.1 second like this:
+
+```javascript
+gsap.to('.item', {
   y: -20,
   stagger: 0.1
 });
 ```
+
 Or use the object syntax for advanced options like how each successive stagger amount is applied to the targets array (`from: "random" | "start" | "center" | "end" | "edges" | (index)`)
 
 ### Learn More
@@ -118,11 +120,11 @@ https://gsap.com/resources/getting-started/Staggers
 Use string eases unless a custom curve is needed:
 
 ```javascript
-ease: "power1.out"     // default feel
-ease: "power3.inOut"
-ease: "back.out(1.7)"  // overshoot
-ease: "elastic.out(1, 0.3)"
-ease: "none"           // linear
+ease: 'power1.out'; // default feel
+ease: 'power3.inOut';
+ease: 'back.out(1.7)'; // overshoot
+ease: 'elastic.out(1, 0.3)';
+ease: 'none'; // linear
 ```
 
 Built-in eases: base (same as `.out`), `.in`, `.out`, `.inOut` where "power" refers to the strength of the curve (1 is more gradual, 4 is steepest):
@@ -144,20 +146,23 @@ base (out)        .in                .out               .inOut
 
 ### Custom: use CustomEase (plugin)
 
-Simple cubic-bezier values (as used in CSS `cubic-bezier()`): 
+Simple cubic-bezier values (as used in CSS `cubic-bezier()`):
 
 ```javascript
-const myEase = CustomEase.create("my-ease", ".17,.67,.83,.67");
+const myEase = CustomEase.create('my-ease', '.17,.67,.83,.67');
 
-gsap.to(".item", {x: 100, ease: myEase, duration: 1});
+gsap.to('.item', { x: 100, ease: myEase, duration: 1 });
 ```
 
-Complex curve with any number of control points, described as normalized SVG path data: 
+Complex curve with any number of control points, described as normalized SVG path data:
 
 ```javascript
-const myEase = CustomEase.create("hop", "M0,0 C0,0 0.056,0.442 0.175,0.442 0.294,0.442 0.332,0 0.332,0 0.332,0 0.414,1 0.671,1 0.991,1 1,0 1,0");
+const myEase = CustomEase.create(
+  'hop',
+  'M0,0 C0,0 0.056,0.442 0.175,0.442 0.294,0.442 0.332,0 0.332,0 0.332,0 0.414,1 0.671,1 0.991,1 1,0 1,0'
+);
 
-gsap.to(".item", {x: 100, ease: myEase, duration: 1});
+gsap.to('.item', { x: 100, ease: myEase, duration: 1 });
 ```
 
 ## Returning and Controlling Tweens
@@ -165,7 +170,7 @@ gsap.to(".item", {x: 100, ease: myEase, duration: 1});
 All tween methods return a **Tween** instance. Store the return value when controlling playback is needed:
 
 ```javascript
-const tween = gsap.to(".box", { x: 100, duration: 1, repeat: 1, yoyo: true });
+const tween = gsap.to('.box', { x: 100, duration: 1, repeat: 1, yoyo: true });
 tween.pause();
 tween.play();
 tween.reverse();
@@ -176,10 +181,11 @@ tween.totalTime(1.5);
 ```
 
 ## Function-based values
+
 Use a function for a `vars` value and it will get called **once for each target** the first time the tween renders, and whatever is returned by that function will be used as the animation value.
 
 ```javascript
-gsap.to(".item", {
+gsap.to('.item', {
   x: (i, target, targetsArray) => i * 50, // first item animates to 0, the second to 50, the third to 100, etc.
   stagger: 0.1
 });
@@ -190,17 +196,17 @@ gsap.to(".item", {
 Use a `+=`, `-=`, `*=`, or `/=` prefix to indicate a **relative** value. For example, the following will animate x to 20 pixels less than whatever it is when the tween renders for the first time.
 
 ```javascript
-gsap.to(".class", {x: "-=20" });
+gsap.to('.class', { x: '-=20' });
 ```
-`x: "+=20"` would add 20 to the current value. `"*=2"` would multiply by 2, and `"/=2"` would divide by 2.
 
+`x: "+=20"` would add 20 to the current value. `"*=2"` would multiply by 2, and `"/=2"` would divide by 2.
 
 ## Defaults
 
 Set project-wide Tween defaults with **gsap.defaults()**:
 
 ```javascript
-gsap.defaults({ duration: 0.6, ease: "power2.out" });
+gsap.defaults({ duration: 0.6, ease: 'power2.out' });
 ```
 
 ## Accessibility and responsive (gsap.matchMedia())
@@ -217,17 +223,19 @@ gsap.defaults({ duration: 0.6, ease: "power2.out" });
 ```javascript
 mm.add(
   {
-    isDesktop: "(min-width: 800px)",
-    isMobile: "(max-width: 799px)",
-    reduceMotion: "(prefers-reduced-motion: reduce)"
+    isDesktop: '(min-width: 800px)',
+    isMobile: '(max-width: 799px)',
+    reduceMotion: '(prefers-reduced-motion: reduce)'
   },
   (context) => {
     const { isDesktop, reduceMotion } = context.conditions;
-    gsap.to(".box", {
+    gsap.to('.box', {
       rotation: isDesktop ? 360 : 180,
-      duration: reduceMotion ? 0 : 2  // skip animation when user prefers reduced motion
+      duration: reduceMotion ? 0 : 2 // skip animation when user prefers reduced motion
     });
-    return () => { /* optional cleanup when no condition matches */ };
+    return () => {
+      /* optional cleanup when no condition matches */
+    };
   }
 );
 ```

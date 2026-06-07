@@ -42,6 +42,7 @@ function ExampleComponent() {
 ```
 
 **When NOT to use this pattern:**
+
 - Exception 1: When the simpler approach is sufficient
 - Exception 2: When the optimization adds unnecessary complexity
 

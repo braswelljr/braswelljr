@@ -24,6 +24,7 @@ Opacity changes do not affect perceived position or size, so they are safe under
 ```
 
 **Notes:**
+
 - Prefer a softened alternative over `motion-reduce:transition-none`; a one-property fade still communicates state change without motion.
 
 Reference: [Great Animations](https://emilkowal.ski/ui/great-animations)

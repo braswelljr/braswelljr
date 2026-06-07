@@ -68,6 +68,7 @@ export function SearchInput({ onSearch }: SearchInputProps) {
 ```
 
 **Error thrown with strict mode when using motion:**
+
 ```text
 Error: motion components must be wrapped in a LazyMotion component with
 the "domAnimation" or "domMax" features. You are using a motion component

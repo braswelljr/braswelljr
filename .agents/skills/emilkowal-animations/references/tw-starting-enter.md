@@ -40,6 +40,7 @@ function Toast({ message }: { message: string }) {
 ```
 
 **When NOT to use this pattern:**
+
 - You must support browsers without `@starting-style`—keep the `mounted` toggle as a fallback there.
 
 Reference: [Building a Toast Component](https://emilkowal.ski/ui/building-a-toast-component)

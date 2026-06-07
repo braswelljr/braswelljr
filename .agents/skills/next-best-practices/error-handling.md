@@ -107,6 +107,7 @@ async function createPost(formData: FormData) {
 ```
 
 Same applies to:
+
 - `redirect()` - 307 temporary redirect
 - `permanentRedirect()` - 308 permanent redirect
 - `notFound()` - 404 not found

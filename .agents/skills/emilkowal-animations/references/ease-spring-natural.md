@@ -31,6 +31,7 @@ function Counter({ value }) {
 ```
 
 **When NOT to use springs:**
+
 - Functional interfaces where speed matters (banking apps, data entry)
 - High-frequency interactions the user performs hundreds of times daily
 

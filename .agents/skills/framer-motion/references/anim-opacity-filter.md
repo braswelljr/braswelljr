@@ -74,11 +74,13 @@ function FadeCard() {
 ```
 
 **GPU-accelerated properties:**
+
 - `opacity` - visibility transitions
 - `filter` - blur, brightness, contrast, grayscale, saturate
 - `transform` (x, y, scale, rotate)
 
 **Paint-triggering properties to avoid animating:**
+
 - `backgroundColor`, `color`
 - `boxShadow`, `textShadow`
 - `border`, `borderRadius`

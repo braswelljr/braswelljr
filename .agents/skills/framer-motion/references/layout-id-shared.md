@@ -90,6 +90,7 @@ function ProductGrid({ products, onSelect }: Props) {
 ```
 
 **Key points:**
+
 - Only one element with a given `layoutId` should be mounted at a time
 - Wrap exiting elements in `AnimatePresence` for smooth exit transitions
 - Nest multiple `layoutId` elements for complex shared transitions (card + image + title)

@@ -59,11 +59,13 @@ function FadeInCard() {
 ```
 
 **Offset format:** `["<target> <viewport>", "<target> <viewport>"]`
+
 - First value: when progress equals 0
 - Second value: when progress equals 1
 - Keywords: `start`, `center`, `end`, or pixel/percentage values
 
 **Common offset patterns:**
+
 - `["start end", "end start"]` - full viewport traversal
 - `["start end", "start center"]` - reveal as element enters
 - `["center center", "end start"]` - animate from center to exit

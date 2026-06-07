@@ -27,7 +27,10 @@ export default function GsapStagger() {
   );
 
   return (
-    <div ref={containerRef} className="relative flex flex-wrap items-center justify-center gap-3 p-8">
+    <div
+      ref={containerRef}
+      className="relative flex flex-wrap items-center justify-center gap-3 p-8"
+    >
       {ITEMS.map((item) => (
         <div
           key={item}
@@ -37,7 +40,7 @@ export default function GsapStagger() {
         </div>
       ))}
       <button
-        onClick={() => setReplay(r => r + 1)}
+        onClick={() => setReplay((r) => r + 1)}
         title="Replay animation"
         className="absolute top-2 right-2 flex items-center gap-1 rounded-md border border-orange-400/60 bg-neutral-900/80 px-2 py-1 text-xsm font-semibold text-orange-400 backdrop-blur transition-colors hover:border-orange-400 hover:bg-neutral-900 active:scale-95"
       >

@@ -28,6 +28,7 @@ Press and release often want different speeds. A hold-to-confirm control should 
 ```
 
 **Notes:**
+
 - The same split works with `data-*` state variants when the open/close state is JS-driven, e.g. `duration-200 data-[open]:duration-500`.
 
 Reference: [Building a Hold to Delete Component](https://emilkowal.ski/ui/building-a-hold-to-delete-component)

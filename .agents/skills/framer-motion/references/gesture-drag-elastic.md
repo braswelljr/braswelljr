@@ -62,6 +62,7 @@ function SwipeableItem({ item, onDismiss }: SwipeableItemProps) {
 ```
 
 **Recommended values:**
+
 - `0` - Hard stop (avoid unless intentional)
 - `0.1-0.2` - Subtle overshoot, professional feel
 - `0.3-0.5` - Noticeable elasticity, playful feel

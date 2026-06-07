@@ -74,6 +74,7 @@ function SlidingPanel() {
 ```
 
 **Property mapping:**
+
 - `top/left/right/bottom` → `x`, `y`
 - `width/height` → `scale`, `scaleX`, `scaleY`
 - CSS `transform: rotate()` → `rotate`

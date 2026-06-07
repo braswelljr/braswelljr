@@ -119,7 +119,12 @@ export function Tracks({ className, data }: { className?: string; data: Array<Sp
           {...(isReduced ? {} : interactiveCard)}
           className="border-0 bg-neutral-100/60 dark:bg-neutral-800/60"
           render={(p) => (
-            <a {...p} href={track?.href} target="_blank" rel="noopener noreferrer" />
+            <a
+              {...p}
+              href={track?.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            />
           )}
         >
           <MotionCardContent className="grid grid-cols-[1.2rem_7rem_1fr] gap-4 p-3">

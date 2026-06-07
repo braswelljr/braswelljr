@@ -16,6 +16,7 @@ import Search from '@/components/search';
 import { ThemeSwitch } from '@/components/theme-switch';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Kbd } from '@/components/ui/kbd';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useIsMac } from '@/hooks/use-is-mac';
 
@@ -138,29 +139,31 @@ export default function Navbar({
           orientation="horizontal"
           className="flex min-h-max shrink-0 items-center justify-center gap-4 max-lg:order-last max-lg:mt-4 max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto"
         >
-          <TabsList
-            indicatorClassName="h-1.5! bg-primary! rounded-t-xl!"
-            variant="underline"
-            className="min-h-max gap-4 font-semibold whitespace-nowrap *:data-active:text-primary! max-xsm:text-sm max-lg:pb-2"
-          >
-            {nav.map((item, idx) => (
-              <TabsTrigger
-                key={idx}
-                value={item.path}
-                nativeButton={false}
-                className="data-active:text-primary! hocus:data-active:text-primary!"
-                render={(p) => (
-                  <Link
-                    {...p}
-                    href={item.path}
-                    className=""
-                  >
-                    {item.name}
-                  </Link>
-                )}
-              />
-            ))}
-          </TabsList>
+          <ScrollArea scrollbarGutter>
+            <TabsList
+              indicatorClassName="h-1.5! bg-primary! rounded-t-xl!"
+              variant="underline"
+              className="min-h-max gap-4 font-semibold whitespace-nowrap *:data-active:text-primary! max-xsm:text-sm max-lg:pb-2"
+            >
+              {nav.map((item, idx) => (
+                <TabsTrigger
+                  key={idx}
+                  value={item.path}
+                  nativeButton={false}
+                  className="data-active:text-primary! hocus:data-active:text-primary!"
+                  render={(p) => (
+                    <Link
+                      {...p}
+                      href={item.path}
+                      className=""
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+                />
+              ))}
+            </TabsList>
+          </ScrollArea>
         </Tabs>
 
         {/* Right controls */}

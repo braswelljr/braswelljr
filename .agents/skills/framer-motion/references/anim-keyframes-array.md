@@ -126,6 +126,7 @@ function ShakingButton() {
 ```
 
 **When to use keyframes vs variants:**
+
 - Keyframes: Single element, continuous motion, loops
 - Variants + staggerChildren: Multiple elements, orchestrated sequences
 

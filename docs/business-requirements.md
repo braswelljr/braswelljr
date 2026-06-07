@@ -17,15 +17,15 @@ This document defines the business requirements for the personal portfolio and p
 
 ## 2. Business Objectives
 
-| # | Objective | Priority |
-|---|-----------|----------|
-| BO-01 | Establish a strong, memorable online identity for Braswell Jr. as a full-stack software engineer | High |
-| BO-02 | Showcase professional experience, skills, and work history to potential employers and clients | High |
-| BO-03 | Present an open-source project portfolio that demonstrates technical depth and breadth | High |
-| BO-04 | Provide a technical blog platform to share knowledge, tutorials, and engineering insights | Medium |
-| BO-05 | Express personal personality and interests (music, creativity, design) to humanize the brand | Medium |
-| BO-06 | Enable direct contact and engagement from recruiters, collaborators, and clients | High |
-| BO-07 | Serve as a living resume and downloadable CV resource | High |
+| #     | Objective                                                                                        | Priority |
+| ----- | ------------------------------------------------------------------------------------------------ | -------- |
+| BO-01 | Establish a strong, memorable online identity for Braswell Jr. as a full-stack software engineer | High     |
+| BO-02 | Showcase professional experience, skills, and work history to potential employers and clients    | High     |
+| BO-03 | Present an open-source project portfolio that demonstrates technical depth and breadth           | High     |
+| BO-04 | Provide a technical blog platform to share knowledge, tutorials, and engineering insights        | Medium   |
+| BO-05 | Express personal personality and interests (music, creativity, design) to humanize the brand     | Medium   |
+| BO-06 | Enable direct contact and engagement from recruiters, collaborators, and clients                 | High     |
+| BO-07 | Serve as a living resume and downloadable CV resource                                            | High     |
 
 ---
 
@@ -76,16 +76,16 @@ The site differentiates itself from typical developer portfolios by:
 
 ## 6. Key Performance Indicators (KPIs)
 
-| KPI | Target |
-|-----|--------|
-| Lighthouse Performance Score | ≥ 90 |
-| Lighthouse Accessibility Score | ≥ 95 |
-| Lighthouse SEO Score | ≥ 90 |
-| Time to First Contentful Paint (FCP) | < 1.5s |
-| Time to Interactive (TTI) | < 3.0s |
-| Resume download click-through rate | Tracked via Vercel Analytics |
+| KPI                                    | Target                       |
+| -------------------------------------- | ---------------------------- |
+| Lighthouse Performance Score           | ≥ 90                         |
+| Lighthouse Accessibility Score         | ≥ 95                         |
+| Lighthouse SEO Score                   | ≥ 90                         |
+| Time to First Contentful Paint (FCP)   | < 1.5s                       |
+| Time to Interactive (TTI)              | < 3.0s                       |
+| Resume download click-through rate     | Tracked via Vercel Analytics |
 | Contact email / WhatsApp click-through | Tracked via Vercel Analytics |
-| Blog post average read time | ≥ 3 minutes |
+| Blog post average read time            | ≥ 3 minutes                  |
 
 ---
 
@@ -111,10 +111,10 @@ The site differentiates itself from typical developer portfolios by:
 
 ## 9. Stakeholders
 
-| Stakeholder | Role | Interest |
-|-------------|------|----------|
-| Braswell Kenneth Azu Junior | Owner / Developer / Designer | Full ownership; career advancement |
-| Potential Employers | External | Evaluating engineering qualifications |
-| Clients / Startups | External | Evaluating freelance/contract capabilities |
-| GitHub Community | External | Open-source project discovery |
-| Blog Readers | External | Technical knowledge consumption |
+| Stakeholder                 | Role                         | Interest                                   |
+| --------------------------- | ---------------------------- | ------------------------------------------ |
+| Braswell Kenneth Azu Junior | Owner / Developer / Designer | Full ownership; career advancement         |
+| Potential Employers         | External                     | Evaluating engineering qualifications      |
+| Clients / Startups          | External                     | Evaluating freelance/contract capabilities |
+| GitHub Community            | External                     | Open-source project discovery              |
+| Blog Readers                | External                     | Technical knowledge consumption            |

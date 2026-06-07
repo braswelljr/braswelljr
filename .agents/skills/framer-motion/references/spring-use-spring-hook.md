@@ -51,6 +51,7 @@ function ProgressIndicator({ progress }: { progress: number }) {
 ```
 
 **useSpring options:**
+
 - Accepts same spring config: `stiffness`, `damping`, `mass`
 - Can accept a MotionValue as source: `useSpring(motionValue, config)`
 - Returns a MotionValue that can be used in style props or transformed

@@ -19,15 +19,18 @@ export default function GsapTimeline() {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.from(avatarRef.current, { opacity: 0, scale: 0.5, duration: 0.45 })
-        .from(nameRef.current,   { opacity: 0, x: -20, duration: 0.35 }, '-=0.1')
-        .from(roleRef.current,   { opacity: 0, x: -20, duration: 0.3  }, '-=0.15')
-        .from(badgeRef.current,  { opacity: 0, y: 10, scale: 0.8, duration: 0.3 }, '-=0.1');
+        .from(nameRef.current, { opacity: 0, x: -20, duration: 0.35 }, '-=0.1')
+        .from(roleRef.current, { opacity: 0, x: -20, duration: 0.3 }, '-=0.15')
+        .from(badgeRef.current, { opacity: 0, y: 10, scale: 0.8, duration: 0.3 }, '-=0.1');
     },
     { scope: containerRef, dependencies: [replay] }
   );
 
   return (
-    <div ref={containerRef} className="relative flex items-center justify-center p-8">
+    <div
+      ref={containerRef}
+      className="relative flex items-center justify-center p-8"
+    >
       <div className="flex items-center gap-4 rounded-2xl bg-neutral-900 px-6 py-4 shadow-xl">
         <div
           ref={avatarRef}
@@ -36,8 +39,18 @@ export default function GsapTimeline() {
           B
         </div>
         <div className="space-y-0.5">
-          <p ref={nameRef} className="font-bold text-white">Braswell Jr.</p>
-          <p ref={roleRef} className="text-sm text-neutral-400">Software Engineer</p>
+          <p
+            ref={nameRef}
+            className="font-bold text-white"
+          >
+            Braswell Jr.
+          </p>
+          <p
+            ref={roleRef}
+            className="text-sm text-neutral-400"
+          >
+            Software Engineer
+          </p>
           <div
             ref={badgeRef}
             className="inline-block rounded-full bg-orange-500/20 px-2 py-0.5 text-xsm font-medium text-orange-400"
@@ -47,7 +60,7 @@ export default function GsapTimeline() {
         </div>
       </div>
       <button
-        onClick={() => setReplay(r => r + 1)}
+        onClick={() => setReplay((r) => r + 1)}
         title="Replay animation"
         className="absolute top-2 right-2 flex items-center gap-1 rounded-md border border-orange-400/60 bg-neutral-900/80 px-2 py-1 text-xsm font-semibold text-orange-400 backdrop-blur transition-colors hover:border-orange-400 hover:bg-neutral-900 active:scale-95"
       >

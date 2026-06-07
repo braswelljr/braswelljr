@@ -95,6 +95,7 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
         <Callout
           type="warn"
           title="Found an Issue!"
+          className="border-secondary! bg-secondary-100/50 backdrop-blur dark:bg-neutral-800/70 dark:text-secondary!"
         >
           <p>
             Find an issue with this post? Think you could clarify, update or add something? All my

@@ -58,6 +58,7 @@ function PageTransition({ children }: { children: React.ReactNode }) {
 ```
 
 **Mode options:**
+
 - `"sync"` (default): Enter and exit animations happen simultaneously
 - `"wait"`: Exit completes before enter begins
 - `"popLayout"`: Exiting elements are popped from layout flow

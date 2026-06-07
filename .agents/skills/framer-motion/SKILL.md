@@ -10,6 +10,7 @@ Comprehensive performance optimization guide for Framer Motion animations in Rea
 ## When to Apply
 
 Reference these guidelines when:
+
 - Adding animations to React components with Framer Motion
 - Optimizing bundle size for animation-heavy applications
 - Preventing unnecessary re-renders during animations
@@ -18,17 +19,17 @@ Reference these guidelines when:
 
 ## Rule Categories by Priority
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Bundle Optimization | CRITICAL | `bundle-` |
-| 2 | Re-render Prevention | CRITICAL | `rerender-` |
-| 3 | Animation Properties | HIGH | `anim-` |
-| 4 | Layout Animations | HIGH | `layout-` |
-| 5 | Scroll Animations | MEDIUM-HIGH | `scroll-` |
-| 6 | Gesture Optimization | MEDIUM | `gesture-` |
-| 7 | Spring & Physics | MEDIUM | `spring-` |
-| 8 | SVG & Path Animations | LOW-MEDIUM | `svg-` |
-| 9 | Exit Animations | LOW | `exit-` |
+| Priority | Category              | Impact      | Prefix      |
+| -------- | --------------------- | ----------- | ----------- |
+| 1        | Bundle Optimization   | CRITICAL    | `bundle-`   |
+| 2        | Re-render Prevention  | CRITICAL    | `rerender-` |
+| 3        | Animation Properties  | HIGH        | `anim-`     |
+| 4        | Layout Animations     | HIGH        | `layout-`   |
+| 5        | Scroll Animations     | MEDIUM-HIGH | `scroll-`   |
+| 6        | Gesture Optimization  | MEDIUM      | `gesture-`  |
+| 7        | Spring & Physics      | MEDIUM      | `spring-`   |
+| 8        | SVG & Path Animations | LOW-MEDIUM  | `svg-`      |
+| 9        | Exit Animations       | LOW         | `exit-`     |
 
 ## Quick Reference
 
@@ -111,8 +112,8 @@ Read individual reference files for detailed explanations and code examples:
 
 ## Reference Files
 
-| File | Description |
-|------|-------------|
-| [references/_sections.md](references/_sections.md) | Category definitions and ordering |
-| [assets/templates/_template.md](assets/templates/_template.md) | Template for new rules |
-| [metadata.json](metadata.json) | Version and reference information |
+| File                                                            | Description                       |
+| --------------------------------------------------------------- | --------------------------------- |
+| [references/\_sections.md](references/_sections.md)             | Category definitions and ordering |
+| [assets/templates/\_template.md](assets/templates/_template.md) | Template for new rules            |
+| [metadata.json](metadata.json)                                  | Version and reference information |

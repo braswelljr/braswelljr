@@ -43,15 +43,15 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'example.com',
-        pathname: '/images/**',
+        pathname: '/images/**'
       },
       {
         protocol: 'https',
-        hostname: '*.cdn.com', // Wildcard subdomain
-      },
-    ],
-  },
-}
+        hostname: '*.cdn.com' // Wildcard subdomain
+      }
+    ]
+  }
+};
 ```
 
 ## Responsive Images

@@ -27,6 +27,7 @@ tags: tw, tailwind, will-change, performance, compositor, drag
 ```
 
 **Notes:**
+
 - Reach for this only after a measurable sub-pixel shift appears; promoting every element costs more than it saves.
 
 Reference: [Great Animations](https://emilkowal.ski/ui/great-animations)

@@ -54,6 +54,7 @@ function FullscreenDrawer({ isOpen }: { isOpen: boolean }) {
 ```
 
 **Mass guidelines:**
+
 - `mass: 0.5-0.8`: Light, snappy micro-interactions (buttons, icons)
 - `mass: 1`: Default, suitable for cards, menus, tooltips
 - `mass: 1.2-2`: Heavy elements (drawers, modals, large panels)

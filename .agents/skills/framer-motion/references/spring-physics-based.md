@@ -48,6 +48,7 @@ function ModalDialog({ isOpen }: { isOpen: boolean }) {
 ```
 
 **Spring parameters:**
+
 - `stiffness`: Higher = faster, snappier (default: 100)
 - `damping`: Higher = less oscillation (default: 10)
 - `mass`: Higher = heavier, slower (default: 1)

@@ -51,6 +51,7 @@ function ProductList({ products, sortOrder }: Props) {
 ```
 
 **When to use layoutDependency:**
+
 - Lists that reorder based on a specific trigger (sort, filter)
 - Components where layout only changes with certain state values
 - Performance-critical sections with many layout-animated elements

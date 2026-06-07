@@ -11,7 +11,7 @@
 
 ## 1. Overview
 
-This document specifies the non-functional requirements (NFRs) — the quality attributes that govern *how* the portfolio website performs, behaves, and feels, beyond its functional features. These requirements are critical to delivering a high-end, professional, and accessible experience.
+This document specifies the non-functional requirements (NFRs) — the quality attributes that govern _how_ the portfolio website performs, behaves, and feels, beyond its functional features. These requirements are critical to delivering a high-end, professional, and accessible experience.
 
 ---
 
@@ -19,22 +19,22 @@ This document specifies the non-functional requirements (NFRs) — the quality a
 
 ### 2.1 Core Web Vitals Targets
 
-| Metric | Target | Tool |
-|--------|--------|------|
-| Largest Contentful Paint (LCP) | < 2.5s | Lighthouse / Chrome DevTools |
-| First Contentful Paint (FCP) | < 1.5s | Lighthouse |
-| Cumulative Layout Shift (CLS) | < 0.1 | Lighthouse |
-| Interaction to Next Paint (INP) | < 200ms | Chrome DevTools |
-| Time to First Byte (TTFB) | < 600ms | Vercel Analytics |
+| Metric                          | Target  | Tool                         |
+| ------------------------------- | ------- | ---------------------------- |
+| Largest Contentful Paint (LCP)  | < 2.5s  | Lighthouse / Chrome DevTools |
+| First Contentful Paint (FCP)    | < 1.5s  | Lighthouse                   |
+| Cumulative Layout Shift (CLS)   | < 0.1   | Lighthouse                   |
+| Interaction to Next Paint (INP) | < 200ms | Chrome DevTools              |
+| Time to First Byte (TTFB)       | < 600ms | Vercel Analytics             |
 
 ### 2.2 Lighthouse Scores
 
-| Category | Minimum Score |
-|----------|--------------|
-| Performance | ≥ 90 |
-| Accessibility | ≥ 95 |
-| Best Practices | ≥ 90 |
-| SEO | ≥ 90 |
+| Category       | Minimum Score |
+| -------------- | ------------- |
+| Performance    | ≥ 90          |
+| Accessibility  | ≥ 95          |
+| Best Practices | ≥ 90          |
+| SEO            | ≥ 90          |
 
 ### 2.3 Asset Optimization
 
@@ -98,15 +98,15 @@ This document specifies the non-functional requirements (NFRs) — the quality a
 
 ### 4.1 Supported Devices
 
-| Device Class | Screen Width | Behavior |
-|--------------|-------------|----------|
-| Small Mobile | 320px (xxs) | Full layout reflow; stacked sections |
-| Mobile | 375px–424px | Compact layout; mobile social icons (non-floating) |
-| Large Mobile | 425px–639px | Comfortable spacing; readable typography |
-| Tablet | 640px–1023px | 2-column project grids; enhanced spacing |
-| Desktop | 1024px–1279px | 3-column grids; FloatingDock social links; timeline labels |
-| Large Desktop | 1280px–1535px | Full-width layouts with max-width constraints |
-| Ultrawide | 1920px+ (3xl–5xl) | Capped container widths; no layout breaks |
+| Device Class  | Screen Width      | Behavior                                                   |
+| ------------- | ----------------- | ---------------------------------------------------------- |
+| Small Mobile  | 320px (xxs)       | Full layout reflow; stacked sections                       |
+| Mobile        | 375px–424px       | Compact layout; mobile social icons (non-floating)         |
+| Large Mobile  | 425px–639px       | Comfortable spacing; readable typography                   |
+| Tablet        | 640px–1023px      | 2-column project grids; enhanced spacing                   |
+| Desktop       | 1024px–1279px     | 3-column grids; FloatingDock social links; timeline labels |
+| Large Desktop | 1280px–1535px     | Full-width layouts with max-width constraints              |
+| Ultrawide     | 1920px+ (3xl–5xl) | Capped container widths; no layout breaks                  |
 
 ### 4.2 Touch & Pointer
 
@@ -116,14 +116,14 @@ This document specifies the non-functional requirements (NFRs) — the quality a
 
 ### 4.3 Browser Support
 
-| Browser | Minimum Version |
-|---------|----------------|
-| Chrome | 110+ |
-| Firefox | 110+ |
-| Safari | 16.4+ |
-| Edge | 110+ |
-| Mobile Safari (iOS) | 16.4+ |
-| Chrome for Android | 110+ |
+| Browser             | Minimum Version |
+| ------------------- | --------------- |
+| Chrome              | 110+            |
+| Firefox             | 110+            |
+| Safari              | 16.4+           |
+| Edge                | 110+            |
+| Mobile Safari (iOS) | 16.4+           |
+| Chrome for Android  | 110+            |
 
 ---
 
@@ -138,26 +138,29 @@ This document specifies the non-functional requirements (NFRs) — the quality a
 
 ### 5.2 Animation Catalogue
 
-| Animation | Implementation | Trigger |
-|-----------|---------------|---------|
-| Role text cycling | Framer Motion `AnimatePresence` with `y` + `opacity` spring | 5-second interval |
-| Social link hover (desktop) | FloatingDock scale + position transform | Hover |
-| Page element entrances | `slide-up-fade` CSS keyframe (20px → 0, opacity 0 → 1) | Page load |
-| Link underlines | CSS `background-size` transition on hover | Hover |
-| Playlist card | CSS `perspective`, `skew`, conic-gradient `spin` pseudo-element | Hover / Focus |
-| Scroll-to-top button | Animated entrance/exit | Scroll threshold |
-| Accordion / Collapsible | CSS height transition via `--radix-accordion-content-height` | Click |
-| Wiggle | `rotate(-15deg) → rotate(15deg)` at 200ms | Trigger state |
-| Border spin | `rotate(-360deg)` infinite at 7s | Always |
+| Animation                   | Implementation                                                  | Trigger           |
+| --------------------------- | --------------------------------------------------------------- | ----------------- |
+| Role text cycling           | Framer Motion `AnimatePresence` with `y` + `opacity` spring     | 5-second interval |
+| Social link hover (desktop) | FloatingDock scale + position transform                         | Hover             |
+| Page element entrances      | `slide-up-fade` CSS keyframe (20px → 0, opacity 0 → 1)          | Page load         |
+| Link underlines             | CSS `background-size` transition on hover                       | Hover             |
+| Playlist card               | CSS `perspective`, `skew`, conic-gradient `spin` pseudo-element | Hover / Focus     |
+| Scroll-to-top button        | Animated entrance/exit                                          | Scroll threshold  |
+| Accordion / Collapsible     | CSS height transition via `--radix-accordion-content-height`    | Click             |
+| Wiggle                      | `rotate(-15deg) → rotate(15deg)` at 200ms                       | Trigger state     |
+| Border spin                 | `rotate(-360deg)` infinite at 7s                                | Always            |
 
 ### 5.3 Reduced Motion Override
 
 All Framer Motion animations use `useReducedMotion()`. When `prefers-reduced-motion: reduce` is detected:
+
 - Spring transitions are replaced with `duration: 0` or instant state changes
 - CSS animations (`@keyframes`) are disabled via:
   ```css
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
     }
@@ -168,46 +171,46 @@ All Framer Motion animations use `useReducedMotion()`. When `prefers-reduced-mot
 
 ## 6. SEO & Discoverability
 
-| Requirement | Implementation |
-|-------------|---------------|
-| Page titles | `title.default` and `title.template` via Next.js Metadata API |
-| Meta description | Populated from `siteConfig.description` |
-| Keywords | `['braswelljr', 'braswell', 'braswelljr.engineer', 'portfolio', 'blog', 'resume']` |
-| Author metadata | Set via `authors` and `creator` in root layout metadata |
-| Canonical URL | `https://braswelljr.engineer` |
-| Open Graph images | Dynamically generated at `/og` route using Puppeteer/`@sparticuz/chromium` |
-| Favicon | `/favicon.ico` + `/icons/icon.png` (shortcut + Apple touch icon) |
-| Web App Manifest | `/manifest.json` for PWA-like installability |
-| Sitemap | Generated by Next.js or manually maintained |
-| Robots | Default Next.js robots.txt allowing full crawling |
+| Requirement       | Implementation                                                                     |
+| ----------------- | ---------------------------------------------------------------------------------- |
+| Page titles       | `title.default` and `title.template` via Next.js Metadata API                      |
+| Meta description  | Populated from `siteConfig.description`                                            |
+| Keywords          | `['braswelljr', 'braswell', 'braswelljr.engineer', 'portfolio', 'blog', 'resume']` |
+| Author metadata   | Set via `authors` and `creator` in root layout metadata                            |
+| Canonical URL     | `https://braswelljr.engineer`                                                      |
+| Open Graph images | Dynamically generated at `/og` route using Puppeteer/`@sparticuz/chromium`         |
+| Favicon           | `/favicon.ico` + `/icons/icon.png` (shortcut + Apple touch icon)                   |
+| Web App Manifest  | `/manifest.json` for PWA-like installability                                       |
+| Sitemap           | Generated by Next.js or manually maintained                                        |
+| Robots            | Default Next.js robots.txt allowing full crawling                                  |
 
 ---
 
 ## 7. Security
 
-| Requirement | Detail |
-|-------------|--------|
-| External links | All external links use `target="_blank" rel="noopener noreferrer"` |
-| Environment variables | API keys (GitHub token, Spotify credentials) stored in `.env.local`, never committed |
-| `.env.example` | A sanitized example file documents required env vars without exposing secrets |
-| No XSS vectors | MDX content is rendered via trusted fumadocs pipeline; no raw HTML injection from user input |
-| HTTPS | Enforced by Vercel on all production traffic |
-| Content Security Policy | Configurable via `next.config.ts` headers |
+| Requirement             | Detail                                                                                       |
+| ----------------------- | -------------------------------------------------------------------------------------------- |
+| External links          | All external links use `target="_blank" rel="noopener noreferrer"`                           |
+| Environment variables   | API keys (GitHub token, Spotify credentials) stored in `.env.local`, never committed         |
+| `.env.example`          | A sanitized example file documents required env vars without exposing secrets                |
+| No XSS vectors          | MDX content is rendered via trusted fumadocs pipeline; no raw HTML injection from user input |
+| HTTPS                   | Enforced by Vercel on all production traffic                                                 |
+| Content Security Policy | Configurable via `next.config.ts` headers                                                    |
 
 ---
 
 ## 8. Maintainability & Developer Experience
 
-| Requirement | Detail |
-|-------------|--------|
-| TypeScript | Strict TypeScript (`typescript: ^6`) across all source files |
-| Linting | ESLint with `next`, `jsx-a11y`, `react`, `react-hooks`, `prettier` plugins |
-| Formatting | Prettier with `prettier-plugin-tailwindcss` for Tailwind class sorting |
-| Git hooks | Husky + lint-staged runs lint + format on staged files pre-commit |
-| Commit linting | Commitlint enforces conventional commit message format |
-| Package manager | pnpm (v11.5.1) with workspace support |
-| Node requirement | Node.js ≥ 24 |
-| Testing | Vitest + React Testing Library for unit/integration tests |
+| Requirement      | Detail                                                                     |
+| ---------------- | -------------------------------------------------------------------------- |
+| TypeScript       | Strict TypeScript (`typescript: ^6`) across all source files               |
+| Linting          | ESLint with `next`, `jsx-a11y`, `react`, `react-hooks`, `prettier` plugins |
+| Formatting       | Prettier with `prettier-plugin-tailwindcss` for Tailwind class sorting     |
+| Git hooks        | Husky + lint-staged runs lint + format on staged files pre-commit          |
+| Commit linting   | Commitlint enforces conventional commit message format                     |
+| Package manager  | pnpm (v11.5.1) with workspace support                                      |
+| Node requirement | Node.js ≥ 24                                                               |
+| Testing          | Vitest + React Testing Library for unit/integration tests                  |
 
 ---
 

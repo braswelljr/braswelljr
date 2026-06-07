@@ -7,6 +7,7 @@ These are React directives, not Next.js specific.
 ### `'use client'`
 
 Marks a component as a Client Component. Required for:
+
 - React hooks (`useState`, `useEffect`, etc.)
 - Event handlers (`onClick`, `onChange`)
 - Browser APIs (`window`, `localStorage`)

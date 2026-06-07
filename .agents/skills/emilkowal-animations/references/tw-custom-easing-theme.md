@@ -21,7 +21,7 @@ Emil's signature curves (strong ease-out, on-screen ease-in-out, iOS drawer) are
 
 ```css
 /* app.css */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --ease-snappy: cubic-bezier(0.23, 1, 0.32, 1); /* strong ease-out for UI */

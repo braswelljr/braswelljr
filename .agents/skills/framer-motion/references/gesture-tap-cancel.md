@@ -64,6 +64,7 @@ function InteractiveCard({ item, onSelect }: InteractiveCardProps) {
 ```
 
 **When onTapCancel fires:**
+
 - Pointer leaves the element bounds
 - Gesture transitions to a drag
 - Another touch point is detected (multi-touch)

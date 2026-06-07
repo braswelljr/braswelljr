@@ -48,6 +48,7 @@ function TooltipPopover({ isVisible }: { isVisible: boolean }) {
 ```
 
 **Damping guidelines:**
+
 - `damping < 10`: Very bouncy, use sparingly for playful UI
 - `damping 15-25`: Slight overshoot, natural feel for most UI
 - `damping > 30`: No overshoot, quick settle for functional elements

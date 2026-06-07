@@ -10,6 +10,7 @@ Comprehensive animation guide for web interfaces based on Emil Kowalski's teachi
 ## When to Apply
 
 Reference these guidelines when:
+
 - Adding animations to React components
 - Choosing easing curves or timing values
 - Implementing gesture-based interactions (swipe, drag)
@@ -20,16 +21,16 @@ Reference these guidelines when:
 
 ## Rule Categories by Priority
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Easing Selection | CRITICAL | `ease-` |
-| 2 | Timing & Duration | CRITICAL | `timing-` |
-| 3 | Property Selection | HIGH | `props-` |
-| 4 | Transform Techniques | HIGH | `transform-` |
-| 5 | Interaction Patterns | MEDIUM-HIGH | `interact-` |
-| 6 | Strategic Animation | MEDIUM | `strategy-` |
-| 7 | Accessibility & Polish | MEDIUM | `polish-` |
-| 8 | Tailwind v4 Utilities | MEDIUM | `tw-` |
+| Priority | Category               | Impact      | Prefix       |
+| -------- | ---------------------- | ----------- | ------------ |
+| 1        | Easing Selection       | CRITICAL    | `ease-`      |
+| 2        | Timing & Duration      | CRITICAL    | `timing-`    |
+| 3        | Property Selection     | HIGH        | `props-`     |
+| 4        | Transform Techniques   | HIGH        | `transform-` |
+| 5        | Interaction Patterns   | MEDIUM-HIGH | `interact-`  |
+| 6        | Strategic Animation    | MEDIUM      | `strategy-`  |
+| 7        | Accessibility & Polish | MEDIUM      | `polish-`    |
+| 8        | Tailwind v4 Utilities  | MEDIUM      | `tw-`        |
 
 ## Quick Reference
 
@@ -114,41 +115,41 @@ Express the principles above with proper Tailwind CSS v4 utilities. Applies only
 - [`tw-asymmetric-timing`](references/tw-asymmetric-timing.md) - Split press and release timing with active:duration
 - [`tw-starting-enter`](references/tw-starting-enter.md) - Animate enter states with the starting: variant
 - [`tw-reduced-motion`](references/tw-reduced-motion.md) - Gate movement behind motion-safe / motion-reduce
-- [`tw-origin-aware`](references/tw-origin-aware.md) - Set transform-origin with origin-* utilities
+- [`tw-origin-aware`](references/tw-origin-aware.md) - Set transform-origin with origin-\* utilities
 - [`tw-will-change`](references/tw-will-change.md) - Scope will-change-transform to the active gesture
 
 ## Key Values Reference
 
-| Value | Usage |
-|-------|-------|
-| `cubic-bezier(0.23, 1, 0.32, 1)` | Strong ease-out for UI interactions |
+| Value                             | Usage                                     |
+| --------------------------------- | ----------------------------------------- |
+| `cubic-bezier(0.23, 1, 0.32, 1)`  | Strong ease-out for UI interactions       |
 | `cubic-bezier(0.77, 0, 0.175, 1)` | Strong ease-in-out for on-screen movement |
-| `cubic-bezier(0.32, 0.72, 0, 1)` | iOS-style drawer/sheet animation |
-| `scale(0.97)` | Button press feedback |
-| `scale(0.95)` | Minimum enter scale (never scale(0)) |
-| `200ms ease-out` | Standard UI transition |
-| `300ms` | Maximum duration for UI animations |
-| `500ms` | Drawer animation duration |
-| `0.11 px/ms` | Velocity threshold for momentum dismiss |
-| `100px` | Scroll-reveal viewport threshold |
-| `14px` | Toast stack offset |
+| `cubic-bezier(0.32, 0.72, 0, 1)`  | iOS-style drawer/sheet animation          |
+| `scale(0.97)`                     | Button press feedback                     |
+| `scale(0.95)`                     | Minimum enter scale (never scale(0))      |
+| `200ms ease-out`                  | Standard UI transition                    |
+| `300ms`                           | Maximum duration for UI animations        |
+| `500ms`                           | Drawer animation duration                 |
+| `0.11 px/ms`                      | Velocity threshold for momentum dismiss   |
+| `100px`                           | Scroll-reveal viewport threshold          |
+| `14px`                            | Toast stack offset                        |
 
 ## Duration by Element
 
 Pick duration by how often the element is seen and how much it moves. Keep UI animations under 300ms.
 
-| Element | Duration |
-|---------|----------|
-| Button press feedback | 100–160ms |
-| Tooltips, small popovers | 125–200ms |
-| Dropdowns, selects | 150–250ms |
-| Modals, drawers | 200–500ms |
-| Marketing / explanatory | Can be longer |
+| Element                  | Duration      |
+| ------------------------ | ------------- |
+| Button press feedback    | 100–160ms     |
+| Tooltips, small popovers | 125–200ms     |
+| Dropdowns, selects       | 150–250ms     |
+| Modals, drawers          | 200–500ms     |
+| Marketing / explanatory  | Can be longer |
 
 ## Reference Files
 
-| File | Description |
-|------|-------------|
-| [references/_sections.md](references/_sections.md) | Category definitions and ordering |
-| [assets/templates/_template.md](assets/templates/_template.md) | Template for new rules |
-| [metadata.json](metadata.json) | Version and reference information |
+| File                                                            | Description                       |
+| --------------------------------------------------------------- | --------------------------------- |
+| [references/\_sections.md](references/_sections.md)             | Category definitions and ordering |
+| [assets/templates/\_template.md](assets/templates/_template.md) | Template for new rules            |
+| [metadata.json](metadata.json)                                  | Version and reference information |

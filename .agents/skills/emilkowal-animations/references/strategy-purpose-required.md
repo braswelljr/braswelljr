@@ -10,6 +10,7 @@ tags: strategy, purpose, intentional, design
 The goal is not to animate for animation's sake. Every animation should serve a clear purpose—guiding attention, providing feedback, or maintaining context.
 
 **Valid purposes for animation:**
+
 - **Feedback** - Confirming user actions (button press, form submit)
 - **Orientation** - Showing where something came from or went
 - **Attention** - Drawing focus to important changes

@@ -46,6 +46,7 @@ Dropdowns and popovers should animate from their trigger element, not from an ar
 shadcn/ui handles this automatically.
 
 **When NOT to use this pattern:**
+
 - **Modals.** Keep `transform-origin: center` on modals—they are not anchored to a trigger, they appear centered in the viewport, so scaling from a trigger point looks wrong.
 
 Reference: [Good vs Great Animations](https://emilkowal.ski/ui/good-vs-great-animations)

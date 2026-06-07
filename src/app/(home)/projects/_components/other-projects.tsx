@@ -43,7 +43,7 @@ export function OtherProjects({ className }: OtherProjectProps) {
       </InView>
 
       <motion.div
-        className="grid gap-4 sm:grid-cols-2"
+        className="grid grid-cols-[repeat(auto-fill,minmax(min(375px,100%),1fr))] gap-4"
         variants={safeVariants(containerVariants, isReduced)}
         initial="hidden"
         whileInView="visible"
@@ -57,7 +57,7 @@ export function OtherProjects({ className }: OtherProjectProps) {
             className="justify-between gap-0 p-1"
           >
             <MotionFramePanel className="p-0">
-              <MotionAvatar className="aspect-video h-full max-h-52 w-full overflow-hidden rounded-lg bg-neutral-200 dark:bg-neutral-800">
+              <MotionAvatar className="aspect-video h-60 w-full overflow-hidden rounded-lg bg-neutral-200 dark:bg-neutral-800">
                 <MotionAvatarImage
                   src={`/api/screenshot?url=${project.homepageUrl}`}
                   alt={project.name}
