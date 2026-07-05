@@ -3,10 +3,10 @@ import LocalFont from 'next/font/local';
 import Image from 'next/image';
 import { Analytics } from '@vercel/analytics/next';
 import { cn } from 'lib/utils';
-import Navbar from '@/components/navbar';
-import ScrollTop from '@/components/scroll-top';
 import { siteConfig } from '@/config/site';
 import Base from '@/providers/base';
+import Navbar from '@/components/shared/navbar';
+import ScrollTop from '@/components/shared/scroll-top';
 import '@/styles/main.css';
 
 export const metadata: Metadata = {

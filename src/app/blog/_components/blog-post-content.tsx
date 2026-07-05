@@ -8,7 +8,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion, useReducedMotion } from 'motion/react';
 import { MdOutlineWorkspacePremium } from 'react-icons/md';
-import { cardVariants, containerVariants, safeVariants } from '@/components/motion';
+import { cardVariants, containerVariants, safeVariants } from '@/components/shared/motion';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 

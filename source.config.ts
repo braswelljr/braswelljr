@@ -1,4 +1,5 @@
 import {
+  rehypeCodeDefaultOptions,
   rehypeToc,
   remarkCodeTab,
   remarkDirectiveAdmonition,
@@ -7,6 +8,7 @@ import {
   remarkNpm
 } from 'fumadocs-core/mdx-plugins';
 import { remarkTypeScriptToJavaScript } from 'fumadocs-docgen/remark-ts2js';
+import { transformerTwoslash } from 'fumadocs-twoslash';
 import {
   defineConfig,
   defineDocs,
@@ -70,7 +72,17 @@ export default defineConfig({
         light: 'github-light-default',
         dark: 'github-dark-default'
       },
-      tab: true
+      tab: true,
+      // Twoslash for TS/TSX blocks. Opt-in per block via the `twoslash` meta
+      // (e.g. ```ts twoslash), so incomplete snippets aren't type-checked at build.
+      // Cast: fumadocs-twoslash returns a newer @shikijs/types ShikiTransformer than
+      // fumadocs-core's, so align it to fumadocs' own transformer type (runtime is fine).
+      transformers: [
+        ...(rehypeCodeDefaultOptions.transformers ?? []),
+        transformerTwoslash() as unknown as NonNullable<
+          typeof rehypeCodeDefaultOptions.transformers
+        >[number]
+      ]
     },
     remarkPlugins: [
       remarkGfm,

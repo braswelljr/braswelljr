@@ -18,7 +18,7 @@ import {
   MotionCardContent,
   MotionSkeleton,
   safeVariants
-} from '@/components/motion';
+} from '@/components/shared/motion';
 
 export function TopTracks({ className }: { className?: string }) {
   const isReduced = useReducedMotion();

@@ -7,6 +7,8 @@ import { gsap } from 'gsap';
 import { motion, useReducedMotion } from 'motion/react';
 import { MdOutlineFileDownload } from 'react-icons/md';
 import { cn } from 'lib/utils';
+import { InView } from '@/components/ui/in-view';
+import { career, education } from '@/config/data';
 import {
   cardVariants,
   containerVariants,
@@ -15,9 +17,7 @@ import {
   MotionLink,
   safeVariants,
   tapScale
-} from '@/components/motion';
-import { InView } from '@/components/ui/in-view';
-import { career, education } from '@/config/data';
+} from '@/components/shared/motion';
 
 gsap.registerPlugin(useGSAP);
 

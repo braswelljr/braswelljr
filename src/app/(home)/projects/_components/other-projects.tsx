@@ -3,6 +3,8 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import { cn } from 'lib/utils';
+import { InView } from '@/components/ui/in-view';
+import { OTHER_PROJECTS } from '@/config/data';
 import {
   cardVariants,
   containerVariants,
@@ -18,9 +20,7 @@ import {
   MotionLink,
   safeVariants,
   tapScale
-} from '@/components/motion';
-import { InView } from '@/components/ui/in-view';
-import { OTHER_PROJECTS } from '@/config/data';
+} from '@/components/shared/motion';
 
 type OtherProjectProps = {
   className?: string;

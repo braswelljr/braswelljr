@@ -66,6 +66,7 @@ minimumReleaseAgeExclude:
   - '@radix-ui/rect@1.1.2'
   - '@types/mdx@2.0.14'
   - radix-ui@1.5.0
+  - react-hook-form@7.81.0
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@tailwindcss/oxide'

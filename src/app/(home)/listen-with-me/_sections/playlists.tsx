@@ -22,7 +22,7 @@ import {
   MotionSkeleton,
   safeVariants,
   tapScale
-} from '@/components/motion';
+} from '@/components/shared/motion';
 
 type Paginate = {
   total: number;

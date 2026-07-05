@@ -21,7 +21,7 @@ import {
   MotionLink,
   MotionSkeleton,
   safeVariants
-} from '@/components/motion';
+} from '@/components/shared/motion';
 import { Tracks, TracksLoader } from './top-tracks';
 
 export function CurrentlyPlaying({ className }: { className?: string }) {

@@ -9,8 +9,8 @@ import { FaGithub } from 'react-icons/fa6';
 import { HiArrowLeft } from 'react-icons/hi';
 import readingTime from 'reading-time';
 import { blog, getPageImage } from 'lib/source';
-import { getMDXComponents } from '@/components/mdx-components';
-import { ScrollToTopWithBlog } from '@/components/scroll-top';
+import { getMDXComponents } from '@/components/shared/mdx-components';
+import { ScrollToTopWithBlog } from '@/components/shared/scroll-top';
 import { BlogPostContent } from '../_components/blog-post-content';
 
 export default async function Page(props: PageProps<'/blog/[...slug]'>) {

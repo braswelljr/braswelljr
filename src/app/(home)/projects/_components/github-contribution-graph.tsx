@@ -11,7 +11,7 @@ import {
   MotionFramePanel,
   MotionFrameTitle,
   safeVariants
-} from '@/components/motion';
+} from '@/components/shared/motion';
 
 const GitHubCalendar = dynamic(
   () => import('react-github-calendar').then((m) => m.GitHubCalendar),

@@ -5,29 +5,27 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
+import { Code, DocumentText, Home2, MusicPlay, Profile, type Icon } from 'iconsax-react';
 import { motion, useReducedMotion } from 'motion/react';
-import { FaSpotify } from 'react-icons/fa6';
-import { HiCode, HiHome } from 'react-icons/hi';
-import { IoIosPerson } from 'react-icons/io';
-import { MdArticle } from 'react-icons/md';
 import { useMedia } from 'react-use';
 import { cn } from 'lib/utils';
-import Search from '@/components/search';
-import { ThemeSwitch } from '@/components/theme-switch';
+import { AnimatedIcon } from '@/components/ui/animated-icon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Kbd } from '@/components/ui/kbd';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useIsMac } from '@/hooks/use-is-mac';
+import Search from '@/components/shared/search';
+import { ThemeSwitch } from '@/components/shared/theme-switch';
 
 gsap.registerPlugin(useGSAP);
 
-export const nav = [
-  { name: 'Me', path: '/', icon: HiHome },
-  { name: 'About', path: '/about', icon: IoIosPerson },
-  { name: 'Listen With Me (Spotify)', path: '/listen-with-me', icon: FaSpotify },
-  { name: 'Projects/Technical Skills', path: '/projects', icon: HiCode },
-  { name: 'Blog', path: '/blog', icon: MdArticle }
+export const nav: Array<{ name: string; path: string; icon: Icon }> = [
+  { name: 'Me', path: '/', icon: Home2 },
+  { name: 'About', path: '/about', icon: Profile },
+  { name: 'Listen With Me (Spotify)', path: '/listen-with-me', icon: MusicPlay },
+  { name: 'Projects/Technical Skills', path: '/projects', icon: Code },
+  { name: 'Blog', path: '/blog', icon: DocumentText }
 ];
 
 export default function Navbar({
@@ -159,9 +157,12 @@ export default function Navbar({
                     <Link
                       {...p}
                       href={item.path}
-                      className=""
                     >
-                      {item.name}
+                      <NavTabContent
+                        icon={item.icon}
+                        label={item.name}
+                        active={tab === item.path}
+                      />
                     </Link>
                   )}
                 />
@@ -223,4 +224,24 @@ type LayoutType = {
 function Layout({ children, isViewport, as: Component = 'div', ...props }: LayoutType) {
   if (!isViewport) return <Fragment>{children}</Fragment>;
   return <Component {...props}>{children}</Component>;
+}
+
+/** Nav tab label + animated Iconsax icon; hovering anywhere on the tab morphs the icon. */
+function NavTabContent({ icon, label, active }: { icon: Icon; label: string; active: boolean }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <span
+      className="inline-flex items-center gap-1.5"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <AnimatedIcon
+        icon={icon}
+        active={active}
+        hovered={hovered}
+        size={18}
+      />
+      {label}
+    </span>
+  );
 }

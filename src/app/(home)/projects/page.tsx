@@ -6,6 +6,9 @@ import { BiGitRepoForked } from 'react-icons/bi';
 import { BsStar } from 'react-icons/bs';
 import { HiFolderOpen, HiOutlineExternalLink } from 'react-icons/hi';
 import { TfiLayoutListThumb } from 'react-icons/tfi';
+import { InView } from '@/components/ui/in-view';
+import useXStore from '@/context/use-repos';
+import useMedia from '@/hooks/use-media';
 import {
   cardVariants,
   containerVariants,
@@ -17,10 +20,7 @@ import {
   MotionLink,
   safeVariants,
   tapScale
-} from '@/components/motion';
-import { InView } from '@/components/ui/in-view';
-import useXStore from '@/context/use-repos';
-import useMedia from '@/hooks/use-media';
+} from '@/components/shared/motion';
 import { GitHubContributionGraph } from './_components/github-contribution-graph';
 import { OtherProjects } from './_components/other-projects';
 

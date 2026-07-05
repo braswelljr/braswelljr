@@ -9,6 +9,7 @@ import { HiChevronRight } from 'react-icons/hi';
 import { IoAlbums } from 'react-icons/io5';
 import { MdOutlineWorkspacePremium } from 'react-icons/md';
 import { cn } from 'lib/utils';
+import { formatDate } from '@/utils/formatDate';
 import {
   cardVariants,
   containerVariants,
@@ -16,8 +17,7 @@ import {
   headingVariants,
   MotionLink,
   safeVariants
-} from '@/components/motion';
-import { formatDate } from '@/utils/formatDate';
+} from '@/components/shared/motion';
 
 gsap.registerPlugin(useGSAP);
 

@@ -8,6 +8,9 @@ import { gsap } from 'gsap';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { useInterval } from 'react-use';
 import { cn } from 'lib/utils';
+import FloatingDock from '@/components/ui/floating-dock';
+import { socials } from '@/config/data';
+import { useDevice } from '@/hooks/use-device';
 import {
   containerVariants,
   EASE_OUT,
@@ -15,10 +18,7 @@ import {
   MotionLink,
   safeVariants,
   tapScale
-} from '@/components/motion';
-import FloatingDock from '@/components/ui/floating-dock';
-import { socials } from '@/config/data';
-import { useDevice } from '@/hooks/use-device';
+} from '@/components/shared/motion';
 
 gsap.registerPlugin(useGSAP);
 
@@ -152,7 +152,15 @@ export default function Page() {
                 className="mx-auto justify-center rounded-md bg-white/40 backdrop-blur dark:bg-neutral-900/40"
                 items={socials.map((s) => ({
                   title: s.name,
-                  icon: <s.icon className="size-9" />,
+                  icon: (
+                    <motion.span
+                      className="inline-flex"
+                      whileHover={isReduced ? undefined : { rotate: -10, scale: 1.1 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+                    >
+                      <s.icon className="size-9" />
+                    </motion.span>
+                  ),
                   href: s.url,
                   target: '_blank',
                   rel: 'noopener noreferrer'
@@ -173,6 +181,7 @@ export default function Page() {
                   <motion.div
                     key={item.name}
                     variants={safeItem}
+                    whileHover={isReduced ? undefined : { scale: 1.15, rotate: -8 }}
                     {...tapScale}
                   >
                     <Link

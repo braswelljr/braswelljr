@@ -19,7 +19,6 @@
       "@content-source/*": ["./.source/*"],
       "lib/*": ["./lib/*"],
       "types/*": ["./types/*"],
-      "~/*": ["./src/*"],
       "@/*": ["./src/*"],
       "react": ["./node_modules/@types/react"]
     },
