@@ -18,9 +18,9 @@ This repository follows the **Agent Skills** open standard. Each skill is self-c
 
 ```text
 design-md/
-├── SKILL.md           — Core instructions & workflow
-├── examples/          — Sample DESIGN.md outputs
-└── README.md          — This file
+├── SKILL.md           -Core instructions & workflow
+├── examples/          -Sample DESIGN.md outputs
+└── README.md          -This file
 ```
 
 ## How it Works

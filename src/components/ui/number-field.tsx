@@ -134,15 +134,15 @@ export function NumberFieldInput({
     <NumberFieldPrimitive.Input
       className={cn(
         'w-full min-w-0 grow bg-transparent px-[calc(--spacing(3)-1px)] text-center text-sm tabular-nums outline-none [transition:background-color_5000000s_ease-in-out_0s]',
-        // default — h-10
+        // default -h-10
         'h-10 leading-10',
-        // xs — h-7
+        // xs -h-7
         'in-data-[size=xs]:h-7 in-data-[size=xs]:px-[calc(--spacing(2)-1px)] in-data-[size=xs]:text-[0.6875rem] in-data-[size=xs]:leading-7',
-        // sm — h-8.5
+        // sm -h-8.5
         'in-data-[size=sm]:h-8.5 in-data-[size=sm]:px-[calc(--spacing(2.5)-1px)] in-data-[size=sm]:text-xs in-data-[size=sm]:leading-8.5',
-        // md — h-12
+        // md -h-12
         'in-data-[size=md]:h-12 in-data-[size=md]:text-base in-data-[size=md]:leading-12',
-        // lg — h-14
+        // lg -h-14
         'in-data-[size=lg]:h-14 in-data-[size=lg]:text-lg in-data-[size=lg]:leading-14',
         className
       )}

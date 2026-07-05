@@ -9,13 +9,13 @@ export const maxDuration = 60;
 
 const screenshotCache = new LRUCache<string, Uint8Array>({
   max: 50,
-  ttl: 1000 * 60 * 10 // 10 min — screenshots rarely change
+  ttl: 1000 * 60 * 10 // 10 min -screenshots rarely change
 });
 
 // Abort these resource types; they're not needed for visual rendering
 const BLOCKED_RESOURCE_TYPES = new Set(['media', 'websocket', 'manifest', 'other']);
 
-// Abort analytics/tracking hostnames — they're the #1 cause of slow load events
+// Abort analytics/tracking hostnames -they're the #1 cause of slow load events
 const BLOCKED_HOSTNAMES = [
   'google-analytics.com',
   'googletagmanager.com',

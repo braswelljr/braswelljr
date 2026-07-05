@@ -1,6 +1,6 @@
 # Functional Requirements Document (FRD)
 
-## Project: Braswell Kenneth Azu Junior — Personal Portfolio Website
+## Project: Braswell Kenneth Azu Junior - Personal Portfolio Website
 
 **Version:** 1.0.0
 **Author:** Braswell Kenneth Azu Junior
@@ -94,7 +94,7 @@ This document specifies the functional requirements for each page, component, an
 | ABT-09 | An **Education** section displays academic history in the same timeline style                                                  |
 | ABT-10 | Education entry shows: degree name, degree type, institution, and date range                                                   |
 | ABT-11 | Current career entry: Fullstack Software Engineer at Ghana School of Law (Nov 2025 – Current)                                  |
-| ABT-12 | B.Sc Computer Science and Engineering — University of Mines and Technology, Ghana (Sep 2018 – Oct 2022)                        |
+| ABT-12 | B.Sc Computer Science and Engineering -University of Mines and Technology, Ghana (Sep 2018 – Oct 2022)                         |
 
 ### Career Entries (in reverse chronological order)
 
@@ -147,7 +147,7 @@ This document specifies the functional requirements for each page, component, an
 | ID     | Requirement                                                                                                                                                 |
 | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | BLG-01 | The blog is powered by **Fumadocs MDX** (fumadocs-core, fumadocs-mdx, fumadocs-ui)                                                                          |
-| BLG-02 | Blog content is stored as `.mdx` files in the `content/blog/` directory                                                                                     |
+| BLG-02 | Blog content is stored as `.mdx` files in the `content/blog` directory                                                                                      |
 | BLG-03 | The blog layout disables the global Navbar and ScrollTop button                                                                                             |
 | BLG-04 | Blog posts support: syntax highlighting (Shiki/rehype-pretty-code), Mermaid diagrams, table of contents, code import, GFM tables, and custom MDX components |
 | BLG-05 | A search feature is provided via `@docsearch/react` for blog content discovery                                                                              |

@@ -14,11 +14,11 @@ function flattenNode(node: UnistNode) {
   return p.join(``);
 }
 
-interface Item {
+type Item = {
   title: string;
   url: string;
   items?: Item[];
-}
+};
 
 function getItems(node: UnistNode, current: Item): Item | undefined {
   if (!node) {
@@ -67,7 +67,7 @@ export type TableOfContents = {
 };
 
 export async function getTableOfContents(content: string): Promise<TableOfContents> {
-  const result = await remark().use(getToc).process(content);
+  const { data } = await remark().use(getToc).process(content);
 
-  return result.data as TableOfContents;
+  return data as TableOfContents;
 }

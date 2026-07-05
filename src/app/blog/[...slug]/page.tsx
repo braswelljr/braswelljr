@@ -81,7 +81,7 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
         date={post.date}
         tags={post.tags ?? []}
       >
-        {/* MDX rendered on the server — no functions cross the boundary */}
+        {/* MDX rendered on the server -no functions cross the boundary */}
         <MDX components={getMDXComponents({ a: createRelativeLink(blog, page) })} />
 
         <div className="space-y-1">

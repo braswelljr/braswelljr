@@ -224,7 +224,7 @@ function DropDrawerContent({
     []
   );
 
-  // Derive active submenu content reactively — avoids reading refs during render
+  // Derive active submenu content reactively -avoids reading refs during render
   const activeSubmenuContent = useMemo(() => {
     if (!activeSubmenu) return [];
     return extractSubmenuContent(children, activeSubmenu);

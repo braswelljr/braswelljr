@@ -17,7 +17,7 @@ export type BlogPostHeaderProps = {
   description: string;
   date: string; // ISO string
   tags?: string[];
-  /** Rendered MDX body + footer — passed as children from the server component */
+  /** Rendered MDX body + footer -passed as children from the server component */
   children: React.ReactNode;
 };
 
@@ -67,7 +67,7 @@ export function BlogPostContent({ title, description, date, tags, children }: Bl
           '-=0.2'
         );
 
-      // Body ScrollTrigger — every h1-h4, p, pre, blockquote, list, table
+      // Body ScrollTrigger -every h1-h4, p, pre, blockquote, list, table
       if (bodyRef.current) {
         bodyRef.current
           .querySelectorAll('h1, h2, h3, h4, p, pre, blockquote, ul, ol, table')
@@ -137,7 +137,7 @@ export function BlogPostContent({ title, description, date, tags, children }: Bl
         )}
       </div>
 
-      {/* MDX body + footer — rendered by server, passed as children */}
+      {/* MDX body + footer -rendered by server, passed as children */}
       <DocsBody>
         <div ref={bodyRef}>{children}</div>
       </DocsBody>

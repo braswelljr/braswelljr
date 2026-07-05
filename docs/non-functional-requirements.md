@@ -1,6 +1,6 @@
 # Non-Functional Requirements Document (NFRD)
 
-## Project: Braswell Kenneth Azu Junior — Personal Portfolio Website
+## Project: Braswell Kenneth Azu Junior - Personal Portfolio Website
 
 **Version:** 1.0.0
 **Author:** Braswell Kenneth Azu Junior
@@ -11,7 +11,7 @@
 
 ## 1. Overview
 
-This document specifies the non-functional requirements (NFRs) — the quality attributes that govern _how_ the portfolio website performs, behaves, and feels, beyond its functional features. These requirements are critical to delivering a high-end, professional, and accessible experience.
+This document specifies the non-functional requirements (NFRs) - the quality attributes that govern _how_ the portfolio website performs, behaves, and feels, beyond its functional features. These requirements are critical to delivering a high-end, professional, and accessible experience.
 
 ---
 
@@ -41,7 +41,7 @@ This document specifies the non-functional requirements (NFRs) — the quality a
 - All images use Next.js `<Image>` component for automatic WebP conversion, lazy loading, and responsive sizing
 - The profile image (`/images/braswelljr.png`) uses `loading="eager"` and explicit `width`/`height` to prevent layout shift
 - Background image (`/images/beams-2.png`) is loaded eagerly as a fixed full-screen asset
-- Fonts are loaded via `next/font/local` with `woff2` and `ttf` files — eliminating external font render-blocking
+- Fonts are loaded via `next/font/local` with `woff2` and `ttf` files -eliminating external font render-blocking
 - JavaScript bundles are code-split by route via Next.js App Router's automatic chunking
 
 ### 2.4 Caching Strategy
@@ -131,8 +131,8 @@ This document specifies the non-functional requirements (NFRs) — the quality a
 
 ### 5.1 Animation Principles
 
-- Animations must be **purposeful** — every motion conveys meaning (entrance, emphasis, state change)
-- Animations must be **performant** — use CSS `transform` and `opacity` (GPU-composited) over layout-triggering properties
+- Animations must be **purposeful** -every motion conveys meaning (entrance, emphasis, state change)
+- Animations must be **performant** -use CSS `transform` and `opacity` (GPU-composited) over layout-triggering properties
 - Spring physics are preferred over linear/ease curves for natural, organic motion feel
 - Average animation duration: 200–500ms; no animation exceeds 1.5s without good reason
 
@@ -217,7 +217,7 @@ All Framer Motion animations use `useReducedMotion()`. When `prefers-reduced-mot
 ## 9. Scalability
 
 - The site is statically deployable with incremental adoption of SSR where needed (e.g., API routes)
-- Blog content uses file-based MDX — adding a new post requires only adding a new `.mdx` file
+- Blog content uses file-based MDX -adding a new post requires only adding a new `.mdx` file
 - Career and project data are maintained in a centralized `src/config/data.ts` file for easy updates
 - The `OTHER_PROJECTS` array in `data.ts` is extendable without touching any page components
 
@@ -227,13 +227,13 @@ All Framer Motion animations use `useReducedMotion()`. When `prefers-reduced-mot
 
 - The site is currently English-only
 - Content is authored in English; no i18n routing is implemented
-- Braswell speaks: English (Fluent), French (Elementary) — French translation is a future consideration
+- Braswell speaks: English (Fluent), French (Elementary) -French translation is a future consideration
 - The `<html lang="en">` attribute is correctly set in the root layout
 
 ---
 
 ## 11. Uptime & Reliability
 
-- Deployed on **Vercel** — SLA ≥ 99.9% uptime guaranteed by platform
+- Deployed on **Vercel** -SLA ≥ 99.9% uptime guaranteed by platform
 - Zero-downtime deployments via Vercel's preview → production promotion workflow
 - GitHub Actions CI pipeline runs lint and build checks on all PRs before merge

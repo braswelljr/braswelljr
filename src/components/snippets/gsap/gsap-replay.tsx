@@ -39,7 +39,7 @@ export default function GsapReplay() {
       className="relative flex items-center justify-center p-8"
     >
       <div className="w-full max-w-sm overflow-hidden rounded-2xl bg-neutral-900 shadow-xl">
-        <div className="rp-bar h-1.5 w-full bg-gradient-to-r from-orange-400 to-red-500" />
+        <div className="rp-bar h-1.5 w-full bg-linear-to-r from-orange-400 to-red-500" />
         <div className="flex items-start gap-4 p-5">
           <div className="rp-icon flex size-12 shrink-0 items-center justify-center rounded-xl bg-orange-500/20 text-2xl">
             🎬
@@ -47,7 +47,7 @@ export default function GsapReplay() {
           <div className="min-w-0 space-y-1.5">
             <p className="rp-title font-bold text-white">GSAP Timeline</p>
             <p className="rp-sub text-sm leading-snug text-neutral-400">
-              Sequenced entrance with stagger — all driven by one timeline.
+              Sequenced entrance with stagger -all driven by one timeline.
             </p>
             <div className="flex flex-wrap gap-2 pt-1">
               {['gsap', 'timeline', 'stagger'].map((t) => (

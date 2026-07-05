@@ -1,6 +1,6 @@
 # Software Requirements Specification (SRS)
 
-## Project: Braswell Kenneth Azu Junior — Personal Portfolio Website
+## Project: Braswell Kenneth Azu Junior - Personal Portfolio Website
 
 **Document Version:** 1.0.0
 **Author:** Braswell Kenneth Azu Junior
@@ -54,12 +54,12 @@ The system is a **Next.js 16 (App Router)** web application that serves as:
 | Term          | Definition                                                        |
 | ------------- | ----------------------------------------------------------------- |
 | App Router    | Next.js 13+ routing paradigm using the `app/` directory           |
-| RSC           | React Server Component — rendered on the server with no client JS |
-| MDX           | Markdown + JSX — used for blog content                            |
+| RSC           | React Server Component - rendered on the server with no client JS |
+| MDX           | Markdown + JSX - used for blog content                            |
 | Fumadocs      | Documentation/blog framework built on Next.js                     |
 | Framer Motion | JavaScript animation library (imported as `motion/react`)         |
 | WCAG          | Web Content Accessibility Guidelines                              |
-| CLS           | Cumulative Layout Shift — Core Web Vital metric                   |
+| CLS           | Cumulative Layout Shift - Core Web Vital metric                   |
 
 ---
 
@@ -93,10 +93,10 @@ The portfolio is a standalone, self-contained web application deployed on Vercel
 
 ### 2.3 User Classes
 
-1. **Recruiters & Hiring Managers** — skim resume, career, and project pages
-2. **Clients & Startups** — evaluate project quality and contact details
-3. **Developers / OSS Community** — explore projects, read blog posts, find code
-4. **General Visitors** — organic search or social referral; casual exploration
+1. **Recruiters & Hiring Managers** -skim resume, career, and project pages
+2. **Clients & Startups** -evaluate project quality and contact details
+3. **Developers / OSS Community** -explore projects, read blog posts, find code
+4. **General Visitors** -organic search or social referral; casual exploration
 
 ---
 
@@ -104,7 +104,7 @@ The portfolio is a standalone, self-contained web application deployed on Vercel
 
 ### 3.1 Directory Structure
 
-```
+```bash
 braswelljr/
 ├── src/
 │   ├── app/                      # Next.js App Router
@@ -181,7 +181,7 @@ braswelljr/
 
 ### 4.1 Visual Theme & Atmosphere
 
-The portfolio exudes a **bold, energetic, and modern** aesthetic. The design language pairs volcanic coral-reds and molten amber-oranges against clean stone-white canvases (light mode) and deep charcoal/neutral-950 surfaces (dark mode). The result is a visual identity that is simultaneously professional and expressive — echoing Braswell's dual identity as engineer and creative designer.
+The portfolio exudes a **bold, energetic, and modern** aesthetic. The design language pairs volcanic coral-reds and molten amber-oranges against clean stone-white canvases (light mode) and deep charcoal/neutral-950 surfaces (dark mode). The result is a visual identity that is simultaneously professional and expressive - echoing Braswell's dual identity as engineer and creative designer.
 
 Key atmosphere descriptors: **Vibrant · Purposeful · Kinetic · Clean · Confident**
 
@@ -264,15 +264,15 @@ Applied via `bg-clip-text text-transparent` for gradient text effects.
 ### 4.5 Geometry & Borders
 
 - **Cards:** `rounded` (slightly rounded corners) with `bg-zinc-900/20 backdrop-blur shadow-sm`
-- **Buttons:** `rounded-sm` (subtly rounded) — crisp, professional edge
+- **Buttons:** `rounded-sm` (subtly rounded) - crisp, professional edge
 - **Timeline markers:** Circular SVG (`cx=4.5, cy=4.5, r=4.5`) with primary stroke
 - **Global:** No heavy use of large border radii; preference for sharp, architectural shapes
 
 ### 4.6 Depth & Elevation
 
-- **Background:** Full-viewport fixed beam pattern image (`beams-2.png`) — creates depth
-- **Navbar:** Frosted glass — `bg-white/50 dark:bg-neutral-800/60` + backdrop blur
-- **Cards:** Glass-morphic — `bg-zinc-900/20 backdrop-blur shadow-sm`
+- **Background:** Full-viewport fixed beam pattern image (`beams-2.png`) - creates depth
+- **Navbar:** Frosted glass -`bg-white/50 dark:bg-neutral-800/60` + backdrop blur
+- **Cards:** Glass-morphic -`bg-zinc-900/20 backdrop-blur shadow-sm`
 - **Modals / Popovers:** Heavier opacity surfaces using stone/neutral palette
 - **Philosophy:** Whisper-soft, diffuse shadows; depth through transparency and blur rather than hard drop-shadows
 
@@ -295,7 +295,7 @@ Applied via `bg-clip-text text-transparent` for gradient text effects.
 | Framework       | Next.js (App Router) | 16.2.7  |
 | Language        | TypeScript           | ^6      |
 | Runtime         | React                | ^19     |
-| Node.js         | >= 24                | —       |
+| Node.js         | >= 24                | -       |
 | Package Manager | pnpm                 | 11.5.1  |
 
 ### 5.2 Styling
@@ -351,7 +351,7 @@ Applied via `bg-clip-text text-transparent` for gradient text effects.
 | Fumadocs Twoslash  | ^3.2.0   | TypeScript annotations in code blocks                                          |
 | Fumadocs Docgen    | ^3.0.10  | Documentation generation                                                       |
 | `@docsearch/react` | ^4.6.3   | Algolia-powered search for blog                                                |
-| MDX ecosystem      | —        | `@mdx-js/react`, remark-gfm, rehype-slug, rehype-pretty-code, remark-directive |
+| MDX ecosystem      | -        | `@mdx-js/react`, remark-gfm, rehype-slug, rehype-pretty-code, remark-directive |
 | Shiki              | ^4.2.0   | Syntax highlighting engine                                                     |
 | `reading-time`     | ^1.5.0   | Estimated read time calculation                                                |
 | TipTap             | ^3.25.x  | Rich text editor (for blog authoring)                                          |
@@ -402,7 +402,7 @@ Applied via `bg-clip-text text-transparent` for gradient text effects.
 
 ### 6.1 Root Layout (`src/app/layout.tsx`)
 
-**Type:** Server Component  
+**Type:** Server Component
 **Purpose:** Injects fonts, analytics, global CSS, and provider wrappers into the document shell.
 
 **Font Loading:**
@@ -430,7 +430,7 @@ const JetbrainsMono = LocalFont({ src: [normal + italic], variable: '--font-mono
 
 ### 6.2 Home Page (`/`)
 
-**Type:** Client Component  
+**Type:** Client Component
 **File:** `src/app/(home)/page.tsx`
 
 **Key Logic:**
@@ -450,7 +450,7 @@ const JetbrainsMono = LocalFont({ src: [normal + italic], variable: '--font-mono
 
 ### 6.3 About Page (`/about`)
 
-**Type:** Server Component  
+**Type:** Server Component
 **File:** `src/app/(home)/about/page.tsx`
 
 **Data Sources:** `career` and `education` arrays from `src/config/data.ts`
@@ -468,17 +468,17 @@ Returns `"Current"` for any date within 1 day of today (handles timezone edge ca
 
 ### 6.4 Projects Page (`/projects`)
 
-**Type:** Client Component  
+**Type:** Client Component
 **File:** `src/app/(home)/projects/page.tsx`
 
 **State:**
 
-- `viewMorePins: boolean` — expands/collapses pinned projects (default limit: 3 desktop / 2 mobile)
-- `viewMoreProjects: boolean` — expands/collapses all projects (default limit: 6 desktop / 4 mobile)
+- `viewMorePins: boolean` -expands/collapses pinned projects (default limit: 3 desktop / 2 mobile)
+- `viewMoreProjects: boolean` -expands/collapses all projects (default limit: 6 desktop / 4 mobile)
 
 **Data Sources:**
 
-- `useXStore()` Zustand store — hydrated from GitHub API via fetch on mount
+- `useXStore()` Zustand store -hydrated from GitHub API via fetch on mount
 - `OTHER_PROJECTS` array from `src/config/data.ts`
 
 ---
@@ -599,8 +599,8 @@ type GitHubProperties = {
 
 **Endpoints Used:**
 
-- GraphQL: `viewer.pinnedItems` — pinned repositories with name, description, stars, forks, primaryLanguage, homepageUrl
-- REST: `GET /users/braswelljr/repos?type=public&per_page=100` — all public repositories
+- GraphQL: `viewer.pinnedItems` -pinned repositories with name, description, stars, forks, primaryLanguage, homepageUrl
+- REST: `GET /users/braswelljr/repos?type=public&per_page=100` -all public repositories
 
 **Caching:** Responses cached in-memory via `lru-cache` to avoid rate limiting (60 req/hour unauthenticated, 5000/hour authenticated)
 
@@ -618,8 +618,8 @@ SPOTIFY_REFRESH_TOKEN=
 
 **Endpoints Used:**
 
-- `GET /me/player/currently-playing` — currently playing track
-- `GET /me/player/recently-played` — recently played tracks
+- `GET /me/player/currently-playing` -currently playing track
+- `GET /me/player/recently-played` -recently played tracks
 
 **SDK:** `@spotify/web-api-ts-sdk`
 
@@ -680,14 +680,14 @@ NEXT_PUBLIC_SITE_URL=https://braswelljr.engineer
 
 ### A. Biography
 
-Braswell Kenneth Azu Junior is a Software Engineer from Ghana with over 5 years of professional experience building scalable web applications, mobile apps, and cloud-native APIs. He combines engineering rigor with strong design sensibility — equally comfortable architecting backend systems and crafting pixel-perfect, animated frontend interfaces.
+Braswell Kenneth Azu Junior is a Software Engineer from Ghana with over 5 years of professional experience building scalable web applications, mobile apps, and cloud-native APIs. He combines engineering rigor with strong design sensibility -equally comfortable architecting backend systems and crafting pixel-perfect, animated frontend interfaces.
 
 He is passionate about:
 
-- **Frontend animation** — Framer Motion, GSAP, CSS transitions
-- **Developer experience** — tooling, monorepos, CI/CD automation
-- **Open source** — contributing to and building open-source projects
-- **Design systems** — semantic design tokens, accessible component libraries
+- **Frontend animation** -Framer Motion, GSAP, CSS transitions
+- **Developer experience** -tooling, monorepos, CI/CD automation
+- **Open source** -contributing to and building open-source projects
+- **Design systems** -semantic design tokens, accessible component libraries
 
 ### B. Skills Reference
 

@@ -49,7 +49,7 @@ function TimelineSection({
       </InView>
 
       <div className="relative ml-6 pt-5 sm:ml-8.25 md:ml-14.25 lg:ml-[max(calc(15.5rem+1px),calc(100%-48rem))]">
-        {/* Animated vertical line — draws down when it enters view */}
+        {/* Animated vertical line -draws down when it enters view */}
         <motion.div
           className={cn('absolute top-3 right-full bottom-0 w-px bg-primary', 'mr-7 ml-6 md:mr-13')}
           initial={isReduced ? undefined : { scaleY: 0, originY: 0 }}
@@ -75,7 +75,7 @@ function TimelineSection({
               >
                 <div className="absolute -inset-x-4 -inset-y-2.5 md:-inset-x-6 md:-inset-y-4" />
 
-                {/* Timeline dot — pops in as item enters */}
+                {/* Timeline dot -pops in as item enters */}
                 <motion.svg
                   viewBox="0 0 9 9"
                   className={cn(
@@ -101,21 +101,21 @@ function TimelineSection({
                   {'role' in item ? (
                     <>
                       <h3 className="pt-8 text-xl font-semibold tracking-tight text-neutral-950 lg:pt-0 dark:text-neutral-200">
-                        {(item as (typeof career)[number]).role} —{' '}
+                        {item.role} —{' '}
                         <span className="text-base font-normal text-primary-600">
-                          ({(item as (typeof career)[number]).type})
+                          ({item.type})
                         </span>
                       </h3>
                       <div className="mt-2 mb-4 font-medium text-neutral-900 dark:text-neutral-400">
                         <MotionLink
-                          href={(item as (typeof career)[number]).companyLink || '#'}
+                          href={item.companyLink || '#'}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-cascadia text-lg font-bold transition-colors hocus:text-primary"
                           whileHover={{ x: 3 }}
                           transition={{ duration: 0.15, ease: EASE_OUT }}
                         >
-                          {(item as (typeof career)[number]).company}
+                          {item.company}
                         </MotionLink>
                       </div>
                     </>
@@ -149,7 +149,7 @@ function TimelineSection({
                     </motion.ul>
                   )}
 
-                  {/* Date — slides in from the left */}
+                  {/* Date -slides in from the left */}
                   <motion.dl
                     className="absolute top-0 left-0 lg:right-full lg:left-auto lg:mr-26.25"
                     initial={isReduced ? undefined : { opacity: 0, x: -12 }}

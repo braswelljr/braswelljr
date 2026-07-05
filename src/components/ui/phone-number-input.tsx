@@ -11,7 +11,7 @@ import { Input, InputProps } from './input';
 export type PhoneNumberInputProps = RPNInput.Props<React.InputHTMLAttributes<HTMLInputElement>> & {
   /** Custom Input component (defaults to local Input) */
   Input?: React.ComponentType<InputProps>;
-  /** Custom flag renderer — must be a functional component */
+  /** Custom flag renderer -must be a functional component */
   FlagComponent?: (props: RPNInput.FlagProps & { className?: string }) => React.JSX.Element;
   /** Custom country select renderer */
   CountrySelectComponent?: React.ComponentType<CountrySelectProps>;

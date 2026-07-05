@@ -24,7 +24,7 @@ gsap.registerPlugin(useGSAP);
 export type BlogPost = {
   title: string;
   description: string;
-  date: string; // ISO string — serialized from server
+  date: string; // ISO string - serialized from server
   tags?: string[];
   slug: string;
   published: boolean;
@@ -56,7 +56,7 @@ export function BlogTimeline({ posts }: { posts: BlogPost[] }) {
         Blog
       </motion.h2>
 
-      <div className="relative ml-4 pt-5 sm:ml-[calc(2rem+1px)] md:ml-[calc(3.5rem+1px)] lg:ml-[max(calc(15.5rem+1px),calc(100%-48rem))]">
+      <div className="relative ml-4 pt-5 sm:ml-8.25 md:ml-14.25 lg:ml-[max(calc(15.5rem+1px),calc(100%-48rem))]">
         {/* Animated vertical line */}
         <motion.div
           className={cn(
@@ -91,7 +91,7 @@ export function BlogTimeline({ posts }: { posts: BlogPost[] }) {
                 <motion.svg
                   viewBox="0 0 9 9"
                   className={cn(
-                    'absolute top-2 right-full size-[calc(0.5rem+1px)] overflow-visible text-primary!',
+                    'absolute top-2 right-full size-2.25 overflow-visible text-primary!',
                     'mr-6 ml-5 md:mr-12'
                   )}
                   initial={isReduced ? undefined : { scale: 0, opacity: 0 }}
@@ -184,9 +184,9 @@ export function BlogTimeline({ posts }: { posts: BlogPost[] }) {
                     {readingTime}
                   </div>
 
-                  {/* Date — slides in from left */}
+                  {/* Date -slides in from left */}
                   <motion.dl
-                    className="absolute top-0 left-0 lg:right-full lg:left-auto lg:mr-[calc(6.5rem+1px)]"
+                    className="absolute top-0 left-0 lg:right-full lg:left-auto lg:mr-26.25"
                     initial={isReduced ? undefined : { opacity: 0, x: -12 }}
                     whileInView={isReduced ? undefined : { opacity: 1, x: 0 }}
                     viewport={{ once: false, margin: '-40px' }}
@@ -201,7 +201,7 @@ export function BlogTimeline({ posts }: { posts: BlogPost[] }) {
                   </motion.dl>
                 </div>
 
-                {/* Read more link — fades up last */}
+                {/* Read more link -fades up last */}
                 <MotionLink
                   href={slug}
                   className="link-underline group/link relative mt-5 inline-flex items-center justify-start gap-1 pb-1 text-sm font-semibold text-primary! uppercase hover:bg-size-[95%_3px]"

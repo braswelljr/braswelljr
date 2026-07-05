@@ -84,7 +84,7 @@ export default function Navbar({
     return () => window.removeEventListener('resize', updateHeight);
   }, []);
 
-  // GSAP entrance: slide down from above — scope is the wrapper div, target is the nav
+  // GSAP entrance: slide down from above -scope is the wrapper div, target is the nav
   useGSAP(
     () => {
       if (isReduced || !navRef.current) return;
@@ -139,7 +139,11 @@ export default function Navbar({
           orientation="horizontal"
           className="flex min-h-max shrink-0 items-center justify-center gap-4 max-lg:order-last max-lg:mt-4 max-lg:basis-full max-lg:justify-start max-lg:overflow-x-auto"
         >
-          <ScrollArea scrollbarGutter>
+          <Layout
+            isViewport={!lg}
+            as={ScrollArea}
+            scrollbarGutter
+          >
             <TabsList
               indicatorClassName="h-1.5! bg-primary! rounded-t-xl!"
               variant="underline"
@@ -163,7 +167,7 @@ export default function Navbar({
                 />
               ))}
             </TabsList>
-          </ScrollArea>
+          </Layout>
         </Tabs>
 
         {/* Right controls */}
@@ -208,20 +212,15 @@ export default function Navbar({
   );
 }
 
-type LayoutType = React.HTMLProps<HTMLDivElement> & {
+type LayoutType = {
+  children?: React.ReactNode;
   className?: string;
   isViewport?: boolean;
-  as?: keyof React.JSX.IntrinsicElements;
+  as?: React.ElementType;
+  [key: string]: unknown;
 };
 
-function Layout({ children, className, isViewport, ...props }: LayoutType) {
+function Layout({ children, isViewport, as: Component = 'div', ...props }: LayoutType) {
   if (!isViewport) return <Fragment>{children}</Fragment>;
-  return (
-    <div
-      {...props}
-      className={cn('', className)}
-    >
-      {children}
-    </div>
-  );
+  return <Component {...props}>{children}</Component>;
 }

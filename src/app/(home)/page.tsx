@@ -44,7 +44,7 @@ export default function Page() {
     }
   }, 5000);
 
-  // GSAP entrance timeline — fires once on mount
+  // GSAP entrance timeline -fires once on mount
   useGSAP(
     () => {
       if (isReduced) return;
@@ -101,7 +101,7 @@ export default function Page() {
             loading="eager"
             height={350}
             width={120}
-            className="mx-auto drop-shadow-xl"
+            className="mx-auto h-auto w-auto drop-shadow-xl"
           />
         </div>
 
