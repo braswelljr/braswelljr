@@ -56,7 +56,7 @@ sequenceDiagram
   <Tab value="Functional">
 
 ```tsx title="websocket-client-functional.tsx" twoslash
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 function useWebSocket(url: string) {
   const [isConnected, setIsConnected] = useState(false);
@@ -224,7 +224,7 @@ sequenceDiagram
   <Tab value="Functional">
 
 ```tsx title="sse-client-functional.tsx" twoslash
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 function useEventSource(url: string) {
   const [isConnected, setIsConnected] = useState(false);
@@ -370,7 +370,7 @@ client.connect();
 
 WebSockets are ideal for applications where multiple users interact simultaneously:
 
-```tsx title="collaboration-example.tsx" twoslash
+```tsx title="collaboration-example.tsx"
 // Real-time document editing
 class DocumentCollaborator {
   private ws: WebSocket;
@@ -411,7 +411,7 @@ Chat applications require bidirectional communication:
   <Tab value="Functional">
 
 ```tsx title="chat-functional.tsx" twoslash
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 interface ChatMessage {
   id: string;
@@ -489,7 +489,7 @@ function ChatRoom() {
   </Tab>
   <Tab value="Class">
 
-```tsx title="chat-class.tsx" twoslash
+```tsx title="chat-class.tsx"
 interface ChatMessage {
   id: string;
   user: string;
@@ -535,8 +535,8 @@ Games require low-latency, bidirectional communication:
 <Tabs groupId="online-gaming" items={['Functional', 'Class']}>
   <Tab value="Functional">
 
-```tsx title="gaming-functional.tsx" twoslash
-import { useState, useEffect, useCallback, useRef } from 'react';
+```tsx title="gaming-functional.tsx"
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 interface GameState {
   players: PlayerState[];
@@ -631,7 +631,7 @@ function GameBoard({ gameId }: { gameId: string }) {
   </Tab>
   <Tab value="Class">
 
-```tsx title="gaming-class.tsx" twoslash
+```tsx title="gaming-class.tsx"
 interface GameState {
   players: PlayerState[];
   ball: BallState;
@@ -669,7 +669,7 @@ SSE is perfect for one-way data streams like live feeds:
   <Tab value="Functional">
 
 ```tsx title="live-feed-functional.tsx" twoslash
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 function useLiveFeed(feedType: string) {
   const [feed, setFeed] = useState<any[]>([]);
@@ -752,7 +752,7 @@ function NewsFeed() {
   </Tab>
   <Tab value="Class">
 
-```tsx title="live-feed-class.tsx" twoslash
+```tsx title="live-feed-class.tsx"
 class LiveFeedClient {
   private eventSource: EventSource;
 
@@ -786,7 +786,7 @@ SSE excels at delivering notifications:
   <Tab value="Functional">
 
 ```tsx title="notification-functional.tsx" twoslash
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 interface Notification {
   id: string;
@@ -857,7 +857,7 @@ function NotificationCenter({ userId }: { userId: string }) {
   </Tab>
   <Tab value="Class">
 
-```tsx title="notification-class.tsx" twoslash
+```tsx title="notification-class.tsx"
 interface Notification {
   id: string;
   type: 'info' | 'warning' | 'error' | 'success';
@@ -896,7 +896,7 @@ SSE is great for long-running operations:
   <Tab value="Functional">
 
 ```tsx title="progress-functional.tsx" twoslash
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 interface ProgressUpdate {
   jobId: string;
@@ -1019,7 +1019,7 @@ SSE is excellent for streaming real-time data:
   <Tab value="Functional">
 
 ```tsx title="streaming-functional.tsx" twoslash
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 function useDataStream(metrics: string[]) {
   const [streamData, setStreamData] = useState<any[]>([]);
@@ -1123,7 +1123,7 @@ Sometimes the best approach is to use both technologies together based on the us
   <Tab value="Functional">
 
 ```tsx title="hybrid-functional.tsx" twoslash
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 function useHybridClient(roomId: string, userId: string) {
   const [collabData, setCollabData] = useState<any>(null);
@@ -1247,7 +1247,7 @@ class HybridClient {
 
 ### Node.js WebSocket Server
 
-```ts title="websocket-server.ts" twoslash
+```ts title="websocket-server.ts"
 import { WebSocketServer } from 'ws';
 
 const wss = new WebSocketServer({ port: 8080 });
@@ -1272,7 +1272,7 @@ wss.on('connection', (ws) => {
 
 ### Node.js SSE Server
 
-```ts title="sse-server.ts" twoslash
+```ts title="sse-server.ts"
 import express from 'express';
 
 const app = express();
