@@ -76,7 +76,7 @@
     "npm-to-yarn": "^3.0.1",
     "octokit": "^5.0.5",
     "oxc-transform": "^0.138.0",
-    "postcss": "^8.5.16",
+    "postcss": "^8.5.18",
     "puppeteer-core": "^25.3.0",
     "radix-ui": "^1.6.1",
     "react": "^19",
