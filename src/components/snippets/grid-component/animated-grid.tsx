@@ -102,14 +102,7 @@ export default function AnimatedGridComponent() {
                       fill
                       src={selectedProduct.image.url}
                       alt={selectedProduct.name}
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        height: '100%',
-                        width: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center'
-                      }}
+                      className="absolute inset-0 size-full object-cover object-center"
                     />
                   </div>
                   <div className="relative px-3 py-4 pr-4">

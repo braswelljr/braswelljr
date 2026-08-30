@@ -8,7 +8,7 @@ import { cn } from 'lib/utils';
 export type AnimatedIconProps = Omit<IconProps, 'variant' | 'size' | 'color' | 'ref'> & {
   /** The Iconsax icon component to render, e.g. `Home2`. */
   icon: Icon;
-  /** Force the active (bold) state — e.g. the current nav tab. */
+  /** Force the active (bold) state, e.g. the current nav tab. */
   active?: boolean;
   /** External hover signal, e.g. from a parent tab/button surface. */
   hovered?: boolean;

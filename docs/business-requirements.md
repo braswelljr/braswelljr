@@ -1,6 +1,6 @@
 # Business Requirements Document (BRD)
 
-## Project: Braswell Kenneth Azu Junior -Personal Portfolio Website
+## Project: Braswell Kenneth Azu Junior - Personal Portfolio Website
 
 **Version:** 1.0.0
 **Author:** Braswell Kenneth Azu Junior

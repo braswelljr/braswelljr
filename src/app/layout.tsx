@@ -1,12 +1,13 @@
 import { type Metadata } from 'next';
+import { Maven_Pro } from 'next/font/google';
 import LocalFont from 'next/font/local';
 import Image from 'next/image';
 import { Analytics } from '@vercel/analytics/next';
 import { cn } from 'lib/utils';
-import { siteConfig } from '@/config/site';
-import Base from '@/providers/base';
 import Navbar from '@/components/shared/navbar';
 import ScrollTop from '@/components/shared/scroll-top';
+import { siteConfig } from '@/config/site';
+import Base from '@/providers/base';
 import '@/styles/main.css';
 
 export const metadata: Metadata = {
@@ -31,19 +32,35 @@ export const metadata: Metadata = {
   manifest: `/manifest.json`
 };
 
-const Satoshi = LocalFont({ src: './_fonts/Satoshi-Variable.woff2', variable: '--font-satoshi' });
-const Inter = LocalFont({ src: './_fonts/Inter[slnt,wght].ttf', variable: '--font-inter' });
-const AbyssinicaSIL = LocalFont({
-  src: './_fonts/AbyssinicaSIL-Regular.ttf',
-  variable: '--font-abyssinca'
+/**
+ * Only the faces something actually renders in. Satoshi, Inter and Abyssinica
+ * were loaded here and referenced by nothing, so every route preloaded three
+ * fonts it never drew with.
+ *
+ * Maven Pro is the body text, so it earns its preload on every route. Cascadia
+ * and JetBrains Mono belong to particular pages and to code blocks; preloading
+ * those everywhere is what the browser's "preloaded but not used" warning is
+ * reporting, so they load on demand and `swap` covers the gap.
+ */
+const MavenPro = Maven_Pro({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-maven-pro'
 });
-const Cascadia = LocalFont({ src: './_fonts/Cascadia.ttf', variable: '--font-cascadia' });
+const Cascadia = LocalFont({
+  src: './_fonts/Cascadia.ttf',
+  display: 'swap',
+  preload: false,
+  variable: '--font-cascadia-face'
+});
 const JetbrainsMono = LocalFont({
   src: [
     { path: './_fonts/jetbrainsmono.ttf', style: 'normal' },
     { path: './_fonts/jetbrainsmono-italic.ttf', style: 'italic' }
   ],
-  variable: '--font-mono'
+  display: 'swap',
+  preload: false,
+  variable: '--font-mono-face'
 });
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -51,16 +68,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html
       lang="en"
       suppressHydrationWarning
+      className={cn(MavenPro.variable, JetbrainsMono.variable, Cascadia.variable)}
     >
       <head />
       <body
         className={cn(
-          'min-h-dvh scroll-smooth bg-white font-sans text-neutral-900 antialiased dark:bg-neutral-900 dark:text-white',
-          Satoshi.className,
-          Inter.variable,
-          JetbrainsMono.variable,
-          AbyssinicaSIL.variable,
-          Cascadia.variable
+          'min-h-dvh scroll-smooth bg-white font-sans text-neutral-900 antialiased dark:bg-neutral-900 dark:text-white'
         )}
       >
         <Base>
@@ -72,7 +85,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   alt="Background pattern"
                   loading="eager"
                   fill
-                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+                  className="absolute inset-0 size-full"
                 />
               </div>
               <Navbar

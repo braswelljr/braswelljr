@@ -1,19 +1,19 @@
 'use client';
 
-import { useState } from 'react';
 import type { Page, Playlist, TrackItem } from '@spotify/web-api-ts-sdk';
-import { useQuery } from '@tanstack/react-query';
+import { ArrowLeft2, ArrowRight2 } from 'iconsax-react';
 import { motion, useReducedMotion } from 'motion/react';
+import { parseAsInteger, useQueryState } from 'nuqs';
 import { HiExternalLink } from 'react-icons/hi';
 import { MdRefresh } from 'react-icons/md';
 import { cn } from 'lib/utils';
+import { usePlaylistsQuery } from '@/api';
 import {
   cardVariants,
   containerVariants,
   interactiveCard,
   MotionAvatar,
   MotionAvatarFallback,
-  MotionAvatarImage,
   MotionFrame,
   MotionFrameFooter,
   MotionFramePanel,
@@ -23,58 +23,76 @@ import {
   safeVariants,
   tapScale
 } from '@/components/shared/motion';
+import { AvatarImage } from '@/components/ui/avatar';
 
-type Paginate = {
-  total: number;
-  offset: number;
-  previous: number | null;
-  next: number | null;
-};
+/** Named `Playlists` rather than `Playlist` so it stops shadowing the
+ *  `Playlist` type imported from the Spotify SDK just above. */
+export function Playlists({ className }: { className?: string }) {
+  // Offset lives in the URL so a page of playlists can be linked to. The old
+  // version held it in state with a `_setPagination` nobody called, so the
+  // pagination could never actually move.
+  const [offset, setOffset] = useQueryState(
+    'playlists',
+    parseAsInteger.withDefault(0).withOptions({ clearOnDefault: true })
+  );
+  const { data, refetch, isFetching } = usePlaylistsQuery(offset);
 
-export function Playlist({ className }: { className?: string }) {
-  const [pagination, _setPagination] = useState<Paginate>({
-    total: 0,
-    offset: 0,
-    previous: null,
-    next: null
-  });
-  const { data, refetch, isFetching } = useQuery<{
-    message: string;
-    data: Page<Playlist<TrackItem>>;
-  }>({
-    queryKey: ['playlists', pagination.offset],
-    queryFn: () =>
-      fetch(`/api/spotify/playlists?offset=${pagination.offset}`, {
-        method: 'GET',
-        mode: 'cors'
-      }).then((res) => res.json()),
-    retry: true
-  });
+  const limit = data?.limit ?? 20;
+  const total = data?.total ?? 0;
+  const hasPrevious = offset > 0;
+  const hasNext = offset + limit < total;
 
   return (
     <section className={cn('', className)}>
-      <nav className="flex items-center justify-between">
-        <h2 className="bg-linear-to-l from-secondary to-primary bg-clip-text text-xl font-semibold tracking-tight text-transparent dark:to-primary">
-          Playlist
+      <div className="flex items-end justify-between gap-4">
+        <h2 className="text-2xl leading-tight font-bold tracking-tight text-neutral-900 uppercase sm:text-3xl md:text-4xl dark:text-neutral-100">
+          Playlists
+          {total > 0 && <span className="ml-2 text-lg font-normal tabular-nums">({total})</span>}
         </h2>
-        <motion.button
-          type="button"
-          className="flex size-6 items-center justify-center rounded-full outline-none focus:outline-none"
-          onClick={() => refetch()}
-          whileHover={{ rotate: 180 }}
-          transition={{ duration: 0.3 }}
-          aria-label="Refresh playlists"
-        >
-          <MdRefresh className={cn('size-5', isFetching && 'animate-spin')} />
-        </motion.button>
-      </nav>
+        <div className="flex items-center gap-1">
+          <motion.button
+            type="button"
+            className="flex size-6 items-center justify-center rounded-full outline-none focus:outline-none disabled:opacity-30"
+            onClick={() => void setOffset(Math.max(0, offset - limit))}
+            disabled={!hasPrevious}
+            aria-label="Previous playlists"
+            {...tapScale}
+          >
+            <ArrowLeft2
+              size={16}
+              color="currentColor"
+              variant="Linear"
+            />
+          </motion.button>
+          <motion.button
+            type="button"
+            className="flex size-6 items-center justify-center rounded-full outline-none focus:outline-none disabled:opacity-30"
+            onClick={() => void setOffset(offset + limit)}
+            disabled={!hasNext}
+            aria-label="Next playlists"
+            {...tapScale}
+          >
+            <ArrowRight2
+              size={16}
+              color="currentColor"
+              variant="Linear"
+            />
+          </motion.button>
+          <motion.button
+            type="button"
+            className="flex size-6 items-center justify-center rounded-full outline-none focus:outline-none"
+            onClick={() => refetch()}
+            whileHover={{ rotate: 180 }}
+            transition={{ duration: 0.3 }}
+            aria-label="Refresh playlists"
+          >
+            <MdRefresh className={cn('size-5', isFetching && 'animate-spin')} />
+          </motion.button>
+        </div>
+      </div>
 
       <div className="mt-4">
-        {data?.data && Array.isArray(data?.data?.items) && data?.data?.items?.length ? (
-          <PlaylistData data={data?.data} />
-        ) : (
-          <PlaylistError />
-        )}
+        {data?.items?.length ? <PlaylistData data={data} /> : <PlaylistError />}
       </div>
     </section>
   );
@@ -138,7 +156,9 @@ export function PlaylistData({
       {data?.items?.map((playlist, i) => (
         <MotionLink
           key={i}
-          href={`/listen-with-me/playlists/${playlist?.id}`}
+          href={playlist?.external_urls?.spotify ?? '#'}
+          target="_blank"
+          rel="noopener noreferrer"
           variants={safeVariants(cardVariants, isReduced)}
           {...(isReduced ? {} : interactiveCard)}
           className="block"
@@ -146,13 +166,12 @@ export function PlaylistData({
           <MotionFrame className="h-full gap-0 p-1">
             <MotionFramePanel className="p-2">
               <MotionAvatar className="h-44 w-full overflow-hidden rounded-lg bg-neutral-400 dark:bg-neutral-900">
-                <MotionAvatarImage
+                {/* See top-tracks: an Avatar image that mounts on load cannot
+                    carry its own mount animation. */}
+                <AvatarImage
                   src={playlist?.images?.at(0)?.url}
                   alt={playlist?.name}
                   className="aspect-auto size-full object-cover"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.4, delay: i * 0.04 }}
                 />
                 <MotionAvatarFallback className="size-full animate-pulse rounded-none">
                   {playlist?.name?.charAt(0)}
@@ -164,10 +183,6 @@ export function PlaylistData({
               <motion.span
                 className="flex items-center gap-2 hover:text-secondary"
                 {...tapScale}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.open(playlist.external_urls?.spotify, '_blank', 'noopener noreferrer');
-                }}
               >
                 <HiExternalLink className="size-4 shrink-0" />
                 <MotionFrameTitle className="line-clamp-1 text-sm font-semibold">

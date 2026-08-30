@@ -187,12 +187,9 @@
   --breakpoint-4xl: 2560px;
   --breakpoint-5xl: 3840px;
 
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-lobster);
-  --font-mono: var(--font-mono);
-  --font-satoshi: var(--font-satoshi);
-  --font-abyssinca: var(--font-abyssinca);
-  --font-cascadia: var(--font-cascadia);
+  --font-sans: var(--font-maven-pro);
+  --font-mono: var(--font-mono-face);
+  --font-cascadia: var(--font-cascadia-face);
 
   --text-xs: 0.65rem;
   --text-xs--line-height: 0.75rem;
@@ -205,31 +202,20 @@
   --max-width-11xl: 112rem;
   --max-width-12xl: 120rem;
 
-  --color-secondary: #ff9c08;
-  --color-secondary-50: #fffbea;
-  --color-secondary-100: #fff2c5;
-  --color-secondary-200: #ffe585;
-  --color-secondary-300: #ffd246;
-  --color-secondary-400: #ffbc1b;
-  --color-secondary-500: #ff9c08;
-  --color-secondary-600: #e27100;
-  --color-secondary-700: #bb4d02;
-  --color-secondary-800: #983b08;
-  --color-secondary-900: #7c310b;
-  --color-secondary-950: #481700;
+  /* Status screens (loading / 404 / error): see components/shared/status-screen */
+  --animate-ember-bar: ember-bar 1.1s ease-in-out infinite;
+  --animate-ember-breathe: ember-breathe 6s ease-in-out infinite;
+  --animate-ember-drift: ember-drift 18s linear infinite;
+  --animate-ember-flow: ember-flow 9s ease-in-out infinite;
 
-  --color-primary: #ff4e32;
-  --color-primary-50: #fff3f1;
-  --color-primary-100: #ffe3df;
-  --color-primary-200: #ffccc4;
-  --color-primary-300: #ffaa9c;
-  --color-primary-400: #ff7863;
-  --color-primary-500: #ff4e32;
-  --color-primary-600: #f03a1d;
-  --color-primary-700: #ca250b;
-  --color-primary-800: #a6230e;
-  --color-primary-900: #892313;
-  --color-primary-950: #4b0e04;
+  /* The status screens run wider than the two brand stops: a yellow high end
+     and a magenta low end extend the fire, and a single teal is held back as
+     the cold counterpoint that keeps the whole thing from reading monochrome. */
+  --color-ember-yellow: #ffd246;
+  --color-ember-amber: #ff9c08;
+  --color-ember-coral: #ff4e32;
+  --color-ember-magenta: #e5177b;
+  --color-ember-teal: #12b5a5;
 
   /* --color-fd-background: hsl(0, 0%, 96%); */
   /* --color-fd-foreground: hsl(0, 0%, 3.9%); */
@@ -355,6 +341,43 @@
   }
 }
 
+/**
+ * The two brand scales, declared `static` so every step is emitted even when no
+ * utility happens to reference it.
+ *
+ * Tailwind tree-shakes unused theme variables, which is the right default,
+ * but the contribution calendar picks its five activity levels off these steps
+ * at runtime, and a variable that was shaken out reads back as an empty string.
+ * Keeping the scale whole means the palette lives here and nowhere else.
+ */
+@theme static {
+  --color-secondary: #ff9c08;
+  --color-secondary-50: #fffbea;
+  --color-secondary-100: #fff2c5;
+  --color-secondary-200: #ffe585;
+  --color-secondary-300: #ffd246;
+  --color-secondary-400: #ffbc1b;
+  --color-secondary-500: #ff9c08;
+  --color-secondary-600: #e27100;
+  --color-secondary-700: #bb4d02;
+  --color-secondary-800: #983b08;
+  --color-secondary-900: #7c310b;
+  --color-secondary-950: #481700;
+
+  --color-primary: #ff4e32;
+  --color-primary-50: #fff3f1;
+  --color-primary-100: #ffe3df;
+  --color-primary-200: #ffccc4;
+  --color-primary-300: #ffaa9c;
+  --color-primary-400: #ff7863;
+  --color-primary-500: #ff4e32;
+  --color-primary-600: #f03a1d;
+  --color-primary-700: #ca250b;
+  --color-primary-800: #a6230e;
+  --color-primary-900: #892313;
+  --color-primary-950: #4b0e04;
+}
+
 .dark {
   /* --color-fd-background: hsl(0, 0%, 7.04%); */
   /* --color-fd-foreground: hsl(0, 0%, 92%); */
@@ -438,4 +461,207 @@
     var(--color-secondary) 0deg,
     transparent 80deg
   );
+}
+
+/* ── Status screen motion ──────────────────────────────────────────────────
+   Used by the loading / not-found / error screens. Every one of these is
+   disabled wholesale under `prefers-reduced-motion` at the bottom of this
+   block, so the screens stay legible without any movement. */
+@keyframes ember-bar {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ember-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes ember-flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes ember-drift {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-ember] *,
+  [data-ember] {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ── Status screen utilities ───────────────────────────────────────────────
+   Declared here rather than as inline styles so the status screens are styled
+   entirely through Tailwind. The grain is an inline feTurbulence data URI, so
+   these screens still render when the thing that failed is the network. */
+@utility bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+@utility ember-sweep {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--color-ember-yellow) 40deg,
+    var(--color-ember-amber) 80deg,
+    transparent 140deg,
+    var(--color-ember-coral) 210deg,
+    var(--color-ember-magenta) 260deg,
+    transparent 320deg
+  );
+  mask-image: radial-gradient(closest-side, transparent 45%, black 78%, transparent 100%);
+  -webkit-mask-image: radial-gradient(closest-side, transparent 45%, black 78%, transparent 100%);
+}
+
+@utility ember-pool-amber {
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-secondary) 70%, transparent),
+    transparent 68%
+  );
+}
+
+@utility ember-pool-coral {
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-primary) 70%, transparent),
+    transparent 68%
+  );
+}
+
+/* The headline gradient: five stops across the ember spectrum, drifting so the
+   colour under the numerals keeps moving. `background-size` has to exceed the
+   box for `background-position` to have anywhere to travel. */
+@utility ember-text {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-ember-yellow),
+    var(--color-ember-amber),
+    var(--color-ember-coral),
+    var(--color-ember-magenta),
+    var(--color-ember-coral),
+    var(--color-ember-amber),
+    var(--color-ember-yellow)
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: var(--animate-ember-flow);
+}
+
+@utility ember-rule {
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    var(--color-ember-amber),
+    var(--color-ember-coral),
+    var(--color-ember-magenta),
+    transparent
+  );
+}
+
+@utility ember-action {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-ember-amber),
+    var(--color-ember-coral),
+    var(--color-ember-magenta),
+    var(--color-ember-coral),
+    var(--color-ember-amber)
+  );
+  background-size: 250% 100%;
+  animation: var(--animate-ember-flow);
+}
+
+@utility ember-pool-magenta {
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-ember-magenta) 65%, transparent),
+    transparent 68%
+  );
+}
+
+@utility ember-pool-teal {
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-ember-teal) 55%, transparent),
+    transparent 68%
+  );
+}
+
+@utility ember-pool-yellow {
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-ember-yellow) 65%, transparent),
+    transparent 68%
+  );
+}
+
+/* Used by AttachmentGroup: a horizontal rail that scrolls without the bar
+   showing. Ported alongside the component, which referenced it as a class that
+   no project actually defined. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* A slow sweep across text, for a marker reporting something still in progress
+   ("Thinking...", a role with no end date). Decorative, so `data-ember` turns
+   it off with the rest of the ambient motion under reduced-motion. */
+@keyframes shimmer-sweep {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@utility shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-neutral-400) 0%,
+    var(--color-primary) 25%,
+    var(--color-neutral-400) 50%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-sweep 3s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background: none;
+    color: var(--color-neutral-500);
+  }
 }

@@ -3,8 +3,6 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import { cn } from 'lib/utils';
-import { InView } from '@/components/ui/in-view';
-import { OTHER_PROJECTS } from '@/config/data';
 import {
   cardVariants,
   containerVariants,
@@ -21,6 +19,20 @@ import {
   safeVariants,
   tapScale
 } from '@/components/shared/motion';
+import { InView } from '@/components/ui/in-view';
+import { OTHER_PROJECTS } from '@/config/data';
+
+/** Staggered pulse offsets for the loading placeholders, written out so they
+ *  are real Tailwind classes rather than a computed style attribute. */
+const PULSE_DELAYS = [
+  '[animation-delay:0s]',
+  '[animation-delay:0.1s]',
+  '[animation-delay:0.2s]',
+  '[animation-delay:0.3s]',
+  '[animation-delay:0.4s]',
+  '[animation-delay:0.5s]',
+  '[animation-delay:0.6s]'
+];
 
 type OtherProjectProps = {
   className?: string;
@@ -67,8 +79,10 @@ export function OtherProjects({ className }: OtherProjectProps) {
                   transition={{ duration: 0.4, delay: i * 0.05 }}
                 />
                 <MotionAvatarFallback
-                  className="aspect-video size-full animate-pulse rounded-none p-5 text-center text-sm"
-                  style={{ animationDelay: `${i * 0.1}s` }}
+                  className={cn(
+                    'aspect-video size-full animate-pulse rounded-none p-5 text-center text-sm',
+                    PULSE_DELAYS[i % PULSE_DELAYS.length]
+                  )}
                 >
                   {project.name}
                 </MotionAvatarFallback>

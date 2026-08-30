@@ -14,6 +14,7 @@
  *   import { MotionButton, MotionCard, MotionBadge } from '@/components/motion'
  *   import { containerVariants, itemVariants, tapScale } from '@/components/motion'
  */
+import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 // ─── UI components ────────────────────────────────────────────────────────────
@@ -331,4 +332,37 @@ export function safeVariants<T extends object>(variants: T, isReduced: boolean |
       { opacity: key === 'hidden' ? 0 : 1, transition: { duration: 0.01 } }
     ])
   ) as T;
+}
+
+// =============================================================================
+// SCROLL REVEAL
+// =============================================================================
+
+/**
+ * Reveal props for a list whose children can be replaced while it is on screen.
+ *
+ * `whileInView` fires when the *container* enters the viewport. A container
+ * that is already visible never enters it again, so anything mounted afterwards
+ * (a new tab's rows, a re-sorted grid, a filtered list) inherits nothing and
+ * is stranded at `initial`, which is `opacity: 0`. The list looks empty, and
+ * only an unrelated interaction that flipped the container to `animate` (such
+ * as "View More") appeared to bring it back.
+ *
+ * So: scroll-reveal once, then drive `animate` directly. Children mounted after
+ * that inherit "visible" and animate in on their own.
+ *
+ * @example
+ * const reveal = useRevealOnce();
+ * <motion.div variants={containerVariants} initial="hidden" {...reveal}>
+ */
+export function useRevealOnce(margin = '-60px') {
+  const [revealed, setRevealed] = useState(false);
+
+  if (revealed) return { animate: 'visible' } as const;
+
+  return {
+    whileInView: 'visible',
+    viewport: { once: true, margin },
+    onViewportEnter: () => setRevealed(true)
+  } as const;
 }

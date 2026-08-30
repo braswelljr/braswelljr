@@ -15,12 +15,7 @@ import type { FormatAction } from '../../types';
 import { ToolbarSection } from '../toolbar-section';
 
 type TextStyleAction =
-  | 'bold'
-  | 'italic'
-  | 'underline'
-  | 'strikethrough'
-  | 'code'
-  | 'clearFormatting';
+  'bold' | 'italic' | 'underline' | 'strikethrough' | 'code' | 'clearFormatting';
 
 interface TextStyle extends FormatAction {
   value: TextStyleAction;

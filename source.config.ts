@@ -8,7 +8,6 @@ import {
   remarkNpm
 } from 'fumadocs-core/mdx-plugins';
 import { remarkTypeScriptToJavaScript } from 'fumadocs-docgen/remark-ts2js';
-import { transformerTwoslash } from 'fumadocs-twoslash';
 import {
   defineConfig,
   defineDocs,
@@ -17,6 +16,7 @@ import {
   remarkInclude
 } from 'fumadocs-mdx/config';
 import lastModified from 'fumadocs-mdx/plugins/last-modified';
+import { transformerTwoslash } from 'fumadocs-twoslash';
 import rehypePreLanguage from 'rehype-pre-language';
 import rehypeSlug from 'rehype-slug';
 import codeImport from 'remark-code-import';

@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { cn } from 'lib/utils';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CopyButton, CopyWithClassNames } from '@/components/shared/copy-button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 type ComponentExampleProps = React.HTMLAttributes<HTMLDivElement> & {
   extractClassname?: boolean;

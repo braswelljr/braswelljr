@@ -9,7 +9,6 @@ import { HiChevronRight } from 'react-icons/hi';
 import { IoAlbums } from 'react-icons/io5';
 import { MdOutlineWorkspacePremium } from 'react-icons/md';
 import { cn } from 'lib/utils';
-import { formatDate } from '@/utils/formatDate';
 import {
   cardVariants,
   containerVariants,
@@ -18,6 +17,7 @@ import {
   MotionLink,
   safeVariants
 } from '@/components/shared/motion';
+import { formatDate } from '@/utils/formatDate';
 
 gsap.registerPlugin(useGSAP);
 
@@ -61,12 +61,11 @@ export function BlogTimeline({ posts }: { posts: BlogPost[] }) {
         <motion.div
           className={cn(
             'absolute top-3 right-full -bottom-10 w-px bg-primary!',
-            'mr-7 ml-5 md:mr-13'
+            'mr-7 ml-5 origin-top md:mr-13'
           )}
           initial={isReduced ? undefined : { scaleY: 0 }}
           animate={isReduced ? undefined : { scaleY: 1 }}
           transition={{ duration: 1, ease: EASE_OUT }}
-          style={{ transformOrigin: 'top' }}
         />
 
         <motion.div

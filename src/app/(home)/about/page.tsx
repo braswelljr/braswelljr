@@ -1,201 +1,89 @@
 'use client';
 
-import { useRef } from 'react';
+import { ComponentProps, Fragment, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { differenceInDays, format, isToday } from 'date-fns';
 import { gsap } from 'gsap';
 import { motion, useReducedMotion } from 'motion/react';
+import { HiOutlineAcademicCap, HiOutlineBriefcase, HiOutlineDocumentText } from 'react-icons/hi';
 import { MdOutlineFileDownload } from 'react-icons/md';
-import { cn } from 'lib/utils';
-import { InView } from '@/components/ui/in-view';
-import { career, education } from '@/config/data';
 import {
   cardVariants,
   containerVariants,
-  EASE_OUT,
   headingVariants,
   MotionLink,
   safeVariants,
-  tapScale
+  useRevealOnce
 } from '@/components/shared/motion';
+import {
+  Attachment,
+  AttachmentAction,
+  AttachmentActions,
+  AttachmentContent,
+  AttachmentDescription,
+  AttachmentMedia,
+  AttachmentTitle,
+  AttachmentTrigger
+} from '@/components/ui/attachment';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Bubble, BubbleContent, BubbleGroup } from '@/components/ui/bubble';
+import { InView } from '@/components/ui/in-view';
+import { Marker, MarkerContent, MarkerIcon } from '@/components/ui/marker';
+import {
+  Message,
+  MessageAvatar,
+  MessageContent,
+  MessageFooter,
+  MessageGroup,
+  MessageHeader
+} from '@/components/ui/message';
+import { career, education } from '@/config/data';
 
 gsap.registerPlugin(useGSAP);
 
-const isCurrentDate = (date: Date) => {
+/** The downloadable resume. Re-export the source document over this path when
+ *  the career data changes, or the page and the file disagree. */
+const RESUME_PATH = '/documents/Braswell-Kenneth-Azu-Junior-Resume.pdf';
+const RESUME_UPDATED = 'Feb 2026';
+
+/** Mine, and the ones the other side of the thread borrows from. Five square
+ *  images ship in /public/images; the list cycles for anything past the fifth. */
+const ME_AVATAR = '/images/01.png';
+const OTHER_AVATARS = ['/images/02.png', '/images/03.png', '/images/04.png', '/images/49.png'];
+
+const isCurrentDate = (date?: Date) => {
   if (!date || !(date instanceof Date)) return true;
   return isToday(date) || differenceInDays(date, new Date()) >= -1;
 };
 
-/** Animated vertical timeline section */
-function TimelineSection({
-  title,
-  entries
-}: {
-  title: string;
-  entries: typeof career | typeof education;
-}) {
-  const isReduced = useReducedMotion();
+/** "Nov 2025 - Current", the separator between one message and the next. */
+function rangeLabel(date: { from: Date; to?: Date }) {
+  const from = format(date.from, 'MMM yyyy');
+  const to = date.to && !isCurrentDate(date.to) ? format(date.to, 'MMM yyyy') : 'Current';
+  return `${from} - ${to}`;
+}
 
-  return (
-    <div className="mt-10">
-      <InView
-        variants={safeVariants(headingVariants, isReduced)}
-        transition={{ duration: 0.35 }}
-        viewOptions={{ once: false, margin: '-50px' }}
-        as="h2"
-        className="text-2xl font-bold uppercase"
-      >
-        {title}
-      </InView>
-
-      <div className="relative ml-6 pt-5 sm:ml-8.25 md:ml-14.25 lg:ml-[max(calc(15.5rem+1px),calc(100%-48rem))]">
-        {/* Animated vertical line -draws down when it enters view */}
-        <motion.div
-          className={cn('absolute top-3 right-full bottom-0 w-px bg-primary', 'mr-7 ml-6 md:mr-13')}
-          initial={isReduced ? undefined : { scaleY: 0, originY: 0 }}
-          whileInView={isReduced ? undefined : { scaleY: 1 }}
-          viewport={{ once: false, margin: '-80px' }}
-          transition={{ duration: 0.8, ease: EASE_OUT }}
-          style={{ transformOrigin: 'top' }}
-        />
-
-        <motion.div
-          className="space-y-16"
-          variants={safeVariants(containerVariants, isReduced)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, margin: '-80px' }}
-        >
-          {(entries as Array<(typeof career)[number] & (typeof education)[number]>).map(
-            (item, index) => (
-              <motion.article
-                key={index}
-                variants={safeVariants(cardVariants, isReduced)}
-                className="group relative"
-              >
-                <div className="absolute -inset-x-4 -inset-y-2.5 md:-inset-x-6 md:-inset-y-4" />
-
-                {/* Timeline dot -pops in as item enters */}
-                <motion.svg
-                  viewBox="0 0 9 9"
-                  className={cn(
-                    'absolute top-2 right-full size-2.25 overflow-visible text-primary',
-                    'mr-6 ml-5 md:mr-12'
-                  )}
-                  initial={isReduced ? undefined : { scale: 0, opacity: 0 }}
-                  whileInView={isReduced ? undefined : { scale: 1, opacity: 1 }}
-                  viewport={{ once: false, margin: '-60px' }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 20, delay: index * 0.04 }}
-                >
-                  <circle
-                    cx="4.5"
-                    cy="4.5"
-                    r="4.5"
-                    stroke="currentColor"
-                    className="fill-white dark:fill-neutral-900"
-                    strokeWidth={2}
-                  />
-                </motion.svg>
-
-                <div className="relative">
-                  {'role' in item ? (
-                    <>
-                      <h3 className="pt-8 text-xl font-semibold tracking-tight text-neutral-950 lg:pt-0 dark:text-neutral-200">
-                        {item.role} —{' '}
-                        <span className="text-base font-normal text-primary-600">
-                          ({item.type})
-                        </span>
-                      </h3>
-                      <div className="mt-2 mb-4 font-medium text-neutral-900 dark:text-neutral-400">
-                        <MotionLink
-                          href={item.companyLink || '#'}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-cascadia text-lg font-bold transition-colors hocus:text-primary"
-                          whileHover={{ x: 3 }}
-                          transition={{ duration: 0.15, ease: EASE_OUT }}
-                        >
-                          {item.company}
-                        </MotionLink>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <h3 className="pt-8 text-xl font-semibold tracking-tight text-neutral-950 lg:pt-0 dark:text-neutral-200">
-                        {(item as (typeof education)[number]).name}
-                      </h3>
-                      <div className="mt-2 mb-4 font-medium text-neutral-900 dark:text-neutral-400">
-                        <span className="font-cascadia text-lg font-bold">
-                          {(item as (typeof education)[number]).degree}
-                        </span>
-                      </div>
-                    </>
-                  )}
-
-                  {item.description?.length > 0 && (
-                    <motion.ul
-                      className="list-item pb-2 text-neutral-600 dark:text-neutral-300"
-                      variants={safeVariants(containerVariants, isReduced)}
-                    >
-                      {item.description.map((desc, i) => (
-                        <motion.li
-                          key={i}
-                          variants={safeVariants(cardVariants, isReduced)}
-                          className="ml-4 list-disc"
-                        >
-                          {desc}
-                        </motion.li>
-                      ))}
-                    </motion.ul>
-                  )}
-
-                  {/* Date -slides in from the left */}
-                  <motion.dl
-                    className="absolute top-0 left-0 lg:right-full lg:left-auto lg:mr-26.25"
-                    initial={isReduced ? undefined : { opacity: 0, x: -12 }}
-                    whileInView={isReduced ? undefined : { opacity: 1, x: 0 }}
-                    viewport={{ once: false, margin: '-60px' }}
-                    transition={{ duration: 0.35, ease: EASE_OUT, delay: 0.1 + index * 0.04 }}
-                  >
-                    <dt className="sr-only">Date</dt>
-                    <dd className="leading-6 font-bold whitespace-nowrap text-primary">
-                      <time>
-                        {format(item.date?.from, 'MMM yyyy')} —{' '}
-                        {item.date?.to && !isCurrentDate(item.date.to)
-                          ? format(item.date.to, 'MMM yyyy')
-                          : 'Current'}
-                      </time>
-                    </dd>
-                  </motion.dl>
-                </div>
-              </motion.article>
-            )
-          )}
-        </motion.div>
-      </div>
-    </div>
-  );
+function initials(name: string) {
+  return name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join('');
 }
 
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null);
   const bioRef = useRef<HTMLDivElement>(null);
-  const resumeRef = useRef<HTMLDivElement>(null);
   const isReduced = useReducedMotion();
 
   useGSAP(
     () => {
       if (isReduced) return;
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      tl.fromTo(
+      gsap.fromTo(
         bioRef.current,
         { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.5, clearProps: 'all' }
-      ).fromTo(
-        resumeRef.current,
-        { opacity: 0, y: 14 },
-        { opacity: 1, y: 0, duration: 0.35, clearProps: 'all' },
-        '-=0.2'
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out', clearProps: 'all' }
       );
     },
     { scope: containerRef }
@@ -206,50 +94,309 @@ export default function About() {
       ref={containerRef}
       className="py-12 max-lg:pt-36"
     >
-      <div className="mx-auto max-w-4xl px-4 text-gray-800 *:space-y-6 sm:mt-14 sm:*:space-y-10 dark:text-neutral-100">
-        {/* Bio */}
-        <div
-          ref={bioRef}
-          className="md:leading-relaxed"
-        >
-          Hey, I am <span className="text-primary! uppercase">Braswell Kenneth Azu Junior</span>, a
-          Software Engineer with experience in building scalable, user-centric web and mobile
-          applications. Adept at collaborating with cross-functional teams to design intuitive user
-          interfaces, architect efficient APIs, and implement cloud-native solutions. Passionate
-          about frontend animation, developer experience, and creating seamless digital products.
-        </div>
+      <div className="mx-auto w-full max-w-4xl space-y-12 px-4 text-gray-800 sm:mt-14 dark:text-neutral-100">
+        <Intro ref={bioRef} />
 
-        {/* Resume download */}
-        <div
-          ref={resumeRef}
-          className="mt-10"
-        >
-          <MotionLink
-            href="/documents/Braswell-Kenneth-Azu-Junior-Resume.pdf"
-            className={cn(
-              'inline-flex items-center justify-center gap-2 rounded-sm px-3 py-1.5 pr-4',
-              'bg-primary',
-              'text-sm font-bold text-white! capitalize'
-            )}
-            download
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ y: -2, transition: { duration: 0.15, ease: EASE_OUT } }}
-            {...tapScale}
-          >
-            <MdOutlineFileDownload className="size-4" /> Download Resume
-          </MotionLink>
-        </div>
-
-        <TimelineSection
+        <ThreadSection
+          id="career"
           title="Career"
-          entries={career}
+          icon={<HiOutlineBriefcase />}
+          entries={career.map((job) => ({
+            key: `${job.company}-${job.role}`,
+            date: job.date,
+            header: job.role,
+            subject: job.company,
+            subjectLink: job.companyLink,
+            meta: job.type,
+            lines: job.description
+          }))}
         />
-        <TimelineSection
+
+        <ThreadSection
+          id="education"
           title="Education"
-          entries={education}
+          icon={<HiOutlineAcademicCap />}
+          entries={education.map((school) => ({
+            key: school.name,
+            date: school.date,
+            header: school.name,
+            subject: school.school,
+            meta: school.degree,
+            lines: school.description
+          }))}
         />
       </div>
     </div>
+  );
+}
+
+/**
+ * The summary, as an exchange rather than a paragraph.
+ *
+ * Questions come from the left, answers from the right, so the three claims the
+ * résumé summary makes land one at a time instead of dissolving into a block
+ * nobody finishes. The resume rides along as an attachment on the last answer,
+ * which is where a file belongs in a conversation.
+ */
+function Intro({ ref }: { ref: React.Ref<HTMLDivElement> }) {
+  const exchange = [
+    {
+      ask: 'Who am I ?',
+      answer: (
+        <>
+          Hey, I am{' '}
+          <span className="font-semibold text-primary uppercase">Braswell Kenneth Azu Junior</span>,
+          a Software Engineer building scalable, user-centric web and mobile applications.
+        </>
+      )
+    },
+    {
+      ask: 'What do I do?',
+      answer:
+        'I work with cross-functional teams to design intuitive interfaces, architect efficient APIs, and ship cloud-native solutions.'
+    },
+    {
+      ask: 'What part do I enjoy the most?',
+      answer:
+        'Frontend animation, developer experience and seamless digital products are the parts I care most about.'
+    }
+  ];
+
+  return (
+    <div ref={ref}>
+      <MessageGroup className="gap-6">
+        {exchange.map(({ ask, answer }, i) => (
+          <Fragment key={ask}>
+            <Message>
+              <MessageAvatar>
+                <Avatar>
+                  <AvatarImage
+                    src={OTHER_AVATARS[i % OTHER_AVATARS.length]}
+                    alt=""
+                  />
+                  <AvatarFallback>?</AvatarFallback>
+                </Avatar>
+              </MessageAvatar>
+              <MessageContent>
+                <Bubble variant="muted">
+                  <BubbleContent>{ask}</BubbleContent>
+                </Bubble>
+              </MessageContent>
+            </Message>
+
+            <Message align="end">
+              <MessageAvatar>
+                <Avatar>
+                  <AvatarImage
+                    src={ME_AVATAR}
+                    alt="Braswell Kenneth Azu Junior"
+                  />
+                  <AvatarFallback>BK</AvatarFallback>
+                </Avatar>
+              </MessageAvatar>
+              <MessageContent>
+                <Bubble>
+                  <BubbleContent>{answer}</BubbleContent>
+                </Bubble>
+                {i === exchange.length - 1 && <MessageFooter>Delivered</MessageFooter>}
+              </MessageContent>
+            </Message>
+          </Fragment>
+        ))}
+
+        <Message align="end">
+          <MessageAvatar>
+            <Avatar>
+              <AvatarImage
+                src={ME_AVATAR}
+                alt="Braswell Kenneth Azu Junior"
+              />
+              <AvatarFallback>BK</AvatarFallback>
+            </Avatar>
+          </MessageAvatar>
+          <MessageContent>
+            <Bubble>
+              <BubbleContent>Here is the long version, if you want it.</BubbleContent>
+            </Bubble>
+            <Attachment className="w-full max-w-xs">
+              <AttachmentTrigger
+                render={
+                  <a
+                    href={RESUME_PATH}
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className="sr-only">Download resume as PDF</span>
+                  </a>
+                }
+              />
+              <AttachmentMedia className="bg-primary/10 text-primary">
+                <HiOutlineDocumentText />
+              </AttachmentMedia>
+              <AttachmentContent>
+                <AttachmentTitle>Resume</AttachmentTitle>
+                <AttachmentDescription>PDF, updated {RESUME_UPDATED}</AttachmentDescription>
+              </AttachmentContent>
+              <AttachmentActions>
+                <AttachmentAction
+                  aria-hidden
+                  tabIndex={-1}
+                  className="text-primary"
+                >
+                  <MdOutlineFileDownload />
+                </AttachmentAction>
+              </AttachmentActions>
+            </Attachment>
+          </MessageContent>
+        </Message>
+      </MessageGroup>
+    </div>
+  );
+}
+
+type ThreadEntry = {
+  key: string;
+  date: { from: Date; to?: Date };
+  /** The headline: a role, or a qualification. */
+  header: string;
+  /** Who it was with: an employer, or a school. */
+  subject: string;
+  subjectLink?: string;
+  /** The one-line qualifier under the bubbles: employment type, or degree. */
+  meta: string;
+  lines: string[];
+};
+
+/**
+ * A run of history read as a thread.
+ *
+ * Each entry is one message: the date is the separator above it, the role and
+ * employer are its header, every achievement is its own bubble, and the
+ * employment type is the footer. A still-current entry gets a live marker.
+ */
+function ThreadSection({
+  id,
+  title,
+  icon,
+  entries,
+  ...props
+}: Readonly<
+  ComponentProps<'section'> & {
+    id: string;
+    title: string;
+    icon: React.ReactNode;
+    entries: ThreadEntry[];
+  }
+>) {
+  const isReduced = useReducedMotion();
+  // Sections are revealed on scroll, but children mounted afterwards must not
+  // be stranded at `initial`, which is what `whileInView` alone would do.
+  const reveal = useRevealOnce();
+
+  return (
+    <section
+      aria-labelledby={`${id}-heading`}
+      {...props}
+    >
+      <InView
+        variants={safeVariants(headingVariants, isReduced)}
+        transition={{ duration: 0.35 }}
+        viewOptions={{ once: false, margin: '-50px' }}
+        as="h2"
+        id={`${id}-heading`}
+        className="text-2xl leading-tight font-bold tracking-tight uppercase sm:text-3xl md:text-4xl"
+      >
+        {title}
+      </InView>
+
+      <motion.div
+        className="mt-8 flex flex-col gap-8"
+        variants={safeVariants(containerVariants, isReduced)}
+        initial="hidden"
+        {...reveal}
+      >
+        {entries.map((entry, index) => {
+          const current = isCurrentDate(entry.date.to);
+
+          return (
+            <motion.div
+              key={entry.key}
+              className="space-y-3"
+              variants={safeVariants(cardVariants, isReduced)}
+            >
+              <Marker variant="separator">
+                <MarkerContent className="font-semibold text-primary">
+                  {rangeLabel(entry.date)}
+                </MarkerContent>
+              </Marker>
+
+              <Message>
+                <MessageAvatar className="mt-1 self-start group-has-data-[slot=message-footer]/message:translate-y-0">
+                  <Avatar>
+                    <AvatarImage
+                      src={OTHER_AVATARS[index % OTHER_AVATARS.length]}
+                      alt=""
+                    />
+                    <AvatarFallback>{initials(entry.subject)}</AvatarFallback>
+                  </Avatar>
+                </MessageAvatar>
+
+                <MessageContent>
+                  <MessageHeader className="flex flex-wrap items-baseline gap-2">
+                    <span className="text-base font-semibold text-neutral-950 dark:text-neutral-100">
+                      {entry.header}
+                    </span>
+                    {entry.subjectLink ? (
+                      <MotionLink
+                        href={entry.subjectLink || '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-cascadia text-base font-bold text-primary transition-colors"
+                        whileHover={isReduced ? undefined : { x: 3 }}
+                        transition={{ duration: 0.15 }}
+                      >
+                        - {entry.subject}
+                      </MotionLink>
+                    ) : (
+                      <span className="font-cascadia text-base font-bold text-primary">
+                        - {entry.subject}
+                      </span>
+                    )}
+                  </MessageHeader>
+
+                  <BubbleGroup>
+                    {entry.lines.map((line, i) => (
+                      <Bubble
+                        key={line}
+                        variant={i % 2 === 0 ? 'info' : 'muted'}
+                      >
+                        <BubbleContent>{line}</BubbleContent>
+                      </Bubble>
+                    ))}
+                  </BubbleGroup>
+
+                  <MessageFooter>
+                    <Marker className="gap-1.5">
+                      <MarkerIcon>{icon}</MarkerIcon>
+                      <MarkerContent>{entry.meta}</MarkerContent>
+                    </Marker>
+                  </MessageFooter>
+                </MessageContent>
+              </Message>
+
+              {current && (
+                <Marker
+                  role="status"
+                  className="pl-10"
+                >
+                  <MarkerContent className="shimmer font-medium">Still here</MarkerContent>
+                </Marker>
+              )}
+            </motion.div>
+          );
+        })}
+      </motion.div>
+    </section>
   );
 }

@@ -9,14 +9,14 @@ import { Code, DocumentText, Home2, MusicPlay, Profile, type Icon } from 'iconsa
 import { motion, useReducedMotion } from 'motion/react';
 import { useMedia } from 'react-use';
 import { cn } from 'lib/utils';
+import Search from '@/components/shared/search';
+import { ThemeSwitch } from '@/components/shared/theme-switch';
 import { AnimatedIcon } from '@/components/ui/animated-icon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Kbd } from '@/components/ui/kbd';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useIsMac } from '@/hooks/use-is-mac';
-import Search from '@/components/shared/search';
-import { ThemeSwitch } from '@/components/shared/theme-switch';
 
 gsap.registerPlugin(useGSAP);
 

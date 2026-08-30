@@ -133,7 +133,6 @@ export default function Search({
             hitComponent={({ hit, children }) => {
               return <Link href={hit.url}>{children}</Link>;
             }}
-            onAskAiToggle={onAskAiToggle}
           />,
           document.body
         )}

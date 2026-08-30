@@ -8,9 +8,6 @@ import { gsap } from 'gsap';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { useInterval } from 'react-use';
 import { cn } from 'lib/utils';
-import FloatingDock from '@/components/ui/floating-dock';
-import { socials } from '@/config/data';
-import { useDevice } from '@/hooks/use-device';
 import {
   containerVariants,
   EASE_OUT,
@@ -19,6 +16,9 @@ import {
   safeVariants,
   tapScale
 } from '@/components/shared/motion';
+import FloatingDock from '@/components/ui/floating-dock';
+import { socials } from '@/config/data';
+import { useDevice } from '@/hooks/use-device';
 
 gsap.registerPlugin(useGSAP);
 

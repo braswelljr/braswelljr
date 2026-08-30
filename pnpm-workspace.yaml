@@ -1,3 +1,13 @@
+overrides:
+  # Two prosemirror copies (1.25.7 via the transitive prosemirror-* packages,
+  # 1.25.11 via @tiptap/pm) produced structurally identical but nominally
+  # distinct types, so passing a MarkType between them failed to typecheck.
+  prosemirror-model: 1.25.11
+  prosemirror-view: 1.42.3
+  # fumadocs-mdx and @docsearch/react resolved zod 4.4.3 while the app is on
+  # 4.5.4; zod brands its types with the minor version, so a schema built here
+  # was rejected by fumadocs' `defineDocs`.
+  zod@^4: 4.5.4
 allowBuilds:
   esbuild: true
   puppeteer: true
@@ -66,7 +76,8 @@ minimumReleaseAgeExclude:
   - '@radix-ui/rect@1.1.2'
   - '@types/mdx@2.0.14'
   - radix-ui@1.5.0
-  - react-hook-form@7.81.0
+  - react-hook-form@7.81.0 || 7.87.0
+  - zod@4.5.4
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@tailwindcss/oxide'

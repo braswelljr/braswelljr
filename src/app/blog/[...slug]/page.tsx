@@ -11,6 +11,7 @@ import readingTime from 'reading-time';
 import { blog, getPageImage } from 'lib/source';
 import { getMDXComponents } from '@/components/shared/mdx-components';
 import { ScrollToTopWithBlog } from '@/components/shared/scroll-top';
+import { getGithubToken } from '@/config/github';
 import { BlogPostContent } from '../_components/blog-post-content';
 
 export default async function Page(props: PageProps<'/blog/[...slug]'>) {
@@ -29,10 +30,21 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
     date: new Date(page.data.date).toISOString()
   };
 
+  // Authenticated, because this runs once per post at build time and the
+  // unauthenticated budget is 60 requests/hour, enough to fail a full build
+  // outright. Wrapped, because a missing last-edit date is a cosmetic loss and
+  // should never be the reason a deploy dies.
   const time = await getGithubLastEdit({
     owner: 'braswelljr',
     repo: 'braswelljr',
-    path: `content/blog/${post.path}`
+    path: `content/blog/${post.path}`,
+    token: getGithubToken() ? `Bearer ${getGithubToken()}` : undefined
+  }).catch((error: unknown) => {
+    console.warn(
+      `Could not read the last edit time for ${post.path}:`,
+      error instanceof Error ? error.message : error
+    );
+    return null;
   });
 
   const tocOptions = {

@@ -14,6 +14,12 @@ export async function GET(): Promise<Response> {
 
     if (!response.ok) throw new Error(response.statusText, { cause: { response } });
 
+    // Spotify answers 204 with an empty body when nothing is playing. Parsing
+    // that as JSON throws, which used to surface as a 500 rather than "idle".
+    if (response.status === 204) {
+      return NextResponse.json({ message: 'nothing playing', data: null }, { status: 200 });
+    }
+
     const data = (await response.json()) as CurrentlyPlayingI;
 
     const track = {
@@ -35,8 +41,8 @@ export async function GET(): Promise<Response> {
     } satisfies SpotifyTrack;
 
     return NextResponse.json(
-      { message: response?.statusText || 'gocha', data: track },
-      { status: response?.status || 200 }
+      { message: 'successfully retrieved currently playing', data: track },
+      { status: 200 }
     );
   } catch (error) {
     let err: ErrorCause;

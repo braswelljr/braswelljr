@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { useReducedMotion } from 'motion/react';
 import { CurrentlyPlaying } from './_sections/currently-playing';
+import { Playlists } from './_sections/playlists';
 import { TopTracks } from './_sections/top-tracks';
 
 gsap.registerPlugin(useGSAP);
@@ -42,6 +43,7 @@ export default function Page() {
         <div className="mt-8 space-y-8">
           <CurrentlyPlaying />
           <TopTracks />
+          <Playlists />
         </div>
       </div>
     </div>
