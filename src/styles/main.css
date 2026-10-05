@@ -518,6 +518,126 @@
   }
 }
 
+/* ── Theme toggle reveal ───────────────────────────────────────────────────
+   Played by `ThemeToggle` through a view transition. The component sets
+   `data-theme-vt` (the shape) and `data-theme-vt-start` (the origin) on
+   `<html>` for the length of the switch, and these rules do the rest. The old
+   snapshot stays put and the new one is revealed over it. Page-scale movement,
+   so it runs to the 500ms drawer ceiling rather than the 300ms UI one. */
+html[data-theme-vt-start='top-left'] {
+  --theme-vt-from: inset(0 100% 100% 0);
+  --theme-vt-origin: 0% 0%;
+}
+html[data-theme-vt-start='top-right'] {
+  --theme-vt-from: inset(0 0 100% 100%);
+  --theme-vt-origin: 100% 0%;
+}
+html[data-theme-vt-start='bottom-left'] {
+  --theme-vt-from: inset(100% 100% 0 0);
+  --theme-vt-origin: 0% 100%;
+}
+html[data-theme-vt-start='bottom-right'] {
+  --theme-vt-from: inset(100% 0 0 100%);
+  --theme-vt-origin: 100% 100%;
+}
+html[data-theme-vt-start='center'] {
+  --theme-vt-from: inset(50% 50% 50% 50%);
+  --theme-vt-origin: 50% 50%;
+}
+html[data-theme-vt-start='bottom-up'] {
+  --theme-vt-from: inset(100% 0 0 0);
+  --theme-vt-origin: 50% 100%;
+}
+
+html[data-theme-vt]::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html[data-theme-vt]::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+html[data-theme-vt='rectangle']::view-transition-new(root) {
+  animation: theme-vt-rect 400ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+html[data-theme-vt='circle']::view-transition-new(root) {
+  animation: theme-vt-circle 500ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+html[data-theme-vt='circle-blur']::view-transition-new(root) {
+  animation: theme-vt-circle-blur 500ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+html[data-theme-vt='diagonal']::view-transition-new(root) {
+  animation: theme-vt-diagonal 500ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Blinds: a masked band widens inside every 72px tile, so the new theme opens
+   like a shutter. The band edge is a registered property because mask-image is
+   not animatable but re-resolves each frame the property ticks. */
+@property --theme-vt-slat {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 72px;
+}
+html[data-theme-vt='blinds']::view-transition-new(root) {
+  mask-image: linear-gradient(
+    90deg,
+    #000 0 var(--theme-vt-slat),
+    transparent calc(var(--theme-vt-slat) + 20px)
+  );
+  mask-size: 72px 100%;
+  mask-repeat: repeat;
+  animation: theme-vt-blinds 500ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes theme-vt-rect {
+  from {
+    clip-path: var(--theme-vt-from, inset(100% 0 0 0));
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes theme-vt-circle {
+  from {
+    clip-path: circle(0% at var(--theme-vt-origin, 50% 100%));
+  }
+  to {
+    clip-path: circle(150% at var(--theme-vt-origin, 50% 100%));
+  }
+}
+@keyframes theme-vt-circle-blur {
+  from {
+    clip-path: circle(0% at var(--theme-vt-origin, 50% 100%));
+    filter: blur(8px);
+  }
+  to {
+    clip-path: circle(150% at var(--theme-vt-origin, 50% 100%));
+    filter: blur(0);
+  }
+}
+@keyframes theme-vt-diagonal {
+  from {
+    clip-path: polygon(0 0, 0 0, 0 0);
+  }
+  to {
+    clip-path: polygon(0 0, 200% 0, 0 200%);
+  }
+}
+@keyframes theme-vt-blinds {
+  from {
+    --theme-vt-slat: -20px;
+  }
+  to {
+    --theme-vt-slat: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme-vt]::view-transition-old(root),
+  html[data-theme-vt]::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
 /* ── Status screen utilities ───────────────────────────────────────────────
    Declared here rather than as inline styles so the status screens are styled
    entirely through Tailwind. The grain is an inline feTurbulence data URI, so

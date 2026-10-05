@@ -10,7 +10,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import { useMedia } from 'react-use';
 import { cn } from 'lib/utils';
 import Search from '@/components/shared/search';
-import { ThemeSwitch } from '@/components/shared/theme-switch';
+import { ThemeToggle } from '@/components/shared/theme-toggle';
 import { AnimatedIcon } from '@/components/ui/animated-icon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Kbd } from '@/components/ui/kbd';
@@ -199,7 +199,10 @@ export default function Navbar({
               </span>
             </button>
 
-            <ThemeSwitch />
+            <ThemeToggle
+              variant="circle-blur"
+              start="top-right"
+            />
           </motion.div>
         </Layout>
 
