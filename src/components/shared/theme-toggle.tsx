@@ -80,7 +80,7 @@ export function ThemeToggle({
   return (
     <Button
       type="button"
-      variant="outline"
+      variant="default"
       size="icon"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       // A keyboard press reports `detail === 0`. It switches without the
