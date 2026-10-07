@@ -1,0 +1,588 @@
+---
+title: The URL Is a State Manager, and Filters Do Not Belong in useState
+description: A visitor filters a list, goes to page three, refreshes, and everything resets. The cause is the same in plain JavaScript, React, Vue, Angular and Svelte. The state lives in memory when it should live in the URL. Here is why, how to do it in each, side by side, and where it stops being a good idea.
+tags:
+  - react
+  - vue
+  - angular
+  - svelte
+  - nextjs
+  - state
+  - typescript
+date: 2026-09-29
+resources:
+  - title: nuqs documentation
+    url: https://nuqs.dev
+  - title: useSearchParams in Next.js
+    url: https://nextjs.org/docs/app/api-reference/functions/use-search-params
+  - title: Vue Router, programmatic navigation
+    url: https://router.vuejs.org/guide/essentials/navigation.html
+  - title: VueUse useRouteQuery
+    url: https://vueuse.org/router/useRouteQuery/
+  - title: Angular Router, binding route information to inputs
+    url: https://angular.dev/api/router/withComponentInputBinding
+  - title: SvelteKit $app/state
+    url: https://svelte.dev/docs/kit/$app-state
+  - title: URLSearchParams on MDN
+    url: https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
+---
+
+## A bug you have seen before
+
+You are on a product list. You filter by category, sort by price, and click through to page three. Then one of these happens:
+
+- You refresh, and you are back on page one with no filter.
+- You copy the address to a colleague, and they see the unfiltered list.
+- You open a product, press back, and the list has forgotten everything.
+- You open the same page in a second tab to compare, and it starts from scratch.
+
+None of these is a bug in the usual sense. The code does what it was written to do. The filter, the sort order and the page number were stored in component state, and component state lives in the memory of one tab for as long as that component is mounted. Refresh, navigate away, or open a new tab, and it is gone.
+
+This is the same in every framework, and with no framework at all. In React it is `useState`. In Vue it is `ref`. In Angular it is a `signal`. In Svelte it is a `$state` rune. In plain JavaScript it is a variable. The names differ and the problem is identical.
+
+## Where state can live
+
+The fix starts with a question that is easy to skip: where should this piece of state live? There are more options than "in the component".
+
+| Where           | Survives a reload | Can be shared as a link | Works with back and forward | Separate per tab | Good for                                            |
+| --------------- | ----------------- | ----------------------- | --------------------------- | ---------------- | --------------------------------------------------- |
+| Component state | No                | No                      | No                          | Yes              | A menu being open, a field being typed in           |
+| A global store  | No                | No                      | No                          | Yes              | State many components share for one session         |
+| Local storage   | Yes               | No                      | No                          | No, it is shared | Preferences such as a theme or a dismissed banner   |
+| The URL         | Yes               | Yes                     | Yes                         | Yes              | What the visitor is looking at: filters, sort, page |
+| The server      | Yes               | To anyone with access   | Not applicable              | No, it is shared | Data that belongs to the user or the business       |
+
+By "component state" I mean `useState` or `useReducer` in React, `ref` or `reactive` in Vue, a `signal` in Angular and `$state` in Svelte. By "a global store" I mean Redux, Zustand, Pinia, NgRx and their relatives. A global store fixes one thing that component state cannot do, which is sharing between distant components. It does not fix any of the four problems in the list above, because it is still memory in one tab.
+
+Only one row has "yes" all the way across the first three columns.
+
+## What the URL gives you for free
+
+When state is in the URL, the browser does work you would otherwise have to write.
+
+- **Reload restores it.** The address is the first thing the browser has on a reload.
+- **Links carry it.** Anyone who opens the link sees what you saw.
+- **Back and forward step through it.** The browser's history is an undo stack you did not have to build.
+- **Bookmarks keep it.** A visitor can save a filtered view and come back to it next week.
+- **Each tab has its own.** Two tabs can show two different filters without fighting.
+- **The server can see it.** With server rendering, the first response can already be filtered and sorted, with no flash of the default view.
+- **It is inspectable.** When a user reports a problem, the address they paste tells you exactly what they were looking at.
+
+The mental model that makes this click: the URL is the state, written down. The page is a function of it. Controls do not hold a value. They read it from the URL and write changes back to it.
+
+## The usual version, and what is wrong with it
+
+Here is a list with a category filter and pagination, written the way most of us write it first. Pick your framework. The tabs stay in step for the rest of the post, so you only have to choose once.
+
+<Tabs groupId="framework" persist items={['Vanilla JS', 'React', 'Vue', 'Angular', 'Svelte']}>
+<Tab value="Vanilla JS">
+
+```ts title="plain variables"
+let category = 'all';
+let page = 1;
+
+function render() {
+  const visible = paginate(filterBy(products, category), page);
+  list.replaceChildren(...visible.map(productCard));
+}
+
+picker.addEventListener('change', () => {
+  category = picker.value;
+  page = 1;
+  render();
+});
+
+pager.addEventListener('click', (event) => {
+  page = Number((event.target as HTMLElement).dataset.page);
+  render();
+});
+```
+
+</Tab>
+<Tab value="React">
+
+```tsx title="useState"
+function ProductList({ products }: { products: Product[] }) {
+  const [category, setCategory] = useState('all');
+  const [page, setPage] = useState(1);
+
+  const visible = paginate(filterBy(products, category), page);
+
+  return (
+    <>
+      <CategoryPicker
+        value={category}
+        onChange={setCategory}
+      />
+      <Products items={visible} />
+      <Pager
+        page={page}
+        onChange={setPage}
+      />
+    </>
+  );
+}
+```
+
+</Tab>
+<Tab value="Vue">
+
+```vue title="ref"
+<script setup lang="ts">
+import { computed, ref } from 'vue';
+
+const props = defineProps<{ products: Product[] }>();
+
+const category = ref('all');
+const page = ref(1);
+
+const visible = computed(() => paginate(filterBy(props.products, category.value), page.value));
+</script>
+
+<template>
+  <CategoryPicker v-model="category" />
+  <Products :items="visible" />
+  <Pager v-model="page" />
+</template>
+```
+
+</Tab>
+<Tab value="Angular">
+
+```ts title="signal"
+@Component({
+  selector: 'app-product-list',
+  template: `
+    <app-category-picker [value]="category()" (valueChange)="category.set($event)" />
+    <app-products [items]="visible()" />
+    <app-pager [page]="page()" (pageChange)="page.set($event)" />
+  `
+})
+export class ProductListComponent {
+  products = input.required<Product[]>();
+
+  category = signal('all');
+  page = signal(1);
+
+  visible = computed(() => paginate(filterBy(this.products(), this.category()), this.page()));
+}
+```
+
+</Tab>
+<Tab value="Svelte">
+
+```svelte title="$state"
+<script lang="ts">
+  let { products }: { products: Product[] } = $props();
+
+  let category = $state('all');
+  let page = $state(1);
+
+  const visible = $derived(paginate(filterBy(products, category), page));
+</script>
+
+<CategoryPicker bind:value={category} />
+<Products items={visible} />
+<Pager bind:page />
+```
+
+</Tab>
+</Tabs>
+
+Every one of these is clean and works. Every one of them has all four problems from the top of this post, because in each the two values are held in memory. The address bar says `/products` whatever the visitor is looking at.
+
+## Moving it to the URL by hand
+
+No library is required in any of them. The pattern does not change from tab to tab: **read the value from the URL, and write a change by navigating to a new URL.**
+
+<Tabs groupId="framework" persist items={['Vanilla JS', 'React', 'Vue', 'Angular', 'Svelte']}>
+<Tab value="Vanilla JS">
+
+This is what every framework is doing underneath.
+
+```ts title="URLSearchParams and the History API"
+function readPage(): number {
+  const params = new URLSearchParams(window.location.search);
+  return Number(params.get('page')) || 1;
+}
+
+function writePage(page: number) {
+  const params = new URLSearchParams(window.location.search);
+
+  // The default is left out, so page one keeps a clean address.
+  if (page === 1) params.delete('page');
+  else params.set('page', String(page));
+
+  const query = params.toString();
+  history.pushState(null, '', query ? `?${query}` : window.location.pathname);
+  render();
+}
+
+// Back and forward change the URL without loading a page. Listen for it.
+window.addEventListener('popstate', render);
+```
+
+`render` now calls `readPage()` where it used to read the `page` variable. There is no variable any more.
+
+</Tab>
+<Tab value="React">
+
+React has no router of its own, so this depends on yours. In the Next.js App Router it looks like this.
+
+```tsx title="Next.js navigation hooks"
+'use client';
+
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+function usePage(): [number, (page: number) => void] {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const page = Number(searchParams.get('page')) || 1;
+
+  const setPage = (next: number) => {
+    const params = new URLSearchParams(searchParams);
+    // The default is left out, so page one keeps a clean address.
+    if (next === 1) params.delete('page');
+    else params.set('page', String(next));
+
+    const query = params.toString();
+    router.push(query ? `${pathname}?${query}` : pathname);
+  };
+
+  return [page, setPage];
+}
+```
+
+It returns the same pair `useState` does, so swapping it in changes one line of the component.
+
+</Tab>
+<Tab value="Vue">
+
+Vue Router exposes the query string as a reactive object, so a writable computed is all it takes.
+
+```vue title="Vue Router"
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute();
+const router = useRouter();
+
+const page = computed({
+  get: () => Number(route.query.page) || 1,
+  set: (value: number) =>
+    router.push({
+      // undefined removes the key, so page one keeps a clean address.
+      query: { ...route.query, page: value === 1 ? undefined : String(value) }
+    })
+});
+</script>
+
+<template>
+  <Pager v-model="page" />
+</template>
+```
+
+`page` still works with `v-model`. The component using it cannot tell that the value now lives in the address bar.
+
+</Tab>
+<Tab value="Angular">
+
+The router gives you the query string as an observable. Turned into a signal, it reads just like the `signal` it replaces.
+
+```ts title="ActivatedRoute and Router"
+export class ProductListComponent {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
+  private params = toSignal(this.route.queryParamMap, { requireSync: true });
+
+  page = computed(() => Number(this.params().get('page')) || 1);
+
+  setPage(page: number) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      // null removes the key, so page one keeps a clean address.
+      queryParams: { page: page === 1 ? null : page },
+      // Keep every other parameter that is already in the URL.
+      queryParamsHandling: 'merge'
+    });
+  }
+}
+```
+
+The template still calls `page()`. Only the place the value comes from has changed.
+
+</Tab>
+<Tab value="Svelte">
+
+In SvelteKit the current URL is reactive state, and `goto` navigates.
+
+```svelte title="SvelteKit"
+<script lang="ts">
+  import { goto } from '$app/navigation';
+  import { page } from '$app/state';
+
+  const current = $derived(Number(page.url.searchParams.get('page')) || 1);
+
+  function setPage(next: number) {
+    const url = new URL(page.url);
+    // The default is left out, so page one keeps a clean address.
+    if (next === 1) url.searchParams.delete('page');
+    else url.searchParams.set('page', String(next));
+
+    goto(url, { keepFocus: true, noScroll: true });
+  }
+</script>
+
+<Pager page={current} onchange={setPage} />
+```
+
+`current` is derived from the URL, so it updates on back and forward with no extra code.
+
+</Tab>
+</Tabs>
+
+Compare the tabs and the shape is identical. Parse a string from the query, fall back to a default when it is missing, leave the default out when writing, keep the other parameters, and navigate. Only the names of the router functions differ.
+
+Written out like this, the repeated work is also obvious. Do it for five parameters and you have written a small library. That is the reason to reach for one.
+
+## The same thing with less code
+
+Each ecosystem has a shorter way to say the same thing.
+
+<Tabs groupId="framework" persist items={['Vanilla JS', 'React', 'Vue', 'Angular', 'Svelte']}>
+<Tab value="Vanilla JS">
+
+There is nothing to install. The two functions from the last section are the library. If you have several parameters, turn them into one small helper that takes a name, a default and a parser, and you have written the core of every library in the other tabs.
+
+```ts title="one helper for every parameter"
+function queryParam<T>(name: string, fallback: T, parse: (raw: string) => T) {
+  return {
+    read(): T {
+      const raw = new URLSearchParams(window.location.search).get(name);
+      return raw === null ? fallback : parse(raw);
+    },
+    write(value: T) {
+      const params = new URLSearchParams(window.location.search);
+      if (value === fallback) params.delete(name);
+      else params.set(name, String(value));
+
+      const query = params.toString();
+      history.pushState(null, '', query ? `?${query}` : window.location.pathname);
+    }
+  };
+}
+
+const page = queryParam('page', 1, Number);
+```
+
+</Tab>
+<Tab value="React">
+
+In React I use [nuqs](https://nuqs.dev). It gives you a hook with the shape of `useState`, typed parsers, and sensible handling of defaults. The archive on [this blog's index](/blog) keeps its topic filter and its page number this way.
+
+```tsx title="src/app/blog/_components/post-archive.tsx"
+const [tagsParam, setTags] = useQueryState(
+  'tags',
+  parseAsArrayOf(parseAsString).withDefault([]).withOptions({ clearOnDefault: true })
+);
+const [pageParam, setPage] = useQueryState(
+  'page',
+  parseAsInteger.withDefault(1).withOptions({ clearOnDefault: true })
+);
+```
+
+The parser turns the string in the URL into a typed value and back. `parseAsInteger` means `pageParam` is a `number`, not `"2"`. `parseAsArrayOf(parseAsString)` means `tagsParam` is a `string[]`, written to the URL as `?tags=react,golang`.
+
+- `withDefault` gives the value used when the parameter is missing, and removes `null` from the type.
+- `clearOnDefault` removes the parameter when the value equals the default, so page one of the unfiltered archive is `/blog`, not `/blog?tags=&page=1`.
+
+</Tab>
+<Tab value="Vue">
+
+[VueUse](https://vueuse.org/router/useRouteQuery/) has `useRouteQuery`, which is the writable computed from the last section in one call.
+
+```ts title="@vueuse/router"
+import { useRouteQuery } from '@vueuse/router';
+
+// A ref. Reading it reads the URL, and assigning to it navigates.
+const page = useRouteQuery('page', '1', { transform: Number });
+```
+
+The second argument is the default, and `transform` turns the string from the URL into the type you want. `page.value = 2` updates the address bar.
+
+</Tab>
+<Tab value="Angular">
+
+Angular needs no extra package. Turn on component input binding and the router fills a component input from the query parameter of the same name.
+
+```ts title="app.config.ts"
+export const appConfig: ApplicationConfig = {
+  providers: [provideRouter(routes, withComponentInputBinding())]
+};
+```
+
+```ts title="product-list.component.ts"
+export class ProductListComponent {
+  // Filled from ?page= by the router. Missing or invalid becomes 1.
+  page = input(1, { transform: (value: unknown) => Number(value) || 1 });
+}
+```
+
+That covers reading. Writing is still `router.navigate` with `queryParamsHandling: 'merge'`, as in the last section.
+
+</Tab>
+<Tab value="Svelte">
+
+SvelteKit already gives you the reactive half. `page.url.searchParams` updates on every navigation, so reading needs no library at all. What is worth extracting is the write, into one function you reuse for every parameter.
+
+```ts title="src/lib/query.ts"
+import { goto } from '$app/navigation';
+import { page } from '$app/state';
+
+export function setQuery(name: string, value: string | null) {
+  const url = new URL(page.url);
+  if (value === null) url.searchParams.delete(name);
+  else url.searchParams.set(name, value);
+
+  return goto(url, { keepFocus: true, noScroll: true });
+}
+```
+
+</Tab>
+</Tabs>
+
+Whichever tab you are on, try the result on a real page. Open the [blog index](/blog), pick two topics, go to page two, and copy the address. That link opens the same view for anyone.
+
+## Four details that apply in every framework
+
+Getting a value into the URL is the easy half. These are the parts that make it hold up, and none of them depends on the library or the framework.
+
+### The URL is user input
+
+This is the one that is easiest to forget. With `useState`, your own code is the only thing that ever sets the value, so it is always valid. Once the value is in the address bar, anyone can type anything. A link can be a year old. A category can have been renamed.
+
+So what comes out of the URL is not yet trustworthy. For the tags, the archive checks each one against the tags that actually exist.
+
+```tsx
+const tags = [...new Set(posts.flatMap((post) => post.tags))].sort((a, b) => a.localeCompare(b));
+// A topic no post carries is a stale or mistyped link, not a filter, and a
+// topic named twice is still one topic.
+const selected = [...new Set(tagsParam)].filter((tag) => tags.includes(tag));
+```
+
+A visitor who arrives at `?tags=nonsense` sees the normal archive, not an empty list under a heading that says "Posts on nonsense". For the page, the number is clamped to the range that exists.
+
+```tsx
+const pageCount = Math.max(1, Math.ceil(matching.length / PAGE_SIZE));
+const page = Math.min(Math.max(pageParam, 1), pageCount);
+```
+
+`?page=999` shows the last page. `?page=-3` shows the first. Notice the naming: `tagsParam` and `pageParam` are what the URL said, and `selected` and `page` are what the component decided to believe. Everything after those lines uses the second pair.
+
+### State that depends on other state
+
+Choosing a topic changes how many results there are. If you were on page three of everything and pick a topic with four posts, page three no longer exists. So changing the filter also resets the page.
+
+```tsx
+const toggleTag = (tag: string) => {
+  setTags(selected.includes(tag) ? selected.filter((name) => name !== tag) : [...selected, tag]);
+  setPage(1);
+};
+```
+
+This is true with `useState` as well. It matters more here because a broken combination is now something a visitor can bookmark.
+
+### Push or replace
+
+Every change to the URL either adds a history entry or overwrites the current one, and you have to choose.
+
+| Choice  | Back button       | Use it for                                               |
+| ------- | ----------------- | -------------------------------------------------------- |
+| Push    | Undoes the change | Deliberate steps: opening a tab, going to another page   |
+| Replace | Leaves the page   | Rapid or minor changes: typing in a search box, a slider |
+
+If typing "shoes" in a search box pushes five entries, the visitor has to press back five times to leave. If changing page replaces, back skips the list entirely. Neither is wrong everywhere, so decide per parameter. Every router offers both.
+
+| Where              | Push                         | Replace                                   |
+| ------------------ | ---------------------------- | ----------------------------------------- |
+| Plain JavaScript   | `history.pushState`          | `history.replaceState`                    |
+| React with Next.js | `router.push`                | `router.replace`                          |
+| React with nuqs    | The `history: 'push'` option | The default                               |
+| Vue Router         | `router.push`                | `router.replace`                          |
+| Angular            | `router.navigate`            | `router.navigate` with `replaceUrl: true` |
+| SvelteKit          | `goto`                       | `goto` with `replaceState: true`          |
+
+### Keep the address short and clean
+
+A URL is something people read, paste into chat and say out loud.
+
+- **Leave defaults out.** `/blog` is better than `/blog?page=1&sort=newest&tags=`.
+- **Throttle free text.** Update the address a few times a second at most, not on every keystroke. nuqs has a `throttleMs` option for this.
+- **Use short, stable names.** `?q=` and `?page=` will outlive a redesign. A parameter name is a public interface once people have bookmarked it.
+- **Never put secrets in it.** URLs are written to server logs, saved in browser history, and sent to other sites in the referrer header. Tokens, emails and anything personal do not belong there.
+
+## What it changes about rendering
+
+Moving state to the URL has one consequence that component state never had: the server may or may not know the value when it renders.
+
+In a server-rendered app this is a benefit. The request includes the query string, so the first response can already be filtered. There is nothing to "restore" on the client.
+
+In a statically generated app it is a constraint. The page is built before any visitor exists, so there is no query string to read. In the Next.js App Router, a component that reads search params must sit inside a `Suspense` boundary, and the build fails without one. Where you put it matters, because React gives up on static rendering at the nearest boundary. This blog wraps only the part that reads the URL.
+
+```tsx title="src/app/blog/page.tsx"
+<LatestPosts posts={latest} />
+
+<Suspense fallback={<PendingList label="Loading the archive" count={3} />}>
+  <PostArchive posts={posts} />
+</Suspense>
+```
+
+The heading and the row of latest posts are in the static HTML that a crawler or a slow connection sees first. Only the archive waits for the client.
+
+One more thing that tripped me up. The archive rows animate in, and my first instinct was to reveal them as they scroll into view. That breaks when the URL changes the list under you: clicking "Older" creates new rows inside a list you are already looking at, and an in-view trigger can leave them invisible. The list is keyed by the view and animated directly, so a new filter or page mounts a new list and the entrance plays at once.
+
+```tsx
+<motion.ol
+  key={`${selected.join(',')}:${page}`}
+  initial="hidden"
+  animate="visible"
+>
+```
+
+## When component state is the right answer
+
+None of this means `useState` and `ref` are wrong. They are right for most state. The URL is for one particular kind.
+
+A good test: **if someone sent you this link, would you be annoyed that it did not restore this?** If yes, it belongs in the URL. If you would not even notice, keep it in the component.
+
+| State                                         | Where it belongs         | Why                                              |
+| --------------------------------------------- | ------------------------ | ------------------------------------------------ |
+| Filters, sort order, search term, page number | The URL                  | It describes what is on screen                   |
+| The selected tab or the open record           | The URL                  | People link to "the billing tab"                 |
+| A date range on a report                      | The URL                  | The first thing anyone does is share the report  |
+| A dropdown or tooltip being open              | Component state          | It is a moment, not a view                       |
+| Text typed into a form but not submitted      | Component state          | Sharing half a sentence helps nobody             |
+| Hover, focus, drag position                   | Component state          | It changes far too often and means nothing later |
+| Theme, language, a dismissed banner           | Local storage or cookies | It is about the person, not the page             |
+| The signed-in user, a cart, saved items       | The server               | It must follow the user across devices           |
+| A password, a token, personal details         | Never the URL            | URLs are logged, stored and shared               |
+
+Two limits are worth knowing even for state that passes the test.
+
+- **Size.** A URL is not a database. Browsers and servers cap its length, and long before that it becomes unreadable. A handful of short values is fine. A whole form or a list of fifty selected ids is not. Store that on the server and put its id in the URL.
+- **Frequency.** Writing to the URL on every frame of a drag or every keystroke is wasteful and floods the history. Keep the fast-changing value in component state and write to the URL when the interaction settles.
+
+## Summary
+
+- Component state lives in one tab's memory. Reload, share, back and bookmark all lose it, in every framework.
+- A global store does not fix that. It is still memory in one tab.
+- The URL is the one place that survives a reload, can be shared, and works with the back button.
+- The pattern is the same in plain JavaScript, React, Vue, Angular and Svelte: read from the URL, and write by navigating. A library or a built-in router feature removes the repetition.
+- Treat what comes out of the URL as user input. Validate it and clamp it.
+- Reset dependent state, such as the page, when the thing it depends on changes.
+- Choose push or replace per parameter, leave defaults out, and never put secrets in a URL.
+- Keep moments in the component, preferences in storage, and the user's data on the server.

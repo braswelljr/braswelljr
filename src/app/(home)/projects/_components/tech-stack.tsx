@@ -380,6 +380,10 @@ function LanguageChip({ language }: { language: GithubLanguage }) {
   );
 }
 
+/** One class per placeholder chip. Written out so they are real Tailwind
+ *  classes, and unique so each doubles as its own key. */
+const SKELETON_CHIP_WIDTHS = ['w-28', 'w-26', 'w-18', 'w-22', 'w-24', 'w-20', 'w-30', 'w-16'];
+
 function LanguageSkeleton() {
   return (
     <div
@@ -389,13 +393,10 @@ function LanguageSkeleton() {
       className="space-y-3"
     >
       <div className="flex flex-wrap gap-2">
-        {/* Uneven widths, because a row of identical bars does not read as a
-            row of chips waiting to arrive. */}
-        {[7, 6.5, 4.5, 5.5, 6, 5, 7.5, 4].map((w, i) => (
+        {SKELETON_CHIP_WIDTHS.map((width) => (
           <Skeleton
-            key={i}
-            style={{ width: `${w}rem` } as CSSProperties}
-            className="h-[2.125rem] rounded-sm"
+            key={width}
+            className={cn('h-8.5 rounded-sm', width)}
           />
         ))}
       </div>

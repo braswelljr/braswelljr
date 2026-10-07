@@ -5,6 +5,8 @@
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-twoslash/twoslash.css';
 @import 'tw-animate-css';
+/* Layered, so a utility on a slide (h-auto) beats Swiper's own defaults. */
+@import 'swiper/css' layer(base);
 
 /*! purgecss start ignore */
 /* custom css files here to prevent purging needed classes */
@@ -22,6 +24,12 @@
 /* Replace @custom-variant with proper dark mode handling */
 
 @custom-variant dark (&:is(.dark *));
+
+/* Base UI marks orientation as `data-orientation="horizontal"`, not as a bare
+   `data-horizontal` attribute, so the built-in `data-horizontal:` variant never
+   matched and the slider's track was drawn with no height. */
+@custom-variant data-horizontal (&[data-orientation='horizontal']);
+@custom-variant data-vertical (&[data-orientation='vertical']);
 
 /* @theme inline {
   --color-background: var(--background);

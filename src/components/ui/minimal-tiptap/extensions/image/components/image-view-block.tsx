@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { InfoCircledIcon, TrashIcon } from '@radix-ui/react-icons';
 import { NodeViewWrapper, type NodeViewProps } from '@tiptap/react';
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
@@ -207,13 +207,14 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
       className="relative text-center leading-none"
     >
       <div
-        className="group/node-image relative mx-auto rounded-md object-contain"
-        style={{
-          maxWidth: `min(${maxWidth}px, 100%)`,
-          width: currentWidth,
-          maxHeight: MAX_HEIGHT,
-          aspectRatio: `${imageState.naturalSize.width} / ${imageState.naturalSize.height}`
-        }}
+        className="group/node-image relative mx-auto aspect-(--image-ratio) max-h-150 w-(--image-width) max-w-[min(var(--image-max-width),100%)] rounded-md object-contain"
+        style={
+          {
+            '--image-max-width': `${maxWidth}px`,
+            '--image-width': `${currentWidth}px`,
+            '--image-ratio': `${imageState.naturalSize.width} / ${imageState.naturalSize.height}`
+          } as CSSProperties
+        }
       >
         <div
           className={cn('relative flex h-full cursor-default flex-col items-center gap-2 rounded', {
@@ -242,14 +243,12 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
                 onZoomChange={() => setImageState((prev) => ({ ...prev, isZoomed: false }))}
               >
                 <img
-                  className={cn('h-auto rounded object-contain transition-shadow', {
-                    'opacity-0': !imageState.imageLoaded || imageState.error
-                  })}
-                  style={{
-                    maxWidth: `min(100%, ${maxWidth}px)`,
-                    minWidth: `${MIN_WIDTH}px`,
-                    maxHeight: MAX_HEIGHT
-                  }}
+                  className={cn(
+                    'h-auto max-h-150 max-w-[min(100%,var(--image-max-width))] min-w-30 rounded object-contain transition-shadow',
+                    {
+                      'opacity-0': !imageState.imageLoaded || imageState.error
+                    }
+                  )}
                   width={currentWidth}
                   height={currentHeight}
                   src={imageState.src}

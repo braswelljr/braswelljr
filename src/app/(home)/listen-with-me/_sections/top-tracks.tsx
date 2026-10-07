@@ -2,7 +2,7 @@
 
 import { Fragment } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { MdRefresh } from 'react-icons/md';
+import { HiPlay, HiX } from 'react-icons/hi';
 import { cn } from 'lib/utils';
 import { SpotifyTrack } from 'types/spotify';
 import { useTopTracksQuery } from '@/api';
@@ -11,18 +11,24 @@ import {
   containerVariants,
   headingVariants,
   interactiveCard,
-  MotionAvatar,
-  MotionAvatarFallback,
   MotionCard,
   MotionCardContent,
   MotionSkeleton,
   safeVariants
 } from '@/components/shared/motion';
-import { AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { Card, CardPanel } from '@/components/ui/card';
 
-export function TopTracks({ className }: { className?: string }) {
+/** Which track the page's one player holds, and how a list asks it to play. */
+export type PlayControls = {
+  playingId: string | null;
+  onPlay: (track: SpotifyTrack) => void;
+};
+
+export function TopTracks({ className, ...controls }: { className?: string } & PlayControls) {
   const isReduced = useReducedMotion();
-  const { data, refetch, isFetching } = useTopTracksQuery(6);
+  const { data } = useTopTracksQuery(6);
 
   return (
     <section className={cn('', className)}>
@@ -36,19 +42,18 @@ export function TopTracks({ className }: { className?: string }) {
         >
           Top Tracks
         </motion.h2>
-        <motion.button
-          type="button"
-          className="flex size-6 items-center justify-center rounded-full outline-none focus:outline-none"
-          onClick={() => refetch()}
-          whileHover={{ rotate: 180 }}
-          transition={{ duration: 0.3 }}
-          aria-label="Refresh top tracks"
-        >
-          <MdRefresh className={cn('size-5', isFetching && 'animate-spin')} />
-        </motion.button>
       </div>
 
-      <div className="mt-4">{data?.length ? <Tracks data={data} /> : <TracksLoader />}</div>
+      <div className="mt-4">
+        {data?.length ? (
+          <Tracks
+            data={data}
+            {...controls}
+          />
+        ) : (
+          <TracksLoader />
+        )}
+      </div>
     </section>
   );
 }
@@ -87,75 +92,115 @@ export function TracksLoader({ className, items = 6 }: { className?: string; ite
   );
 }
 
-export function Tracks({ className, data }: { className?: string; data: Array<SpotifyTrack> }) {
+export function Tracks({
+  className,
+  data,
+  playingId,
+  onPlay
+}: { className?: string; data: Array<SpotifyTrack> } & PlayControls) {
   const isReduced = useReducedMotion();
+
   return (
-    <motion.div
+    <motion.ol
       className={cn('grid grid-cols-[repeat(auto-fill,minmax(17rem,1fr))] gap-4', className)}
       variants={safeVariants(containerVariants, isReduced)}
       initial="hidden"
       animate="visible"
     >
-      {data?.map((track, i) => (
-        <MotionCard
-          key={i}
-          variants={safeVariants(cardVariants, isReduced)}
-          {...(isReduced ? {} : interactiveCard)}
-          className="border-0 bg-neutral-100/60 dark:bg-neutral-800/60"
-          render={(p) => (
-            <a
-              {...p}
-              href={track?.href}
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          )}
-        >
-          <MotionCardContent className="grid grid-cols-[1.2rem_5rem_1fr] items-center gap-3 p-3">
-            <div className="text-sm">{i + 1}.</div>
-            <MotionAvatar
-              className="size-20 overflow-hidden rounded"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
+      {data?.map((track, i) => {
+        const isOpen = Boolean(track.id) && track.id === playingId;
+
+        return (
+          <motion.li
+            key={trackKey(track)}
+            variants={safeVariants(cardVariants, isReduced)}
+            {...(isReduced ? {} : interactiveCard)}
+          >
+            <Card
+              className={cn(
+                'relative h-full border-0 bg-neutral-100/60 dark:bg-neutral-800/60',
+                isOpen && 'ring-2 ring-primary'
+              )}
             >
-              {/* Plain, not `MotionAvatarImage`: Base UI mounts this <img> only
-                  once the file has loaded, so Motion wrote the `initial` opacity
-                  and the mount-time `animate` never ran, so the art stayed
-                  invisible until a reload served it from cache. The card's
-                  stagger already covers the entrance. */}
-              <AvatarImage
-                src={track?.image}
-                alt={track?.name}
-              />
-              <MotionAvatarFallback className="animate-pulse rounded-xl">
-                {track?.name?.charAt(0)}
-              </MotionAvatarFallback>
-            </MotionAvatar>
-            <div className="space-y-2">
-              <h4 className="line-clamp-2 text-sm sm:text-base">{track?.name}</h4>
-              <p className="line-clamp-2 text-xsm sm:text-sm">
-                {track?.artists?.map((a, j) => (
-                  <Fragment key={j}>
-                    {j !== 0 && ', '}
-                    <span
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.open(a?.href, '_blank', 'noopener noreferrer');
-                      }}
-                      className={cn(
-                        'cursor-pointer text-orange-500 underline',
-                        j === 0 && 'font-semibold'
-                      )}
+              <CardPanel className="grid grid-cols-[1.2rem_5rem_1fr] items-center gap-3 p-3">
+                <div className="text-sm">{i + 1}.</div>
+                <div className="relative">
+                  <Avatar className="size-20 overflow-hidden rounded">
+                    {/* The song is named beside it, so the cover is decoration. */}
+                    <AvatarImage
+                      src={track?.image}
+                      alt=""
+                    />
+                    <AvatarFallback className="animate-pulse rounded-xl">
+                      {track?.name?.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  {track.id && (
+                    <Button
+                      size="icon"
+                      aria-pressed={isOpen}
+                      aria-label={isOpen ? `Stop ${track.name}` : `Play ${track.name}`}
+                      onClick={() => onPlay(track)}
+                      // Above the stretched title link, or the click would
+                      // follow the link instead.
+                      className="absolute right-1 bottom-1 z-1 rounded-full shadow-md"
                     >
-                      {a?.name}
-                    </span>
-                  </Fragment>
-                ))}
-              </p>
-            </div>
-          </MotionCardContent>
-        </MotionCard>
-      ))}
-    </motion.div>
+                      {isOpen ? (
+                        <HiX
+                          aria-hidden
+                          className="size-4"
+                        />
+                      ) : (
+                        <HiPlay
+                          aria-hidden
+                          className="size-4"
+                        />
+                      )}
+                    </Button>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <h3 className="line-clamp-2 text-sm sm:text-base">
+                    {/* Stretched over the card, so the card is one target. */}
+                    <a
+                      href={track?.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="after:absolute after:inset-0 hover:underline focus-visible:underline focus-visible:outline-none"
+                    >
+                      {track?.name}
+                    </a>
+                  </h3>
+                  <p className="line-clamp-2 text-xsm sm:text-sm">
+                    {track?.artists?.map((a, j) => (
+                      <Fragment key={a.id}>
+                        {j !== 0 && ', '}
+                        <a
+                          href={a?.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={cn(
+                            'relative z-1 text-orange-500 underline',
+                            j === 0 && 'font-semibold'
+                          )}
+                        >
+                          {a?.name}
+                        </a>
+                      </Fragment>
+                    ))}
+                  </p>
+                </div>
+              </CardPanel>
+            </Card>
+          </motion.li>
+        );
+      })}
+    </motion.ol>
   );
+}
+
+/** A recently played list can hold the same track twice, so the play time
+ *  identifies the row there and the track link everywhere else. */
+function trackKey(track: SpotifyTrack): string {
+  return track.playedAt ?? track.href;
 }

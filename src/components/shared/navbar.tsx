@@ -3,12 +3,11 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useGSAP } from '@gsap/react';
-import { gsap } from 'gsap';
 import { Code, DocumentText, Home2, MusicPlay, Profile, type Icon } from 'iconsax-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { useMedia } from 'react-use';
 import { cn } from 'lib/utils';
+import { EASE_OUT } from '@/components/shared/motion';
 import Search from '@/components/shared/search';
 import { ThemeToggle } from '@/components/shared/theme-toggle';
 import { AnimatedIcon } from '@/components/ui/animated-icon';
@@ -17,8 +16,6 @@ import { Kbd } from '@/components/ui/kbd';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useIsMac } from '@/hooks/use-is-mac';
-
-gsap.registerPlugin(useGSAP);
 
 export const nav: Array<{ name: string; path: string; icon: Icon }> = [
   { name: 'Me', path: '/', icon: Home2 },
@@ -41,7 +38,6 @@ export default function Navbar({
   const [open, onOpenChange] = useState(false);
   const searchButtonRef = useRef<HTMLButtonElement | null>(null);
   const navRef = useRef<HTMLElement>(null);
-  const gsapScopeRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const lg = useMedia('(width >= 1024px', true);
   const isMac = useIsMac();
@@ -82,19 +78,6 @@ export default function Navbar({
     return () => window.removeEventListener('resize', updateHeight);
   }, []);
 
-  // GSAP entrance: slide down from above -scope is the wrapper div, target is the nav
-  useGSAP(
-    () => {
-      if (isReduced || !navRef.current) return;
-      gsap.fromTo(
-        navRef.current,
-        { y: '-100%', opacity: 0 },
-        { y: '0%', opacity: 1, duration: 0.5, ease: 'power3.out', clearProps: 'all' }
-      );
-    },
-    { scope: gsapScopeRef, dependencies: [] }
-  );
-
   const isHidden =
     (disableOnRoutes && disableOnRoutes.includes(pathname)) ||
     (disableOnLayouts && disableOnLayouts.some((l) => pathname.startsWith(l)));
@@ -102,9 +85,14 @@ export default function Navbar({
   if (isHidden) return null;
 
   return (
-    <div ref={gsapScopeRef}>
-      <nav
+    <div>
+      {/* Slides down once on arrival. Motion, not GSAP: the navbar is on every
+          page, and Motion is already loaded for the rest of it. */}
+      <motion.nav
         ref={navRef}
+        initial={isReduced ? false : { y: '-100%', opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.3, ease: EASE_OUT }}
         className={cn(
           'fixed inset-x-0 top-0 z-4 flex min-h-max items-center justify-between px-4 py-2 font-bold shadow backdrop-blur max-lg:flex-wrap',
           className
@@ -147,9 +135,9 @@ export default function Navbar({
               variant="underline"
               className="min-h-max gap-4 font-semibold whitespace-nowrap *:data-active:text-primary! max-xsm:text-sm max-lg:pb-2"
             >
-              {nav.map((item, idx) => (
+              {nav.map((item) => (
                 <TabsTrigger
-                  key={idx}
+                  key={item.path}
                   value={item.path}
                   nativeButton={false}
                   className="data-active:text-primary! hocus:data-active:text-primary!"
@@ -211,7 +199,7 @@ export default function Navbar({
           onOpenChange={onOpenChange}
           searchButtonRef={searchButtonRef}
         />
-      </nav>
+      </motion.nav>
     </div>
   );
 }

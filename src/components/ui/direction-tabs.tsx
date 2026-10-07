@@ -70,11 +70,10 @@ export function DirectionAwareTabs({ tabs, className, rounded, onChange }: OgIma
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
             className={cn(
-              'relative flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-neutral-200 transition focus-visible:ring-1 focus-visible:outline-1 focus-visible:outline-none sm:text-sm',
+              'relative flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-neutral-200 transition [-webkit-tap-highlight-color:transparent] focus-visible:ring-1 focus-visible:outline-1 focus-visible:outline-none sm:text-sm',
               activeTab === tab.id ? 'text-white' : 'text-neutral-200/80 hover:text-neutral-300/60',
               rounded
             )}
-            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             {activeTab === tab.id && (
               <motion.span

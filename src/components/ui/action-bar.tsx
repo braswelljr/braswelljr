@@ -195,22 +195,22 @@ function ActionBar(props: ActionBarProps) {
             'border-oklch(0.92 0.004 286.32) bg-oklch(1 0 0) dark:border-oklch(1 0 0 / 10%) dark:bg-oklch(0.21 0.006 285.885) fixed z-50 rounded-lg border shadow-lg outline-none',
             'animate-in duration-250 fade-in-0 zoom-in-95 [animation-timing-function:cubic-bezier(0.16,1,0.3,1)]',
             'data-[side=bottom]:slide-in-from-bottom-4 data-[side=top]:slide-in-from-top-4',
+            'data-[side=bottom]:bottom-(--action-bar-side-offset) data-[side=top]:top-(--action-bar-side-offset)',
+            'data-[align=center]:left-1/2 data-[align=center]:-translate-x-1/2',
+            'data-[align=end]:right-(--action-bar-align-offset) data-[align=start]:left-(--action-bar-align-offset)',
             'motion-reduce:animate-none motion-reduce:transition-none',
             orientation === 'horizontal'
               ? 'flex flex-row items-center gap-2 px-2 py-1.5'
               : 'flex flex-col items-start gap-2 px-1.5 py-2',
             className
           )}
-          style={{
-            [side]: `${sideOffset}px`,
-            ...(align === 'center' && {
-              left: '50%',
-              translate: '-50% 0'
-            }),
-            ...(align === 'start' && { left: `${alignOffset}px` }),
-            ...(align === 'end' && { right: `${alignOffset}px` }),
-            ...style
-          }}
+          style={
+            {
+              '--action-bar-side-offset': `${sideOffset}px`,
+              '--action-bar-align-offset': `${alignOffset}px`,
+              ...style
+            } as React.CSSProperties
+          }
         />,
         portalContainer
       )}

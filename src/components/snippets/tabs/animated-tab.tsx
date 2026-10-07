@@ -19,7 +19,7 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
         <div className="flex w-full items-center space-x-4 overflow-x-auto border border-orange-300 max-xsm:text-sm dark:border-[0.5px]">
           {contains.map((item, idx) => (
             <button
-              key={idx}
+              key={item.title}
               className={cn('relative')}
               onClick={() => setTab(item)}
             >
@@ -48,9 +48,9 @@ export default function Tab({ contains, className }: { contains: TabProps[]; cla
         </div>
         <div className="border border-orange-300 px-4 py-5 dark:border-[0.5px]">
           {contains.map(
-            (item, idx) =>
+            (item) =>
               item.content === tab.content && (
-                <AnimatePresence key={idx}>
+                <AnimatePresence key={item.title}>
                   <motion.div
                     initial={{ y: 50, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}

@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useDeferredValue, useMemo } from 'react';
+import { Suspense, useDeferredValue, useMemo, type CSSProperties } from 'react';
 import { ArrowDown2, CloseCircle, SearchNormal1 } from 'iconsax-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { parseAsBoolean, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
@@ -258,8 +258,11 @@ function RepoSections() {
                     <MotionFrameFooter className="flex items-center justify-between px-3 py-2">
                       <span className="flex items-center gap-2 text-sm">
                         <span
-                          className="size-3 rounded-full"
-                          style={{ backgroundColor: project.primaryLanguage?.color ?? '#ef5453' }}
+                          aria-hidden
+                          className="size-3 rounded-full bg-(--lang-color,var(--color-primary))"
+                          style={
+                            { '--lang-color': project.primaryLanguage?.color } as CSSProperties
+                          }
                         />
                         <span>{project.primaryLanguage?.name ?? 'Unknown'}</span>
                       </span>

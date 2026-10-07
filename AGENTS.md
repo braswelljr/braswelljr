@@ -22,6 +22,8 @@ restored by `next dev`. Edit this file, never that one.
 | Data fetching | TanStack Query                                          |
 | URL state     | nuqs                                                    |
 | Motion        | `motion/react` (Framer Motion), GSAP for scroll set-ups |
+| Carousel      | Swiper (`swiper/react`), styles imported in `main.css`  |
+| Tests         | Vitest, files named `*.test.ts(x)` beside the source    |
 | Editor        | TipTap (`components/ui/minimal-tiptap`)                 |
 | Package man.  | pnpm, pinned via `packageManager`                       |
 
@@ -31,15 +33,21 @@ both require. Do not raise it.
 
 ## Commands
 
-| Task       | Command         |
-| ---------- | --------------- |
-| Dev server | `pnpm dev`      |
-| Build      | `pnpm build`    |
-| Lint       | `pnpm lint`     |
-| Autofix    | `pnpm lint:fix` |
-| Format     | `pnpm format`   |
+| Task               | Command            |
+| ------------------ | ------------------ |
+| Dev server         | `pnpm dev`         |
+| Build              | `pnpm build`       |
+| Lint               | `pnpm lint`        |
+| Autofix            | `pnpm lint:fix`    |
+| Test               | `pnpm test`        |
+| Format             | `pnpm format`      |
+| Project card shots | `pnpm screenshots` |
 
 **pnpm, not npm.** The lockfile is `pnpm-lock.yaml` and `packageManager` is pinned.
+
+Project cards on `/projects` show images from `public/images/projects/`, captured ahead
+of time by `pnpm screenshots` from `src/config/other-projects.ts`. Nothing captures them
+at request time, so run the script after adding or changing a project.
 
 A change is not done until `pnpm build` exits 0. It runs the type check, so a green
 build is the real gate, not `tsc` alone.

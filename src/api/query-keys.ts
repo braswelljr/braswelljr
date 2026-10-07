@@ -26,5 +26,10 @@ export const queryKeys = {
       [...queryKeys.spotify.all, 'recently-played', limit] as const,
     topTracks: (limit?: number) => [...queryKeys.spotify.all, 'top-tracks', limit] as const,
     playlists: (offset?: number) => [...queryKeys.spotify.all, 'playlists', offset] as const
+  },
+
+  posts: {
+    all: ['posts'] as const,
+    stats: (slug: string) => [...queryKeys.posts.all, 'stats', slug] as const
   }
 } as const;

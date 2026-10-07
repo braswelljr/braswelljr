@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { searchIssues } from '@/config/github';
+import { cacheFor } from '@/app/api/cache';
+import { searchIssues } from '../search';
 
 export const revalidate = 0;
 export const dynamic = 'force-dynamic';
@@ -47,7 +48,7 @@ export async function GET(req: NextRequest): Promise<Response> {
         data: items,
         meta: { page, limit, total, hasNextPage: page * limit < total }
       },
-      { status: 200 }
+      { status: 200, headers: cacheFor('slow') }
     );
   } catch (error) {
     return NextResponse.json(

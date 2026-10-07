@@ -160,7 +160,7 @@ const checkTypeAndSize = (
   const size = input instanceof File ? input.size : atob(input.split(',')[1]).length;
 
   const isValidType =
-    allowedMimeTypes.length === 0 ||
+    allowedMimeTypes.length < 1 ||
     allowedMimeTypes.includes(mimeType) ||
     allowedMimeTypes.includes(`${mimeType.split('/')[0]}/*`);
 

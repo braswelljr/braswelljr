@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { endOfWeek, subDays, subYears } from 'date-fns';
 import type { Activity } from 'react-github-calendar';
 import { ErrorCause, GitHubProperties } from 'types/types';
+import { cacheFor } from '@/app/api/cache';
 
 export const maxDuration = 60;
 export const revalidate = 0;
@@ -41,7 +42,7 @@ export const GET = async (req: NextRequest): Promise<Response> => {
 
     return NextResponse.json(
       { message: 'successfully retrieved github contributions', data: content },
-      { status: 200 }
+      { status: 200, headers: cacheFor('slow') }
     );
   } catch (error) {
     let err: ErrorCause;

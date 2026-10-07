@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { CurrentlyPlayingI, SpotifyTrack } from 'types/spotify';
 import { ErrorCause } from 'types/types';
+import { cacheFor } from '@/app/api/cache';
 import { getAccessToken } from '@/config/spotify';
 
 export async function GET(): Promise<Response> {
@@ -17,12 +18,16 @@ export async function GET(): Promise<Response> {
     // Spotify answers 204 with an empty body when nothing is playing. Parsing
     // that as JSON throws, which used to surface as a 500 rather than "idle".
     if (response.status === 204) {
-      return NextResponse.json({ message: 'nothing playing', data: null }, { status: 200 });
+      return NextResponse.json(
+        { message: 'nothing playing', data: null },
+        { status: 200, headers: cacheFor('live') }
+      );
     }
 
     const data = (await response.json()) as CurrentlyPlayingI;
 
     const track = {
+      id: data.item?.id,
       name: data.item?.name,
       href: data?.item?.external_urls?.spotify,
       image: data?.item?.album?.images[0]?.url,
@@ -42,7 +47,7 @@ export async function GET(): Promise<Response> {
 
     return NextResponse.json(
       { message: 'successfully retrieved currently playing', data: track },
-      { status: 200 }
+      { status: 200, headers: cacheFor('live') }
     );
   } catch (error) {
     let err: ErrorCause;

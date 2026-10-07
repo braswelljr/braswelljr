@@ -1,7 +1,10 @@
-import { Fragment } from 'react';
+import { type Metadata } from 'next';
 
-type LayoutProps = React.PropsWithChildren & {};
+// Inherited by the landing page only. Each section below sets its own.
+export const metadata: Metadata = {
+  alternates: { canonical: '/' }
+};
 
-export default function Layout({ children }: LayoutProps) {
-  return <Fragment>{children}</Fragment>;
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <main>{children}</main>;
 }

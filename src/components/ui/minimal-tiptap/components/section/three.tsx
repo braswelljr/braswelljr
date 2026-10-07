@@ -78,10 +78,10 @@ const MemoizedColorButton = React.memo<{
         render={
           <ToggleGroupItem
             tabIndex={0}
-            className="relative size-7 rounded-md p-0"
+            className="relative size-7 rounded-md bg-(--swatch) p-0"
             value={color.cssVar}
             aria-label={label}
-            style={{ backgroundColor: color.cssVar }}
+            style={{ '--swatch': color.cssVar } as React.CSSProperties}
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               e.preventDefault();
               onClick(color.cssVar);
@@ -91,8 +91,8 @@ const MemoizedColorButton = React.memo<{
       >
         {isSelected && (
           <CheckIcon
-            className="absolute inset-0 m-auto size-6"
-            style={{ color: inverse }}
+            className="absolute inset-0 m-auto size-6 text-(--swatch-inverse)"
+            style={{ '--swatch-inverse': inverse } as React.CSSProperties}
           />
         )}
       </TooltipTrigger>
@@ -119,9 +119,9 @@ const MemoizedColorPicker = React.memo<{
     }}
     className="gap-1.5"
   >
-    {palette.colors.map((color, index) => (
+    {palette.colors.map((color) => (
       <MemoizedColorButton
-        key={index}
+        key={color.cssVar}
         inverse={inverse}
         color={color}
         isSelected={selectedColor === color.cssVar}
@@ -185,8 +185,8 @@ export const SectionThree: React.FC<SectionThreeProps> = ({ editor, size, varian
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="size-5"
-          style={{ color: selectedColor }}
+          className="size-5 text-(--selected-color)"
+          style={{ '--selected-color': selectedColor } as React.CSSProperties}
         >
           <path d="M4 20h16" />
           <path d="m6 16 6-12 6 12" />
@@ -199,9 +199,9 @@ export const SectionThree: React.FC<SectionThreeProps> = ({ editor, size, varian
         className="w-full"
       >
         <div className="space-y-1.5">
-          {COLORS.map((palette, index) => (
+          {COLORS.map((palette) => (
             <MemoizedColorPicker
-              key={index}
+              key={palette.label}
               palette={palette}
               inverse={palette.inverse}
               selectedColor={selectedColor}

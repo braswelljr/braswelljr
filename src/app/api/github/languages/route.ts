@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { cacheFor } from '@/app/api/cache';
 import { getGithubToken, GITHUB_USERNAME, githubHeaders } from '@/config/github';
 
 export const revalidate = 0;
@@ -89,7 +90,7 @@ export async function GET(): Promise<Response> {
         // here keeps the divisor (all languages, not just the ones shown) right.
         data: languages.map((l) => ({ ...l, share: bytes > 0 ? l.bytes / bytes : 0 }))
       },
-      { status: 200 }
+      { status: 200, headers: cacheFor('slow') }
     );
   } catch (error) {
     return NextResponse.json(

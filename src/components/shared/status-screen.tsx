@@ -60,7 +60,8 @@ export function StatusScreen({
   return (
     <section
       className={cn(
-        'relative grid h-full min-h-[85dvh] w-full place-items-center overflow-hidden px-6 py-24',
+        // At least the whole viewport by default. See `Loading`.
+        'relative grid h-full min-h-dvh w-full place-items-center overflow-hidden px-6 py-24',
         className
       )}
     >

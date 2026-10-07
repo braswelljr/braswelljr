@@ -75,11 +75,13 @@ type NextElement = React.ComponentRef<typeof TourNext>;
 type SkipElement = React.ComponentRef<typeof TourSkip>;
 type FooterElement = React.ComponentRef<typeof TourFooter>;
 
-const OPPOSITE_SIDE: Record<Side, Side> = {
-  top: 'bottom',
-  right: 'left',
-  bottom: 'top',
-  left: 'right'
+/** Where the arrow pins and how it turns, per side the step was placed on. The
+ *  transforms are written whole because their order is part of the result. */
+const ARROW_SIDE_CLASSES: Record<Side, string> = {
+  top: 'bottom-0 [transform:translateY(100%)]',
+  right: 'left-0 origin-[0] [transform:translateY(50%)_rotate(90deg)_translateX(-50%)]',
+  bottom: 'top-0 origin-[center_0] [transform:rotate(180deg)]',
+  left: 'right-0 origin-[100%_0] [transform:translateY(50%)_rotate(-90deg)_translateX(50%)]'
 };
 
 /**
@@ -1181,14 +1183,12 @@ function TourStep(props: TourStepProps) {
         onBlurCapture={onBlurCapture}
         className={cn(
           'border-oklch(0.92 0.004 286.32) bg-oklch(1 0 0) text-oklch(0.141 0.005 285.823) dark:border-oklch(1 0 0 / 10%) dark:bg-oklch(0.21 0.006 285.885) dark:text-oklch(0.985 0 0) fixed z-50 flex w-80 flex-col gap-4 rounded-lg border p-4 shadow-md outline-none',
+          isHidden && 'pointer-events-none invisible',
           className
         )}
-        style={{
-          ...style,
-          ...floatingStyles,
-          visibility: isHidden ? 'hidden' : undefined,
-          pointerEvents: isHidden ? 'none' : undefined
-        }}
+        // Positions computed by floating-ui on every frame; nothing here is
+        // known at build time.
+        style={{ ...style, ...floatingStyles }}
       >
         {children}
         {!footer && (
@@ -1222,12 +1222,10 @@ function TourSpotlight(props: TourSpotlightProps) {
       {...backdropProps}
       className={cn(
         'fixed inset-0 z-50 bg-black/80 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0',
+        maskPath && '[clip-path:var(--tour-mask)]',
         className
       )}
-      style={{
-        clipPath: maskPath,
-        ...style
-      }}
+      style={{ '--tour-mask': maskPath, ...style } as React.CSSProperties}
     />
   );
 }
@@ -1253,16 +1251,18 @@ function TourSpotlightRing(props: TourSpotlightRingProps) {
       data-state={getDataState(open)}
       {...ringProps}
       className={cn(
-        'border-oklch(0.705 0.015 286.067) ring-oklch(0.705 0.015 286.067)/50 dark:border-oklch(0.552 0.016 285.938) dark:ring-oklch(0.552 0.016 285.938)/50 pointer-events-none fixed z-50 ring-[3px]',
+        'border-oklch(0.705 0.015 286.067) ring-oklch(0.705 0.015 286.067)/50 dark:border-oklch(0.552 0.016 285.938) dark:ring-oklch(0.552 0.016 285.938)/50 pointer-events-none fixed top-(--tour-ring-y) left-(--tour-ring-x) z-50 h-(--tour-ring-height) w-(--tour-ring-width) ring-[3px]',
         className
       )}
-      style={{
-        left: spotlightRect.x,
-        top: spotlightRect.y,
-        width: spotlightRect.width,
-        height: spotlightRect.height,
-        ...style
-      }}
+      style={
+        {
+          '--tour-ring-x': `${spotlightRect.x}px`,
+          '--tour-ring-y': `${spotlightRect.y}px`,
+          '--tour-ring-width': `${spotlightRect.width}px`,
+          '--tour-ring-height': `${spotlightRect.height}px`,
+          ...style
+        } as React.CSSProperties
+      }
     />
   );
 }
@@ -1307,31 +1307,26 @@ function TourArrow(props: TourArrowProps) {
   const { width = 10, height = 5, className, children, asChild, ...arrowProps } = props;
 
   const stepContext = useStepContext(ARROW_NAME);
-  const baseSide = OPPOSITE_SIDE[stepContext.placedSide];
 
   return (
     <span
       ref={stepContext?.onArrowChange}
       data-slot="tour-arrow"
-      style={{
-        position: 'absolute',
-        left: stepContext.arrowX != null ? `${stepContext.arrowX}px` : undefined,
-        top: stepContext.arrowY != null ? `${stepContext.arrowY}px` : undefined,
-        [baseSide]: 0,
-        transformOrigin: {
-          top: '',
-          right: '0',
-          bottom: 'center 0',
-          left: '100% 0'
-        }[stepContext.placedSide],
-        transform: {
-          top: 'translateY(100%)',
-          right: 'translateY(50%) rotate(90deg) translateX(-50%)',
-          bottom: 'rotate(180deg)',
-          left: 'translateY(50%) rotate(-90deg) translateX(50%)'
-        }[stepContext.placedSide],
-        visibility: stepContext.shouldHideArrow ? 'hidden' : undefined
-      }}
+      // The side class comes last so its edge pin wins over the measured
+      // offset on the same axis, as the spread order did before.
+      className={cn(
+        'absolute',
+        stepContext.arrowX != null && 'left-(--tour-arrow-x)',
+        stepContext.arrowY != null && 'top-(--tour-arrow-y)',
+        ARROW_SIDE_CLASSES[stepContext.placedSide],
+        stepContext.shouldHideArrow && 'invisible'
+      )}
+      style={
+        {
+          '--tour-arrow-x': stepContext.arrowX != null ? `${stepContext.arrowX}px` : undefined,
+          '--tour-arrow-y': stepContext.arrowY != null ? `${stepContext.arrowY}px` : undefined
+        } as React.CSSProperties
+      }
     >
       <svg
         viewBox="0 30 10"

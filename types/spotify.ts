@@ -94,11 +94,15 @@ export type SpotifyAlbum = {
 };
 
 export type SpotifyTrack = {
+  /** Spotify's track id, which is also what the embed player is addressed by. */
+  id: string;
   name: string;
   href: string;
   image: string;
   artists: Array<SpotifyArtist>;
   album: SpotifyAlbum;
+  /** ISO time of the play. Only set on recently played rows. */
+  playedAt?: string;
 };
 
 export type SpotifyAlbumTrack = {

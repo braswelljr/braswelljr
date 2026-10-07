@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import type { Page, Playlist, TrackItem } from '@spotify/web-api-ts-sdk';
 import { ErrorCause } from 'types/types';
+import { cacheFor } from '@/app/api/cache';
 import { getAccessToken } from '@/config/spotify';
 
 export const revalidate = 0;
@@ -36,7 +37,7 @@ export async function GET(req: NextRequest): Promise<Response> {
 
     return NextResponse.json(
       { message: 'successfully retrieved playlists', data },
-      { status: 200 }
+      { status: 200, headers: cacheFor('static') }
     );
   } catch (error) {
     let err: ErrorCause;

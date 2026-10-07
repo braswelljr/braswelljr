@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { cacheFor } from '@/app/api/cache';
 import { getGithubToken, GITHUB_USERNAME, githubHeaders } from '@/config/github';
 
 export const revalidate = 0;
@@ -111,7 +112,7 @@ export async function GET(): Promise<Response> {
             .sort((a, b) => b.commits - a.commits)
         }
       },
-      { status: 200 }
+      { status: 200, headers: cacheFor('slow') }
     );
   } catch (error) {
     return NextResponse.json(

@@ -8,6 +8,7 @@ import { gsap } from 'gsap';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { useInterval } from 'react-use';
 import { cn } from 'lib/utils';
+import { useActivityOverviewQuery, useReposQuery } from '@/api';
 import {
   containerVariants,
   EASE_OUT,
@@ -19,6 +20,7 @@ import {
 import FloatingDock from '@/components/ui/floating-dock';
 import { socials } from '@/config/data';
 import { useDevice } from '@/hooks/use-device';
+import { BuildingNow } from './_components/building-now';
 
 gsap.registerPlugin(useGSAP);
 
@@ -28,8 +30,15 @@ export default function Page() {
   const device = useDevice();
   const isReduced = useReducedMotion();
 
+  // The most recent push that is this account's own live work, not a fork or
+  // an archive. Both queries are optional extras: each tile appears only if
+  // its own answer arrived.
+  const { data: repos } = useReposQuery({ sort: 'pushed' });
+  const { data: activity } = useActivityOverviewQuery();
+  const building = repos?.find((repo) => !repo.fork && !repo.archived);
+
   // Refs for the GSAP entrance timeline
-  const containerRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLDivElement>(null);
   const roleRef = useRef<HTMLDivElement>(null);
@@ -88,7 +97,7 @@ export default function Page() {
   const safeItem = safeVariants(itemVariants, isReduced);
 
   return (
-    <main
+    <div
       ref={containerRef}
       className={cn('flex size-full min-h-dvh items-center justify-center px-4 py-10 md:py-20')}
     >
@@ -218,8 +227,31 @@ export default function Page() {
               </span>
             </MotionLink>
           </div>
+
+          <AnimatePresence>
+            {(building || activity) && (
+              <motion.div
+                initial={isReduced ? { opacity: 0 } : { opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: EASE_OUT }}
+              >
+                <BuildingNow
+                  repo={
+                    building && {
+                      name: building.name,
+                      description: building.description,
+                      url: building.html_url,
+                      language: building.language,
+                      pushedAt: building.pushed_at
+                    }
+                  }
+                  contributions={activity?.total}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

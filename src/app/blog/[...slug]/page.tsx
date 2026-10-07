@@ -13,6 +13,7 @@ import { getMDXComponents } from '@/components/shared/mdx-components';
 import { ScrollToTopWithBlog } from '@/components/shared/scroll-top';
 import { getGithubToken } from '@/config/github';
 import { BlogPostContent } from '../_components/blog-post-content';
+import { PostStats } from '../_components/post-stats';
 
 export default async function Page(props: PageProps<'/blog/[...slug]'>) {
   const params = await props.params;
@@ -67,9 +68,9 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
         <div className="mt-5">
           <h3 className="text-sm font-medium uppercase">Links and Resources</h3>
           <ol className="mt-2 list-disc space-y-2 pb-4 pl-4">
-            {post.resources.map((resource, i) => (
+            {post.resources.map((resource) => (
               <li
-                key={i}
+                key={resource.url}
                 className="text-sm font-medium text-neutral-600 hover:text-primary hover:underline dark:text-neutral-400 dark:hover:text-secondary"
               >
                 <Link href={resource.url}>{resource.title}</Link>
@@ -86,6 +87,9 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
       lastUpdate={time ?? undefined}
       tableOfContent={{ ...tocOptions, style: 'clerk' }}
       tableOfContentPopover={{ ...tocOptions, style: 'clerk' }}
+      // The previous and next cards show each post's description. Held to two
+      // lines so a long one cannot make the two cards uneven.
+      footer={{ className: '[&_a>p]:line-clamp-2' }}
     >
       <BlogPostContent
         title={post.title}
@@ -103,6 +107,8 @@ export default async function Page(props: PageProps<'/blog/[...slug]'>) {
           </p>
           <p>{post.readingTime}</p>
         </div>
+
+        <PostStats slug={page.slugs.join('/')} />
 
         <Callout
           type="warn"
@@ -140,7 +146,25 @@ export async function generateMetadata(props: PageProps<'/blog/[...slug]'>): Pro
   return {
     title: page.data.title,
     description: page.data.description,
+    alternates: {
+      canonical: page.url,
+      types: { 'application/rss+xml': '/rss.xml' }
+    },
+    // A draft is reachable by its URL for review, but should not be indexed.
+    robots: page.data.published === false ? { index: false, follow: false } : undefined,
     openGraph: {
+      type: 'article',
+      title: page.data.title,
+      description: page.data.description,
+      url: page.url,
+      publishedTime: new Date(page.data.date).toISOString(),
+      tags: page.data.tags,
+      images: getPageImage(page).url
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: page.data.title,
+      description: page.data.description,
       images: getPageImage(page).url
     }
   };

@@ -5,17 +5,6 @@ export const SPOTIFY_CLIENT_ID = process.env.AUTH_SPOTIFY_ID || '';
 export const SPOTIFY_CLIENT_SECRET = process.env.AUTH_SPOTIFY_SECRET || '';
 export const SPOTIFY_REFRESH_TOKEN = process.env.AUTH_SPOTIFY_REFRESH_TOKEN || '';
 
-const BASE_URL = `https://api.spotify.com/v1`;
-
-export const NOW_PLAYING_ENDPOINT = `${BASE_URL}/me/player/currently-playing`;
-export const TOP_TRACKS_ENDPOINT = `${BASE_URL}/me/top/tracks?time_range=medium_term&limit=10`;
-export const TOP_ARTISTS_ENDPOINT = `${BASE_URL}/me/top/artists?time_range=medium_term&limit=3`;
-export const RECENTLY_PLAYED_ENDPOINT = `${BASE_URL}/me/player/recently-played?limit=10`;
-export const AUTH_TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
-
-export const SPOTIFY_COOKIE_STORE = '__spot-tokie__'; //Secure-
-export const REFRESH_SPOTIFY_COOKIE_STORE = '__refresh-spot-tokie__';
-
 export const SPOTIFY_USER_ID = `wgohxgl1iukgpy3aya7ni2q66`;
 
 export const AUTH_SCOPES = [
@@ -40,10 +29,18 @@ export const SpotifySDK = SpotifyApi.withClientCredentials(
   }
 );
 
-export async function getAccessToken(): Promise<string> {
+/** Refresh this long before Spotify's stated expiry, so a token handed to a
+ *  request cannot lapse while that request is still in flight. */
+const EXPIRY_MARGIN_MS = 60_000;
+
+let cachedToken: { value: string; expiresAt: number } | undefined;
+let pendingToken: Promise<string> | undefined;
+
+async function requestAccessToken(): Promise<string> {
   const tokenResponse = await ky
     .post<{
       access_token: string;
+      expires_in?: number;
     }>('https://accounts.spotify.com/api/token', {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -59,5 +56,30 @@ export async function getAccessToken(): Promise<string> {
     })
     .json();
 
+  // Spotify issues hour-long tokens. Fall back to that if the field is missing.
+  const lifetimeMs = (tokenResponse.expires_in ?? 3600) * 1000;
+  cachedToken = {
+    value: tokenResponse.access_token,
+    expiresAt: Date.now() + lifetimeMs - EXPIRY_MARGIN_MS
+  };
+
   return tokenResponse.access_token;
+}
+
+/**
+ * A Spotify access token for the site owner's account.
+ *
+ * Held in module memory until just before it expires. The "now playing" tile
+ * polls every 30 seconds, and trading the refresh token on each of those calls
+ * doubled every request to Spotify for a token that is good for an hour.
+ * Concurrent callers share one in-flight exchange instead of racing.
+ */
+export async function getAccessToken(): Promise<string> {
+  if (cachedToken && Date.now() < cachedToken.expiresAt) return cachedToken.value;
+
+  pendingToken ??= requestAccessToken().finally(() => {
+    pendingToken = undefined;
+  });
+
+  return pendingToken;
 }

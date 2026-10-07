@@ -17,7 +17,6 @@ export default function NotFound() {
         { label: 'Browse projects', href: '/projects' },
         { label: 'Read the blog', href: '/blog' }
       ]}
-      className="min-h-dvh"
     />
   );
 }

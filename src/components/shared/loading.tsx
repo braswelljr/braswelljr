@@ -14,7 +14,10 @@ export default function Loading({ label, className }: { label?: string; classNam
       role="status"
       aria-live="polite"
       className={cn(
-        'relative grid h-full min-h-[70dvh] w-full flex-1 place-items-center overflow-hidden px-6 py-24',
+        // At least the whole viewport, so the page never shows a band of bare
+        // background under a loading state. A caller filling a smaller box
+        // passes its own `min-h-*`.
+        'relative grid h-full min-h-dvh w-full flex-1 place-items-center overflow-hidden px-6 py-24',
         className
       )}
     >

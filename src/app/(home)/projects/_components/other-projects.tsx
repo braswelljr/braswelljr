@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion, useReducedMotion } from 'motion/react';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import { cn } from 'lib/utils';
@@ -8,9 +9,6 @@ import {
   containerVariants,
   headingVariants,
   interactiveCard,
-  MotionAvatar,
-  MotionAvatarFallback,
-  MotionAvatarImage,
   MotionFrame,
   MotionFrameFooter,
   MotionFramePanel,
@@ -20,19 +18,7 @@ import {
   tapScale
 } from '@/components/shared/motion';
 import { InView } from '@/components/ui/in-view';
-import { OTHER_PROJECTS } from '@/config/data';
-
-/** Staggered pulse offsets for the loading placeholders, written out so they
- *  are real Tailwind classes rather than a computed style attribute. */
-const PULSE_DELAYS = [
-  '[animation-delay:0s]',
-  '[animation-delay:0.1s]',
-  '[animation-delay:0.2s]',
-  '[animation-delay:0.3s]',
-  '[animation-delay:0.4s]',
-  '[animation-delay:0.5s]',
-  '[animation-delay:0.6s]'
-];
+import { OTHER_PROJECTS } from '@/config/other-projects';
 
 type OtherProjectProps = {
   className?: string;
@@ -61,32 +47,25 @@ export function OtherProjects({ className }: OtherProjectProps) {
         whileInView="visible"
         viewport={{ once: false, margin: '-60px' }}
       >
-        {OTHER_PROJECTS.map((project, i) => (
+        {OTHER_PROJECTS.map((project) => (
           <MotionFrame
-            key={i}
+            key={project.name}
             variants={safeVariants(cardVariants, isReduced)}
             {...(isReduced ? {} : interactiveCard)}
             className="justify-between gap-0 p-1"
           >
             <MotionFramePanel className="p-0">
-              <MotionAvatar className="aspect-video h-60 w-full overflow-hidden rounded-lg bg-neutral-200 dark:bg-neutral-800">
-                <MotionAvatarImage
-                  src={`/api/screenshot?url=${project.homepageUrl}`}
-                  alt={project.name}
-                  className="aspect-video size-full object-cover object-top"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.4, delay: i * 0.05 }}
+              {/* Captured ahead of time by `pnpm screenshots`, so the card paints
+                  with the page instead of waiting on a headless browser. */}
+              <div className="relative h-60 w-full overflow-hidden rounded-lg bg-neutral-200 dark:bg-neutral-800">
+                <Image
+                  src={`/images/projects/${project.slug}.jpg`}
+                  alt={`Homepage of ${project.name}`}
+                  fill
+                  sizes="(min-width: 48rem) 25rem, 100vw"
+                  className="object-cover object-top"
                 />
-                <MotionAvatarFallback
-                  className={cn(
-                    'aspect-video size-full animate-pulse rounded-none p-5 text-center text-sm',
-                    PULSE_DELAYS[i % PULSE_DELAYS.length]
-                  )}
-                >
-                  {project.name}
-                </MotionAvatarFallback>
-              </MotionAvatar>
+              </div>
             </MotionFramePanel>
 
             <MotionFrameFooter className="flex flex-1 flex-col gap-2">

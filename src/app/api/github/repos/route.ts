@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { cacheFor } from '@/app/api/cache';
 import { GITHUB_USERNAME, githubHeaders } from '@/config/github';
 
 export const revalidate = 0;
@@ -53,7 +54,7 @@ export async function GET(req: NextRequest): Promise<Response> {
 
     return NextResponse.json(
       { message: 'successfully retrieved repositories', data: repos },
-      { status: 200 }
+      { status: 200, headers: cacheFor('slow') }
     );
   } catch (error) {
     return NextResponse.json(

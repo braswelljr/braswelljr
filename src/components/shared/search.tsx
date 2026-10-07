@@ -2,11 +2,24 @@
 
 import { useCallback, useEffect, useId, useState } from 'react';
 import type { Dispatch, RefObject, SetStateAction } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { DocSearchModal, useDocSearchKeyboardEvents } from '@docsearch/react';
+import { useDocSearchKeyboardEvents } from '@docsearch/react/useDocSearchKeyboardEvents';
 import { createPortal } from 'react-dom';
 import { cn } from 'lib/utils';
+
+/**
+ * The Algolia modal, fetched the first time search is opened.
+ *
+ * The navbar is on every page, so importing the modal up front made every
+ * visitor download the search client whether or not they ever searched. Only
+ * the small keyboard hook is needed before that.
+ */
+const DocSearchModal = dynamic(
+  () => import('@docsearch/react/modal').then((module) => module.DocSearchModal),
+  { ssr: false }
+);
 
 export default function Search({
   defaultOpen = false,

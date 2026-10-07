@@ -168,9 +168,9 @@ const CountrySelect = ({ disabled, value, onChange, options, className }: Countr
         </option>
         {options
           .filter((x) => x.value)
-          .map((option, i) => (
+          .map((option) => (
             <option
-              key={option.value ?? `empty-${i}`}
+              key={option.value}
               value={option.value}
             >
               {option.label} {option.value && `+${RPNInput.getCountryCallingCode(option.value)}`}

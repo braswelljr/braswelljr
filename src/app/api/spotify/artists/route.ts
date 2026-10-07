@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { ErrorCause } from 'types/types';
+import { cacheFor } from '@/app/api/cache';
 import { SPOTIFY_USER_ID, SpotifySDK } from '@/config/spotify';
 
 export async function GET() {
@@ -10,7 +11,7 @@ export async function GET() {
 
     return NextResponse.json(
       { message: 'successfully retrieved playlists', data: playlists },
-      { status: 200 }
+      { status: 200, headers: cacheFor('static') }
     );
   } catch (error) {
     let err: ErrorCause;

@@ -44,3 +44,7 @@ export * from './github/types';
 export * from './spotify/services';
 export * from './spotify/queries';
 export * from './spotify/types';
+
+export * from './posts/services';
+export * from './posts/queries';
+export * from './posts/types';

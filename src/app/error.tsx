@@ -34,7 +34,6 @@ export default function Error({
         { label: 'Try again', onClick: retry },
         { label: 'Go home', href: '/' }
       ]}
-      className="min-h-dvh"
     />
   );
 }

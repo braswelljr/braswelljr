@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SpotifyAlbumTrack, SpotifyTrack } from 'types/spotify';
 import { ErrorCause } from 'types/types';
+import { cacheFor } from '@/app/api/cache';
 import { getAccessToken } from '@/config/spotify';
 
 export async function GET(req: NextRequest): Promise<Response> {
@@ -27,6 +28,7 @@ export async function GET(req: NextRequest): Promise<Response> {
         ? Array.from(data?.items).map(
             (track) =>
               ({
+                id: track?.id,
                 name: track?.name,
                 href: track?.external_urls?.spotify,
                 image: track?.album?.images[0]?.url,
@@ -48,7 +50,7 @@ export async function GET(req: NextRequest): Promise<Response> {
 
     return NextResponse.json(
       { message: response?.statusText || 'gocha', data: tracks },
-      { status: response?.status || 200 }
+      { status: response?.status || 200, headers: cacheFor('session') }
     );
   } catch (error) {
     let err: ErrorCause;

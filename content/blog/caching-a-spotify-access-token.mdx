@@ -1,0 +1,133 @@
+---
+title: Caching a Spotify Access Token Properly
+description: My site was trading its Spotify refresh token for a new access token on every single request. Here is the small cache that fixed it, why it needs an expiry margin and a shared promise, and where it stops helping.
+tags:
+  - typescript
+  - nextjs
+  - api
+  - spotify
+  - caching
+date: 2026-09-19
+resources:
+  - title: Spotify refreshing tokens guide
+    url: https://developer.spotify.com/documentation/web-api/tutorials/refreshing-tokens
+  - title: Spotify Web API
+    url: https://developer.spotify.com/documentation/web-api
+---
+
+## The setup
+
+This site shows what I am listening to. The browser never talks to Spotify. It calls route handlers under `/api/spotify`, and those hold the credentials and call Spotify on its behalf.
+
+Spotify's authorization flow gives you two tokens. The **refresh token** is long lived and is the real secret. The **access token** is what you send with each API call, and Spotify's response tells you how long it is good for in an `expires_in` field. When it runs out, you trade the refresh token for a new one.
+
+## The bug
+
+My helper looked roughly like this:
+
+```ts
+export async function getAccessToken(): Promise<string> {
+  const tokenResponse = await ky
+    .post('https://accounts.spotify.com/api/token', {
+      /* refresh_token grant */
+    })
+    .json();
+
+  return tokenResponse.access_token;
+}
+```
+
+Every route handler called it first. So every request for "what is playing" was really two requests to Spotify: one to get a token, and one to use it. The now-playing data is polled every 30 seconds, and each of those polls asked for a brand new token, used it once, and threw it away.
+
+Nothing was broken. It was only wasteful, and it doubled the surface for rate limits and slow responses. This kind of bug survives for a long time because everything works.
+
+## Step one: remember the token
+
+The simplest fix is a module variable.
+
+```ts title="src/config/spotify.ts"
+let cachedToken: { value: string; expiresAt: number } | undefined;
+```
+
+When a token arrives, store it with the time it stops being valid:
+
+```ts
+// Spotify issues hour-long tokens. Fall back to that if the field is missing.
+const lifetimeMs = (tokenResponse.expires_in ?? 3600) * 1000;
+cachedToken = {
+  value: tokenResponse.access_token,
+  expiresAt: Date.now() + lifetimeMs - EXPIRY_MARGIN_MS
+};
+```
+
+And check it before asking for another:
+
+```ts
+if (cachedToken && Date.now() < cachedToken.expiresAt) return cachedToken.value;
+```
+
+I store the absolute expiry time, not the lifetime. "Valid until this moment" needs one comparison to check. "Valid for this long, starting from some moment I also have to remember" needs two values and is easier to get wrong.
+
+## Step two: do not trust the last minute
+
+Look at that `- EXPIRY_MARGIN_MS`.
+
+```ts
+/** Refresh this long before Spotify's stated expiry, so a token handed to a
+ *  request cannot lapse while that request is still in flight. */
+const EXPIRY_MARGIN_MS = 60_000;
+```
+
+Suppose the token expires at `12:00:00` and a request checks the cache at `11:59:59.8`. The token is valid, so it is returned. The request then goes over the network, and Spotify receives it at `12:00:00.3`. Spotify rejects it.
+
+The check and the use are not the same moment. There is network time between them, and my clock and Spotify's clock do not agree to the millisecond. So the cache treats the token as expired a minute early. One minute out of an hour costs almost nothing and removes a failure that would otherwise show up rarely, at random, and never on my machine.
+
+## Step three: one refresh at a time
+
+There is still a hole. Imagine the token has just expired and three requests arrive together. All three see an expired cache. All three ask Spotify for a new token. Two of those calls are wasted.
+
+The fix is to cache the request that is in progress, not only its result:
+
+```ts
+let pendingToken: Promise<string> | undefined;
+
+export async function getAccessToken(): Promise<string> {
+  if (cachedToken && Date.now() < cachedToken.expiresAt) return cachedToken.value;
+
+  pendingToken ??= requestAccessToken().finally(() => {
+    pendingToken = undefined;
+  });
+
+  return pendingToken;
+}
+```
+
+The first caller starts the exchange and stores the promise. Anyone who arrives while it is running gets the same promise and waits for the same answer. `??=` only assigns when the variable is empty, so there is never more than one exchange in flight.
+
+The `finally` matters as much as the assignment. Without it, a failed exchange would leave a rejected promise in `pendingToken` for good, and every later call would fail instantly without ever trying again. Clearing it when the promise settles, whether it succeeded or not, means the next caller gets a fresh attempt.
+
+JavaScript makes this safe without locks. There is no `await` between checking `pendingToken` and assigning it, so two callers cannot both see it empty.
+
+## Where this stops helping
+
+It is worth being honest about what a module variable is.
+
+On a serverless platform, each running instance of a function has its own memory. The cache is per instance. A new instance starts empty and does one exchange of its own. If the platform runs several instances at once, each one holds its own token. And when an instance is shut down, its cache goes with it.
+
+So this does not make it "one token exchange per hour". It makes it "one exchange per instance per hour, at most". For a personal site, that is a big improvement over one per request, and it needs no extra infrastructure.
+
+If I needed a truly shared token, the next step would be an external store such as Redis, with the same three ideas: store the expiry, keep a margin, and make sure only one caller refreshes. I do not need that here, so I have not built it.
+
+## One rule I did not break
+
+It is tempting to solve this from the other side: send the access token to the browser and let the browser call Spotify directly. That would remove the proxying altogether.
+
+It would also hand every visitor a working credential for my Spotify account. An endpoint that returns a live access token is a leak, even if the token is short lived. The token stays on the server. The browser only ever gets the trimmed data it needs to draw a song title.
+
+## Summary
+
+- Cache the token with its absolute expiry time.
+- Expire it early, because checking and using are different moments.
+- Share the in-flight promise so a burst of requests triggers one refresh.
+- Clear that promise in `finally`, so a failure does not stick.
+- Remember that module memory is per instance, and decide whether that is enough.

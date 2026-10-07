@@ -85,15 +85,13 @@ export function TextureOverlay({ texture, opacity, className, ...props }: Textur
   return (
     <div
       {...props}
-      className={cn('pointer-events-none absolute inset-0 -z-1', pattern, className)}
-      style={
-        {
-          opacity: finalOpacity,
-          // primary as main color, zinc-500 as fallback
-          '--texture-color': 'var(--color-secondary, var(--color-neutral-500))',
-          ...props.style
-        } as React.CSSProperties
-      }
+      // Secondary as the main colour, neutral-500 as the fallback.
+      className={cn(
+        'pointer-events-none absolute inset-0 -z-1 opacity-(--texture-opacity) [--texture-color:var(--color-secondary,var(--color-neutral-500))]',
+        pattern,
+        className
+      )}
+      style={{ '--texture-opacity': finalOpacity, ...props.style } as React.CSSProperties}
     />
   );
 }

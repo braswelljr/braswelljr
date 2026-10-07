@@ -1,16 +1,17 @@
 'use client';
 
-import { useRef } from 'react';
-import { useGSAP } from '@gsap/react';
-import { isAfter, subDays } from 'date-fns';
+import { useEffect, useRef } from 'react';
 import { DocsBody, DocsDescription, DocsTitle } from 'fumadocs-ui/page';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion, useReducedMotion } from 'motion/react';
 import { MdOutlineWorkspacePremium } from 'react-icons/md';
-import { cardVariants, containerVariants, safeVariants } from '@/components/shared/motion';
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+import { cn } from 'lib/utils';
+import {
+  cardVariants,
+  containerVariants,
+  itemVariants,
+  safeVariants
+} from '@/components/shared/motion';
+import { isNewDate } from './post';
 
 export type BlogPostHeaderProps = {
   title: string;
@@ -21,125 +22,128 @@ export type BlogPostHeaderProps = {
   children: React.ReactNode;
 };
 
+/** How long a revealed block keeps its transition before the hook is removed. */
+const REVEAL_SETTLE_MS = 400;
+
 export function BlogPostContent({ title, description, date, tags, children }: BlogPostHeaderProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const badgeRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const descRef = useRef<HTMLDivElement>(null);
-  const tagsRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const isReduced = useReducedMotion();
 
-  const dateObj = new Date(date);
-  const isNew = isAfter(dateObj, subDays(new Date(), 150));
+  const isNew = isNewDate(date);
 
-  useGSAP(
-    () => {
-      if (isReduced) return;
+  // Each top-level block of the post rises in the first time it enters the
+  // viewport, and then stays.
+  //
+  // Three things here are deliberate, because each one used to cut content off:
+  //
+  //   - Only blocks that start below the fold are hidden. What is already on
+  //     screen is never made to disappear and come back.
+  //   - A block is revealed the moment any part of it is visible. The trigger
+  //     has no inset, so the last blocks of a post, which can never scroll far
+  //     up the screen, still appear.
+  //   - Only top-level blocks are touched. A tab group is one block, so the
+  //     code inside a tab that is not selected is never left invisible.
+  useEffect(() => {
+    const body = bodyRef.current;
+    if (!body || isReduced) return;
 
-      // Header entrance timeline
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    const timers = new Set<number>();
+    const reveal = (block: HTMLElement) => {
+      block.dataset.reveal = 'shown';
+      // Drop the hook once the transition is done, so the block is left
+      // exactly as the stylesheet styles it.
+      const timer = window.setTimeout(() => {
+        delete block.dataset.reveal;
+        timers.delete(timer);
+      }, REVEAL_SETTLE_MS);
+      timers.add(timer);
+    };
 
-      if (isNew && badgeRef.current) {
-        tl.fromTo(
-          badgeRef.current,
-          { opacity: 0, y: -10, scale: 0.9 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.3, clearProps: 'all' }
-        );
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        observer.unobserve(entry.target);
+        reveal(entry.target as HTMLElement);
       }
+    });
 
-      tl.fromTo(
-        titleRef.current,
-        { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.5, clearProps: 'all' },
-        isNew ? '-=0.1' : '0'
-      )
-        .fromTo(
-          descRef.current,
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.4, clearProps: 'all' },
-          '-=0.25'
-        )
-        .fromTo(
-          tagsRef.current,
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.3, clearProps: 'all' },
-          '-=0.2'
-        );
+    const blocks = Array.from(body.children).filter(
+      (child): child is HTMLElement => child instanceof HTMLElement
+    );
 
-      // Body ScrollTrigger -every h1-h4, p, pre, blockquote, list, table
-      if (bodyRef.current) {
-        bodyRef.current
-          .querySelectorAll('h1, h2, h3, h4, p, pre, blockquote, ul, ol, table')
-          .forEach((el) => {
-            gsap.fromTo(
-              el,
-              { opacity: 0, y: 20 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 0.45,
-                ease: 'power2.out',
-                clearProps: 'all',
-                scrollTrigger: {
-                  trigger: el,
-                  start: 'top 92%',
-                  toggleActions: 'play reverse play reverse'
-                }
-              }
-            );
-          });
-      }
-    },
-    { scope: containerRef }
-  );
+    for (const block of blocks) {
+      if (block.getBoundingClientRect().top < window.innerHeight) continue;
+      block.dataset.reveal = 'pending';
+      observer.observe(block);
+    }
+
+    return () => {
+      observer.disconnect();
+      timers.forEach((timer) => window.clearTimeout(timer));
+      // Nothing may be left hidden if the effect is torn down early.
+      blocks.forEach((block) => delete block.dataset.reveal);
+    };
+  }, [isReduced]);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative pt-[calc(var(--fd-nav-height)+15px)] lg:pt-[calc(var(--fd-nav-height)+5px)]"
-    >
-      {/* Animated header */}
-      <div className="space-y-4">
+    <div className="relative pt-[calc(var(--fd-nav-height)+15px)] lg:pt-[calc(var(--fd-nav-height)+5px)]">
+      {/* Header: badge, title, description, then tags, one after another. */}
+      <motion.div
+        className="space-y-4"
+        variants={safeVariants(containerVariants, isReduced)}
+        initial="hidden"
+        animate="visible"
+      >
         {isNew && (
-          <div
-            ref={badgeRef}
+          <motion.div
+            variants={safeVariants(itemVariants, isReduced)}
             className="inline-flex h-8 w-auto items-center gap-1 rounded-sm bg-primary-100 px-2.5 py-0.5 text-sm font-medium text-neutral-700 uppercase dark:bg-neutral-800 dark:text-primary-400"
           >
-            <MdOutlineWorkspacePremium className="h-3 w-auto" />
+            <MdOutlineWorkspacePremium
+              aria-hidden
+              className="h-3 w-auto"
+            />
             <span>New</span>
-          </div>
+          </motion.div>
         )}
-        <div ref={titleRef}>
+        <motion.div variants={safeVariants(itemVariants, isReduced)}>
           <DocsTitle className="text-primary!">{title}</DocsTitle>
-        </div>
-        <div ref={descRef}>
+        </motion.div>
+        <motion.div variants={safeVariants(itemVariants, isReduced)}>
           <DocsDescription>{description}</DocsDescription>
-        </div>
+        </motion.div>
         {tags && tags.length > 0 && (
-          <motion.div
-            ref={tagsRef}
-            className="my-2 flex flex-wrap gap-2 py-6"
+          <motion.ul
+            aria-label="Tags"
+            className="my-2 flex list-none flex-wrap gap-2 py-6 pl-0"
             variants={safeVariants(containerVariants, isReduced)}
-            initial="hidden"
-            animate="visible"
           >
-            {tags.map((tag, i) => (
-              <motion.span
-                key={i}
+            {tags.map((tag) => (
+              <motion.li
+                key={tag}
                 variants={safeVariants(cardVariants, isReduced)}
                 className="inline-flex items-center rounded bg-primary-100 px-2.5 py-0.5 text-sm font-medium text-primary dark:bg-neutral-800 dark:text-secondary"
               >
                 {tag}
-              </motion.span>
+              </motion.li>
             ))}
-          </motion.div>
+          </motion.ul>
         )}
-      </div>
+      </motion.div>
 
       {/* MDX body + footer -rendered by server, passed as children */}
       <DocsBody>
-        <div ref={bodyRef}>{children}</div>
+        <div
+          ref={bodyRef}
+          className={cn(
+            // Transform and opacity only, under 300ms, on the shared ease-out
+            // curve. A pending block sits slightly low and transparent.
+            '*:data-reveal:transition-[opacity,translate] *:data-reveal:duration-300 *:data-reveal:ease-[cubic-bezier(0.23,1,0.32,1)]',
+            '*:data-[reveal=pending]:translate-y-5 *:data-[reveal=pending]:opacity-0'
+          )}
+        >
+          {children}
+        </div>
       </DocsBody>
     </div>
   );

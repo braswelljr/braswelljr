@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { cacheFor } from '@/app/api/cache';
 import { getGithubToken, GITHUB_USERNAME, githubHeaders } from '@/config/github';
 
 export const revalidate = 0;
@@ -68,7 +69,7 @@ export async function GET(): Promise<Response> {
         message: 'successfully retrieved pinned repositories',
         data: body.data?.user?.pinnedItems?.nodes ?? []
       },
-      { status: 200 }
+      { status: 200, headers: cacheFor('static') }
     );
   } catch (error) {
     return NextResponse.json(

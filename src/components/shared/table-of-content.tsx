@@ -101,9 +101,9 @@ function Content({ toc, className, resources }: TocProps) {
         <div className="mt-5">
           <h3 className="text-sm font-medium uppercase">Links and Resources</h3>
           <ol className="mt-2 list-disc space-y-2 pl-4">
-            {resources.map((resource, i) => (
+            {resources.map((resource) => (
               <li
-                key={i}
+                key={resource.url}
                 className="text-sm font-medium text-neutral-600 hover:text-primary hover:underline dark:text-neutral-400 dark:hover:text-secondary"
               >
                 <Link href={resource.url}>{resource.title}</Link>
@@ -158,10 +158,10 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
     <div>
       {tree?.items?.length && level < 3 ? (
         <ul className={cn('m-0 list-none', { 'pl-2': level !== 1 })}>
-          {tree.items.map((item, index) => {
+          {tree.items.map((item) => {
             return (
               <li
-                key={index}
+                key={item.url}
                 className={cn('mt-0 pt-2')}
               >
                 <a

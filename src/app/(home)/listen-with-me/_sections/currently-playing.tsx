@@ -2,7 +2,7 @@
 
 import { Fragment } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { MdRefresh } from 'react-icons/md';
+import { HiPlay, HiX } from 'react-icons/hi';
 import { cn } from 'lib/utils';
 import { SpotifyTrack } from 'types/spotify';
 import { useCurrentlyPlayingQuery, useRecentlyPlayedQuery } from '@/api';
@@ -22,13 +22,17 @@ import {
   safeVariants
 } from '@/components/shared/motion';
 import { AvatarImage } from '@/components/ui/avatar';
-import { Tracks, TracksLoader } from './top-tracks';
+import { Button } from '@/components/ui/button';
+import { Tracks, TracksLoader, type PlayControls } from './top-tracks';
 
-export function CurrentlyPlaying({ className }: { className?: string }) {
+export function CurrentlyPlaying({
+  className,
+  ...controls
+}: { className?: string } & PlayControls) {
   const isReduced = useReducedMotion();
 
-  const { data, refetch, isFetching } = useCurrentlyPlayingQuery();
-  const { data: recent, refetch: rf, isFetching: irf } = useRecentlyPlayedQuery(4);
+  const { data } = useCurrentlyPlayingQuery();
+  const { data: recent } = useRecentlyPlayedQuery(4);
 
   // Nothing playing falls back to the most recent track, so the panel always
   // has something to show rather than sitting on a skeleton.
@@ -52,23 +56,19 @@ export function CurrentlyPlaying({ className }: { className?: string }) {
             >
               {!nowPlaying && firstTrack ? 'Last Played' : 'Currently Playing'}
             </MotionFrameTitle>
-            <motion.button
-              type="button"
-              className="flex size-6 items-center justify-center rounded-full outline-none focus:outline-none"
-              onClick={() => refetch()}
-              whileHover={{ rotate: 180 }}
-              transition={{ duration: 0.3 }}
-              aria-label="Refresh"
-            >
-              <MdRefresh className={cn('size-5', (isFetching || irf) && 'animate-spin')} />
-            </motion.button>
           </div>
         </MotionFrameHeader>
         <MotionFramePanel className="p-3">
           {nowPlaying ? (
-            <Player data={nowPlaying} />
+            <Player
+              data={nowPlaying}
+              {...controls}
+            />
           ) : firstTrack ? (
-            <Player data={firstTrack} />
+            <Player
+              data={firstTrack}
+              {...controls}
+            />
           ) : (
             <PlayerLoader />
           )}
@@ -81,28 +81,32 @@ export function CurrentlyPlaying({ className }: { className?: string }) {
           <h2 className="text-2xl leading-tight font-bold tracking-tight text-neutral-900 uppercase sm:text-3xl md:text-4xl dark:text-neutral-100">
             Recently Played
           </h2>
-          <motion.button
-            type="button"
-            className="flex size-6 items-center justify-center rounded-full outline-none focus:outline-none"
-            onClick={() => rf()}
-            whileHover={{ rotate: 180 }}
-            transition={{ duration: 0.3 }}
-            aria-label="Refresh recently played"
-          >
-            <MdRefresh className={cn('size-5', isFetching && 'animate-spin')} />
-          </motion.button>
         </div>
 
         <div className="mt-4">
-          {recent?.length ? <Tracks data={recent} /> : <TracksLoader items={4} />}
+          {recent?.length ? (
+            <Tracks
+              data={recent}
+              {...controls}
+            />
+          ) : (
+            <TracksLoader items={4} />
+          )}
         </div>
       </section>
     </div>
   );
 }
 
-function Player({ className, data }: { className?: string; data: SpotifyTrack }) {
+function Player({
+  className,
+  data,
+  playingId,
+  onPlay
+}: { className?: string; data: SpotifyTrack } & PlayControls) {
   const isReduced = useReducedMotion();
+  const isOpen = Boolean(data.id) && playingId === data.id;
+
   return (
     <motion.div
       className={cn('grid items-start gap-6 px-2 py-4 xsm:grid-cols-[auto_1fr]', className)}
@@ -139,7 +143,7 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
           <div className="line-clamp-1">
             <span className="mr-2 text-neutral-600">by</span>
             {data?.artists?.map((a, i) => (
-              <Fragment key={i}>
+              <Fragment key={a.id}>
                 {i !== 0 && ','}
                 <MotionLink
                   href={a?.href}
@@ -172,6 +176,28 @@ function Player({ className, data }: { className?: string; data: SpotifyTrack })
             {data?.album?.name}
           </MotionLink>
         </motion.div>
+
+        {data.id && (
+          <motion.div variants={safeVariants(cardVariants, isReduced)}>
+            <Button
+              aria-pressed={isOpen}
+              onClick={() => onPlay(data)}
+            >
+              {isOpen ? (
+                <HiX
+                  aria-hidden
+                  className="size-4"
+                />
+              ) : (
+                <HiPlay
+                  aria-hidden
+                  className="size-4"
+                />
+              )}
+              {isOpen ? 'Stop playing' : 'Play this song'}
+            </Button>
+          </motion.div>
+        )}
       </motion.div>
     </motion.div>
   );

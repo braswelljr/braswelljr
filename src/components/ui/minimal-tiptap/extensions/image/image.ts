@@ -278,7 +278,7 @@ export const Image = TiptapImage.extend<CustomImageOptions>({
               return false;
             }
 
-            if (validImages.length === 0) return false;
+            if (validImages.length < 1) return false;
 
             if (this.options.onToggle) {
               this.options.onToggle(editor, validImages, editor.state.selection.from);

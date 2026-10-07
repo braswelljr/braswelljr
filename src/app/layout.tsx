@@ -8,9 +8,13 @@ import Navbar from '@/components/shared/navbar';
 import ScrollTop from '@/components/shared/scroll-top';
 import { siteConfig } from '@/config/site';
 import Base from '@/providers/base';
+import { EmberMode } from './_components/ember-mode';
+import { NowPlayingDock } from './_components/now-playing-dock';
+import { PlayerDock } from './_components/player-dock';
 import '@/styles/main.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
     template: `%s - ${siteConfig.name}`
@@ -20,7 +24,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: 'braswelljr',
-      url: 'https://braswelljr.vercel.app'
+      url: siteConfig.url
     }
   ],
   creator: 'braswelljr',
@@ -29,7 +33,24 @@ export const metadata: Metadata = {
     shortcut: '/icons/icon.png?v=2',
     apple: '/icons/icon.png?v=2'
   },
-  manifest: `/manifest.json`
+  manifest: `/manifest.json`,
+  alternates: {
+    types: { 'application/rss+xml': '/rss.xml' }
+  },
+  openGraph: {
+    type: 'website',
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    locale: 'en_US'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.name,
+    description: siteConfig.description,
+    creator: '@braswell_jnr'
+  }
 };
 
 /**
@@ -77,30 +98,33 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         )}
       >
         <Base>
-          <main>
-            <div className={cn('relative')}>
-              <div className="fixed inset-0 min-h-dvh w-full">
-                <Image
-                  src="/images/beams-2.png"
-                  alt="Background pattern"
-                  loading="eager"
-                  fill
-                  className="absolute inset-0 size-full"
-                />
-              </div>
-              <Navbar
-                className="fixed inset-x-0 top-0 z-4 bg-white/50 dark:bg-neutral-800/60"
+          <div className={cn('relative')}>
+            <div className="fixed inset-0 min-h-dvh w-full">
+              <Image
+                src="/images/beams-2.png"
+                alt=""
+                loading="eager"
+                fill
+                className="absolute inset-0 size-full"
+              />
+            </div>
+            <Navbar
+              className="fixed inset-x-0 top-0 z-4 bg-white/50 dark:bg-neutral-800/60"
+              disableOnLayouts={['/blog/']}
+            />
+            {/* Not <main>: each route supplies its own, because the blog post layout
+                already renders one and a page can only have one. */}
+            <div className="relative inset-0 z-1 min-h-dvh w-full">
+              {children}
+              <ScrollTop
+                className="fixed right-5 bottom-5 z-10 bg-primary! dark:text-neutral-950!"
                 disableOnLayouts={['/blog/']}
               />
-              <div className="relative inset-0 z-1 min-h-dvh w-full">
-                {children}
-                <ScrollTop
-                  className="fixed right-5 bottom-5 z-10 bg-primary! dark:text-neutral-950!"
-                  disableOnLayouts={['/blog/']}
-                />
-              </div>
             </div>
-          </main>
+            <NowPlayingDock />
+            <PlayerDock />
+            <EmberMode />
+          </div>
         </Base>
         <Analytics />
       </body>

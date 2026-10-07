@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import type { Icon, IconProps } from 'iconsax-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { cn } from 'lib/utils';
@@ -46,8 +46,11 @@ export function AnimatedIcon({
 
   return (
     <motion.span
-      className={cn('relative inline-flex shrink-0 items-center justify-center', className)}
-      style={{ width: dimension, height: dimension }}
+      className={cn(
+        'relative inline-flex size-(--icon-size) shrink-0 items-center justify-center',
+        className
+      )}
+      style={{ '--icon-size': dimension } as CSSProperties}
       onHoverStart={() => setSelfHover(true)}
       onHoverEnd={() => setSelfHover(false)}
       animate={reduced ? undefined : { scale: isActive ? 1.12 : 1 }}
